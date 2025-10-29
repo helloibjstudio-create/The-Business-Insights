@@ -33,3 +33,32 @@ export const interviews = [
     link: "#",
   },
 ];
+
+export const articles = [
+  {
+    id: 1,
+    title: "Chile’s Copper Production and Advancements",
+    description:
+      "Could Copper Become the New Oil? The red metal has historically served as an indicator of the global economy...",
+    img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761766916/Rectangle_2_1_y92i6r.png",
+    link: "#",
+  },
+  {
+    id: 2,
+    title:
+      "Singapore’s Aerospace Industry Looks to Automation and Disruptive Technologies for Growth",
+    description:
+      "Singapore’s aerospace industry is facing challenges such as rising costs and labor shortages. To adapt...",
+    img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761767061/Rectangle_2_2_ezjhbb.png",
+    link: "#",
+  },
+  {
+    id: 3,
+    title:
+      "India’s Pharma Industry: Navigating Beyond Pandemic Triumphs",
+    description:
+      "India’s pharmaceutical sector has risen to remarkable heights during the Covid-19 pandemic...",
+    img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761767309/Rectangle_2_3_xgsmtm.png",
+    link: "#",
+  },
+];
