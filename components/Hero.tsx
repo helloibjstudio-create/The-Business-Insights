@@ -11,45 +11,51 @@ const Hero = () => {
   const [reversing, setReversing] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
-  // ✅ slight zoom when page first loads
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 200);
     return () => clearTimeout(timer);
   }, []);
 
-  // ✅ scroll and animation control
+  // === SCROLL + SECTION ANIMATION CONTROL ===
   useEffect(() => {
     let lastScrollY = window.scrollY;
-    let isAnimating = false;
 
     const handleScroll = () => {
-      if (isAnimating) return;
-
       const y = window.scrollY;
       const vh = window.innerHeight;
       const width = window.innerWidth;
 
-      // adaptive thresholds
-      let exclusiveEnd;
-      if (width < 640) exclusiveEnd = vh * 0.6;
-      else if (width < 1024) exclusiveEnd = vh * 0.85;
-      else exclusiveEnd = vh * 1.0;
+      // === DYNAMIC SCROLL TARGETS ===
+      let exclusiveTrigger;
+      if (width < 640) exclusiveTrigger = vh * 0.9; // mobile
+      else if (width < 1024) exclusiveTrigger = vh * 1.0; // tablet
+      else exclusiveTrigger = vh * 1.1; // desktop
 
       const isScrollingDown = y > lastScrollY;
       const isScrollingUp = y < lastScrollY;
       lastScrollY = y;
 
-      // track zoom trigger
-      if (y > 150 && !scrolled) setScrolled(true);
-      else if (y < 100 && scrolled) setScrolled(false);
+      // Track zoom trigger
+      if (y > 150 && !scrolled) {
+        setScrolled(true);
 
-      // show articles
-      if (isScrollingDown && y > exclusiveEnd && !showArticles) {
-        setShowArticles(true);
+        // ✅ scroll directly to top of exclusive section smoothly
+        window.scrollTo({
+          top: exclusiveTrigger - vh * 0.8,
+          behavior: "smooth",
+        });
+      } else if (y < 100 && scrolled) {
+        setScrolled(false);
       }
 
-      // hide articles on scroll up
-      if (isScrollingUp && y < exclusiveEnd * 0.9 && showArticles) {
+      // === ARTICLE FADE-IN / FADE-OUT ===
+      const articleTrigger = exclusiveTrigger + vh * 0.5; // start showing later
+      const articleEnd = exclusiveTrigger + vh * 0.9;
+
+      if (isScrollingDown && y > articleTrigger && !showArticles) {
+        setShowArticles(true);
+      }
+      if (isScrollingUp && y < articleEnd && showArticles) {
         setShowArticles(false);
       }
     };
@@ -58,24 +64,21 @@ const Hero = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled, showArticles]);
 
-  // ✅ Reverse button
+  // === REVERSE TO HERO ===
   const handleReverse = () => {
     setReversing(true);
     setShowArticles(false);
     setScrolled(false);
-
     window.scrollTo({ top: 0, behavior: "smooth" });
-
-    // allow scroll & animation reset
     setTimeout(() => setReversing(false), 1800);
   };
 
   return (
     <main className="relative flex justify-center w-full overflow-hidden text-white select-none">
-      <div className="relative w-full h-[2000px] overflow-hidden">
+      <div className="relative w-full h-[2200px] overflow-hidden">
         {/* === BACKGROUND IMAGE === */}
         <motion.div
-          className="absolute w-full h-[2000px] bg-[linear-gradient(0deg,rgba(0,0,0,0.4)_0%,rgba(0,0,0,0.4)_100%),url('https://res.cloudinary.com/dnzntr9lt/image/upload/v1761663613/businessHero_qvuqwl.png')] bg-cover bg-center bg-no-repeat inset-0"
+          className="absolute w-full h-[2200px] bg-[linear-gradient(0deg,rgba(0,0,0,0.4)_0%,rgba(0,0,0,0.4)_100%),url('https://res.cloudinary.com/dnzntr9lt/image/upload/v1761663613/businessHero_qvuqwl.png')] bg-cover bg-center bg-no-repeat inset-0"
           animate={{
             scale: scrolled ? 1.3 : loaded ? 1.1 : 1,
             y: scrolled ? -1100 : 0,
@@ -120,8 +123,8 @@ const Hero = () => {
                     transition={{ delay: 0.5, duration: 1 }}
                     className="text-base sm:text-lg md:text-[20px] font-sans max-w-[95%] sm:max-w-[700px] md:max-w-[801px] py-5 text-gray-200"
                   >
-                    We are committed to providing you with extensive market
-                    intelligence in crucial business sectors across the world.
+                    We are committed to providing you with extensive market intelligence
+                    in crucial business sectors across the world.
                   </motion.p>
 
                   <motion.button
@@ -143,7 +146,7 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 200 }}
                 transition={{ duration: 1.3, ease: "easeOut" }}
-                className="relative top-[120px] sm:top-[150px] md:top-[180px] lg:top-[200px] py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-8 md:px-12 lg:px-20 h-screen bg-transparent pointer-events-auto"
+                className="relative top-[120px] sm:top-[150px] md:top-[180px] lg:top-[200px] py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-8 md:px-12 lg:px-20 min-h-screen bg-transparent pointer-events-auto"
               >
                 <div className="mx-auto flex flex-col h-full justify-center">
                   <motion.div
@@ -178,12 +181,7 @@ const Hero = () => {
                         className="rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform"
                       >
                         <div className="h-[300px] sm:h-[400px] relative">
-                          <Image
-                            src={person.img}
-                            alt={person.name}
-                            fill
-                            className="object-cover"
-                          />
+                          <Image src={person.img} alt={person.name} fill className="object-cover" />
                         </div>
                         <div className="pt-6 sm:pt-8 px-4">
                           <h3 className="font-[600px] text-[22px] sm:text-[26px] md:text-[30px] font-sans">
@@ -197,13 +195,7 @@ const Hero = () => {
                             className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[16px] sm:text-[18px] font-sans"
                           >
                             Read More{" "}
-                            <Image
-                              src={vector2}
-                              alt="vector-2"
-                              width={17}
-                              height={17}
-                              className="ml-1"
-                            />
+                            <Image src={vector2} alt="vector-2" width={17} height={17} className="ml-1" />
                           </a>
                         </div>
                       </motion.div>
@@ -220,10 +212,10 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 250 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -150 }}
-                transition={{ opacity: { duration: 0.6 }, y: { duration: 1.6, ease: "easeInOut" } }}
-                className="relative h-screen w-full top-[160px] sm:top-[180px] md:top-[200px] lg:top-[220px] py-16 sm:py-24 md:py-28 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-20 bg-gradient-to-b from-transparent via-black/80 to-black pointer-events-auto"
+                transition={{ opacity: { duration: 0.5 }, y: { duration: 1.2, ease: "easeInOut" } }}
+                className="relative top-[200px] sm:top-[240px] md:top-[260px] lg:top-[280px] py-16 sm:py-24 md:py-28 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-20 min-h-screen bg-gradient-to-b from-transparent via-black/80 to-black pointer-events-auto"
               >
-                <div className="max-w-7xl mx-auto">
+                <div className="max-w-7xl mx-auto pb-24">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 gap-6">
                     <div>
                       <h2 className="text-[36px] sm:text-[48px] md:text-[60px] font-[500px] font-sans">
@@ -251,12 +243,7 @@ const Hero = () => {
                         className="rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform bg-black/20"
                       >
                         <div className="h-[250px] sm:h-[350px] md:h-[416px] relative">
-                          <Image
-                            src={article.img}
-                            alt={article.title}
-                            fill
-                            className="object-cover"
-                          />
+                          <Image src={article.img} alt={article.title} fill className="object-cover" />
                         </div>
                         <div className="pt-6 sm:pt-8 px-4 pb-8">
                           <h3 className="font-[600px] text-[20px] sm:text-[22px] md:text-[26px] font-sans">
@@ -292,13 +279,7 @@ const Hero = () => {
             transition={{ duration: 0.5 }}
             className="fixed bottom-6 sm:bottom-10 right-6 sm:right-10 z-50 bg-orange-500/80 hover:bg-orange-600 text-white p-2 sm:p-3 rounded-full shadow-lg"
           >
-            <Image
-              src={vector}
-              alt="vector"
-              width={40}
-              height={40}
-              className="sm:w-[50px] sm:h-[50px]"
-            />
+            <Image src={vector} alt="vector" width={40} height={40} className="sm:w-[50px] sm:h-[50px]" />
           </motion.button>
         )}
       </div>
