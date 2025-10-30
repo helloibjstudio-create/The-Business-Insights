@@ -102,7 +102,7 @@ const Hero = () => {
 
   return (
     <main className="relative flex justify-center w-full overflow-hidden text-white select-none">
-      <div className="relative w-full min-h-[640vh] sm:min-h-[640vh] md:min-h-[600vh] lg:min-h-[1530vh] overflow-hidden">
+      <div className="relative w-full min-h-[940vh] sm:min-h-[940vh] md:min-h-[940vh] lg:min-h-[1530vh] overflow-hidden">
         {/* === BACKGROUND IMAGE === */}
         <motion.div
           className="absolute w-full h-[2200px] bg-[linear-gradient(0deg,rgba(0,0,0,0.4)_0%,rgba(0,0,0,0.4)_100%),url('https://res.cloudinary.com/dnzntr9lt/image/upload/v1761663613/businessHero_qvuqwl.png')] bg-cover bg-center bg-no-repeat inset-0"
@@ -434,35 +434,38 @@ const Hero = () => {
             </motion.section>
             <section
               key="reports"
-              className="relative bg-transparent px-6 md:px-12 lg:px-20"
+              className="relative bg-transparent px-4 sm:px-6 md:px-12 lg:px-20"
             >
               {/* Header */}
               <div className="text-center mb-10">
-                <h2 className="text-3xl md:text-[80px] font-[400px] text-white">
+                <h2 className="text-2xl sm:text-4xl md:text-[80px] font-normal text-white leading-tight">
                   Discover Our <span className="text-orange-400">Reports</span>
                 </h2>
-                <p className="text-white mt-3 text-[20px] w-[768px] font-sans mb-6 max-w-2xl mx-auto">
+
+                <p className="text-white mt-3 text-sm sm:text-base md:text-[20px] font-sans mb-6 w-full max-w-[768px] mx-auto leading-relaxed">
                   Browse our latest publications and gain a deeper understanding
                   of emerging trends and critical topics through our in-depth
-                  analysis, interviews with local business and political leaders
-                  and comprehensive data and statistics
+                  analysis, interviews with local business and political
+                  leaders, and comprehensive data and statistics.
                 </p>
+
                 <button
                   onClick={() => window.open(moreInterviews[0].link, "_blank")}
-                  className="inline-flex items-center px-[37px] py-[13px] w-[202px] font-sans rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-[500px] hover:text-orange-400 text-[20px]"
+                  className="inline-flex items-center justify-center px-6 sm:px-[37px] py-3 sm:py-[13px] mt-4 font-sans rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-medium hover:text-orange-400 text-base sm:text-[20px] w-[160px] sm:w-[202px] transition-all duration-300"
                 >
                   More Reports
                 </button>
               </div>
 
               {/* Report Cards Grid */}
-              <div className="flex flex-wrap justify-center gap-[32px]">
+              <div className="flex flex-wrap justify-center gap-6 sm:gap-[32px]">
                 {reports.map((report, index) => (
                   <div
                     key={index}
-                    className="rounded-lg overflow-hidden shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300  bg-white w-full sm:w-[calc(50%-16px)] md:w-[calc(33.333%-21px)] max-w-[360px]"
+                    className="rounded-lg overflow-hidden shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300 bg-white 
+        w-full xs:max-w-[320px] sm:w-[calc(50%-12px)] md:w-[calc(33.333%-21px)] max-w-[360px]"
                   >
-                    <div className="relative w-full h-[564px]">
+                    <div className="relative w-full h-[320px] sm:h-[420px] md:h-[564px]">
                       <Image
                         src={report.img}
                         alt={report.title}
@@ -474,6 +477,7 @@ const Hero = () => {
                 ))}
               </div>
             </section>
+
             <section
               key="events"
               className="relative w-full h-full flex flex-col justify-center items-center overflow-hidden bg-black"
@@ -554,7 +558,7 @@ const Hero = () => {
             />
           </motion.button>
         )}
-      </div>  
+      </div>
     </main>
   );
 };
