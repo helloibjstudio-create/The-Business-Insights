@@ -4,6 +4,7 @@ export const vector = "https://res.cloudinary.com/dnzntr9lt/image/upload/v176172
 export const vector2 = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761728195/Vector_2_obp6ev.svg"
 export const thirdOrange = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761841548/Vector_1_dtvr4e.png"
 export const dhl = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761841522/image_2_jupfeq.svg"
+export const subtract = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761851416/Subtract_ntiwbm.png"
 
 export const interviews = [
   {
@@ -110,4 +111,15 @@ export const moreInterviews = [
     title: "Pharmaceuticals & Biopharma",
     link: "#",
   },
+];
+
+export const reports = [
+  { title: "USA Energy 2023", img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761848059/Rectangle_2_7_ggwcxp.png" },
+  { title: "Canada Higher Education 2023", img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761848125/Rectangle_3_2_parr0r.png" },
+  { title: "Mexico Chemicals & Petrochemicals 2023", img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761848158/Rectangle_4_2_ms9hqq.png" },
+  { title: "Turkey Aerospace 2023", img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761848195/Rectangle_2_8_nzuovi.png" },
+  { title: "USA Real Estate 2023", img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761848235/Rectangle_3_3_axqg7u.png" },
+  { title: "Vietnam Infrastructure 2023", img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761848267/Rectangle_4_3_raq9lu.png" },
+  { title: "Nigeria Oil & Gas 2023", img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761848295/Rectangle_2_9_tyagqk.png" },
+  { title: "Poland Energy 2023", img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761848674/Rectangle_3_4_k1thh5.png" },
 ];

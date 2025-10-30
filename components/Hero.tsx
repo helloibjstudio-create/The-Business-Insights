@@ -7,13 +7,20 @@ import {
   dhl,
   interviews,
   moreInterviews,
+  reports,
+  subtract,
   thirdOrange,
   vector,
   vector2,
 } from "../public/index.js";
 import { ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Hedvig_Letters_Serif } from "next/font/google";
 
+const hedvig = Hedvig_Letters_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+});
 const Hero = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showArticles, setShowArticles] = useState(false);
@@ -95,7 +102,7 @@ const Hero = () => {
 
   return (
     <main className="relative flex justify-center w-full overflow-hidden text-white select-none">
-      <div className="relative w-full min-h-[640vh] sm:min-h-[640vh] md:min-h-[600vh] lg:min-h-[830vh] overflow-hidden">
+      <div className="relative w-full min-h-[640vh] sm:min-h-[640vh] md:min-h-[600vh] lg:min-h-[1530vh] overflow-hidden">
         {/* === BACKGROUND IMAGE === */}
         <motion.div
           className="absolute w-full h-[2200px] bg-[linear-gradient(0deg,rgba(0,0,0,0.4)_0%,rgba(0,0,0,0.4)_100%),url('https://res.cloudinary.com/dnzntr9lt/image/upload/v1761663613/businessHero_qvuqwl.png')] bg-cover bg-center bg-no-repeat inset-0"
@@ -334,6 +341,7 @@ const Hero = () => {
               </div>
             </motion.section>
             <motion.section
+              key="more-interviews"
               initial={{ opacity: 0, y: 150 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
@@ -368,7 +376,9 @@ const Hero = () => {
                       {moreInterviews[0].description}
                     </p>
                     <button
-                      onClick={() => window.open(moreInterviews[0].link, "_blank")}
+                      onClick={() =>
+                        window.open(moreInterviews[0].link, "_blank")
+                      }
                       className="inline-flex items-center px-[37px] py-[13px] w-[174px] rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-medium hover:text-orange-400 text-[20px]"
                     >
                       Read More
@@ -411,27 +421,127 @@ const Hero = () => {
                       </div>
                     </motion.div>
                   ))}
-                      <button
-                      onClick={() => window.open(moreInterviews[0].link, "_blank")}
-                      className="inline-flex items-center px-[37px] py-[13px] w-[174px] rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-medium hover:text-orange-400 text-[20px]"
-                    >
-                      More Interviews
-                    </button>
+                  <button
+                    onClick={() =>
+                      window.open(moreInterviews[0].link, "_blank")
+                    }
+                    className="inline-flex items-center px-[37px] py-[13px] w-[223px] rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-[500px] font-sans hover:text-orange-400 text-[20px]"
+                  >
+                    More Interviews
+                  </button>
                 </div>
               </div>
             </motion.section>
-            
+            <section
+              key="reports"
+              className="relative bg-transparent px-6 md:px-12 lg:px-20"
+            >
+              {/* Header */}
+              <div className="text-center mb-10">
+                <h2 className="text-3xl md:text-[80px] font-[400px] text-white">
+                  Discover Our <span className="text-orange-400">Reports</span>
+                </h2>
+                <p className="text-white mt-3 text-[20px] w-[768px] font-sans mb-6 max-w-2xl mx-auto">
+                  Browse our latest publications and gain a deeper understanding
+                  of emerging trends and critical topics through our in-depth
+                  analysis, interviews with local business and political leaders
+                  and comprehensive data and statistics
+                </p>
+                <button
+                  onClick={() => window.open(moreInterviews[0].link, "_blank")}
+                  className="inline-flex items-center px-[37px] py-[13px] w-[202px] font-sans rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-[500px] hover:text-orange-400 text-[20px]"
+                >
+                  More Reports
+                </button>
+              </div>
+
+              {/* Report Cards Grid */}
+              <div className="flex flex-wrap justify-center gap-[32px]">
+                {reports.map((report, index) => (
+                  <div
+                    key={index}
+                    className="rounded-lg overflow-hidden shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300  bg-white w-full sm:w-[calc(50%-16px)] md:w-[calc(33.333%-21px)] max-w-[360px]"
+                  >
+                    <div className="relative w-full h-[564px]">
+                      <Image
+                        src={report.img}
+                        alt={report.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+            <section
+              key="events"
+              className="relative w-full h-full flex flex-col justify-center items-center overflow-hidden bg-black"
+            >
+              {/* Section Title */}
+              <h3 className="text-center text-3xl sm:text-4xl md:text-[60px] font-medium font-sans text-white mt-10 md:mt-0">
+                Events
+              </h3>
+
+              <div className="relative w-full h-auto md:h-[1100px] overflow-visible px-4 sm:px-6 md:px-0 mt-6 md:mt-0">
+                {/* Heading */}
+                <h3 className="text-2xl sm:text-3xl md:text-[48px] w-full max-w-[803px] my-4 text-center mx-auto tracking-tight md:tracking-[-1.92px] leading-snug md:leading-[48px] font-sans font-medium text-white z-20 relative">
+                  Enjoy the best{" "}
+                  <span className={`text-[#E8602E] ${hedvig.className}`}>
+                    Events and Exhibitions
+                  </span>{" "}
+                  where real connections start
+                </h3>
+
+                {/* Paragraph */}
+                <p className="w-full max-w-[1103px] text-center mx-auto text-base sm:text-lg md:text-[21px] font-sans font-normal md:font-medium leading-relaxed text-white z-20 relative">
+                  Engage with us at the forefront of your business. We not only
+                  participate in but also organize impactful business
+                  conferences and exhibitions, fostering connections and
+                  propelling industries forward. Join us in shaping the future
+                  of your industry!
+                </p>
+
+                {/* Button */}
+                <button
+                  onClick={() => window.open(moreInterviews[0].link, "_blank")}
+                  className="flex items-center px-6 sm:px-8 md:px-[37px] py-3 sm:py-3.5 md:py-[13px] mt-6 md:mt-5 font-sans rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer m-auto font-medium hover:text-orange-400 text-base sm:text-lg md:text-[20px] z-20 relative transition-all duration-300"
+                >
+                  Learn More
+                </button>
+
+                {/* Background Image */}
+                <div className="absolute inset-0 md:static">
+                  <Image
+                    src={thirdOrange}
+                    alt="Third section banner"
+                    fill
+                    className="object-cover md:h-[234px]"
+                    priority
+                  />
+                </div>
+
+                {/* Overlay/Subtract Image */}
+                <div className="absolute top-[150px] sm:top-[180px] md:top-[230px] left-0 w-full h-[600px] sm:h-[750px] md:h-[950px] z-10 overflow-visible">
+                  <Image
+                    src={subtract}
+                    alt="Subtract overlay"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              </div>
+            </section>
           </AnimatePresence>
         </div>
 
         {/* === BACK TO TOP BUTTON === */}
         {scrolled && (
           <motion.button
-            key="reverse-btn"
-            onClick={handleReverse}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
             className="fixed bottom-6 sm:bottom-10 right-6 sm:right-10 z-50 bg-orange-500/80 hover:bg-orange-600 text-white p-2 sm:p-3 rounded-full shadow-lg"
           >
@@ -444,7 +554,7 @@ const Hero = () => {
             />
           </motion.button>
         )}
-      </div>
+      </div>  
     </main>
   );
 };
