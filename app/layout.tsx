@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Hedvig_Letters_Serif } from "next/font/google"
 import "./globals.css";
+import ScrollToTop from "./ScrollToTop";
 
 const hedvig = Hedvig_Letters_Serif({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body
         className={hedvig.className}
       >
+        <ScrollToTop />
         {children}
       </body>
     </html>
