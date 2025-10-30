@@ -64,3 +64,50 @@ export const articles = [
     link: "#",
   },
 ];
+
+export const moreInterviews = [
+  {
+    img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761843474/Rectangle_2_4_chggbc.png",
+    name: "Emmerson Mnangagwa",
+    title: "President of Zimbabwe",
+    description:
+      "Zimbabwe’s dedication to industrial and economic transformation continues to foster growth across key sectors, positioning the country for a strong future.",
+    link: "#",
+  },
+  {
+    img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761843738/Rectangle_2_5_t2wwyn.png",
+    name: "MINISTRY OF MINES, QUARRIES & ENERGY, BURKINA FASO – Oumarou Idani",
+    title: "Mining",
+    link: "#",
+  },
+  {
+    img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761843802/Rectangle_3_ns6pbc.png",
+    name: "CANADA MINISTER OF EDUCATION – Honourable Stephen Lecce",
+    title: "Education",
+    link: "#",
+  },
+  {
+    img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761843882/Rectangle_4_e6amv5.png",
+    name: "Secretary General OPEC – Haitham Al Ghais",
+    title: "Oil & Gas",
+    link: "#",
+  },
+  {
+    img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761843916/Rectangle_2_6_tzxy2g.png",
+    name: "President & Principal TRADEMARK PROPERTIES – Amy Carroll",
+    title: "Real Estate & Construction",
+    link: "#",
+  },
+  {
+    img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761843955/Rectangle_3_1_qsobjk.png",
+    name: "Director ROLLS-ROYCE – Bicky Bhangu",
+    title: "Aerospace",
+    link: "#",
+  },
+  {
+    img: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761844000/Rectangle_4_1_xiuhqn.png",
+    name: "Head of Innovation JOHNSON & JOHNSON – Dan Wang",
+    title: "Pharmaceuticals & Biopharma",
+    link: "#",
+  },
+];

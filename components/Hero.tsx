@@ -6,6 +6,7 @@ import {
   BusinessHero,
   dhl,
   interviews,
+  moreInterviews,
   thirdOrange,
   vector,
   vector2,
@@ -322,7 +323,7 @@ const Hero = () => {
                   className="object-cover h-[824px]"
                   priority
                 />
-                <Image 
+                <Image
                   src={dhl}
                   alt="dhl"
                   width={1278.72}
@@ -332,6 +333,94 @@ const Hero = () => {
                 />
               </div>
             </motion.section>
+            <motion.section
+              initial={{ opacity: 0, y: 150 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="w-[90%] justify-center m-auto text-white py-15 px-6 md:px-12 lg:px-20 
+             bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] -top-50 relative border-white/10"
+            >
+              <div className="max-w-7xl mx-auto">
+                {/* Section Title */}
+                <h2 className="text-[60px] font-sans font-[500px] mb-12">
+                  More Interviews
+                </h2>
+
+                {/* Featured Interview */}
+                <div className="grid md:grid-cols-[2fr_1fr] gap-8 mb-16">
+                  <div className="relative h-[380px] md:h-[420px] rounded-xl overflow-hidden">
+                    <Image
+                      src={moreInterviews[0].img}
+                      alt={moreInterviews[0].name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <h3 className="text-[40px] w-[445px] font-[400px]">
+                      {moreInterviews[0].name}
+                    </h3>
+                    <p className="text-[24px] font-sans italic text-white mb-4">
+                      {moreInterviews[0].title}
+                    </p>
+                    <p className="text-[20px] text-white italic font-sans font-[500px] tracking-[-1px] mb-6">
+                      {moreInterviews[0].description}
+                    </p>
+                    <button
+                      onClick={() => window.open(moreInterviews[0].link, "_blank")}
+                      className="inline-flex items-center px-[37px] py-[13px] w-[174px] rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-medium hover:text-orange-400 text-[20px]"
+                    >
+                      Read More
+                    </button>
+                  </div>
+                </div>
+
+                {/* Grid of smaller interviews */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                  {moreInterviews.slice(1).map((interview, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 100 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: i * 0.1 }}
+                      className="rounded-xl overflow-hidden bg-transparent hover:bg-[#1b1b1b] transition-all"
+                    >
+                      <div className="relative w-full h-[416px]">
+                        <Image
+                          src={interview.img}
+                          alt={interview.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="p-6">
+                        <p className="text-orange-400 text-[16px] mb-1">
+                          {interview.title}
+                        </p>
+                        <h4 className="font-semibold text-[20px] leading-snug mb-3">
+                          {interview.name}
+                        </h4>
+                        <a
+                          href={interview.link}
+                          className="inline-flex items-center text-orange-400 hover:text-orange-500 text-[16px] font-medium"
+                        >
+                          Read More <ArrowUpRight size={16} className="ml-1" />
+                        </a>
+                      </div>
+                    </motion.div>
+                  ))}
+                      <button
+                      onClick={() => window.open(moreInterviews[0].link, "_blank")}
+                      className="inline-flex items-center px-[37px] py-[13px] w-[174px] rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-medium hover:text-orange-400 text-[20px]"
+                    >
+                      More Interviews
+                    </button>
+                </div>
+              </div>
+            </motion.section>
+            
           </AnimatePresence>
         </div>
 
