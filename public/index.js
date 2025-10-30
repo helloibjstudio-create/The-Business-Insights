@@ -2,6 +2,8 @@ export const BusinessHero = "https://res.cloudinary.com/dnzntr9lt/image/upload/v
 export const BusinessLogo = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761679661/e96b81ff7c8b13ae46d87ad7c85c6ce63d656273_fptjaf.png";
 export const vector = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761722176/Vector_q4jsjt.svg"
 export const vector2 = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761728195/Vector_2_obp6ev.svg"
+export const thirdOrange = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761841548/Vector_1_dtvr4e.png"
+export const dhl = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761841522/image_2_jupfeq.svg"
 
 export const interviews = [
   {

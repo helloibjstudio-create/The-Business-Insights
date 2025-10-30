@@ -4,7 +4,9 @@ import Image from "next/image";
 import {
   articles,
   BusinessHero,
+  dhl,
   interviews,
+  thirdOrange,
   vector,
   vector2,
 } from "../public/index.js";
@@ -73,7 +75,6 @@ const Hero = () => {
       if (isScrollingDown && y > articleTrigger && !showArticles) {
         setShowArticles(true);
       }
-      
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -93,7 +94,7 @@ const Hero = () => {
 
   return (
     <main className="relative flex justify-center w-full overflow-hidden text-white select-none">
-      <div className="relative w-full min-h-[640vh] sm:min-h-[640vh] md:min-h-[600vh] lg:min-h-[330vh] overflow-hidden">
+      <div className="relative w-full min-h-[640vh] sm:min-h-[640vh] md:min-h-[600vh] lg:min-h-[830vh] overflow-hidden">
         {/* === BACKGROUND IMAGE === */}
         <motion.div
           className="absolute w-full h-[2200px] bg-[linear-gradient(0deg,rgba(0,0,0,0.4)_0%,rgba(0,0,0,0.4)_100%),url('https://res.cloudinary.com/dnzntr9lt/image/upload/v1761663613/businessHero_qvuqwl.png')] bg-cover bg-center bg-no-repeat inset-0"
@@ -304,6 +305,33 @@ const Hero = () => {
                 </div>
               </motion.section>
             )}
+            {/* Third section */}
+            <motion.section
+              key="third"
+              initial={{ opacity: 0, y: 150 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              viewport={{ once: true, amount: 0.3 }}
+              className="relative w-full h-[900px] flex justify-center items-center overflow-hidden bg-black"
+            >
+              <div className="relative w-full h-full">
+                <Image
+                  src={thirdOrange}
+                  alt="Third section banner"
+                  fill
+                  className="object-cover h-[824px]"
+                  priority
+                />
+                <Image 
+                  src={dhl}
+                  alt="dhl"
+                  width={1278.72}
+                  height={333}
+                  priority
+                  className="z-10 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] object-contain"
+                />
+              </div>
+            </motion.section>
           </AnimatePresence>
         </div>
 
