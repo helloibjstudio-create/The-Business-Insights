@@ -102,7 +102,7 @@ const Hero = () => {
 
   return (
     <main className="relative flex justify-center w-full overflow-hidden text-white select-none">
-      <div className="relative w-full min-h-[940vh] sm:min-h-[940vh] md:min-h-[940vh] lg:min-h-[1530vh] overflow-hidden">
+      <div className="relative w-full min-h-[2240vh] sm:min-h-[2240vh] md:min-h-[2240vh] lg:min-h-[1530vh] overflow-hidden">
         {/* === BACKGROUND IMAGE === */}
         <motion.div
           className="absolute w-full h-[2200px] bg-[linear-gradient(0deg,rgba(0,0,0,0.4)_0%,rgba(0,0,0,0.4)_100%),url('https://res.cloudinary.com/dnzntr9lt/image/upload/v1761663613/businessHero_qvuqwl.png')] bg-cover bg-center bg-no-repeat inset-0"
@@ -346,18 +346,18 @@ const Hero = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="w-[90%] justify-center m-auto text-white py-15 px-6 md:px-12 lg:px-20 
-             bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] -top-50 relative border-white/10"
+              className="w-[90%] justify-center m-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
+  bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] -top-50 relative border-white/10"
             >
               <div className="max-w-7xl mx-auto">
                 {/* Section Title */}
-                <h2 className="text-[60px] font-sans font-[500px] mb-12">
+                <h2 className="text-[32px] sm:text-[48px] md:text-[60px] font-sans font-[500px] mb-8 md:mb-12 text-center md:text-left">
                   More Interviews
                 </h2>
 
                 {/* Featured Interview */}
-                <div className="grid md:grid-cols-[2fr_1fr] gap-8 mb-16">
-                  <div className="relative h-[380px] md:h-[420px] rounded-xl overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8 mb-12 md:mb-16 items-center">
+                  <div className="relative h-[280px] sm:h-[350px] md:h-[420px] rounded-xl overflow-hidden">
                     <Image
                       src={moreInterviews[0].img}
                       alt={moreInterviews[0].name}
@@ -365,21 +365,22 @@ const Hero = () => {
                       className="object-cover"
                     />
                   </div>
-                  <div className="flex flex-col justify-center">
-                    <h3 className="text-[40px] w-[445px] font-[400px]">
+
+                  <div className="flex flex-col justify-center text-center md:text-left px-2 sm:px-4">
+                    <h3 className="text-[26px] sm:text-[32px] md:text-[40px] w-full md:w-[445px] font-[400px] mx-auto md:mx-0">
                       {moreInterviews[0].name}
                     </h3>
-                    <p className="text-[24px] font-sans italic text-white mb-4">
+                    <p className="text-[18px] sm:text-[20px] md:text-[24px] font-sans italic text-white mb-3 sm:mb-4">
                       {moreInterviews[0].title}
                     </p>
-                    <p className="text-[20px] text-white italic font-sans font-[500px] tracking-[-1px] mb-6">
+                    <p className="text-[16px] sm:text-[18px] md:text-[20px] text-white italic font-sans font-[500px] tracking-[-1px] mb-6">
                       {moreInterviews[0].description}
                     </p>
                     <button
                       onClick={() =>
                         window.open(moreInterviews[0].link, "_blank")
                       }
-                      className="inline-flex items-center px-[37px] py-[13px] w-[174px] rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-medium hover:text-orange-400 text-[20px]"
+                      className="inline-flex items-center justify-center px-[30px] py-[12px] sm:px-[37px] sm:py-[13px] w-[150px] sm:w-[174px] rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-medium hover:text-orange-400 text-[16px] sm:text-[20px] mx-auto md:mx-0"
                     >
                       Read More
                     </button>
@@ -397,7 +398,7 @@ const Hero = () => {
                       transition={{ duration: 0.8, delay: i * 0.1 }}
                       className="rounded-xl overflow-hidden bg-transparent hover:bg-[#1b1b1b] transition-all"
                     >
-                      <div className="relative w-full h-[416px]">
+                      <div className="relative w-full h-[280px] sm:h-[350px] md:h-[416px]">
                         <Image
                           src={interview.img}
                           alt={interview.name}
@@ -405,33 +406,38 @@ const Hero = () => {
                           className="object-cover"
                         />
                       </div>
-                      <div className="p-6">
-                        <p className="text-orange-400 text-[16px] mb-1">
+                      <div className="p-4 sm:p-6 text-center md:text-left">
+                        <p className="text-orange-400 text-[14px] sm:text-[16px] mb-1">
                           {interview.title}
                         </p>
-                        <h4 className="font-semibold text-[20px] leading-snug mb-3">
+                        <h4 className="font-semibold text-[18px] sm:text-[20px] leading-snug mb-3">
                           {interview.name}
                         </h4>
                         <a
                           href={interview.link}
-                          className="inline-flex items-center text-orange-400 hover:text-orange-500 text-[16px] font-medium"
+                          className="inline-flex items-center text-orange-400 hover:text-orange-500 text-[14px] sm:text-[16px] font-medium"
                         >
                           Read More <ArrowUpRight size={16} className="ml-1" />
                         </a>
                       </div>
                     </motion.div>
                   ))}
+                </div>
+
+                {/* More Interviews Button */}
+                <div className="flex justify-center mt-10">
                   <button
                     onClick={() =>
                       window.open(moreInterviews[0].link, "_blank")
                     }
-                    className="inline-flex items-center px-[37px] py-[13px] w-[223px] rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-[500px] font-sans hover:text-orange-400 text-[20px]"
+                    className="inline-flex items-center justify-center px-[30px] py-[12px] sm:px-[37px] sm:py-[13px] w-[190px] sm:w-[223px] rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-[500px] font-sans hover:text-orange-400 text-[16px] sm:text-[20px]"
                   >
                     More Interviews
                   </button>
                 </div>
               </div>
             </motion.section>
+
             <section
               key="reports"
               className="relative bg-transparent px-4 sm:px-6 md:px-12 lg:px-20"
