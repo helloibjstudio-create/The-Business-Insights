@@ -6,6 +6,7 @@ export const thirdOrange = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1
 export const dhl = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761841522/image_2_jupfeq.svg"
 export const subtract = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761851416/Subtract_ntiwbm.png"
 export const mailbox = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761941720/image_8_oigpnz.png"
+export const InterviewBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761949081/background_xkhjfp.png"
 
 export const interviews = [
   {
