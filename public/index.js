@@ -5,6 +5,7 @@ export const vector2 = "https://res.cloudinary.com/dnzntr9lt/image/upload/v17617
 export const thirdOrange = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761841548/Vector_1_dtvr4e.png"
 export const dhl = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761841522/image_2_jupfeq.svg"
 export const subtract = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761851416/Subtract_ntiwbm.png"
+export const mailbox = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761941720/image_8_oigpnz.png"
 
 export const interviews = [
   {
