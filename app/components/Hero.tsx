@@ -12,8 +12,8 @@ import {
   thirdOrange,
   vector,
   vector2,
-} from "../public/index.js";
-import { ArrowUpRight } from "lucide-react";
+} from "../../public/index.js";
+import { ArrowUpRight, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Hedvig_Letters_Serif } from "next/font/google";
 import Navbar from "./Navbar.js";
@@ -487,64 +487,91 @@ const Hero = () => {
             </section>
 
             <section
-  key="events"
-  className="relative w-full min-h-[150vh] md:min-h-0 flex flex-col justify-center items-center overflow-hidden bg-black"
->
-  {/* Section Title */}
-  <h3 className="text-center text-3xl sm:text-4xl md:text-[60px] font-medium font-sans text-white mt-10 md:mt-0">
-    Events
-  </h3>
+              key="events"
+              className="relative w-full flex flex-col justify-center items-center overflow-visible bg-black py-20 md:py-32"
+            >
+              {/* Section Title */}
+              <h3 className="text-center text-3xl sm:text-4xl md:text-[60px] font-medium font-sans text-white mt-10 md:mt-0">
+                Events
+              </h3>
 
-  <div className="relative w-full h-auto md:h-[1100px] overflow-visible px-4 sm:px-6 md:px-0 mt-6 md:mt-0">
-    {/* Heading */}
-    <h3 className="text-2xl sm:text-3xl md:text-[48px] w-full max-w-[803px] my-4 text-center mx-auto tracking-tight md:tracking-[-1.92px] leading-snug md:leading-[48px] font-sans font-medium text-white z-20 relative">
-      Enjoy the best{" "}
-      <span className={`text-[#E8602E] ${hedvig.className}`}>
-        Events and Exhibitions
-      </span>{" "}
-      where real connections start
-    </h3>
+              <div className="relative w-full h-auto overflow-visible px-4 sm:px-6 md:px-0 mt-6 md:mt-0">
+                {/* Heading */}
+                <h3 className="text-2xl sm:text-3xl md:text-[48px] w-full max-w-[803px] my-4 text-center mx-auto tracking-tight md:tracking-[-1.92px] leading-snug md:leading-[48px] font-sans font-medium text-white z-20 relative">
+                  Enjoy the best{" "}
+                  <span className={`text-[#E8602E] ${hedvig.className}`}>
+                    Events and Exhibitions
+                  </span>{" "}
+                  where real connections start
+                </h3>
 
-    {/* Paragraph */}
-    <p className="w-full max-w-[1103px] text-center mx-auto text-base sm:text-lg md:text-[21px] font-sans font-normal md:font-medium leading-relaxed text-white z-20 relative">
-      Engage with us at the forefront of your business. We not only
-      participate in but also organize impactful business conferences and
-      exhibitions, fostering connections and propelling industries forward.
-      Join us in shaping the future of your industry!
-    </p>
+                {/* Paragraph */}
+                <p className="w-full max-w-[1103px] text-center mx-auto text-base sm:text-lg md:text-[21px] font-sans font-normal md:font-medium leading-relaxed text-white z-20 relative">
+                  Engage with us at the forefront of your business. We not only
+                  participate in but also organize impactful business
+                  conferences and exhibitions, fostering connections and
+                  propelling industries forward. Join us in shaping the future
+                  of your industry!
+                </p>
 
-    {/* Button */}
-    <button
-      onClick={() => window.open(moreInterviews[0].link, "_blank")}
-      className="flex items-center px-6 sm:px-8 md:px-[37px] py-3 sm:py-3.5 md:py-[13px] mt-6 md:mt-5 font-sans rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer m-auto font-medium hover:text-orange-400 text-base sm:text-lg md:text-[20px] z-20 relative transition-all duration-300"
-    >
-      Learn More
-    </button>
+                {/* Button */}
+                <button
+                  onClick={() => window.open(moreInterviews[0].link, "_blank")}
+                  className="flex items-center px-6 sm:px-8 md:px-[37px] py-3 sm:py-3.5 md:py-[13px] mt-6 md:mt-5 font-sans rounded-[10px] bg-[#E8602E] hover:bg-white cursor-pointer m-auto font-medium hover:text-[#E8602E] text-base sm:text-lg md:text-[20px] z-20 relative transition-all duration-300"
+                >
+                  Learn More
+                </button>
 
-    {/* Background Image */}
-    <div className="absolute inset-0 md:static">
-      <Image
-        src={thirdOrange}
-        alt="Third section banner"
-        fill
-        className="object-cover md:h-[234px]"
-        priority
-      />
-    </div>
+                {/* Overlay/Subtract Image */}
+                <div className="absolute top-[40px] md:top-[230px] left-0 w-full h-[750px] sm:h-[900px] md:h-[950px] z-10 overflow-visible pointer-events-none">
+                  <Image
+                    src={subtract}
+                    alt="Subtract overlay"
+                    fill
+                    className="object-contain md:object-cover glow-orange"
+                    priority
+                  />
+                </div>
+              </div>
+            </section>
+             <section className="flex flex-col md:flex-row items-center justify-between bg-[#e25b2b] text-white rounded-2xl px-8 py-10 max-w-5xl mx-auto shadow-lg overflow-hidden">
+      {/* Left Side - Mailbox Image */}
+      <div className="flex justify-center md:justify-start w-full md:w-1/3 mb-8 md:mb-0">
+        <Image
+          src="/mailbox.png" // 🔸 Replace with your actual image path
+          alt="Mailbox illustration"
+          width={180}
+          height={180}
+          className="object-contain"
+        />
+      </div>
 
-    {/* Overlay/Subtract Image */}
-    <div className="absolute top-[60px] sm:top-[100px] md:top-[230px] left-0 w-full h-[650px] sm:h-[950px] md:h-[950px] z-10 overflow-visible">
-      <Image
-        src={subtract}
-        alt="Subtract overlay"
-        fill
-        className="object-contain md:object-cover glow-orange"
-        priority
-      />
-    </div>
-  </div>
-</section>
+      {/* Right Side - Content */}
+      <div className="w-full md:w-2/3 text-center md:text-left space-y-4">
+        <h2 className="text-2xl font-bold leading-snug">
+          Join us! Subscribe to our weekly newsletter
+        </h2>
 
+        <form className="flex items-center justify-center md:justify-start gap-2 bg-white rounded-full px-3 py-1 w-full max-w-md mx-auto md:mx-0">
+          <Mail className="text-gray-500 w-5 h-5" />
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="flex-grow text-black placeholder-gray-500 bg-transparent outline-none"
+          />
+          <button
+            type="submit"
+            className="bg-black text-white px-5 py-1.5 rounded-full font-medium hover:bg-gray-800 transition"
+          >
+            Subscribe
+          </button>
+        </form>
+
+        <p className="text-sm text-white/80">
+          Stay up to date and enjoy a <span className="font-semibold">10% off</span> any purchase
+        </p>
+      </div>
+    </section>
           </AnimatePresence>
         </div>
 
