@@ -28,8 +28,6 @@ const Hero = () => {
   const [reversing, setReversing] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
-  
-
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 200);
     return () => clearTimeout(timer);
@@ -38,69 +36,67 @@ const Hero = () => {
   // === SCROLL + SECTION ANIMATION CONTROL ===
   useEffect(() => {
     let lastScrollY = window.scrollY;
-    let isAutoScrolling = false; 
+    let isAutoScrolling = false;
 
     const handleScroll = () => {
-  const y = window.scrollY;
-  const vh = window.innerHeight;
-  const width = window.innerWidth;
+      const y = window.scrollY;
+      const vh = window.innerHeight;
+      const width = window.innerWidth;
 
-  // dynamic trigger based on device
-  let exclusiveTrigger;
-  if (width < 640) exclusiveTrigger = vh * 0.5; // mobile
-  else if (width < 1024) exclusiveTrigger = vh * 0.9; // tablet
-  else exclusiveTrigger = vh * 1.1; // desktop
+      // dynamic trigger based on device
+      let exclusiveTrigger;
+      if (width < 640) exclusiveTrigger = vh * 1; // mobile
+      else if (width < 1024) exclusiveTrigger = vh * 1; // tablet
+      else exclusiveTrigger = vh * 1.1; // desktop
 
-  if (isAutoScrolling) return; // 🔒 block during smooth scroll
+      if (isAutoScrolling) return; // 🔒 block during smooth scroll
 
-  // === Smooth scroll trigger ===
-  if (!scrolled && y > vh * 0.4) {
-    setScrolled(true);
-    isAutoScrolling = true;
+      // === Smooth scroll trigger ===
+      if (!scrolled && y > vh * 0.4) {
+        setScrolled(true);
+        isAutoScrolling = true;
 
-    window.scrollTo({
-      top: exclusiveTrigger - vh * 0.7,
-      behavior: "smooth",
-    });
+        window.scrollTo({
+          top: exclusiveTrigger - vh * 0.7,
+          behavior: "smooth",
+        });
 
-    setTimeout(() => {
-      isAutoScrolling = false;
-    }, 1200); // unlock after animation
-  }
+        setTimeout(() => {
+          isAutoScrolling = false;
+        }, 1200); // unlock after animation
+      }
 
-  // === Reverse scroll ===
-  if (scrolled && y < vh * 0.2 && !isAutoScrolling) {
-    setScrolled(false);
-  }
+      // === Reverse scroll ===
+      if (scrolled && y < vh * 0.2 && !isAutoScrolling) {
+        setScrolled(false);
+      }
 
-  // === Show Articles ===
-  const articleTrigger = exclusiveTrigger + vh * 0.2;
-  if (y > articleTrigger && !showArticles) {
-    setShowArticles(true);
-  } else if (y < articleTrigger * 0.7 && showArticles) {
-    setShowArticles(false);
-  }
-};
+      // === Show Articles ===
+      const articleTrigger = exclusiveTrigger + vh * 0.1;
+      if (y > articleTrigger && !showArticles) {
+        setShowArticles(true);
+      } else if (y < articleTrigger * 0.7 && showArticles) {
+        setShowArticles(false);
+      }
+    };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled, showArticles]);
 
   // === REVERSE TO HERO ===
- const handleReverse = () => {
-  setReversing(true);
-  setShowArticles(false);
-  setScrolled(false);
+  const handleReverse = () => {
+    setReversing(true);
+    setShowArticles(false);
+    setScrolled(false);
 
-  // Force scroll to top (bypasses partial scroll issues)
-  setTimeout(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, 50); // small delay ensures DOM is ready
+    // Force scroll to top (bypasses partial scroll issues)
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 50); // small delay ensures DOM is ready
 
-  setTimeout(() => setReversing(false), 1200);
-};
-
-
+    setTimeout(() => setReversing(false), 1200);
+  };
 
   return (
     <main className="relative flex justify-center w-full overflow-hidden text-white select-none">
@@ -121,6 +117,7 @@ const Hero = () => {
             priority
             className="object-cover brightness-75"
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/90 pointer-events-none" />
         </motion.div>
 
         {/* === CONTENT WRAPPER === */}
@@ -257,7 +254,7 @@ const Hero = () => {
                   opacity: { duration: 0.5 },
                   y: { duration: 1.2, ease: "easeInOut" },
                 }}
-                className="relative top-[100px] sm:top-[240px] md:top-[260px] lg:top-[140px] py-16 sm:py-24 md:py-28 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-20 min-h-screen bg-gradient-to-b from-transparent via-black/80 to-black pointer-events-auto pb-40"
+                className="relative top-[100px] sm:top-[240px] md:top-[260px] lg:top-[140px] py-16 sm:py-24 md:py-28 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-20 min-h-screen pointer-events-auto"
               >
                 <div className="max-w-7xl mx-auto pb-24">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 gap-6">
@@ -322,8 +319,12 @@ const Hero = () => {
               initial={{ opacity: 0, y: 150 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
-              viewport={{ once: true, amount: 0.5, margin: "-60px 0px -60px 0px" }}
-              className="relative w-full h-[500px] sm:h-[650px] md:h-[750px] lg:h-[900px] flex justify-center items-center overflow-hidden bg-black"
+              viewport={{
+                once: true,
+                amount: 0.5,
+                margin: "-60px 0px -60px 0px",
+              }}
+              className="relative w-full h-[300px] sm:h-[650px] md:h-[750px] lg:h-[900px] flex justify-center items-center overflow-hidden bg-black"
             >
               <div className="relative w-full h-full">
                 {/* Background Image */}
@@ -331,7 +332,7 @@ const Hero = () => {
                   src={thirdOrange}
                   alt="Third section banner"
                   fill
-                  className="object-cover h-full"
+                  className="object-cover h-[50%] lg:h-full"
                   priority
                 />
 
@@ -343,7 +344,7 @@ const Hero = () => {
                   height={333}
                   priority
                   className="z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-      object-contain w-[80%] sm:w-[70%] md:w-[60%] lg:w-auto max-w-[1278px]"
+      lg:object-contain object-cover w-full max-w-[1278px]"
                 />
               </div>
             </motion.section>
@@ -364,7 +365,7 @@ const Hero = () => {
                 </h2>
 
                 {/* Featured Interview */}
-                <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8 mb-12 md:mb-16 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 mb-12 md:mb-16 items-center">
                   <div className="relative h-[280px] sm:h-[350px] md:h-[420px] rounded-xl overflow-hidden">
                     <Image
                       src={moreInterviews[0].img}
@@ -394,7 +395,7 @@ const Hero = () => {
                 </div>
 
                 {/* Grid of smaller interviews */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                   {moreInterviews.slice(1).map((interview, i) => (
                     <motion.div
                       key={i}
@@ -432,10 +433,7 @@ const Hero = () => {
 
                 {/* More Interviews Button */}
                 <div className="flex justify-center mt-10">
-                  <button
-                    
-                    className="inline-flex items-center justify-center px-[30px] py-[12px] sm:px-[37px] sm:py-[13px] w-[190px] sm:w-[223px] rounded-[10px] bg-orange-500 hover:bg-red-400 cursor-pointer font-[500px] font-sans hover:text-orange-400 text-[16px] sm:text-[20px]"
-                  >
+                  <button className="inline-flex items-center justify-center px-[30px] py-[12px] sm:px-[37px] sm:py-[13px] w-[190px] sm:w-[223px] rounded-[10px] bg-orange-500 hover:bg-red-400 cursor-pointer font-[500px] font-sans hover:text-orange-400 text-[16px] sm:text-[20px]">
                     More Interviews
                   </button>
                 </div>
@@ -489,64 +487,64 @@ const Hero = () => {
             </section>
 
             <section
-              key="events"
-              className="relative w-full h-full flex flex-col justify-center items-center overflow-hidden bg-black"
-            >
-              {/* Section Title */}
-              <h3 className="text-center text-3xl sm:text-4xl md:text-[60px] font-medium font-sans text-white mt-10 md:mt-0">
-                Events
-              </h3>
+  key="events"
+  className="relative w-full min-h-[150vh] md:min-h-0 flex flex-col justify-center items-center overflow-hidden bg-black"
+>
+  {/* Section Title */}
+  <h3 className="text-center text-3xl sm:text-4xl md:text-[60px] font-medium font-sans text-white mt-10 md:mt-0">
+    Events
+  </h3>
 
-              <div className="relative w-full h-auto md:h-[1100px] overflow-visible px-4 sm:px-6 md:px-0 mt-6 md:mt-0">
-                {/* Heading */}
-                <h3 className="text-2xl sm:text-3xl md:text-[48px] w-full max-w-[803px] my-4 text-center mx-auto tracking-tight md:tracking-[-1.92px] leading-snug md:leading-[48px] font-sans font-medium text-white z-20 relative">
-                  Enjoy the best{" "}
-                  <span className={`text-[#E8602E] ${hedvig.className}`}>
-                    Events and Exhibitions
-                  </span>{" "}
-                  where real connections start
-                </h3>
+  <div className="relative w-full h-auto md:h-[1100px] overflow-visible px-4 sm:px-6 md:px-0 mt-6 md:mt-0">
+    {/* Heading */}
+    <h3 className="text-2xl sm:text-3xl md:text-[48px] w-full max-w-[803px] my-4 text-center mx-auto tracking-tight md:tracking-[-1.92px] leading-snug md:leading-[48px] font-sans font-medium text-white z-20 relative">
+      Enjoy the best{" "}
+      <span className={`text-[#E8602E] ${hedvig.className}`}>
+        Events and Exhibitions
+      </span>{" "}
+      where real connections start
+    </h3>
 
-                {/* Paragraph */}
-                <p className="w-full max-w-[1103px] text-center mx-auto text-base sm:text-lg md:text-[21px] font-sans font-normal md:font-medium leading-relaxed text-white z-20 relative">
-                  Engage with us at the forefront of your business. We not only
-                  participate in but also organize impactful business
-                  conferences and exhibitions, fostering connections and
-                  propelling industries forward. Join us in shaping the future
-                  of your industry!
-                </p>
+    {/* Paragraph */}
+    <p className="w-full max-w-[1103px] text-center mx-auto text-base sm:text-lg md:text-[21px] font-sans font-normal md:font-medium leading-relaxed text-white z-20 relative">
+      Engage with us at the forefront of your business. We not only
+      participate in but also organize impactful business conferences and
+      exhibitions, fostering connections and propelling industries forward.
+      Join us in shaping the future of your industry!
+    </p>
 
-                {/* Button */}
-                <button
-                  onClick={() => window.open(moreInterviews[0].link, "_blank")}
-                  className="flex items-center px-6 sm:px-8 md:px-[37px] py-3 sm:py-3.5 md:py-[13px] mt-6 md:mt-5 font-sans rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer m-auto font-medium hover:text-orange-400 text-base sm:text-lg md:text-[20px] z-20 relative transition-all duration-300"
-                >
-                  Learn More
-                </button>
+    {/* Button */}
+    <button
+      onClick={() => window.open(moreInterviews[0].link, "_blank")}
+      className="flex items-center px-6 sm:px-8 md:px-[37px] py-3 sm:py-3.5 md:py-[13px] mt-6 md:mt-5 font-sans rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer m-auto font-medium hover:text-orange-400 text-base sm:text-lg md:text-[20px] z-20 relative transition-all duration-300"
+    >
+      Learn More
+    </button>
 
-                {/* Background Image */}
-                <div className="absolute inset-0 md:static">
-                  <Image
-                    src={thirdOrange}
-                    alt="Third section banner"
-                    fill
-                    className="object-cover md:h-[234px]"
-                    priority
-                  />
-                </div>
+    {/* Background Image */}
+    <div className="absolute inset-0 md:static">
+      <Image
+        src={thirdOrange}
+        alt="Third section banner"
+        fill
+        className="object-cover md:h-[234px]"
+        priority
+      />
+    </div>
 
-                {/* Overlay/Subtract Image */}
-                <div className="absolute top-[150px] sm:top-[180px] md:top-[230px] left-0 w-full h-[600px] sm:h-[750px] md:h-[950px] z-10 overflow-visible">
-                  <Image
-                    src={subtract}
-                    alt="Subtract overlay"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                </div>
-              </div>
-            </section>
+    {/* Overlay/Subtract Image */}
+    <div className="absolute top-[60px] sm:top-[100px] md:top-[230px] left-0 w-full h-[650px] sm:h-[950px] md:h-[950px] z-10 overflow-visible">
+      <Image
+        src={subtract}
+        alt="Subtract overlay"
+        fill
+        className="object-contain md:object-cover glow-orange"
+        priority
+      />
+    </div>
+  </div>
+</section>
+
           </AnimatePresence>
         </div>
 

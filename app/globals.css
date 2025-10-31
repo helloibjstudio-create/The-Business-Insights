@@ -4,3 +4,25 @@
 body {
   overflow-x: hidden;
 }
+
+@keyframes orange-glow {
+  0% {
+    filter: drop-shadow(0 0 5px rgba(255, 165, 0, 0.3))
+            drop-shadow(0 0 10px rgba(255, 165, 0, 0.2))
+            drop-shadow(0 0 15px rgba(255, 165, 0, 0.1));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(255, 165, 0, 0.7))
+            drop-shadow(0 0 25px rgba(255, 140, 0, 0.5))
+            drop-shadow(0 0 35px rgba(255, 69, 0, 0.3));
+  }
+  100% {
+    filter: drop-shadow(0 0 5px rgba(255, 165, 0, 0.3))
+            drop-shadow(0 0 10px rgba(255, 165, 0, 0.2))
+            drop-shadow(0 0 15px rgba(255, 165, 0, 0.1));
+  }
+}
+
+.glow-orange {
+  animation: orange-glow 4s ease-in-out infinite;
+}
