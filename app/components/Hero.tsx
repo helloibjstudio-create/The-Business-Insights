@@ -537,13 +537,13 @@ const Hero = () => {
             </section>
             <section className="relative top-50 md:top-120 lg:top-170 bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[1000px] mx-auto mt-40 md:mt-48 lg:mt-56 overflow-visible px-6 md:px-10 py-10 md:py-16 flex flex-col md:flex-row items-center justify-between">
               {/* Mailbox Image */}
-              <div className="absolute -top-16 sm:-top-20 md:-top-24 lg:-top-28 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 flex justify-center md:justify-start w-full md:w-auto">
+              <div className="absolute -top-16 sm:-top-20 md:-top-24 lg:-top-28 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 flex justify-center md:justify-start w-full md:w-auto z-0">
                 <Image
                   src={mailbox}
                   alt="Mailbox illustration"
                   width={420}
                   height={420}
-                  className="w-[200px] sm:w-[250px] md:w-[320px] lg:w-[400px] h-auto object-contain"
+                  className="w-[200px] sm:w-[250px] md:w-[320px] z-0 lg:w-[400px] h-auto object-contain"
                   priority
                 />
               </div>
@@ -581,7 +581,7 @@ const Hero = () => {
                   <input
                     type="email"
                     placeholder="Enter your email"
-                    className="flex-grow text-white placeholder-gray-300 bg-transparent outline-none text-sm md:text-base px-2"
+                    className="flex-grow text-white placeholder-gray-300 z-30 bg-transparent outline-none text-sm md:text-base px-2"
                   />
 
                   <button
