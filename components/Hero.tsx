@@ -43,7 +43,7 @@ const Hero = () => {
 
       // === DYNAMIC SCROLL TARGETS ===
       let exclusiveTrigger;
-      if (width < 640) exclusiveTrigger = vh * 0.9; // mobile
+      if (width < 640) exclusiveTrigger = vh * 0.5; // mobile
       else if (width < 1024) exclusiveTrigger = vh * 1.0; // tablet
       else exclusiveTrigger = vh * 1.1; // desktop
 
