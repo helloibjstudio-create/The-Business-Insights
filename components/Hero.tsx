@@ -352,7 +352,7 @@ const Hero = () => {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 1, ease: "easeOut" }}
               className="w-[90%] justify-center m-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
-  bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] -top-50 relative border-white/10"
+  bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] -top-50 lg:-top-20 relative border-white/10"
             >
               <div className="max-w-7xl mx-auto">
                 {/* Section Title */}
