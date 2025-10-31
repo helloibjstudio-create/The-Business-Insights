@@ -347,12 +347,12 @@ const Hero = () => {
 
             <motion.section
               key="more-interviews"
-              initial={{ opacity: 0, y: 150 }}
+              initial={{ opacity: 0, y: 100 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="w-[90%] justify-center m-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
-  bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] -top-20 lg:-top-50 relative border-white/10"
+              viewport={{ once: true, amount: 0.05 }} // 👈 triggers earlier (5% visible)
+              transition={{ duration: 0.9, ease: "easeOut" }}
+              className="relative w-[90%] justify-center m-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
+  bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] -top-10 lg:-top-20 border-white/10"
             >
               <div className="max-w-7xl mx-auto">
                 {/* Section Title */}
@@ -397,9 +397,9 @@ const Hero = () => {
                   {moreInterviews.slice(1).map((interview, i) => (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, y: 100 }}
+                      initial={{ opacity: 0, y: 80 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
+                      viewport={{ once: true, amount: 0.1 }} // 👈 triggers earlier for each card
                       transition={{ duration: 0.8, delay: i * 0.1 }}
                       className="rounded-xl overflow-hidden bg-transparent hover:bg-[#1b1b1b] transition-all"
                     >
