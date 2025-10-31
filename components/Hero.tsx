@@ -16,6 +16,7 @@ import {
 import { ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Hedvig_Letters_Serif } from "next/font/google";
+import Navbar from "./Navbar.js";
 
 const hedvig = Hedvig_Letters_Serif({
   subsets: ["latin"],
@@ -26,6 +27,8 @@ const Hero = () => {
   const [showArticles, setShowArticles] = useState(false);
   const [reversing, setReversing] = useState(false);
   const [loaded, setLoaded] = useState(false);
+
+  
 
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 200);
@@ -71,7 +74,7 @@ const Hero = () => {
   }
 
   // === Show Articles ===
-  const articleTrigger = exclusiveTrigger + vh * 0.6;
+  const articleTrigger = exclusiveTrigger + vh * 0.2;
   if (y > articleTrigger && !showArticles) {
     setShowArticles(true);
   } else if (y < articleTrigger * 0.7 && showArticles) {
@@ -84,15 +87,20 @@ const Hero = () => {
   }, [scrolled, showArticles]);
 
   // === REVERSE TO HERO ===
-  const handleReverse = () => {
-    setReversing(true);
-    setShowArticles(false);
-    setScrolled(false);
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-    setTimeout(() => setReversing(false), 1200);
-  };
+ const handleReverse = () => {
+  setReversing(true);
+  setShowArticles(false);
+  setScrolled(false);
+
+  // Force scroll to top (bypasses partial scroll issues)
+  setTimeout(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, 50); // small delay ensures DOM is ready
+
+  setTimeout(() => setReversing(false), 1200);
+};
+
+
 
   return (
     <main className="relative flex justify-center w-full overflow-hidden text-white select-none">
@@ -121,6 +129,7 @@ const Hero = () => {
             {/* === HERO SECTION === */}
             {!scrolled && !reversing && (
               <motion.section
+                id="hero"
                 key="hero"
                 initial={{ opacity: 0, y: 60 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -248,7 +257,7 @@ const Hero = () => {
                   opacity: { duration: 0.5 },
                   y: { duration: 1.2, ease: "easeInOut" },
                 }}
-                className="relative top-[100px] sm:top-[240px] md:top-[260px] lg:top-[280px] py-16 sm:py-24 md:py-28 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-20 min-h-screen bg-gradient-to-b from-transparent via-black/80 to-black pointer-events-auto"
+                className="relative top-[100px] sm:top-[240px] md:top-[260px] lg:top-[140px] py-16 sm:py-24 md:py-28 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-20 min-h-screen bg-gradient-to-b from-transparent via-black/80 to-black pointer-events-auto pb-40"
               >
                 <div className="max-w-7xl mx-auto pb-24">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 gap-6">
@@ -313,7 +322,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 150 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.5, margin: "-60px 0px -60px 0px" }}
               className="relative w-full h-[500px] sm:h-[650px] md:h-[750px] lg:h-[900px] flex justify-center items-center overflow-hidden bg-black"
             >
               <div className="relative w-full h-full">
@@ -375,14 +384,12 @@ const Hero = () => {
                     <p className="text-[16px] sm:text-[18px] md:text-[20px] text-white italic font-sans font-[500px] tracking-[-1px] mb-6">
                       {moreInterviews[0].description}
                     </p>
-                    <button
-                      onClick={() =>
-                        window.open(moreInterviews[0].link, "_blank")
-                      }
-                      className="inline-flex items-center justify-center px-[30px] py-[12px] sm:px-[37px] sm:py-[13px] w-[150px] sm:w-[174px] rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-medium hover:text-orange-400 text-[16px] sm:text-[20px] mx-auto md:mx-0"
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      className="bg-orange-500 hover:bg-white w-fit z-30 text-white hover:text-orange-500 cursor-pointer px-6 sm:px-8 py-3 rounded-[10px] font-[500px] font-sans text-[16px] sm:text-[18px] md:text-[20px] transition"
                     >
                       Read More
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
 
@@ -426,10 +433,8 @@ const Hero = () => {
                 {/* More Interviews Button */}
                 <div className="flex justify-center mt-10">
                   <button
-                    onClick={() =>
-                      window.open(moreInterviews[0].link, "_blank")
-                    }
-                    className="inline-flex items-center justify-center px-[30px] py-[12px] sm:px-[37px] sm:py-[13px] w-[190px] sm:w-[223px] rounded-[10px] bg-orange-500 hover:bg-white cursor-pointer font-[500px] font-sans hover:text-orange-400 text-[16px] sm:text-[20px]"
+                    
+                    className="inline-flex items-center justify-center px-[30px] py-[12px] sm:px-[37px] sm:py-[13px] w-[190px] sm:w-[223px] rounded-[10px] bg-orange-500 hover:bg-red-400 cursor-pointer font-[500px] font-sans hover:text-orange-400 text-[16px] sm:text-[20px]"
                   >
                     More Interviews
                   </button>
@@ -552,6 +557,7 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
+            onClick={handleReverse}
             className="fixed bottom-6 sm:bottom-10 right-6 sm:right-10 z-50 bg-orange-500/80 hover:bg-orange-600 text-white p-2 sm:p-3 rounded-full shadow-lg"
           >
             <Image
