@@ -35,55 +35,49 @@ const Hero = () => {
   // === SCROLL + SECTION ANIMATION CONTROL ===
   useEffect(() => {
     let lastScrollY = window.scrollY;
+    let isAutoScrolling = false; 
 
     const handleScroll = () => {
-      const y = window.scrollY;
-      const vh = window.innerHeight;
-      const width = window.innerWidth;
+  const y = window.scrollY;
+  const vh = window.innerHeight;
+  const width = window.innerWidth;
 
-      // === DYNAMIC SCROLL TARGETS ===
-      let exclusiveTrigger;
-      if (width < 640) exclusiveTrigger = vh * 0.5; // mobile
-      else if (width < 1024) exclusiveTrigger = vh * 1.0; // tablet
-      else exclusiveTrigger = vh * 1.1; // desktop
+  // dynamic trigger based on device
+  let exclusiveTrigger;
+  if (width < 640) exclusiveTrigger = vh * 0.5; // mobile
+  else if (width < 1024) exclusiveTrigger = vh * 0.9; // tablet
+  else exclusiveTrigger = vh * 1.1; // desktop
 
-      const isScrollingDown = y > lastScrollY;
-      const isScrollingUp = y < lastScrollY;
-      lastScrollY = y;
+  if (isAutoScrolling) return; // 🔒 block during smooth scroll
 
-      // Track zoom trigger
-      if (y > 150 && !scrolled) {
-        setScrolled(true);
+  // === Smooth scroll trigger ===
+  if (!scrolled && y > vh * 0.4) {
+    setScrolled(true);
+    isAutoScrolling = true;
 
-        // ✅ scroll directly to top of exclusive section smoothly
-        window.scrollTo({
-          top: exclusiveTrigger - vh * 0.8,
-          behavior: "smooth",
-        });
-      } else if (y < 100 && scrolled) {
-        setScrolled(false);
-      }
+    window.scrollTo({
+      top: exclusiveTrigger - vh * 0.7,
+      behavior: "smooth",
+    });
 
-      // === ARTICLE FADE-IN / FADE-OUT ===
-      const articleTrigger = exclusiveTrigger + vh * 0.5; // start showing later
-      const articleEnd = exclusiveTrigger + vh * 0.9;
+    setTimeout(() => {
+      isAutoScrolling = false;
+    }, 1200); // unlock after animation
+  }
 
-      if (width < 768) {
-        if (isScrollingDown && y > exclusiveTrigger * 0.8 && !showArticles) {
-          setShowArticles(true);
-        } else if (
-          isScrollingUp &&
-          y < exclusiveTrigger * 0.7 &&
-          showArticles
-        ) {
-          setShowArticles(false);
-        }
-      }
+  // === Reverse scroll ===
+  if (scrolled && y < vh * 0.2 && !isAutoScrolling) {
+    setScrolled(false);
+  }
 
-      if (isScrollingDown && y > articleTrigger && !showArticles) {
-        setShowArticles(true);
-      }
-    };
+  // === Show Articles ===
+  const articleTrigger = exclusiveTrigger + vh * 0.6;
+  if (y > articleTrigger && !showArticles) {
+    setShowArticles(true);
+  } else if (y < articleTrigger * 0.7 && showArticles) {
+    setShowArticles(false);
+  }
+};
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
