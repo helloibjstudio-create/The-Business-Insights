@@ -320,26 +320,31 @@ const Hero = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
               viewport={{ once: true, amount: 0.3 }}
-              className="relative w-full h-[900px] flex justify-center items-center overflow-hidden bg-black"
+              className="relative w-full h-[500px] sm:h-[650px] md:h-[750px] lg:h-[900px] flex justify-center items-center overflow-hidden bg-black"
             >
               <div className="relative w-full h-full">
+                {/* Background Image */}
                 <Image
                   src={thirdOrange}
                   alt="Third section banner"
                   fill
-                  className="object-cover h-[824px]"
+                  className="object-cover h-full"
                   priority
                 />
+
+                {/* Centered DHL Image */}
                 <Image
                   src={dhl}
                   alt="dhl"
                   width={1278.72}
                   height={333}
                   priority
-                  className="z-10 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] object-contain"
+                  className="z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+      object-contain w-[80%] sm:w-[70%] md:w-[60%] lg:w-auto max-w-[1278px]"
                 />
               </div>
             </motion.section>
+
             <motion.section
               key="more-interviews"
               initial={{ opacity: 0, y: 150 }}
