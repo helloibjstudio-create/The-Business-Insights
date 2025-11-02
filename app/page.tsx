@@ -8,7 +8,7 @@ export default function Home() {
     <main className="relative min-h-screen bg-black">
       <Navbar />
       <Hero />
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 }
