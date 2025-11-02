@@ -101,7 +101,7 @@ const Hero = () => {
 
   return (
     <main className="relative flex justify-center w-full overflow-hidden text-white select-none">
-      <div className="relative w-full min-h-[1900vh] md:min-h-[1900vh] lg:min-h-[1260vh] overflow-hidden">
+      <div className="relative w-full min-h-[1900vh] md:min-h-[1900vh] lg:min-h-[1260vh] xl:min-h-[915vh] overflow-hidden">
         {/* === BACKGROUND IMAGE === */}
         <motion.div
           className="absolute w-full h-[2200px] bg-[linear-gradient(0deg,rgba(0,0,0,0.4)_0%,rgba(0,0,0,0.4)_100%),url('https://res.cloudinary.com/dnzntr9lt/image/upload/v1761663613/businessHero_qvuqwl.png')] bg-cover bg-center bg-no-repeat inset-0"
