@@ -280,7 +280,7 @@ const Hero = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     {articles.map((article, i) => (
                       <motion.div
-                        key={article.title}
+                        key={i}
                         initial={{ opacity: 0, y: 80 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 + i * 0.2 }}
@@ -536,7 +536,7 @@ const Hero = () => {
                 </div>
               </div>
             </section>
-            <section className="relative top-50 md:top-120 lg:top-170 bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[1000px] mx-auto mt-40 md:mt-48 lg:mt-56 overflow-visible px-6 md:px-10 py-10 md:py-16 flex flex-col md:flex-row items-center justify-between">
+            <section key="Newsletter" className="relative top-50 md:top-120 lg:top-170 bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[1000px] mx-auto mt-40 md:mt-48 lg:mt-56 overflow-visible px-6 md:px-10 py-10 md:py-16 flex flex-col md:flex-row items-center justify-between">
               {/* Mailbox Image */}
               <div className="absolute -top-16 sm:-top-20 md:-top-24 lg:-top-28 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 flex justify-center md:justify-start w-full md:w-auto z-0">
                 <Image
@@ -599,7 +599,7 @@ const Hero = () => {
                 </p>
               </div>
             </section>
-            <footer className="bg-black relative top-190 text-white py-10 md:py-14 font-sans">
+            <footer key="footer" className="bg-black relative top-190 text-white py-10 md:py-14 font-sans">
                   <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
                     {/* Left Section */}
                     <div className="space-y-5">
@@ -710,9 +710,9 @@ const Hero = () => {
                             <path
                               d="M17.4009 19.2C15.8965 20.3302 14.0265 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V13.5C21 14.8807 19.8807 16 18.5 16C17.1193 16 16 14.8807 16 13.5V8M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
                               stroke="#E8602E"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                             />
                           </svg>
                           <span>support@tbinm.com</span>
