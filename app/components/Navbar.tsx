@@ -18,7 +18,7 @@ const Navbar = () => {
       </div>
       <ul className="hidden md:flex space-x-8 text-[16px] font-sans font-[500px]">
         <li><Link href="/Interviews" className="hover:text-orange-400">Interviews</Link></li>
-        <li><Link href="/Articles" className="hover:text-orange-400">Articles</Link></li>
+        <li><Link href="/articles" className="hover:text-orange-400">Articles</Link></li>
         <li><Link href="/Reports" className="hover:text-orange-400">Reports</Link></li>
         <li><Link href="/Events" className="hover:text-orange-400">Events</Link></li>
         <li><Link href="/About" className="hover:text-orange-400">About Us</Link></li>

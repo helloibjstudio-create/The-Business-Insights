@@ -49,23 +49,23 @@ const Hero = () => {
       let exclusiveTrigger;
       if (width < 640) exclusiveTrigger = vh * 1; // mobile
       else if (width < 1024) exclusiveTrigger = vh * 1; // tablet
-      else exclusiveTrigger = vh * 1.1; // desktop
+      else exclusiveTrigger = vh * 1.3; // desktop
 
       if (isAutoScrolling) return; // 🔒 block during smooth scroll
 
       // === Smooth scroll trigger ===
-      if (!scrolled && y > vh * 0.4) {
+      if (!scrolled && y > vh * 0.1) {
         setScrolled(true);
         isAutoScrolling = true;
 
         window.scrollTo({
-          top: exclusiveTrigger - vh * 0.7,
+          top: exclusiveTrigger - vh * 0.1,
           behavior: "smooth",
         });
 
         setTimeout(() => {
           isAutoScrolling = false;
-        }, 1200); // unlock after animation
+        }, 1000); // unlock after animation
       }
 
       // === Reverse scroll ===
@@ -74,7 +74,7 @@ const Hero = () => {
       }
 
       // === Show Articles ===
-      const articleTrigger = exclusiveTrigger + vh * 0.1;
+      const articleTrigger = exclusiveTrigger + vh * 0.000000000000000000000005;
       if (y > articleTrigger && !showArticles) {
         setShowArticles(true);
       } else if (y < articleTrigger * 0.7 && showArticles) {
@@ -102,7 +102,7 @@ const Hero = () => {
 
   return (
     <main className="relative flex justify-center w-full overflow-hidden text-white select-none">
-      <div className="relative w-full min-h-[1900vh] md:min-h-[1900vh] lg:min-h-[1320vh] overflow-hidden">
+      <div className="relative w-full min-h-[1300vh] md:min-h-[1270vh] lg:min-h-[1100vh] xl:min-h-[1000vh] overflow-hidden">
         {/* === BACKGROUND IMAGE === */}
         <motion.div
           className="absolute w-full h-[2200px] bg-[linear-gradient(0deg,rgba(0,0,0,0.4)_0%,rgba(0,0,0,0.4)_100%),url('https://res.cloudinary.com/dnzntr9lt/image/upload/v1761663613/businessHero_qvuqwl.png')] bg-cover bg-center bg-no-repeat inset-0"
@@ -171,10 +171,10 @@ const Hero = () => {
             {scrolled && (
               <motion.section
                 key="exclusive"
-                initial={{ opacity: 0, y: 100 }}
+                initial={{ opacity: 0, y: 200 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 200 }}
-                transition={{ duration: 1.3, ease: "easeOut" }}
+                transition={{ duration: 1.1, ease: "easeOut" }}
                 className="relative top-[120px] sm:top-[150px] md:top-[180px] lg:top-[200px] py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-8 md:px-12 lg:px-20 min-h-screen bg-transparent pointer-events-auto"
               >
                 <div className="mx-auto flex flex-col h-full justify-center">
@@ -204,9 +204,7 @@ const Hero = () => {
                     {interviews.map((person, i) => (
                       <motion.div
                         key={person.name}
-                        initial={{ opacity: 0, y: 80 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 + i * 0.2 }}
+                        
                         className="rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform"
                       >
                         <div className="h-[300px] sm:h-[400px] relative">
@@ -246,7 +244,7 @@ const Hero = () => {
             )}
 
             {/* === ARTICLES SECTION === */}
-            {showArticles && (
+            
               <motion.section
                 key="articles"
                 initial={{ opacity: 0, y: 250 }}
@@ -314,7 +312,6 @@ const Hero = () => {
                   </div>
                 </div>
               </motion.section>
-            )}
             {/* Third section */}
             <motion.section
               key="third"
@@ -599,7 +596,7 @@ const Hero = () => {
                 </p>
               </div>
             </section>
-            <footer key="footer" className="bg-black relative top-190 text-white py-10 md:py-14 font-sans">
+            <footer key="footer" className="bg-black relative top-65 md:top-160 lg:top-190 text-white py-10 md:py-14 font-sans">
                   <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
                     {/* Left Section */}
                     <div className="space-y-5">

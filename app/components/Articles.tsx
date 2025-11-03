@@ -6,7 +6,7 @@ import { InterviewBg, thirdOrange } from "@/public";
 import { useEffect, useState } from "react";
 import { ArrowRight, ArrowUpRight, Search, SlidersHorizontal } from "lucide-react";
 
-interface Interview {
+interface Article {
   id: number;
   name: string;
   sector: string;
@@ -16,14 +16,30 @@ interface Interview {
   link: string;
 }
 
-const Interviews = () => {
-  const [interviews, setInterviews] = useState<Interview[]>([]);
+const Articles = () => {
+  const [articles, setArticles] = useState<Article[]>([]);
+    const [showFilters, setShowFilters] = useState(false);
+  const [countries, setCountries] = useState<string[]>([]);
+  const [sectors, setSectors] = useState<string[]>([]);
+  const [years, setYears] = useState<string[]>([]);
+
+  // Fetch filter options from backend
+  useEffect(() => {
+    fetch("http://localhost:5000/api/filters")
+      .then((res) => res.json())
+      .then((data) => {
+        setCountries(data.countries || []);
+        setSectors(data.sectors || []);
+        setYears(data.years || []);
+      })
+      .catch((err) => console.error("Error fetching filters:", err));
+  }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/interviews")
+    fetch("http://localhost:5000/api/articles")
       .then((res) => res.json())
-      .then((data) => setInterviews(data))
-      .catch((err) => console.error("Error fetching interviews:", err));
+      .then((data) => setArticles(data))
+      .catch((err) => console.error("Error fetching articles:", err));
       console.log("FormData being sent:", FormData);
   }, []);
 
@@ -53,17 +69,16 @@ const Interviews = () => {
                         border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] 
                         px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3"
         >
-          <p className="whitespace-nowrap">✨ Voices Behind Change</p>
+          <p className="whitespace-nowrap">✨Ideas That Move Markets</p>
         </div>
 
         {/* Heading */}
         <h1
           className="font-[400] leading-tight 
                        text-3xl sm:text-4xl md:text-5xl lg:text-[80px] 
-                       max-w-[90%] sm:max-w-[650px] md:max-w-[800px] lg:w-[975px]"
+                       max-w-[90%] sm:max-w-[650px] md:max-w-[743px] lg:w-[743px]"
         >
-          Exclusive Interviews <br className="hidden sm:block" />
-          with <span className="text-[#E25B2B]">Leaders & Innovators</span>
+          Insight That <span className="text-[#E25B2B]">Shapes Tomorrow.</span>
         </h1>
 
         {/* Subtext */}
@@ -72,9 +87,7 @@ const Interviews = () => {
                       max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl 
                       leading-relaxed"
         >
-          Dive into conversations that shape industries, nations, and futures.
-          From business visionaries to policy makers, our interviews bring you
-          first-hand perspectives on what’s next.
+          The Business Insight delivers bold perspectives, market intelligence, and stories that drive transformation across the world.
         </p>
       </div>
       <div className="flex relative top-50 ml-10 items-center justify-start w-64 h-9 px-3 rounded-md border border-orange-600/40 bg-orange-950/10 backdrop-blur-sm focus-within:border-orange-500/70 transition-all duration-200">
@@ -84,7 +97,47 @@ const Interviews = () => {
           placeholder="Search"
           className="flex-1 bg-transparent outline-none text-sm text-orange-100 placeholder:text-orange-500/60"
         />
-        <SlidersHorizontal className="w-4 h-4 text-orange-500 cursor-pointer hover:text-orange-400 transition-colors" />
+        <SlidersHorizontal className="w-4 h-4 text-orange-500 cursor-pointer hover:text-orange-400 transition-colors" 
+        onClick={() => setShowFilters((prev) => !prev)}/>
+        {showFilters && (
+        <div className="absolute top-12 left-0 w-full bg-[#1c1c1c] border border-orange-900/30 rounded-lg shadow-lg p-4 z-50 space-y-3">
+          <div>
+            <label className="block text-sm text-orange-400 mb-1">Country</label>
+            <select className="w-full bg-[#2b2b2b] border border-gray-700 rounded p-2 text-sm">
+              <option value="">All</option>
+              {countries.map((country, i) => (
+                <option key={i} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm text-orange-400 mb-1">Sector</label>
+            <select className="w-full bg-[#2b2b2b] border border-gray-700 rounded p-2 text-sm">
+              <option value="">All</option>
+              {sectors.map((sector, i) => (
+                <option key={i} value={sector}>
+                  {sector}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm text-orange-400 mb-1">Year</label>
+            <select className="w-full bg-[#2b2b2b] border border-gray-700 rounded p-2 text-sm">
+              <option value="">All</option>
+              {years.map((year, i) => (
+                <option key={i} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      )}
       </div>
       <section>
         <div className="absolute -top-160 w-full h-full">
@@ -102,19 +155,19 @@ const Interviews = () => {
   bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-10 lg:top-120 border-white/10"
         >
           <h1 className="text-[60px] font-sans font-[500]">
-            Exclusive Interviews
+            Articles
           </h1>
           <p className="text-[20px] font-sans font-[500]">
-            Unlock the insights of industry leaders
+            Explore our latest articles and insights for a fresh perspective on industry trends and news.
           </p>
 
           <div className="relative grid grid-cols-1 gap-[42px] md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 mt-10">
-            {interviews.map((interview) => (
-              <section key={interview.id} className="relative">
+            {articles.map((article) => (
+              <section key={article.id} className="relative">
                 <div className="relative">
                   <Image
-                    src={interview.image_url}
-                    alt={interview.name}
+                    src={article.image_url}
+                    alt={article.name}
                     width={633}
                     height={413}
                     className="object-cover rounded-md"
@@ -123,27 +176,27 @@ const Interviews = () => {
 
                   {/* Overlay text inside the image */}
                   <div className="absolute bottom-3 left-3 bg-black/20 text-white text-xs md:text-sm px-3 py-1 rounded-md border border-orange-500">
-                    {interview.sector}
+                    {article.sector}
                   </div>
                 </div>
 
                 <div className="mt-3 space-y-1 py-2">
                   <div className="flex items-center space-x-2">
                     <p className="text-[14px] md:text-[16px] font-sans font-[400] text-white/70">
-                      {interview.description}
+                      {article.description}
                     </p>
 
                     {/* Small orange dot separator */}
                     <span className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
 
                     <p className="text-[14px] md:text-[16px] font-sans font-[400] text-white/70">
-                      {interview.year}
+                      {article.year}
                     </p>
                   </div>
                   <h2 className="text-[24px] w-[514px] font-sans font-[500] text-white">
-                    {interview.name}
+                    {article.name}
                   </h2>
-                  <a href={interview.link} className="text-orange-500 hover:underline">
+                  <a href={article.link} className="text-orange-500 hover:underline">
                     Read more <ArrowUpRight className="inline-block w-4 h-4 ml-1" />
                   </a>
                 </div>
@@ -156,4 +209,4 @@ const Interviews = () => {
   );
 };
 
-export default Interviews;
+export default Articles;

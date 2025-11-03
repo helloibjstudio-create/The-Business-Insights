@@ -11,6 +11,8 @@ export default function AdminDashboard() {
     description: "",
     title: "",
     price: "",
+    year: "",
+    link: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -38,6 +40,8 @@ export default function AdminDashboard() {
         description: "",
         title: "",
         price: "",
+        year: "",
+        link: "",
       });
     }
   };
@@ -104,12 +108,20 @@ export default function AdminDashboard() {
               </div>
 
               <div>
-                <label className="block mb-2 text-sm">Description</label>
-                <textarea
+                <label className="block mb-2 text-sm">Country</label>
+                <input
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
-                  rows={4}
+                  className="w-full p-2 rounded bg-[#2b2b2b] border border-gray-700"
+                />
+              </div>
+              <div>
+                <label className="block mb-2 text-sm">Year</label>
+                <input
+                  name="year"
+                  value={formData.year}
+                  onChange={handleChange}
                   className="w-full p-2 rounded bg-[#2b2b2b] border border-gray-700"
                 />
               </div>
