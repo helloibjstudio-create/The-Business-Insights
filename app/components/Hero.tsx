@@ -15,6 +15,8 @@ import {
 } from "@/public";
 import { Hedvig_Letters_Serif } from "next/font/google";
 import HeroParallax from "./HeroParallax";
+import { useEffect, useState } from "react";
+import ScrollBackButton from "./ScrollBackButton";
 
 const hedvig = Hedvig_Letters_Serif({
   subsets: ["latin"],
@@ -22,6 +24,26 @@ const hedvig = Hedvig_Letters_Serif({
 });
 
 const Hero = () => {
+
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const vh = window.innerHeight;
+      if (window.scrollY > vh * 0.7) {
+        setVisible(true);
+      } else {
+        setVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   return (
     <main className="overflow-x-hidden relative bg-transparent">
       <HeroParallax />
@@ -472,6 +494,8 @@ const Hero = () => {
         </div>
       </footer>
       </AnimatePresence>
+
+      <ScrollBackButton />
     </main>
   );
 }

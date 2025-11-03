@@ -111,7 +111,7 @@ const yBackground = useTransform(smoothProgress, [0, 1], ["0%", "-10%"]);
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-          className="text-5xl md:text-7xl font-bold text-white leading-tight max-w-[700px]"
+          className="text-[90px] md:text-7xl font-[400] text-white leading-tight max-w-[605px]"
         >
           Business Insight You Can Trust
         </motion.h1>
@@ -120,7 +120,7 @@ const yBackground = useTransform(smoothProgress, [0, 1], ["0%", "-10%"]);
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.7 }}
-          className="mt-6 max-w-xl text-white/80 text-lg md:text-xl"
+          className="mt-6 max-w-xl font-sans font-[500] text-white/80 text-lg md:text-xl"
         >
           We are committed to providing you with extensive market intelligence
           in crucial business sectors across the world.
@@ -129,7 +129,7 @@ const yBackground = useTransform(smoothProgress, [0, 1], ["0%", "-10%"]);
         <motion.button
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
-          className="mt-10 bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-semibold tracking-wide text-lg shadow-md"
+          className="mt-10 bg-[#E8602E] hover:bg-white text-white font-sans cursor-pointer hover:text-[#E8602E] px-8 py-3 rounded-xl font-semibold tracking-wide text-lg shadow-md"
         >
           Explore
         </motion.button>
@@ -141,9 +141,9 @@ const yBackground = useTransform(smoothProgress, [0, 1], ["0%", "-10%"]);
         className="absolute z-30 bottom-0 w-full text-white h-screen bg-transparent px-8 md:px-16 flex items-center justify-center"
       >
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 100 }}
           animate={showNext ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-          transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           className="max-w-6xl w-full mx-auto flex flex-col justify-center"
         >
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 gap-6">
@@ -158,7 +158,7 @@ const yBackground = useTransform(smoothProgress, [0, 1], ["0%", "-10%"]);
             <motion.button
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              className="bg-orange-500 hover:bg-white text-white hover:text-orange-500 cursor-pointer px-6 sm:px-8 py-3 rounded-[10px] font-medium font-sans text-[16px] sm:text-[18px] md:text-[20px] transition"
+              className="bg-[#E8602E] hover:bg-white text-white hover:text-white cursor-pointer px-6 sm:px-8 py-3 rounded-[10px] font-medium font-sans text-[16px] sm:text-[18px] md:text-[20px] transition"
             >
               View All Interviews
             </motion.button>
