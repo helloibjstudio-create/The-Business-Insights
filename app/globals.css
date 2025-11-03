@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 
-body {
+html, body {
+  scroll-behavior: smooth;
   overflow-x: hidden;
+}
+
+body {
+  background: #000;
 }
 
 @keyframes orange-glow {

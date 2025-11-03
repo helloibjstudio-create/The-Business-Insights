@@ -1,5 +1,10 @@
-import Articles from "../components/Articles"; // adjust path as needed
+import Articles from "../components/Articles";
 
-export default function ArticlesPage() {
-  return <Articles />;
+
+export default function Home() {
+  return (
+    <main>
+      <Articles />
+    </main>
+  );
 }
