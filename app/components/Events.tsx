@@ -12,7 +12,7 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 
-interface Report {
+interface Events {
   id: number;
   title: string;
   image_url: string;
@@ -21,14 +21,14 @@ interface Report {
   link: string;
 }
 
-const Reports = () => {
-  const [reports, setReports] = useState<Report[]>([]);
+const Events = () => {
+  const [events, setEvents] = useState<Events[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/reports")
+    fetch("http://localhost:5000/api/events")
       .then((res) => res.json())
-      .then((data) => setReports(data))
-      .catch((err) => console.error("Error fetching reports:", err));
+      .then((data) => setEvents(data))
+      .catch((err) => console.error("Error fetching events:", err));
     console.log("FormData being sent:", FormData);
   }, []);
 
@@ -56,9 +56,9 @@ const Reports = () => {
           className="inline-flex items-center justify-center 
                         w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
                         border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] 
-                        px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3"
+                        px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide bg-transparent glow-orange3"
         >
-          <p className="whitespace-nowrap">✨Ideas That Move Markets</p>
+          <p className="whitespace-nowrap">🔥Where Insight Meets Experience</p>
         </div>
 
         {/* Heading */}
@@ -67,31 +67,20 @@ const Reports = () => {
                        text-3xl sm:text-4xl md:text-5xl lg:text-[80px] 
                        max-w-[90%] sm:max-w-[650px] md:max-w-[800px] lg:w-[975px]"
         >
-          Reports
+          Engaging <span className="text-[#E8602E]">Insights</span>
         </h1>
 
         {/* Subtext */}
         <p
           className="text-gray-300 text-xs sm:text-sm md:text-base lg:text-lg 
-                      max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl 
+                      max-w-[90%] font-sans sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl 
                       leading-relaxed"
         >
-          Browse our latest publications and gain a deeper understanding of
-          emerging trends and critical topics through our in-depth analysis,
-          interviews with local business and political leaders and comprehensive
-          data and statistics. ​
+          The Business Insight organizes frequent round table discussions and events, gathering key stakeholders to tackle pressing matters. We not only attend but also collaborate with chosen organizers of industry conferences to present you with premier networking and knowledge-sharing opportunities.
         </p>
       </div>
-      <div className="flex relative top-50 ml-10 items-center justify-start w-64 h-9 px-3 rounded-md border border-orange-600/40 bg-orange-950/10 backdrop-blur-sm focus-within:border-orange-500/70 transition-all duration-200">
-        <Search className="w-4 h-4 text-orange-500 mr-2" />
-        <input
-          type="text"
-          placeholder="Search"
-          className="flex-1 bg-transparent outline-none text-sm text-orange-100 placeholder:text-orange-500/60"
-        />
-        <SlidersHorizontal className="w-4 h-4 text-orange-500 cursor-pointer hover:text-orange-400 transition-colors" />
-      </div>
-      <section>
+      
+      <section className="relative top-20">
         <div className="absolute -top-270 w-full h-full">
           <Image
             src={thirdOrange}
@@ -107,16 +96,16 @@ const Reports = () => {
   bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-20 lg:top-65 border-white/10"
         >
           <div className="relative grid grid-cols-1 gap-[42px] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-10">
-            {reports.map((report) => (
+            {events.map((event) => (
               <section
-                key={report.id}
+                key={event.id}
                 className="relative bg-transparent text-white font-sans"
               >
                 {/* === IMAGE === */}
                 <div className="relative">
                   <Image
-                    src={report.image_url}
-                    alt={report.title}
+                    src={event.image_url}
+                    alt={event.title}
                     width={633}
                     height={413}
                     className="object-cover rounded-md shadow-lg"
@@ -127,22 +116,22 @@ const Reports = () => {
                 {/* === TEXT SECTION === */}
                 <div className="mt-4">
                   <h2 className="text-[22px] md:text-[24px] font-medium mb-1">
-                    {report.title}
+                    {event.title}
                   </h2>
 
                   {/* === PRICES === */}
                   <div className="flex items-center gap-3 mb-2">
                     <span className="text-[#E8602E] text-[20px] font-semibold">
-                      ${report.price}.00
+                      ${event.price}.00
                     </span>
                     <span className="text-gray-400 line-through text-[16px]">
-                      ${report.discounted_price}.00
+                      ${event.discounted_price}.00
                     </span>
                   </div>
 
                   {/* === LINK === */}
                   <a
-                    href={report.link}
+                    href={event.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center text-[#E8602E] hover:text-white font-medium transition-colors duration-200"
@@ -290,4 +279,4 @@ const Reports = () => {
   );
 };
 
-export default Reports;
+export default Events;

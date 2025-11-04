@@ -11,7 +11,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-30 px-6 sm:px-10 py-6 flex items-center justify-between text-white backdrop-blur-md  bg-black/20 border-b border-white/10 transition-all">
+    <nav className="fixed top-0 left-0 w-full z-50 px-6 sm:px-10 py-6 flex items-center justify-between text-white backdrop-blur-md  bg-black/20 border-b border-white/10 transition-all">
       {/* === LOGO === */}
       <Link href="/" className="flex items-center">
         <Image
@@ -87,7 +87,7 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 bg-black/90 backdrop-blur-7xl z-30 flex flex-col items-center justify-center h-screen space-y-10 text-white text-2xl font-semibold font-sans"
+            className="fixed inset-0 bg-black/90 backdrop-blur-7xl z-50 flex flex-col items-center justify-center h-screen space-y-10 text-white text-2xl font-semibold font-sans"
           >
             {[
               { name: "Interviews", href: "/Interviews" },

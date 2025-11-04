@@ -6,9 +6,21 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-export default function AdminDashboard() {
+export default function AdminDashboard({
+  Interviews,
+  Articles,
+  Reports,
+  Events,
+}: {
+  Interviews: any[];
+  Articles: any[];
+  Reports: any[];
+  Events: any[];
+}) {
+  const [activeTab, setActiveTab] = useState<"interviews" | "articles" | "reports" | "events">("interviews");
+
    const [view, setView] = useState<"list" | "create">("list");
-  const [category, setCategory] = useState("interviews");
+ 
   
   const [formData, setFormData] = useState({
     name: "",
@@ -19,6 +31,7 @@ export default function AdminDashboard() {
     price: "",
     year: "",
     link: "",
+    discounted_price: "",
   });
 
   interface Interview {
@@ -29,17 +42,76 @@ export default function AdminDashboard() {
   description: string;
   year: string;
   link: string;
+  discounted_price: string;
+}
+  interface Article {
+  id: number;
+  name: string;
+  title: string;
+  sector: string;
+  image_url: string;
+  description: string;
+  year: string;
+  link: string;
+  discounted_price: string;
+}
+  interface Reports {
+  id: number;
+  name: string;
+  title: string;
+  sector: string;
+  image_url: string;
+  description: string;
+  year: string;
+  link: string;
+  discounted_price: string;
+}
+  interface Events {
+  id: number;
+  name: string;
+  title: string;
+  sector: string;
+  image_url: string;
+  description: string;
+  year: string;
+  link: string;
+  discounted_price: string;
 }
 
   const [interviews, setInterviews] = useState<Interview[]>([]);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [reports, setReports] = useState<Reports[]>([]);
+  const [events, setEvents] = useState<Events[]>([]);
+
+    const getActiveData = () => {
+    switch (activeTab) {
+      case "articles":
+        return articles;
+      case "reports":
+        return reports;
+      case "events":
+        return events;
+      default:
+        return interviews;
+    }
+  };
+  const activeData = getActiveData();
   
     useEffect(() => {
-      fetch("http://localhost:5000/api/interviews")
-        .then((res) => res.json())
-        .then((data) => setInterviews(data))
-        .catch((err) => console.error("Error fetching interviews:", err));
-        console.log("FormData being sent:", formData);
-    }, []);
+  const endpoints = ["interviews", "articles", "reports", "events"];
+
+  endpoints.forEach((endpoint) => {
+    fetch(`http://localhost:5000/api/${endpoint}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (endpoint === "interviews") setInterviews(data);
+        if (endpoint === "articles") setArticles(data);
+        if (endpoint === "reports") setReports(data);
+        if (endpoint === "events") setEvents(data);
+      })
+      .catch((err) => console.error(`Error fetching ${endpoint}:`, err));
+  });
+}, []);
 
  
 
@@ -48,31 +120,42 @@ export default function AdminDashboard() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const res = await fetch(`http://localhost:5000/api/${category}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+  const res = await fetch(`http://localhost:5000/api/${activeTab}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  });
+
+  const data = await res.json();
+  if (data.error) {
+    alert("Error: " + data.error);
+  } else {
+    alert(`${activeTab} uploaded successfully!`);
+    setFormData({
+      name: "",
+      sector: "",
+      image_url: "",
+      description: "",
+      title: "",
+      price: "",
+      year: "",
+      link: "",
+      discounted_price: "",
     });
-
-    const data = await res.json();
-    if (data.error) {
-      alert("Error: " + data.error);
-    } else {
-      alert(`${category} uploaded successfully!`);
-      setFormData({
-        name: "",
-        sector: "",
-        image_url: "",
-        description: "",
-        title: "",
-        price: "",
-        year: "",
-        link: "",
+    // Re-fetch updated data
+    fetch(`http://localhost:5000/api/${activeTab}`)
+      .then((res) => res.json())
+      .then((newData) => {
+        if (activeTab === "interviews") setInterviews(newData);
+        if (activeTab === "articles") setArticles(newData);
+        if (activeTab === "reports") setReports(newData);
+        if (activeTab === "events") setEvents(newData);
       });
-    }
-  };
+    setView("list");
+  }
+};
 
 
 
@@ -83,15 +166,15 @@ export default function AdminDashboard() {
       <aside className="w-64 bg-transparent backdrop-blur-2xl rounded-r-[20px] p-6 space-y-4 border-r border-gray-700">
         <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
         <ul className="space-y-3">
-          {["interviews", "articles", "reports", "events"].map((item) => (
+          {["interviews", "articles", "reports", "events"].map((tab) => (
             <li
-              key={item}
-              onClick={() => setCategory(item)}
+              key={tab}
+              onClick={() => setActiveTab(tab as any)}
               className={`cursor-pointer p-2 rounded-md transition ${
-                category === item ? "text-orange-500 " : "hover:text-gray-700"
+                activeTab === tab ? "text-orange-500 " : "hover:text-gray-700"
               }`}
             >
-              {item.charAt(0).toUpperCase() + item.slice(1)}
+              {tab}
             </li>
           ))}
         </ul>
@@ -99,7 +182,7 @@ export default function AdminDashboard() {
 
       {/* Main Content */}
       <main className="flex-1 p-10 overflow-auto">
-        <h2 className="text-3xl text-center font-semibold mb-8 capitalize">{category}</h2>
+        <h2 className="text-3xl text-center font-semibold mb-8 capitalize">{activeTab}</h2>
         <div className="flex items-center justify-between mb-10">
           <div className="flex items-center gap-4">
             <div className="relative">
@@ -130,7 +213,7 @@ export default function AdminDashboard() {
                 className="bg-black/30 backdrop-blur-xl rounded-2xl p-6 border border-white/10 shadow-xl"
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {interviews.map((item, index) => (
+                  {activeData.map((item, index) => (
                     <div
                       key={index}
                       className="bg-black/50 border border-white/10 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
@@ -167,7 +250,7 @@ export default function AdminDashboard() {
           className="bg-transparent backdrop-blur-2xl m-auto p-8 rounded-xl shadow-md max-w-2xl space-y-6 border border-gray-800"
         >
           {/* Fields depending on category */}
-          {(category === "interviews" || category === "articles" || category === "events") && (
+          {(activeTab === "interviews" || activeTab === "articles" || activeTab === "events") && (
             <>
               <div>
                 <label className="block mb-2 text-sm">Name</label>
@@ -220,7 +303,7 @@ export default function AdminDashboard() {
             </>
           )}
 
-          {category === "reports" && (
+          {activeTab === "reports" && (
             <>
               <div>
                 <label className="block mb-2 text-sm">Image URL</label>
@@ -228,7 +311,7 @@ export default function AdminDashboard() {
                   name="image_url"
                   value={formData.image_url}
                   onChange={handleChange}
-                  className="w-full p-2 rounded bg-[#2b2b2b] border border-gray-700"
+                  className="w-full p-2 rounded bg-transparent border border-gray-700"
                 />
               </div>
 
@@ -238,7 +321,7 @@ export default function AdminDashboard() {
                   name="title"
                   value={formData.title}
                   onChange={handleChange}
-                  className="w-full p-2 rounded bg-[#2b2b2b] border border-gray-700"
+                  className="w-full p-2 rounded bg-transparent border border-gray-700"
                 />
               </div>
 
@@ -249,7 +332,17 @@ export default function AdminDashboard() {
                   type="number"
                   value={formData.price}
                   onChange={handleChange}
-                  className="w-full p-2 rounded bg-[#2b2b2b] border border-gray-700"
+                  className="w-full p-2 rounded bg-transparent border border-gray-700"
+                />
+              </div>
+              <div>
+                <label className="block mb-2 text-sm">Discounted Price</label>
+                <input
+                  name="discounted_price"
+                  type="number"
+                  value={formData.discounted_price}
+                  onChange={handleChange}
+                  className="w-full p-2 rounded bg-transparent border border-gray-700"
                 />
               </div>
             </>
@@ -260,7 +353,7 @@ export default function AdminDashboard() {
             type="submit"
             className="bg-orange-500 text-black px-6 py-2 rounded-full font-semibold hover:bg-orange-600 transition"
           >
-            Publish {category}
+            Publish {activeTab}
           </button>
           <button
                       type="button"

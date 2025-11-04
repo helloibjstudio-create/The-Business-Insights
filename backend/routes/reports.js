@@ -14,16 +14,18 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
  * Add a new interview
  */
 router.post("/", async (req, res) => {
-  const { name, sector, image_url, description, year, link } = req.body;
+  const { title, image_url, price, discounted_price, link } = req.body;
 
   const { data, error } = await supabase
     .from("reports")
-    .insert([{ name, sector, image_url, description, year, link }])
+    .insert([{ title, image_url, price, discounted_price, link }])
     .select();
 
   if (error) return res.status(400).json({ error: error.message });
   res.json({ success: true, data });
 });
+
+console.log("Received body:", req.body);
 
 /**
  * GET /api/interviews
