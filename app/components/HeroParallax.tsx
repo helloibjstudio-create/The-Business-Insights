@@ -77,7 +77,7 @@ export default function HeroParallax() {
       setTimeout(() => {
         setAutoScrolling(false);
         setShowNext(true);
-      }, isMobile ? 1600 : 2200);
+      }, isMobile ? 1600 : 300);
     }
   };
 
@@ -146,8 +146,8 @@ export default function HeroParallax() {
       >
         <motion.div
           initial={{ opacity: 0, y: 100 }}
-          animate={showNext ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          animate={showNext ? { opacity: 4, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
           className="max-w-[1300px] w-full mx-auto flex flex-col justify-center"
         >
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10 gap-6">
