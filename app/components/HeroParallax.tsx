@@ -48,52 +48,42 @@ export default function HeroParallax() {
   const nextSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (autoScrolling) return;
+  const handleScroll = () => {
+    if (autoScrolling) return;
 
-      const y = window.scrollY;
-      const triggerDown = vh * 0.45;
-      const triggerUp = vh * 0.25;
+    const y = window.scrollY;
+    const vh = window.innerHeight;
+    const isMobile = window.innerWidth <= 768;
 
-      // === Get the top of the next section dynamically ===
-      const nextTop =
-        nextSectionRef.current?.getBoundingClientRect().top! + window.scrollY;
+    // Trigger earlier on mobile (faster feel)
+    const triggerDown = isMobile ? vh * 0.3 : vh * 0.45;
 
-      // Scroll down auto transition
-      if (!scrolled && y > triggerDown) {
-        setScrolled(true);
-        setAutoScrolling(true);
+    // Get the next section top position
+    const nextTop =
+      nextSectionRef.current?.getBoundingClientRect().top! + window.scrollY;
 
-        // If mobile, scroll to the actual top of next section
-        if (window.innerWidth <= 768 && nextSectionRef.current) {
-          window.scrollTo({ top: nextTop, behavior: "smooth" });
-        } else {
-          window.scrollTo({ top: vh, behavior: "smooth" });
-        }
+    // Smooth scroll down once hero passes threshold
+    if (!scrolled && y > triggerDown) {
+      setScrolled(true);
+      setAutoScrolling(true);
 
-        setTimeout(() => {
-          setAutoScrolling(false);
-          setShowNext(true);
-        }, 1300);
-      }
+      // Always scroll to exact start of the next section
+      window.scrollTo({
+        top: nextTop,
+        behavior: "smooth",
+      });
 
-      // Scroll back up auto transition
-      if (scrolled && y < triggerUp) {
-        setScrolled(false);
-        setAutoScrolling(true);
-        setShowNext(false);
+      // Delay to avoid mid-scroll flickers
+      setTimeout(() => {
+        setAutoScrolling(false);
+        setShowNext(true);
+      }, isMobile ? 1600 : 2200);
+    }
+  };
 
-        window.scrollTo({ top: 0, behavior: "smooth" });
-
-        setTimeout(() => {
-          setAutoScrolling(false);
-        }, 1000);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrolled, autoScrolling, vh]);
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [scrolled, autoScrolling, vh]);
 
 
   return (

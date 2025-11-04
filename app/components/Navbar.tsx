@@ -11,7 +11,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-30 px-6 sm:px-10 py-6 flex items-center justify-between text-white backdrop-blur-md bg-black/20 border-b border-white/10 transition-all">
+    <nav className="fixed top-0 left-0 w-full z-30 px-6 sm:px-10 py-6 flex items-center justify-between text-white backdrop-blur-md  bg-black/20 border-b border-white/10 transition-all">
       {/* === LOGO === */}
       <Link href="/" className="flex items-center">
         <Image
