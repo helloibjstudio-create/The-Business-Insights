@@ -16,7 +16,7 @@ interface Interview {
   link: string;
 }
 
-const Interviews = () => {
+const Reports = () => {
   const [interviews, setInterviews] = useState<Interview[]>([]);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const Interviews = () => {
                         border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] 
                         px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3"
         >
-          <p className="whitespace-nowrap">✨ Voices Behind Change</p>
+          <p className="whitespace-nowrap">✨Ideas That Move Markets</p>
         </div>
 
         {/* Heading */}
@@ -62,8 +62,7 @@ const Interviews = () => {
                        text-3xl sm:text-4xl md:text-5xl lg:text-[80px] 
                        max-w-[90%] sm:max-w-[650px] md:max-w-[800px] lg:w-[975px]"
         >
-          Exclusive Interviews <br className="hidden sm:block" />
-          with <span className="text-[#E25B2B]">Leaders & Innovators</span>
+          Reports
         </h1>
 
         {/* Subtext */}
@@ -72,9 +71,7 @@ const Interviews = () => {
                       max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl 
                       leading-relaxed"
         >
-          Dive into conversations that shape industries, nations, and futures.
-          From business visionaries to policy makers, our interviews bring you
-          first-hand perspectives on what’s next.
+          Browse our latest publications and gain a deeper understanding of emerging trends and critical topics through our in-depth analysis, interviews with local business and political leaders and comprehensive data and statistics. ​
         </p>
       </div>
       <div className="flex relative top-30 ml-10 items-center justify-start w-64 h-9 px-3 rounded-md border border-orange-600/40 bg-orange-950/10 backdrop-blur-sm focus-within:border-orange-500/70 transition-all duration-200">
@@ -108,7 +105,7 @@ const Interviews = () => {
             Unlock the insights of industry leaders
           </p>
 
-          <div className="relative grid grid-cols-1 gap-[42px] md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 mt-10">
+          <div className="relative grid grid-cols-1 gap-[42px] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-10">
             {interviews.map((interview) => (
               <section key={interview.id} className="relative">
                 <div className="relative">
@@ -286,4 +283,4 @@ const Interviews = () => {
   );
 };
 
-export default Interviews;
+export default Reports;

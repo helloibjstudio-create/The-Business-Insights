@@ -8,6 +8,7 @@ export const dhl = "https://res.cloudinary.com/dnzntr9lt/image/upload/v176184152
 export const subtract = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761851416/Subtract_ntiwbm.png"
 export const mailbox = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761941720/image_8_oigpnz.png"
 export const InterviewBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761949081/background_xkhjfp.png"
+export const menuIconLine = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762185944/menu-line_1_kjt38u.svg"
 
 export const interviews = [
   {

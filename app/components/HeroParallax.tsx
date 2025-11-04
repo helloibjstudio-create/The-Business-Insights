@@ -11,6 +11,14 @@ export default function HeroParallax() {
   const [scrolled, setScrolled] = useState(false);
   const [autoScrolling, setAutoScrolling] = useState(false);
   const [showNext, setShowNext] = useState(false);
+  const [vh, setVh] = useState<number>(typeof window !== "undefined" ? window.innerHeight : 0);
+
+  // === HANDLE RESIZE FOR RESPONSIVE SCROLL ===
+  useEffect(() => {
+    const handleResize = () => setVh(window.innerHeight);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // === SCROLL PROGRESS ===
   const { scrollYProgress } = useScroll({
@@ -20,98 +28,103 @@ export default function HeroParallax() {
 
   // === SPRING FOR SMOOTHNESS ===
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 60,
-    damping: 18,
-    mass: 0.4,
+    stiffness: 12,
+    damping: 20,
+    mass: 0.6,
   });
 
-  // === PARALLAX ANIMATIONS ===
-  // Background zooms out gently
-const scale = useTransform(smoothProgress, [0, 1], [1, 1.6]);
-const yBackground = useTransform(smoothProgress, [0, 1], ["0%", "-10%"]);
+  // === PARALLAX ANIMATIONS (RESPONSIVE) ===
+  const scale = useTransform(smoothProgress, [0, 1], [1, 1.6]);
+  const yBackground = useTransform(smoothProgress, [0, 1], ["0%", "-8%"]);
 
-  // Hero text fades out and moves up
   const opacityText = useTransform(smoothProgress, [0, 0.45], [1, 0]);
-  const yText = useTransform(smoothProgress, [0, 0.45], ["0%", "-10%"]);
+  const yText = useTransform(smoothProgress, [0, 0.45], ["0%", "-12%"]);
 
-  // Next section fades in slightly earlier and moves up
   const opacityNextSection = useTransform(smoothProgress, [0.35, 1], [0, 1]);
   const yNextSection = useTransform(smoothProgress, [0.45, 1], ["15%", "0%"]);
 
-  // === AUTO SCROLL CONTROL ===
+  // === AUTO SCROLL CONTROL (ADAPTIVE) ===
+    // === AUTO SCROLL CONTROL (ADAPTIVE) ===
+  const nextSectionRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleScroll = () => {
       if (autoScrolling) return;
 
       const y = window.scrollY;
-      const vh = window.innerHeight;
+      const triggerDown = vh * 0.45;
+      const triggerUp = vh * 0.25;
 
-      // Smooth transition trigger
-      if (!scrolled && y > vh * 0.45) {
+      // === Get the top of the next section dynamically ===
+      const nextTop =
+        nextSectionRef.current?.getBoundingClientRect().top! + window.scrollY;
+
+      // Scroll down auto transition
+      if (!scrolled && y > triggerDown) {
         setScrolled(true);
         setAutoScrolling(true);
 
-        window.scrollTo({
-          top: vh,
-          behavior: "smooth",
-        });
+        // If mobile, scroll to the actual top of next section
+        if (window.innerWidth <= 768 && nextSectionRef.current) {
+          window.scrollTo({ top: nextTop, behavior: "smooth" });
+        } else {
+          window.scrollTo({ top: vh, behavior: "smooth" });
+        }
 
         setTimeout(() => {
           setAutoScrolling(false);
           setShowNext(true);
-        }, 1600);
+        }, 1300);
       }
 
-      // Scroll back up
-      if (scrolled && y < vh * 0.3) {
+      // Scroll back up auto transition
+      if (scrolled && y < triggerUp) {
         setScrolled(false);
         setAutoScrolling(true);
         setShowNext(false);
 
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
 
         setTimeout(() => {
           setAutoScrolling(false);
-        }, 1300);
+        }, 1000);
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrolled, autoScrolling]);
+  }, [scrolled, autoScrolling, vh]);
+
 
   return (
-    <section ref={ref} className="relative h-[200vh] overflow-hidden bg-black">
+    <section ref={ref} className="relative  h-[250vh] md:h-[200vh] lg:h-[200vh] overflow-hidden bg-black">
       <Navbar />
 
-      {/* === BACKGROUND IMAGE === */}
+      {/* === BACKGROUND === */}
       <motion.div
         style={{ scale, y: yBackground }}
-        className="absolute w-full h-[2000px] inset-0 z-0"
+        className="absolute w-full h-[220vh] inset-0 z-0"
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent z-[5] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/70 to-black z-[5] pointer-events-none" />
         <Image
           src={BusinessHero}
-          alt="Earth Background"
+          alt="Hero Background"
           fill
           priority
           className="object-cover object-center brightness-75"
         />
       </motion.div>
 
-      {/* === HERO CONTENT === */}
+      {/* === HERO TEXT === */}
       <motion.div
         style={{ opacity: opacityText, y: yText }}
-        className="relative z-10 flex flex-col items-start justify-center h-screen text-left px-6 md:px-20"
+        className="relative z-10 flex flex-col items-start justify-center h-screen px-[clamp(1rem,5vw,6rem)] text-left"
       >
         <motion.h1
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-          className="text-[90px] md:text-7xl font-[400] text-white leading-tight max-w-[605px]"
+          transition={{ duration: 1.2, delay: 0.3 }}
+          className="font-[400] pt-5 lg:pt-20 text-white leading-tight max-w-[min(90%,690px)] text-[clamp(3.2rem,6.5vw,5.7rem)]"
         >
           Business Insight You Can Trust
         </motion.h1>
@@ -119,8 +132,8 @@ const yBackground = useTransform(smoothProgress, [0, 1], ["0%", "-10%"]);
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 0.7 }}
-          className="mt-6 max-w-xl font-sans font-[500] text-white/80 text-lg md:text-xl"
+          transition={{ duration: 1, delay: 0.7 }}
+          className="mt-4 max-w-[min(90%,550px)] font-sans text-white/80 font-[500] text-[clamp(1rem,2.5vw,1.3rem)] leading-relaxed"
         >
           We are committed to providing you with extensive market intelligence
           in crucial business sectors across the world.
@@ -129,7 +142,7 @@ const yBackground = useTransform(smoothProgress, [0, 1], ["0%", "-10%"]);
         <motion.button
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
-          className="mt-10 bg-[#E8602E] hover:bg-white text-white font-sans cursor-pointer hover:text-[#E8602E] px-8 py-3 rounded-xl font-semibold tracking-wide text-lg shadow-md"
+          className="mt-8 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] px-[clamp(1rem,4vw,2rem)] py-[clamp(0.6rem,1.5vw,1rem)] rounded-xl font-semibold tracking-wide font-sans text-[clamp(1rem,2vw,1.2rem)] shadow-md"
         >
           Explore
         </motion.button>
@@ -137,28 +150,29 @@ const yBackground = useTransform(smoothProgress, [0, 1], ["0%", "-10%"]);
 
       {/* === NEXT SECTION === */}
       <motion.div
+      ref={nextSectionRef}
         style={{ opacity: opacityNextSection, y: yNextSection }}
-        className="absolute z-30 bottom-0 w-full text-white h-screen bg-transparent px-8 md:px-16 flex items-center justify-center"
+        className="relative font-sans bottom-0 z-10 w-full h-screen flex items-center justify-center px-[clamp(1rem,5vw,5rem)] bg-transparent text-white"
       >
         <motion.div
           initial={{ opacity: 0, y: 100 }}
-          animate={showNext ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="max-w-6xl w-full mx-auto flex flex-col justify-center"
+          animate={showNext ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="max-w-[1300px] w-full mx-auto flex flex-col justify-center"
         >
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 gap-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10 gap-6">
             <div>
-              <h2 className="text-[36px] sm:text-[48px] md:text-[60px] font-semibold font-sans">
+              <h2 className="text-[clamp(1.8rem,5vw,3.5rem)] font-semibold font-sans">
                 Exclusive Interviews
               </h2>
-              <p className="text-gray-300 text-[16px] sm:text-[18px] md:text-[20px] font-sans mt-2">
+              <p className="text-gray-300 text-[clamp(1rem,2vw,1.25rem)] mt-2">
                 Unlock the insights of industry leaders
               </p>
             </div>
             <motion.button
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              className="bg-[#E8602E] hover:bg-white text-white hover:text-white cursor-pointer px-6 sm:px-8 py-3 rounded-[10px] font-medium font-sans text-[16px] sm:text-[18px] md:text-[20px] transition"
+              className="bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] cursor-pointer px-[clamp(1rem,4vw,2rem)] py-[clamp(0.6rem,1.2vw,1rem)] rounded-[10px] font-medium text-[clamp(1rem,2vw,1.25rem)]"
             >
               View All Interviews
             </motion.button>
@@ -168,15 +182,15 @@ const yBackground = useTransform(smoothProgress, [0, 1], ["0%", "-10%"]);
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={showNext ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
+            transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[clamp(1rem,2vw,2rem)]"
           >
             {interviews.map((person) => (
               <motion.div
                 key={person.name}
-                className="rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform"
+                className="rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-500"
               >
-                <div className="h-[300px] sm:h-[400px] relative">
+                <div className="relative h-[clamp(220px,40vw,300px)]">
                   <Image
                     src={person.img}
                     alt={person.name}
@@ -184,16 +198,16 @@ const yBackground = useTransform(smoothProgress, [0, 1], ["0%", "-10%"]);
                     className="object-cover"
                   />
                 </div>
-                <div className="pt-6 sm:pt-8 px-4">
-                  <h3 className="font-semibold text-[22px] sm:text-[26px] md:text-[30px] font-sans">
+                <div className="pt-[clamp(1rem,3vw,1.5rem)] px-[clamp(0.8rem,2vw,1.5rem)]">
+                  <h3 className="font-semibold text-[clamp(1.3rem,2.5vw,1.9rem)]">
                     {person.name}
                   </h3>
-                  <p className="text-[16px] sm:text-[18px] py-2.5 text-white font-sans mb-3">
+                  <p className="text-[clamp(0.9rem,2vw,1.1rem)] py-2 text-white mb-3">
                     {person.title}
                   </p>
                   <a
                     href={person.link}
-                    className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[16px] sm:text-[18px] font-sans"
+                    className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
                   >
                     Read More{" "}
                     <Image

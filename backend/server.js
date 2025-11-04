@@ -14,26 +14,26 @@ app.use(express.json());
 // Supabase setup
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-router.get("/", async (req, res) => {
-  try {
-    const [countries, sectors, years] = await Promise.all([
-      supabase.from("interviews").select("description").not("description", "is", null),
-      supabase.from("interviews").select("sector").not("sector", "is", null),
-      supabase.from("interviews").select("year").not("year", "is", null),
-    ]);
+// router.get("/", async (req, res) => {
+//   try {
+//     const [countries, sectors, years] = await Promise.all([
+//       supabase.from("interviews").select("description").not("description", "is", null),
+//       supabase.from("interviews").select("sector").not("sector", "is", null),
+//       supabase.from("interviews").select("year").not("year", "is", null),
+//     ]);
 
-    res.json({
-      countries: [...new Set(countries.data.map((c) => c.description))],
-      sectors: [...new Set(sectors.data.map((s) => s.sector))],
-      years: [...new Set(years.data.map((y) => y.year))],
-    });
-  } catch (error) {
-    console.error("Filter API error:", error);
-    res.status(500).json({ error: "Failed to fetch filters" });
-  }
-});
+//     res.json({
+//       countries: [...new Set(countries.data.map((c) => c.description))],
+//       sectors: [...new Set(sectors.data.map((s) => s.sector))],
+//       years: [...new Set(years.data.map((y) => y.year))],
+//     });
+//   } catch (error) {
+//     console.error("Filter API error:", error);
+//     res.status(500).json({ error: "Failed to fetch filters" });
+//   }
+// });
 
-export default router;
+// export default router;
 
 // Test Route
 app.get("/", (req, res) => {
