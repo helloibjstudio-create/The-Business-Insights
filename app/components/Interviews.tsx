@@ -45,7 +45,7 @@ const Interviews = () => {
       <Navbar />
 
       {/* Hero Content */}
-      <div className="relative top-0 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 md:pt-25 space-y-6">
+      <div className="relative top-40 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 md:pt-25 space-y-6">
         {/* Tagline */}
         <div
           className="inline-flex items-center justify-center 
@@ -77,7 +77,7 @@ const Interviews = () => {
           first-hand perspectives on what’s next.
         </p>
       </div>
-      <div className="flex relative top-30 ml-10 items-center justify-start w-64 h-9 px-3 rounded-md border border-orange-600/40 bg-orange-950/10 backdrop-blur-sm focus-within:border-orange-500/70 transition-all duration-200">
+      <div className="flex relative top-60 ml-10 items-center justify-start w-64 h-9 px-3 rounded-md border border-orange-600/40 bg-orange-950/10 backdrop-blur-sm focus-within:border-orange-500/70 transition-all duration-200">
         <Search className="w-4 h-4 text-orange-500 mr-2" />
         <input
           type="text"
@@ -87,7 +87,7 @@ const Interviews = () => {
         <SlidersHorizontal className="w-4 h-4 text-orange-500 cursor-pointer hover:text-orange-400 transition-colors" />
       </div>
       <section>
-        <div className="absolute -top-270 w-full h-full">
+        <div className="absolute -top-250 w-full h-full">
           <Image
             src={thirdOrange}
             alt="Third section banner"
@@ -99,7 +99,7 @@ const Interviews = () => {
 
         <section
           className="h-[3628px] relative w-[90%] justify-center m-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
-  bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-20 lg:top-45 border-white/10"
+  bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-20 lg:top-70 border-white/10"
         >
           <h1 className="text-[60px] font-sans font-[500]">
             Exclusive Interviews
