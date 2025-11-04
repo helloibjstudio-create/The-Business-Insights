@@ -97,7 +97,7 @@ export default function HeroParallax() {
 
 
   return (
-    <section ref={ref} className="relative  h-[250vh] md:h-[200vh] lg:h-[200vh] overflow-hidden bg-black">
+    <section ref={ref} className="relative  h-[280vh] md:h-[200vh] lg:h-[220vh] overflow-hidden bg-black">
       <Navbar />
 
       {/* === BACKGROUND === */}

@@ -48,7 +48,7 @@ const Navbar = () => {
       <motion.button
         whileTap={{ scale: 0.9 }}
         onClick={() => setMenuOpen(!menuOpen)}
-        className="hidden md:flex text-white focus:outline-none z-40 relative"
+        className="md:hidden flex text-white focus:outline-none z-40 relative"
       >
         <motion.div
           animate={menuOpen ? { rotate: 180 } : { rotate: 0 }}

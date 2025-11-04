@@ -103,7 +103,7 @@ const Hero = () => {
             src={thirdOrange}
             alt="Background"
             fill
-            className="relative inset-0 object-cover"
+            className="absolute inset-0 object-contain h-full w-full"
           />
           <Image
             src={dhl}
@@ -115,7 +115,7 @@ const Hero = () => {
         </div>
 
         {/* --- MORE INTERVIEWS --- */}
-        <section key="more-interviews" className="max-w-7xl mx-auto w-[90%] text-white py-16 px-4 sm:px-6 md:px-12 lg:px-20 backdrop-blur-2xl relative font-sans bg-white/3 border border-white/10 rounded-2xl">
+        <section key="more-interviews" className="max-w-7xl mx-auto w-[90%] text-white py-16 px-4 -top-40 sm:px-6 md:px-12 lg:px-20 backdrop-blur-2xl relative font-sans bg-white/3 border border-white/10 rounded-2xl">
           <h2 className="text-[32px] sm:text-[48px] md:text-[60px] font-semibold mb-8 md:mb-12 text-center md:text-left">
             More Interviews
           </h2>
