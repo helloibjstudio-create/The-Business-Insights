@@ -41,11 +41,7 @@ export default function AdminDashboard() {
         console.log("FormData being sent:", formData);
     }, []);
 
-  const variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-    exit: { opacity: 0, y: -30, transition: { duration: 0.4 } },
-  };
+ 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -77,6 +73,8 @@ export default function AdminDashboard() {
       });
     }
   };
+
+
 
   return (
     <div className="min-h-screen bg-transparent font-sans font-[500] text-white flex">
@@ -126,7 +124,6 @@ export default function AdminDashboard() {
         {view === "list" ? (
               <motion.div
                 key="list"
-                variants={variants}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
