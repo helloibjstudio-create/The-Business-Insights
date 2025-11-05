@@ -29,7 +29,7 @@ const Events = () => {
 
   // === Fetch Events ===
   useEffect(() => {
-    fetch("http://localhost:5000/api/events")
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/events`)
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.error("Error fetching events:", err));

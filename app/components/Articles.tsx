@@ -47,7 +47,7 @@ const Articles = () => {
 
   // Fetch articles
   useEffect(() => {
-    fetch("http://localhost:5000/api/articles")
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/articles`)
       .then((res) => res.json())
       .then((data) => setArticles(data))
       .catch((err) => console.error("Error fetching articles:", err));

@@ -30,7 +30,7 @@ const Interviews = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/interviews")
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/interviews`)
       .then((res) => res.json())
       .then((data) => setInterviews(data))
       .catch((err) => console.error("Error fetching interviews:", err));
