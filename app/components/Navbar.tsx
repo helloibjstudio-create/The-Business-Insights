@@ -29,7 +29,7 @@ const Navbar = () => {
         <li><Link href="/articles" className="hover:text-orange-400">Articles</Link></li>
         <li><Link href="/reports" className="hover:text-orange-400">Reports</Link></li>
         <li><Link href="/Events" className="hover:text-orange-400">Events</Link></li>
-        <li><Link href="/About" className="hover:text-orange-400">About Us</Link></li>
+        <li><Link href="/about" className="hover:text-orange-400">About Us</Link></li>
       </ul>
 
       {/* === SEARCH (DESKTOP ONLY) === */}

@@ -8,7 +8,10 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "*",  // or specify your frontend URL
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}));
 app.use(express.json());
 
 // Supabase setup
@@ -52,10 +55,10 @@ app.get("/test-db", async (req, res) => {
 // 🟠 INTERVIEWS
 // ===================================================================
 app.post("/api/interviews", async (req, res) => {
-  const { name, sector, image_url, description, year, link } = req.body;
+  const { name, sector, image_url, description, country, year, link } = req.body;
   const { data, error } = await supabase
     .from("interviews")
-    .insert([{ name, sector, image_url, description, year, link }]);
+    .insert([{ name, sector, image_url, description, country, year, link }]);
 
   if (error) return res.status(400).json({ error: error.message });
   res.json({ success: true, data });
@@ -72,10 +75,10 @@ app.get("/api/interviews", async (req, res) => {
 // 🟢 ARTICLES
 // ===================================================================
 app.post("/api/articles", async (req, res) => {
-  const { name, sector, image_url, description } = req.body;
+  const { name, sector, image_url, description, country, year, } = req.body;
   const { data, error } = await supabase
     .from("articles")
-    .insert([{ name, sector, image_url, description }]);
+    .insert([{ name, sector, image_url, description, country, year, }]);
 
   if (error) return res.status(400).json({ error: error.message });
   res.json({ success: true, data });
@@ -92,10 +95,10 @@ app.get("/api/articles", async (req, res) => {
 // 🔵 REPORTS
 // ===================================================================
 app.post("/api/reports", async (req, res) => {
-  const { image_url, title, price } = req.body;
+  const { image_url, title, price, discounted_price,  } = req.body;
   const { data, error } = await supabase
     .from("reports")
-    .insert([{ image_url, title, price }]);
+    .insert([{ image_url, title, price, discounted_price,  }]);
 
   if (error) return res.status(400).json({ error: error.message });
   res.json({ success: true, data });
@@ -112,10 +115,10 @@ app.get("/api/reports", async (req, res) => {
 // 🔴 EVENTS
 // ===================================================================
 app.post("/api/events", async (req, res) => {
-  const { name, sector, image_url, description } = req.body;
+  const { name, sector, image_url, description, country, state, year } = req.body;
   const { data, error } = await supabase
     .from("events")
-    .insert([{ name, sector, image_url, description }]);
+    .insert([{ name, sector, image_url, description, country, state, year }]);
 
   if (error) return res.status(400).json({ error: error.message });
   res.json({ success: true, data });
@@ -126,6 +129,74 @@ app.get("/api/events", async (req, res) => {
   if (error) return res.status(400).json({ error: error.message });
   res.json(data);
 });
+
+app.put("/api/:table/:id", async (req, res) => {
+  const { table, id } = req.params;
+  const updatedFields = req.body;
+
+  // 🧹 Convert empty strings to null for numeric fields
+  for (const key in updatedFields) {
+    if (updatedFields[key] === "") updatedFields[key] = null;
+  }
+
+  console.log(`🟡 Updating ${table} with ID ${id}:`, updatedFields);
+
+  const { data, error } = await supabase
+    .from(table)
+    .update(updatedFields)
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    console.error("❌ Update error:", error.message);
+    return res.status(400).json({ error: error.message });
+  }
+
+  res.json({ success: true, data });
+});
+
+// ===================================================================
+// 🗑️ UNIVERSAL DELETE ROUTE
+// ===================================================================
+app.delete("/api/:table/:id", async (req, res) => {
+  const { table, id } = req.params;
+  console.log(`🔴 Deleting from ${table} where id = '${id}'`);
+
+  // 👇 Try a quick existence check
+  const { data: checkData, error: checkError } = await supabase
+    .from(table)
+    .select("id")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (checkError) {
+    console.error("❌ Pre-check error:", checkError.message);
+    return res.status(400).json({ error: checkError.message });
+  }
+  console.log("🔎 Found before delete:", checkData);
+
+  const { data, error } = await supabase
+    .from(table)
+    .delete()
+    // 👇 Explicit cast to UUID
+    .eq("id", id.trim());
+
+  if (error) {
+    console.error("❌ Delete error:", error.message);
+    return res.status(400).json({ error: error.message });
+  }
+
+  if (!data || data.length === 0) {
+    console.warn(`⚠️ No record found with id = ${id} in ${table}`);
+    return res.json({ success: false, message: "No record found" });
+  }
+
+  console.log(`✅ Deleted 1 record from ${table}`);
+  res.json({ success: true });
+});
+
+
+
 
 
 // ===================================================================

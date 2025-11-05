@@ -1,11 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Phone, Mail, Linkedin, X, Github, Instagram } from "lucide-react";
 import logo from "@/public/logo.png"; // replace with your actual path
 import { BusinessLogo } from "@/public";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white py-10 md:py-14 font-sans">
+    <footer className="bg-black z-60 relative text-white py-10 md:py-14 font-sans">
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
         {/* Left Section */}
         <div className="space-y-5">
@@ -17,12 +18,12 @@ export default function Footer() {
             className="object-contain"
             priority
           />
-          <p className="text-sm text-gray-400 leading-relaxed max-w-sm">
+          <p className="text-sm text-white leading-relaxed max-w-sm">
             The Business Insight has been a global media entity delivering
             firsthand insights to investors, enterprises, and governments about
             the most vibrant markets worldwide.
           </p>
-          <div className="flex items-center space-x-4 text-gray-400">
+          <div className="flex items-center space-x-4 text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -78,13 +79,15 @@ export default function Footer() {
         {/* Middle Section */}
         <div>
           <h3 className="text-lg font-semibold mb-4">Company</h3>
-          <ul className="space-y-3 text-gray-400">
+          <ul className="space-y-3 text-white">
             <li className="hover:text-[#E25B2B] cursor-pointer transition">
               About us
             </li>
+            <Link href="/Terms">
             <li className="hover:text-[#E25B2B] cursor-pointer transition">
               Terms of Use
             </li>
+            </Link>
             <li className="hover:text-[#E25B2B] cursor-pointer transition">
               Cookies Policy
             </li>
@@ -100,7 +103,7 @@ export default function Footer() {
         {/* Right Section */}
         <div>
           <h3 className="text-lg font-semibold mb-4">Contact</h3>
-          <ul className="space-y-4 text-gray-400">
+          <ul className="space-y-4 text-white">
             <li className="flex items-center gap-3">
               <Phone size={18} className="text-[#E25B2B]" />
               <span>+123 456 7890</span>
@@ -128,7 +131,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Section */}
-      <div className="border-t border-gray-800 mt-10 pt-6 text-start px-9 text-gray-500 text-sm">
+      <div className="border-t border-gray-900 mt-10 pt-6 text-start px-9 text-white text-sm">
         © 2025 IBJ Studio x Hyperthesis. All rights reserved.
       </div>
     </footer>

@@ -9,6 +9,8 @@ export const subtract = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761
 export const mailbox = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761941720/image_8_oigpnz.png"
 export const InterviewBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761949081/background_xkhjfp.png"
 export const menuIconLine = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762185944/menu-line_1_kjt38u.svg"
+export const AboutHero = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762309372/background_1_xxpihx.png"
+export const AboutSecond = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762310856/Rectangle_5942_silglu.png"
 
 export const interviews = [
   {
