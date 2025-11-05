@@ -11,6 +11,8 @@ export const InterviewBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1
 export const menuIconLine = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762185944/menu-line_1_kjt38u.svg"
 export const AboutHero = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762309372/background_1_xxpihx.png"
 export const AboutSecond = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762310856/Rectangle_5942_silglu.png"
+export const ArticleBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762344981/background_2_znx25z.png"
+export const ReportBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762345231/background_3_iaw83v.png"
 
 export const interviews = [
   {

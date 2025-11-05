@@ -48,7 +48,7 @@ const Navbar = () => {
       <motion.button
         whileTap={{ scale: 0.9 }}
         onClick={() => setMenuOpen(!menuOpen)}
-        className="md:hidden flex text-white focus:outline-none z-40 relative"
+        className="md:hidden flex text-white focus:outline-none z-70 relative"
       >
         <motion.div
           animate={menuOpen ? { rotate: 180 } : { rotate: 0 }}
@@ -94,7 +94,7 @@ const Navbar = () => {
               { name: "Articles", href: "/articles" },
               { name: "Reports", href: "/reports" },
               { name: "Events", href: "/Events" },
-              { name: "About Us", href: "/About" },
+              { name: "About Us", href: "/about" },
             ].map((item, i) => (
               <motion.div
                 key={item.name}

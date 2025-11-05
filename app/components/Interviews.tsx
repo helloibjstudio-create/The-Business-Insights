@@ -5,11 +5,7 @@ import Image from "next/image";
 import Navbar from "../components/Navbar";
 import { InterviewBg, thirdOrange } from "@/public";
 import { useEffect, useState } from "react";
-import {
-  ArrowUpRight,
-  Search,
-  SlidersHorizontal,
-} from "lucide-react";
+import { ArrowUpRight, Search, SlidersHorizontal } from "lucide-react";
 import Footer from "./Footer";
 
 interface Interview {
@@ -38,7 +34,10 @@ const Interviews = () => {
 
   const totalPages = Math.ceil(interviews.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentInterviews = interviews.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const currentInterviews = interviews.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -97,14 +96,14 @@ const Interviews = () => {
       <Navbar />
 
       {/* Hero Content */}
-      <div className="relative top-40 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 md:pt-25 space-y-6">
+      <div className="relative md:h-screen top-20 md:top-0 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 md:pt-25 space-y-6">
         <div
           className="inline-flex items-center justify-center 
             w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
             border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] 
             px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3"
         >
-          <p className="whitespace-nowrap">✨ Voices Behind Change</p>
+          <p className="whitespace-nowrap font-sans">✨ Voices Behind Change</p>
         </div>
 
         <h1
@@ -140,7 +139,7 @@ const Interviews = () => {
 
       {/* Main Section */}
       <section>
-        <div className="absolute -top-250 w-full h-full">
+        <div className="absolute -top-440 md:-top-220 lg:-top-200 w-full h-full">
           <Image
             src={thirdOrange}
             alt="Third section banner"
@@ -151,18 +150,18 @@ const Interviews = () => {
         </div>
 
         <section
-          className="h-[2728px] mb-100 relative w-[90%] justify-center m-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
-          bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-20 lg:top-70 border-white/10"
+          className="relative top-50 mb-100 w-[90%] mx-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
+  bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] border-white/10 mt-20"
         >
-          <h1 className="text-[60px] font-sans font-[500]">
+          <h1 className="text-[40px] sm:text-[50px] md:text-[60px] font-sans font-[500]">
             Exclusive Interviews
           </h1>
-          <p className="text-[20px] font-sans font-[500]">
+          <p className="text-[16px] sm:text-[18px] md:text-[20px] font-sans font-[500]">
             Unlock the insights of industry leaders
           </p>
 
           {/* PAGINATED GRID */}
-          <div className="relative grid grid-cols-1 gap-[42px] md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 mt-10 transition-all duration-500">
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-[42px] mt-10 transition-all duration-500">
             {currentInterviews.map((interview) => (
               <section key={interview.id} className="relative">
                 <div className="relative">
@@ -171,7 +170,7 @@ const Interviews = () => {
                     alt={interview.name}
                     width={633}
                     height={413}
-                    className="object-cover rounded-md"
+                    className="object-cover rounded-md w-full h-auto"
                     priority
                   />
                   <div className="absolute bottom-3 left-3 bg-black/20 text-white text-xs md:text-sm px-3 py-1 rounded-md border border-orange-500">
@@ -189,14 +188,15 @@ const Interviews = () => {
                       {interview.year}
                     </p>
                   </div>
-                  <h2 className="text-[24px] w-[514px] font-sans font-[500] text-white">
+                  <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-sans font-[500] text-white">
                     {interview.name}
                   </h2>
                   <a
                     href={interview.link}
                     className="text-orange-500 hover:underline"
                   >
-                    Read more <ArrowUpRight className="inline-block w-4 h-4 ml-1" />
+                    Read more{" "}
+                    <ArrowUpRight className="inline-block w-4 h-4 ml-1" />
                   </a>
                 </div>
               </section>
@@ -204,7 +204,7 @@ const Interviews = () => {
           </div>
 
           {/* Pagination */}
-          <div className="flex justify-center items-center space-x-2 mt-10 text-sm">
+          <div className="flex justify-center items-center space-x-2 mt-10 text-sm flex-wrap">
             <button
               onClick={() => handlePageChange(1)}
               className="text-gray-400 hover:text-orange-400 transition"

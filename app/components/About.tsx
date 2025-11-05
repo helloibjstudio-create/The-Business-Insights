@@ -44,7 +44,7 @@ const About = () => {
       <div className="relative h-screen top-10 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 md:pt-25 space-y-6">
         {/* Tagline */}
         <div>
-          <h1 className="text-[99px]">About Us</h1>
+          <h1 className="text-[67px] lg:text-[99px]">About Us</h1>
         </div>
 
         {/* Heading */}
@@ -58,7 +58,7 @@ const About = () => {
 
         {/* Subtext */}
         <p
-          className="text-white text-xs sm:text-sm md:text-base lg:text-lg 
+          className="text-white text-[18px] sm:text-[19px] md:text-[20px] lg:text-[20px] 
                       max-w-[90%] font-sans sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl 
                       leading-relaxed"
         >

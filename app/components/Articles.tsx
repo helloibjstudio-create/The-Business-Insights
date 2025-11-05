@@ -3,13 +3,9 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import { InterviewBg, thirdOrange } from "@/public";
+import { ArticleBg, InterviewBg, thirdOrange } from "@/public";
 import { useEffect, useState } from "react";
-import {
-  ArrowUpRight,
-  Search,
-  SlidersHorizontal,
-} from "lucide-react";
+import { ArrowUpRight, Search, SlidersHorizontal } from "lucide-react";
 import Footer from "./Footer";
 
 interface Article {
@@ -23,8 +19,6 @@ interface Article {
   country: string;
 }
 
-const ITEMS_PER_PAGE = 6;
-
 const Articles = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [showFilters, setShowFilters] = useState(false);
@@ -32,6 +26,20 @@ const Articles = () => {
   const [sectors, setSectors] = useState<string[]>([]);
   const [years, setYears] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(8);
+
+  // Responsive pagination setup
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      if (window.innerWidth < 640) setItemsPerPage(4); // mobile
+      else if (window.innerWidth < 1024) setItemsPerPage(8); // tablet
+      else setItemsPerPage(10); // desktop
+    };
+
+    updateItemsPerPage();
+    window.addEventListener("resize", updateItemsPerPage);
+    return () => window.removeEventListener("resize", updateItemsPerPage);
+  }, []);
 
   // Fetch filter options
   useEffect(() => {
@@ -54,9 +62,9 @@ const Articles = () => {
   }, []);
 
   // Pagination logic
-  const totalPages = Math.ceil(articles.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentArticles = articles.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(articles.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentArticles = articles.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -102,7 +110,7 @@ const Articles = () => {
       {/* Background Image */}
       <div className="absolute h-screen inset-0">
         <Image
-          src={InterviewBg}
+          src={ArticleBg}
           alt="Interview background"
           fill
           className="object-cover object-center opacity-70"
@@ -118,25 +126,25 @@ const Articles = () => {
       <div className="relative top-30 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 md:pt-40 space-y-6">
         <div
           className="inline-flex items-center justify-center 
-                        w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
-                        border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] 
-                        px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3"
+            w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
+            border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] 
+            px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3"
         >
-          <p className="whitespace-nowrap">✨Ideas That Move Markets</p>
+          <p className="whitespace-nowrap font-sans">✨ Ideas That Move Markets</p>
         </div>
 
         <h1
           className="font-[400] leading-tight 
-                       text-3xl sm:text-4xl md:text-5xl lg:text-[80px] 
-                       max-w-[90%] sm:max-w-[650px] md:max-w-[743px] lg:w-[743px]"
+            text-3xl sm:text-4xl md:text-5xl lg:text-[80px] 
+            max-w-[90%] sm:max-w-[650px] md:max-w-[743px] lg:w-[743px]"
         >
           Insight That <span className="text-[#E25B2B]">Shapes Tomorrow.</span>
         </h1>
 
         <p
           className="text-white text-xs sm:text-sm md:text-base lg:text-[20px] font-sans 
-                      max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl 
-                      leading-relaxed"
+            max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl 
+            leading-relaxed"
         >
           The Business Insight delivers bold perspectives, market intelligence,
           and stories that drive transformation across the world.
@@ -158,9 +166,7 @@ const Articles = () => {
         {showFilters && (
           <div className="absolute top-12 left-0 w-full bg-[#1c1c1c] border border-orange-900/30 rounded-lg shadow-lg p-4 z-50 space-y-3">
             <div>
-              <label className="block text-sm text-orange-400 mb-1">
-                Country
-              </label>
+              <label className="block text-sm text-orange-400 mb-1">Country</label>
               <select className="w-full bg-[#2b2b2b] border border-gray-700 rounded p-2 text-sm">
                 <option value="">All</option>
                 {countries.map((country, i) => (
@@ -172,9 +178,7 @@ const Articles = () => {
             </div>
 
             <div>
-              <label className="block text-sm text-orange-400 mb-1">
-                Sector
-              </label>
+              <label className="block text-sm text-orange-400 mb-1">Sector</label>
               <select className="w-full bg-[#2b2b2b] border border-gray-700 rounded p-2 text-sm">
                 <option value="">All</option>
                 {sectors.map((sector, i) => (
@@ -213,17 +217,19 @@ const Articles = () => {
 
         {/* Main Section */}
         <section
-          className="h-[1665px] mb-120 relative w-[90%] justify-center m-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
-  bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-70 lg:top-90 border-white/10"
+          className="relative w-[90%] top-50 mb-120 mx-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
+          bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] mt-20 border-white/10 h-auto"
         >
-          <h1 className="text-[60px] font-sans font-[500]">Articles</h1>
-          <p className="text-[20px] font-sans font-[500]">
+          <h1 className="text-[40px] sm:text-[50px] md:text-[60px] font-sans font-[500]">
+            Articles
+          </h1>
+          <p className="text-[16px] sm:text-[18px] md:text-[20px] font-sans font-[500]">
             Explore our latest articles and insights for a fresh perspective on
             industry trends and news.
           </p>
 
           {/* PAGINATED GRID */}
-          <div className="relative grid grid-cols-1 gap-[42px] md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 mt-10 transition-all duration-500">
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-[42px] mt-10 transition-all duration-500">
             {currentArticles.map((article) => (
               <section key={article.id} className="relative">
                 <div className="relative">
@@ -232,7 +238,7 @@ const Articles = () => {
                     alt={article.name}
                     width={633}
                     height={413}
-                    className="object-cover rounded-md"
+                    className="object-cover rounded-md w-full h-auto"
                     priority
                   />
                   <div className="absolute bottom-3 left-3 text-white text-xs md:text-sm px-3 py-1">
@@ -262,7 +268,7 @@ const Articles = () => {
                       {article.year}
                     </p>
                   </div>
-                  <h2 className="text-[24px] w-[514px] font-sans font-[500] text-white">
+                  <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-sans font-[500] text-white">
                     {article.name}
                   </h2>
                   <a
@@ -277,7 +283,7 @@ const Articles = () => {
           </div>
 
           {/* Pagination */}
-          <div className="flex justify-center items-center space-x-2 mt-10 text-sm">
+          <div className="flex justify-center items-center space-x-2 mt-10 text-sm flex-wrap">
             <button
               onClick={() => handlePageChange(1)}
               className="text-gray-400 hover:text-orange-400 transition"

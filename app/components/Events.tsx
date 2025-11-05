@@ -5,7 +5,6 @@ import Image from "next/image";
 import Navbar from "../components/Navbar";
 import { InterviewBg, thirdOrange } from "@/public";
 import { useEffect, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
 import Footer from "./Footer";
 
 interface Events {
@@ -23,27 +22,38 @@ interface Events {
 }
 
 const ITEMS_PER_PAGE = 4;
+
 const Events = () => {
   const [events, setEvents] = useState<Events[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // === Fetch Events ===
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/events`)
-      .then((res) => res.json())
-      .then((data) => setEvents(data))
-      .catch((err) => console.error("Error fetching events:", err));
-  }, []);
+  // ✅ Get base URL from environment or fallback to local
+  const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_BASE_URL ||
+    "https://the-business-insights-b3de-server-ig8wbmwey.vercel.app/";
 
-  // === Pagination Logic ===
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}api/events`);
+        if (!res.ok) throw new Error(`Failed to fetch events: ${res.status}`);
+        const data = await res.json();
+        setEvents(data);
+      } catch (err) {
+        console.error("❌ Error fetching events:", err);
+      }
+    };
+
+    fetchEvents();
+  }, [API_BASE_URL]);
+
+  // Pagination logic
   const totalPages = Math.ceil(events.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentInterviews = events.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-    }
+    if (page >= 1 && page <= totalPages) setCurrentPage(page);
   };
 
   const renderPageNumbers = () => {
@@ -93,31 +103,27 @@ const Events = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30" />
       </div>
 
-      {/* Navbar */}
       <Navbar />
 
-      {/* Hero */}
-      <div className="relative top-30 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 space-y-6">
+      {/* Hero Section */}
+      <div className="relative top-20 z-30 flex flex-col items-center justify-center text-center px-6 pt-32 space-y-6">
         <div className="inline-flex items-center justify-center border border-[#E8602E] px-4 py-2 rounded-full font-medium tracking-wide bg-transparent glow-orange3">
-          <p className="whitespace-nowrap text-sm sm:text-base md:text-[20px]">
-            🔥Where Insight Meets Experience
+          <p className="whitespace-nowrap font-sans text-sm md:text-lg">
+            🔥 Where Insight Meets Experience
           </p>
         </div>
 
-        <h1 className="font-[400] leading-tight text-3xl sm:text-4xl md:text-5xl lg:text-[80px] max-w-[90%]">
+        <h1 className="font-[400] leading-tight text-4xl md:text-6xl lg:text-[80px] max-w-[90%]">
           Engaging <span className="text-[#E8602E]">Insights</span>
         </h1>
 
-        <p className="text-white text-xs sm:text-sm md:text-base lg:text-[20px] max-w-[90%] sm:max-w-[700px] leading-relaxed">
+        <p className="text-white text-sm md:text-lg max-w-[700px] leading-relaxed">
           The Business Insight organizes frequent round table discussions and
-          events, gathering key stakeholders to tackle pressing matters. We not
-          only attend but also collaborate with chosen organizers of industry
-          conferences to present you with premier networking and
-          knowledge-sharing opportunities.
+          events, gathering key stakeholders to tackle pressing matters...
         </p>
       </div>
 
-      {/* === Events Section === */}
+      {/* Events Section */}
       <section className="relative top-20">
         <div className="absolute -top-20 w-full h-full">
           <Image
@@ -129,16 +135,15 @@ const Events = () => {
           />
         </div>
 
-        <section className="relative h-[1925px] mb-80 w-[90%] justify-center m-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-20 border-white/10">
-          {/* === Event Cards === */}
-          <div className="relative grid grid-cols-1 gap-[42px] mt-10">
+        <section className="relative w-[90%] mx-auto text-white py-10 px-6 md:px-12 lg:px-20 bg-white/5 backdrop-blur-2xl border mb-70 font-sans border-white/10 rounded-2xl top-20">
+          <div className="grid grid-cols-1 gap-[42px] mt-10">
             {currentInterviews.map((event) => (
               <section
                 key={event.id}
                 className="flex flex-col md:flex-row items-center bg-black/50 border border-white/10 rounded-xl overflow-hidden shadow-md hover:scale-[1.02] transition-transform duration-300"
               >
                 {/* Image */}
-                <div className="relative w-full lg:w-[633px] h-[200px] lg:h-[413px] bg-black">
+                <div className="relative w-full lg:w-[633px] h-[250px] lg:h-[413px] bg-black">
                   <Image
                     src={event.image_url}
                     alt={event.title}
@@ -149,21 +154,19 @@ const Events = () => {
                 </div>
 
                 {/* Text */}
-                <div className="flex flex-col justify-center p-6 w-full md:w-[60%] text-white font-sans">
-                  <p className="text-white text-[20px] mb-2 italic">
+                <div className="flex flex-col justify-center p-6 w-full md:w-[60%]">
+                  <p className="text-white text-[18px] mb-2 italic">
                     {event.year} • {event.state}, {event.country}
                   </p>
-                  <h2 className="text-[22px] md:text-[30px] font-semibold mb-2">
-                    {event.name}
-                  </h2>
-                  <p className="text-white text-[20px] mb-4 leading-relaxed">
+                  <h2 className="text-[24px] font-semibold mb-2">{event.name}</h2>
+                  <p className="text-white text-[18px] mb-4 leading-relaxed">
                     {event.description}
                   </p>
                   <a
                     href={event.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-[#E8602E] hover:bg-[#ff6f3f] text-white font-medium px-[37px] w-fit py-[13px] rounded-md transition-all duration-200"
+                    className="inline-flex items-center gap-2 bg-[#E8602E] hover:bg-[#ff6f3f] text-white font-medium w-fit px-[37px] py-[13px] rounded-md transition-all duration-200"
                   >
                     Attend
                   </a>
@@ -172,7 +175,7 @@ const Events = () => {
             ))}
           </div>
 
-          {/* === Pagination Controls === */}
+          {/* Pagination */}
           <div className="flex justify-center items-center space-x-2 mt-10 text-sm">
             <button
               onClick={() => handlePageChange(1)}

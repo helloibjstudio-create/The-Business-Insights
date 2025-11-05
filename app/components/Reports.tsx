@@ -3,14 +3,12 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import { InterviewBg, thirdOrange } from "@/public";
+import { InterviewBg, ReportBg, thirdOrange } from "@/public";
 import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   Search,
   SlidersHorizontal,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import Footer from "./Footer";
 
@@ -23,31 +21,50 @@ interface Report {
   link: string;
 }
 
-const ITEMS_PER_PAGE = 9;
-
 const Reports = () => {
   const [reports, setReports] = useState<Report[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(9);
 
+  // ✅ Fetch data from your backend
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/reports`)
-    
-      .then((res) => res.json())
-      
-      .then((data) => setReports(data))
-      .catch((err) => console.error("Error fetching reports:", err));
+    const fetchReports = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}api/reports`
+        );
+        const data = await res.json();
+        setReports(data);
+      } catch (err) {
+        console.error("Error fetching reports:", err);
+      }
+    };
+    fetchReports();
   }, []);
-  console.log("Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
 
-  // Pagination calculations
-  const totalPages = Math.ceil(reports.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentInterviews = reports.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  // ✅ Responsive items per page
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      if (window.innerWidth < 640) {
+        setItemsPerPage(3); // mobile
+      } else if (window.innerWidth < 1024) {
+        setItemsPerPage(6); // tablet
+      } else {
+        setItemsPerPage(9); // desktop
+      }
+    };
+    updateItemsPerPage();
+    window.addEventListener("resize", updateItemsPerPage);
+    return () => window.removeEventListener("resize", updateItemsPerPage);
+  }, []);
+
+  // ✅ Pagination calculations
+  const totalPages = Math.ceil(reports.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentReports = reports.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-    }
+    if (page >= 1 && page <= totalPages) setCurrentPage(page);
   };
 
   const renderPageNumbers = () => {
@@ -63,7 +80,9 @@ const Reports = () => {
             key={i}
             onClick={() => handlePageChange(i)}
             className={`px-2 py-1 ${
-              currentPage === i ? "text-orange-500 font-bold" : "text-gray-400"
+              currentPage === i
+                ? "text-orange-500 font-bold"
+                : "text-gray-400"
             } hover:text-orange-400 transition`}
           >
             {i}
@@ -82,12 +101,13 @@ const Reports = () => {
     }
     return pages;
   };
+
   return (
     <section className="relative bg-black text-white overflow-hidden">
-      {/* === Background Image === */}
+      {/* === Background === */}
       <div className="absolute h-screen inset-0">
         <Image
-          src={InterviewBg}
+          src={ReportBg}
           alt="Interview background"
           fill
           className="object-cover object-center opacity-70"
@@ -102,7 +122,7 @@ const Reports = () => {
       {/* === Hero Section === */}
       <div className="relative h-screen top-10 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 space-y-6">
         <div className="inline-flex items-center justify-center w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3">
-          <p className="whitespace-nowrap">✨Ideas That Move Markets</p>
+          <p className="whitespace-nowrap font-sans">📈 Where Analysis Meets Opportunity</p>
         </div>
 
         <h1 className="font-[400] leading-tight text-3xl sm:text-4xl md:text-5xl lg:text-[80px] max-w-[90%] sm:max-w-[650px] md:max-w-[800px] lg:w-[975px]">
@@ -112,13 +132,13 @@ const Reports = () => {
         <p className="text-white text-xs sm:text-sm md:text-base lg:text-[20px] max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl leading-relaxed font-sans">
           Browse our latest publications and gain a deeper understanding of
           emerging trends and critical topics through our in-depth analysis,
-          interviews with local business and political leaders and comprehensive
+          interviews with local business and political leaders, and comprehensive
           data and statistics.
         </p>
       </div>
 
       {/* === Search Bar === */}
-      <div className="flex relative top-50 ml-10 items-center justify-start w-64 sm:w-80 md:w-96 h-9 px-3 rounded-md border border-orange-600/40 bg-orange-950/10 backdrop-blur-sm focus-within:border-orange-500/70 transition-all duration-200">
+      <div className="flex relative lg:top-50 ml-10 items-center justify-start w-64 sm:w-80 md:w-96 h-9 px-3 rounded-md border border-orange-600/40 bg-orange-950/10 backdrop-blur-sm focus-within:border-orange-500/70 transition-all duration-200">
         <Search className="w-4 h-4 text-orange-500 mr-2" />
         <input
           type="text"
@@ -128,7 +148,7 @@ const Reports = () => {
         <SlidersHorizontal className="w-4 h-4 text-orange-500 cursor-pointer hover:text-orange-400 transition-colors" />
       </div>
 
-      {/* === Content Section === */}
+      {/* === Content === */}
       <section>
         <div className="absolute -top-130 w-full h-full">
           <Image
@@ -141,12 +161,12 @@ const Reports = () => {
         </div>
 
         <section
-          className="relative h-[2365px] mb-120 w-[90%] justify-center m-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
-          bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-20 lg:top-65 border-white/10"
+          className="relative mb-70 w-[90%] justify-center m-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
+          bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-10 lg:top-65 border-white/10"
         >
           {/* === Grid of Reports === */}
-          <div className="relative grid grid-cols-1 gap-[42px] sm:grid-cols-2 lg:grid-cols-3 mt-10">
-            {currentInterviews.map((report) => (
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[42px] mt-10">
+            {currentReports.map((report) => (
               <section
                 key={report.id}
                 className="relative bg-transparent text-white font-sans"
@@ -191,7 +211,7 @@ const Reports = () => {
             ))}
           </div>
 
-          {/* === Pagination Controls === */}
+          {/* === Pagination === */}
           <div className="flex justify-center items-center space-x-2 mt-10 text-sm">
             <button
               onClick={() => handlePageChange(1)}
@@ -223,7 +243,7 @@ const Reports = () => {
           </div>
         </section>
 
-        {/* === Gradient Glow Effect === */}
+        {/* === Glow Effect === */}
         <motion.div
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
