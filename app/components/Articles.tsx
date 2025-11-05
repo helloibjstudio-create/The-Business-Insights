@@ -47,7 +47,7 @@ const Articles = () => {
 
   // Fetch articles
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/articles`)
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/articles`)
       .then((res) => res.json())
       .then((data) => setArticles(data))
       .catch((err) => console.error("Error fetching articles:", err));
@@ -214,7 +214,7 @@ const Articles = () => {
         {/* Main Section */}
         <section
           className="h-[1665px] mb-120 relative w-[90%] justify-center m-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
-  bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-10 lg:top-90 border-white/10"
+  bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-70 lg:top-90 border-white/10"
         >
           <h1 className="text-[60px] font-sans font-[500]">Articles</h1>
           <p className="text-[20px] font-sans font-[500]">

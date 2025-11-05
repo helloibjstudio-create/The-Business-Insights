@@ -6,32 +6,39 @@ dotenv.config();
 
 const router = express.Router();
 
-// Supabase setup
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+// 🟢 Supabase setup
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
 
 /**
  * POST /api/reports
  * Add a new report
  */
 router.post("/", async (req, res) => {
-   console.log("🛰️ Received body:", req.body); 
+  console.log("🛰️ Received body:", req.body);
 
-  const { title, image_url, price, discounted_price, link, description } = req.body;
+  const { title, image_url, price, discounted_price, link, description } =
+    req.body;
+
+  // Basic validation
+  if (!title || !image_url) {
+    return res.status(400).json({ error: "Title and image_url are required." });
+  }
 
   const { data, error } = await supabase
     .from("reports")
     .insert([{ title, image_url, price, discounted_price, link, description }])
     .select();
 
-  if (error) return res.status(400).json({ error: error.message });
-  res.json({ success: true, data });
   if (error) {
-  console.error("❌ Supabase insert error:", error.message);
-  return res.status(400).json({ error: error.message });
-}
+    console.error("❌ Supabase insert error:", error.message);
+    return res.status(400).json({ error: error.message });
+  }
 
-console.log("✅ Inserted data:", data);
-res.json({ success: true, data });
+  console.log("✅ Inserted data:", data);
+  res.json({ success: true, data });
 });
 
 /**
@@ -42,13 +49,18 @@ router.get("/", async (req, res) => {
   const { data, error } = await supabase
     .from("reports")
     .select("*")
-    .order("id", { ascending: false });
+    .order("created_at", { ascending: false }); // ⬅️ better ordering field
 
-  if (error) return res.status(400).json({ error: error.message });
+  if (error) {
+    console.error("❌ Supabase fetch error:", error.message);
+    return res.status(400).json({ error: error.message });
+  }
+
   res.json(data);
 });
+
 /**
- * PUT /api/[table]/:id
+ * PUT /api/reports/:id
  * Update an item
  */
 router.put("/:id", async (req, res) => {
@@ -56,17 +68,21 @@ router.put("/:id", async (req, res) => {
   const updatedFields = req.body;
 
   const { data, error } = await supabase
-    .from("reports") // change to the right table name (e.g. "articles")
+    .from("reports")
     .update(updatedFields)
     .eq("id", id)
     .select();
 
-  if (error) return res.status(400).json({ error: error.message });
+  if (error) {
+    console.error("❌ Supabase update error:", error.message);
+    return res.status(400).json({ error: error.message });
+  }
+
   res.json({ success: true, data });
 });
 
 /**
- * DELETE /api/[table]/:id
+ * DELETE /api/reports/:id
  * Delete an item
  */
 router.delete("/:id", async (req, res) => {
@@ -74,9 +90,12 @@ router.delete("/:id", async (req, res) => {
 
   const { error } = await supabase.from("reports").delete().eq("id", id);
 
-  if (error) return res.status(400).json({ error: error.message });
+  if (error) {
+    console.error("❌ Supabase delete error:", error.message);
+    return res.status(400).json({ error: error.message });
+  }
+
   res.json({ success: true });
 });
-
 
 export default router;

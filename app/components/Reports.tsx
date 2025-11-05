@@ -30,11 +30,14 @@ const Reports = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reports`)
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/reports`)
+    
       .then((res) => res.json())
+      
       .then((data) => setReports(data))
       .catch((err) => console.error("Error fetching reports:", err));
   }, []);
+  console.log("Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
 
   // Pagination calculations
   const totalPages = Math.ceil(reports.length / ITEMS_PER_PAGE);
