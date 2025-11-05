@@ -65,7 +65,7 @@ app.post("/api/interviews", async (req, res) => {
 });
 
 app.get("/api/interviews", async (req, res) => {
-  const { data, error } = await supabase.from("exclusive").select("*").order("id", { ascending: false });
+  const { data, error } = await supabase.from("interviews").select("*").order("id", { ascending: false });
   if (error) return res.status(400).json({ error: error.message });
   res.json(data);
 });
