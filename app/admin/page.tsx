@@ -116,7 +116,7 @@ export default function AdminDashboard({
     const endpoints = ["interviews", "articles", "reports", "events"];
 
     endpoints.forEach((endpoint) => {
-      fetch(`http://localhost:5000/api/${endpoint}`)
+      fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${endpoint}`)
         .then((res) => res.json())
         .then((data) => {
           if (endpoint === "interviews") setInterviews(data);
@@ -139,8 +139,8 @@ export default function AdminDashboard({
 
     const method = formData.id ? "PUT" : "POST";
     const url = formData.id
-      ? `http://localhost:5000/api/${activeTab}/${formData.id}`
-      : `http://localhost:5000/api/${activeTab}`;
+      ? `${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}/${formData.id}`
+      : `${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}`;
 
     const res = await fetch(url, {
       method,
@@ -191,7 +191,7 @@ export default function AdminDashboard({
 
     console.log("🗑️ Deleting ID:", id);
 
-    const res = await fetch(`http://localhost:5000/api/${activeTab}/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}/${id}`, {
       method: "DELETE",
     });
 
@@ -200,7 +200,7 @@ export default function AdminDashboard({
       alert("Error deleting: " + data.error);
     } else {
       alert("Item deleted successfully!");
-      fetch(`http://localhost:5000/api/${activeTab}`)
+      fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}`)
         .then((res) => res.json())
         .then((newData) => {
           if (activeTab === "interviews") setInterviews(newData);
