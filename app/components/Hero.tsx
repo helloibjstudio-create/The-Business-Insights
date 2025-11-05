@@ -6,6 +6,7 @@ import Image from "next/image";
 import {
   articles,
   BusinessLogo,
+  curvedImages,
   dhl,
   mailbox,
   moreInterviews,
@@ -24,6 +25,8 @@ const hedvig = Hedvig_Letters_Serif({
   weight: ["400"],
 });
 
+
+
 const Hero = () => {
   const [visible, setVisible] = useState(false);
 
@@ -34,6 +37,15 @@ const Hero = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  const [current, setCurrent] = useState(0);
+
+  // Auto-rotate every 4s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % curvedImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -274,16 +286,34 @@ const Hero = () => {
             </button>
 
             {/* Overlay/Subtract Image */}
-            <div className="relative top-5 left-0 w-full h-[220px] sm:h-[500px] md:h-[750px] z-10 overflow-visible pointer-events-none">
+            <div className="relative w-full h-[220px] sm:h-[500px] md:h-[750px] overflow-hidden flex items-center justify-center bg-transparent z-30">
+      {/* Scene perspective */}
+      <div className="relative w-full h-full [perspective:1200px]">
+        <motion.div
+          className="absolute inset-0 flex w-[300%] h-full"
+          animate={{ x: `-${current * 100}%` }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
+        >
+          {curvedImages.map((src, i) => (
+            <div
+              key={i}
+              className="relative w-full h-full flex-shrink-0 [transform:rotateY(-10deg)] [transform-origin:center] overflow-hidden"
+            >
               <Image
-                src={subtract}
-                alt="Subtract overlay"
+                src={src.images_Carousel}
+                alt={`Curved Slide ${i + 1}`}
                 fill
-                className="object-cover md:object-cover glow-orange"
-                priority
+                className="object-cover object-center [filter:brightness(0.95)]"
+                priority={i === 0}
               />
+              {/* Optional overlay gradient to enhance curve feel */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" />
             </div>
-          </div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+    </div>
         </section>
         <section
           key="Newsletter"

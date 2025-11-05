@@ -10,18 +10,20 @@ import { countries, sectors } from "../data/options";
 import cities from "cities-list";
 
 export default function AdminDashboard({
-  Interviews,
-  Articles,
-  Reports,
-  Events,
+  Interviews: InterviewsProp,
+  exclusiveInterviews: exclusiveInterviewsProp,
+  Articles: ArticlesProp, 
+  Reports: ReportsProp,
+  Events: EventsProp,
 }: {
   Interviews: any[];
+  exclusiveInterviews: any[];
   Articles: any[];
   Reports: any[];
   Events: any[];
 }) {
   const [activeTab, setActiveTab] = useState<
-    "interviews" | "articles" | "reports" | "events"
+    "interviews" | "exclusiveInterviews" | "articles" | "reports" | "events"
   >("interviews");
 
   const [view, setView] = useState<"list" | "create">("list");
@@ -42,6 +44,18 @@ export default function AdminDashboard({
   });
 
   interface Interview {
+    id: string;
+    name: string;
+    sector: string;
+    image_url: string;
+    description: string;
+    year: string;
+    link: string;
+    discounted_price: string;
+    state: string;
+    country: string;
+  }
+  interface ExclusiveInterview {
     id: string;
     name: string;
     sector: string;
@@ -94,6 +108,7 @@ export default function AdminDashboard({
   }
 
   const [interviews, setInterviews] = useState<Interview[]>([]);
+  const [exclusiveInterviews, setExclusiveInterviews] = useState<ExclusiveInterview[]>([]);
   const [articles, setArticles] = useState<Article[]>([]);
   const [reports, setReports] = useState<Reports[]>([]);
   const [events, setEvents] = useState<Events[]>([]);
@@ -102,6 +117,8 @@ export default function AdminDashboard({
     switch (activeTab) {
       case "articles":
         return articles;
+      case "exclusiveInterviews":
+        return exclusiveInterviews;
       case "reports":
         return reports;
       case "events":
@@ -113,13 +130,14 @@ export default function AdminDashboard({
   const activeData = getActiveData();
 
   useEffect(() => {
-    const endpoints = ["interviews", "articles", "reports", "events"];
+    const endpoints = ["interviews", "exclusiveInterviews", "articles", "reports", "events"];
 
     endpoints.forEach((endpoint) => {
       fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${endpoint}`)
         .then((res) => res.json())
         .then((data) => {
           if (endpoint === "interviews") setInterviews(data);
+          if (endpoint === "exclusiveInterviews") setExclusiveInterviews(data);
           if (endpoint === "articles") setArticles(data);
           if (endpoint === "reports") setReports(data);
           if (endpoint === "events") setEvents(data);
@@ -175,6 +193,7 @@ export default function AdminDashboard({
         .then((res) => res.json())
         .then((newData) => {
           if (activeTab === "interviews") setInterviews(newData);
+          if (activeTab === "exclusiveInterviews") setExclusiveInterviews(newData);
           if (activeTab === "articles") setArticles(newData);
           if (activeTab === "reports") setReports(newData);
           if (activeTab === "events") setEvents(newData);
@@ -250,7 +269,7 @@ export default function AdminDashboard({
       <aside className="w-64 bg-transparent backdrop-blur-2xl rounded-r-[20px] p-6 space-y-4 border-r border-gray-700">
         <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
         <ul className="space-y-3">
-          {["interviews", "articles", "reports", "events"].map((tab) => (
+          {["interviews", "articles", "exclusiveInterviews", "reports", "events"].map((tab) => (
             <li
               key={tab}
               onClick={() => setActiveTab(tab as any)}
@@ -398,6 +417,59 @@ export default function AdminDashboard({
                 </div>
               </>
             )}
+            {activeTab === "exclusiveInterviews" && (
+              <>
+                <div>
+                  <label className="block mb-2 text-sm">Name</label>
+                  <input
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full p-2 rounded bg-transparent border border-gray-700"
+                  />
+                </div>
+
+                <div>
+                  <label className="block mb-2 text-sm">description</label>
+                  <input
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    className="w-full p-2 rounded bg-transparent border border-gray-700"
+                  />
+                </div>
+
+                <div>
+                  <label className="block mb-2 text-sm">Image URL</label>
+                  <input
+                    name="image_url"
+                    value={formData.image_url}
+                    onChange={handleChange}
+                    className="w-full p-2 rounded bg-transparent border border-gray-700"
+                  />
+                </div>
+
+                <div>
+                  <label className="block mb-2 text-sm">Country</label>
+                  <input
+                    name="country"
+                    value={formData.country}
+                    onChange={handleChange}
+                    className="w-full p-2 rounded bg-transparent border border-gray-700"
+                  />
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm">Year</label>
+                  <input
+                    name="year"
+                    value={formData.year}
+                    onChange={handleChange}
+                    className="w-full p-2 rounded bg-transparent border border-gray-700"
+                  />
+                </div>
+              </>
+            )}
+
             {activeTab === "articles" && (
               <>
                 <div>

@@ -14,6 +14,22 @@ export const AboutSecond = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1
 export const ArticleBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762344981/background_2_znx25z.png"
 export const ReportBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762345231/background_3_iaw83v.png"
 
+
+ export const curvedImages = [
+  {
+    id: 1,
+    images_Carousel: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762379910/6b1cf3eb2b13bddd597380b44c8ab57a829fcb6f_idhcto.jpg"
+  },
+  {
+    id: 2,
+    images_Carousel: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762380075/d8b6626e99ca0e3bc20dd5f43f3e97589ad352a6_wpq7z7.jpg"
+  },
+  {
+    id: 3,
+    images_Carousel: "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762379910/6b1cf3eb2b13bddd597380b44c8ab57a829fcb6f_idhcto.jpg"
+  },
+];
+
 export const interviews = [
   {
     id: 1,

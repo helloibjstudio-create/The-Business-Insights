@@ -5,6 +5,17 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import Navbar from "./Navbar";
+import Link from "next/link";
+interface Interview {
+  id: number;
+  name: string;
+  sector: string;
+  image_url: string;
+  description: string;
+  year: string;
+  link: string;
+  country: string;
+}
 
 export default function HeroParallax() {
   const ref = useRef<HTMLDivElement>(null);
@@ -12,6 +23,13 @@ export default function HeroParallax() {
   const [autoScrolling, setAutoScrolling] = useState(false);
   const [showNext, setShowNext] = useState(false);
   const [vh, setVh] = useState<number>(typeof window !== "undefined" ? window.innerHeight : 0);
+  const [interviews, setInterviews] = useState<Interview[]>([]);
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/interviews`)
+      .then((res) => res.json())
+      .then((data) => setInterviews(data))
+      .catch((err) => console.error("Error fetching interviews:", err));
+  }, []);
 
   // === HANDLE RESIZE FOR RESPONSIVE SCROLL ===
   useEffect(() => {
@@ -159,13 +177,14 @@ export default function HeroParallax() {
                 Unlock the insights of industry leaders
               </p>
             </div>
+            <Link href="/Interviews">
             <motion.button
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
               className="bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] cursor-pointer px-[clamp(1rem,4vw,2rem)] py-[clamp(0.6rem,1.2vw,1rem)] rounded-[10px] font-medium text-[clamp(1rem,2vw,1.25rem)]"
             >
               View All Interviews
-            </motion.button>
+            </motion.button></Link>
           </div>
 
           {/* INTERVIEW GRID */}
@@ -182,7 +201,7 @@ export default function HeroParallax() {
               >
                 <div className="relative h-[clamp(220px,40vw,300px)]">
                   <Image
-                    src={person.img}
+                    src={person.image_url}
                     alt={person.name}
                     fill
                     className="object-cover"
