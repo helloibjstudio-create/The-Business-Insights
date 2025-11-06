@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
   const { name, sector, image_url, description, country, year, link } = req.body;
 
   const { data, error } = await supabase
-    .from("exclusive")
+    .from("exclusiveInterviews")
     .insert([{ name, sector, image_url, description, year, country, link }])
     .select();
 
@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
  */
 router.get("/", async (req, res) => {
   const { data, error } = await supabase
-    .from("exclusive")
+    .from("exclusiveInterviews")
     .select("*")
     .order("id", { ascending: false });
 
@@ -48,7 +48,7 @@ router.put("/:id", async (req, res) => {
   const updatedFields = req.body;
 
   const { data, error } = await supabase
-    .from("exclusive") // change to the right table name (e.g. "articles")
+    .from("exclusiveInterviews") // change to the right table name (e.g. "articles")
     .update(updatedFields)
     .eq("id", id)
     .select();
@@ -64,7 +64,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
-  const { error } = await supabase.from("exclusive").delete().eq("id", id);
+  const { error } = await supabase.from("exclusiveInterviews").delete().eq("id", id);
 
   if (error) return res.status(400).json({ error: error.message });
   res.json({ success: true });

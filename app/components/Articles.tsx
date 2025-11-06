@@ -141,20 +141,7 @@ const Articles = () => {
         ) : (
           <>
             <p>
-              Can you please give us an introduction to{" "}
-              {selectedInterview.name} and its role in the{" "}
-              {selectedInterview.country} market?
-            </p>
-            <p>
-              What sets apart the {selectedInterview.country} industry
-              from the rest of the region?
-            </p>
-            <p>
-              How do you assess the current {selectedInterview.country} market?
-            </p>
-            <p>
-              What do you anticipate as the aftermath of recent global events
-              in your sector?
+              post not yet ready.....
             </p>
           </>
         )}
