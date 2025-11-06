@@ -9,7 +9,7 @@ import { ArrowLeft } from "lucide-react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 
-interface Interview {
+interface ExclusiveInterview {
   id: string;
   name: string;
   sector: string;
@@ -23,12 +23,12 @@ interface Interview {
 
 export default function InterviewDetailPage() {
   const { id } = useParams(); // ⬅️ pulls the [id] from the URL
-  const [interviews, setInterviews] = useState<Interview | null>(null);
+  const [interviews, setInterviews] = useState<ExclusiveInterview | null>(null);
 
 useEffect(() => {
   if (!id) return;
   console.log("Fetching interview:", id);
-  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/interviews/${id}`)
+  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/exclusiveInterviews/${id}`)
     .then(async (res) => {
       console.log("Response status:", res.status);
       const data = await res.json();
@@ -59,7 +59,7 @@ useEffect(() => {
           </button>
 
           {/* Interview content */}
-          <div className="flex flex-col-reverse lg:flex-row font-sans gap-10">
+          <div className="flex flex-col-reverse bg-white/3 backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] lg:flex-row font-sans gap-10">
 
   {/* TEXT SECTION */}
   <div className="w-full">

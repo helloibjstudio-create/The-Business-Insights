@@ -59,7 +59,7 @@ useEffect(() => {
           </button>
 
           {/* Interview content */}
-          <div className="flex flex-col-reverse lg:flex-row font-sans gap-10">
+          <div className="flex flex-col-reverse bg-white/3 backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] lg:flex-row font-sans gap-10">
 
   {/* TEXT SECTION */}
   <div className="w-full">

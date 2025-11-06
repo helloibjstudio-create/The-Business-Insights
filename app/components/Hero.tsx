@@ -67,6 +67,13 @@ const Hero = () => {
         .then((data) => setInterviews(data))
         .catch((err) => console.error("Error fetching interviews:", err));
       }, []);
+      const [articles, setArticles] = useState<Interview[]>([]);
+      useEffect(() => {
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/articles`)
+        .then((res) => res.json())
+        .then((data) => setArticles(data))
+        .catch((err) => console.error("Error fetching interviews:", err));
+      }, []);
       const limitedInterviews = interviews.slice(0, 9);
         const featured = interviews[0];
   const others = interviews.slice(1);
@@ -118,25 +125,25 @@ const Hero = () => {
               >
                 <div className="relative aspect-[4/3] w-full">
                   <Image
-                    src={article.img}
-                    alt={article.title}
+                    src={article.image_url}
+                    alt={article.name}
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div className="pt-6 px-4 pb-8">
                   <h3 className="font-semibold text-[20px] sm:text-[22px] md:text-[26px]">
-                    {article.title}
+                    {article.name}
                   </h3>
                   <p className="text-gray-300 text-[16px] sm:text-[18px] py-2.5 mb-3">
                     {article.description}
                   </p>
-                  <a
-                    href={article.link}
-                    className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[16px]"
-                  >
-                    Read More <ArrowUpRight size={18} className="ml-1" />
-                  </a>
+                  <Link
+                href={`/articles/${article.id}`}
+                className="inline-flex items-center text-orange-400 hover:text-orange-500 text-[14px] sm:text-[16px]"
+              >
+                Read More <ArrowUpRight size={16} className="ml-1" />
+              </Link>
                 </div>
               </motion.div>
             ))}
@@ -209,7 +216,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: i * 0.1 }}
-            className="rounded-xl overflow-hidden hover:bg-[#1b1b1b] transition"
+            className="rounded-xl overflow-hidden hover:bg-[#1b1b1b]/10 hover:scale-105 transition"
           >
             <div className="relative aspect-[4/3]">
               <Image
@@ -220,7 +227,7 @@ const Hero = () => {
               />
             </div>
             <div className="p-4 sm:p-6 text-center md:text-left">
-              <p className="text-orange-400 text-[14px] sm:text-[16px] mb-1">
+              <p className=" text-[14px] sm:text-[20px] mb-1">
                 {interview.name}
               </p>
               <h4 className="font-semibold text-[18px] sm:text-[20px] mb-3">
