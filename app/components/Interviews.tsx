@@ -89,49 +89,53 @@ const Interviews = () => {
           </button>
 
           {/* Interview content */}
-          <div className="grid md:grid-cols-2 gap-10">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-semibold mb-6">
-                {selectedInterview.name}
-              </h1>
+          <div className="flex flex-col-reverse lg:flex-row font-sans gap-10">
 
-              <div className="space-y-6 text-gray-300 leading-relaxed">
-                <p>{selectedInterview.description}</p>
-                {selectedInterview.write_up ? (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: selectedInterview.write_up,
-                    }}
-                  />
-                ) : (
-                  <>
-                    <p>
-                      Can you please give us an introduction to{" "}
-                      {selectedInterview.name} and its role in the{" "}
-                      {selectedInterview.country} market?
-                    </p>
-                    <p>
-                      What sets apart the {selectedInterview.country} industry
-                      from the rest of the region?
-                    </p>
-                    <p>
-                      How do you assess the current {selectedInterview.country} market?
-                    </p>
-                    <p>
-                      What do you anticipate as the aftermath of recent global events
-                      in your sector?
-                    </p>
-                  </>
-                )}
-              </div>
-            </div>
+  {/* TEXT SECTION */}
+  <div className="w-full">
+    <h1 className="text-3xl md:text-4xl font-semibold mb-6">
+      {selectedInterview.name}
+    </h1>
+
+    <div className="space-y-6 text-white font-sans font-normal leading-relaxed">
+      <p>{selectedInterview.description}</p>
+
+      {selectedInterview.write_up ? (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: selectedInterview.write_up,
+          }}
+        />
+      ) : (
+        <>
+          <p>
+            Can you please give us an introduction to{" "}
+            {selectedInterview.name} and its role in the{" "}
+            {selectedInterview.country} market?
+          </p>
+          <p>
+            What sets apart the {selectedInterview.country} industry
+            from the rest of the region?
+          </p>
+          <p>
+            How do you assess the current {selectedInterview.country} market?
+          </p>
+          <p>
+            What do you anticipate as the aftermath of recent global events
+            in your sector?
+          </p>
+        </>
+      )}
+    </div>
+  </div>
+
 
             {/* Image + name card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-lg"
+              className="relative w-full h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
             >
               <Image
                 src={selectedInterview.image_url}
@@ -154,7 +158,7 @@ const Interviews = () => {
           </div>
 
           {/* Related */}
-          <div className="mt-20">
+          <div className="mt-20 font-sans">
             <h2 className="text-2xl mb-6 font-semibold">
               You may also be interested in...
             </h2>
@@ -220,11 +224,11 @@ const Interviews = () => {
         <div className="inline-flex items-center justify-center border border-orange-500 text-white px-6 py-2 rounded-full text-base">
           ✨ Voices Behind Change
         </div>
-        <h1 className="text-[80px] w-[875px] font-[400] leading-[72px] mt-6">
+        <h1 className="text-[36px] md:text-[60px] lg:text-[80px] max-w-[875px] font-[400] leading-[36px] md:leading-[60px] lg:leading-[72px] mt-6">
           Exclusive Interviews with{" "}
           <span className="text-orange-500">Leaders & Innovators</span>
         </h1>
-        <p className=" mt-4 font-sans text-[20px] w-[850px] text-white">
+        <p className=" mt-4 font-sans text-[18px] lg:text-[20px] max-w-[850px] text-white">
           Dive into conversations that shape industries, nations and futures.From business visionaries to policy makers, our interviews bring you first-hand perspectives on what’s next.
         </p>
       </div>

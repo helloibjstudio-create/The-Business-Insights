@@ -203,11 +203,11 @@ const Hero = () => {
 
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {interviews.slice(1).map((interview, i) => (
+        {interviews.slice(0, 9).map((interview, i) => (
           <motion.div
             key={interview.id || i}
             initial={{ opacity: 0, y: 80 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: i * 0.1 }}
             className="rounded-xl overflow-hidden hover:bg-[#1b1b1b] transition"
           >

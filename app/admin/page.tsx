@@ -8,11 +8,25 @@ import { motion } from "framer-motion";
 import MultiSelect from "../components/MultiSelect";
 import { countries, sectors } from "../data/options";
 import cities from "cities-list";
+import dynamic from "next/dynamic";
+import "react-quill-new/dist/quill.snow.css";
+
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
+
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, 3, false] }],
+    ["bold", "italic", "underline", "blockquote"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["link", "image"],
+    ["clean"],
+  ],
+};
 
 export default function AdminDashboard({
   Interviews: InterviewsProp,
   exclusiveInterviews: exclusiveInterviewsProp,
-  Articles: ArticlesProp, 
+  Articles: ArticlesProp,
   Reports: ReportsProp,
   Events: EventsProp,
 }: {
@@ -114,7 +128,9 @@ export default function AdminDashboard({
   }
 
   const [interviews, setInterviews] = useState<Interview[]>([]);
-  const [exclusiveInterviews, setExclusiveInterviews] = useState<ExclusiveInterview[]>([]);
+  const [exclusiveInterviews, setExclusiveInterviews] = useState<
+    ExclusiveInterview[]
+  >([]);
   const [articles, setArticles] = useState<Article[]>([]);
   const [reports, setReports] = useState<Reports[]>([]);
   const [events, setEvents] = useState<Events[]>([]);
@@ -136,7 +152,13 @@ export default function AdminDashboard({
   const activeData = getActiveData();
 
   useEffect(() => {
-    const endpoints = ["interviews", "exclusiveInterviews", "articles", "reports", "events"];
+    const endpoints = [
+      "interviews",
+      "exclusiveInterviews",
+      "articles",
+      "reports",
+      "events",
+    ];
 
     endpoints.forEach((endpoint) => {
       fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${endpoint}`)
@@ -200,7 +222,8 @@ export default function AdminDashboard({
         .then((res) => res.json())
         .then((newData) => {
           if (activeTab === "interviews") setInterviews(newData);
-          if (activeTab === "exclusiveInterviews") setExclusiveInterviews(newData);
+          if (activeTab === "exclusiveInterviews")
+            setExclusiveInterviews(newData);
           if (activeTab === "articles") setArticles(newData);
           if (activeTab === "reports") setReports(newData);
           if (activeTab === "events") setEvents(newData);
@@ -217,9 +240,12 @@ export default function AdminDashboard({
 
     console.log("🗑️ Deleting ID:", id);
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}/${id}`, {
-      method: "DELETE",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
 
     const data = await res.json();
     if (data.error) {
@@ -277,7 +303,13 @@ export default function AdminDashboard({
       <aside className="w-64 bg-transparent backdrop-blur-2xl rounded-r-[20px] p-6 space-y-4 border-r border-gray-700">
         <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
         <ul className="space-y-3">
-          {["interviews", "articles", "exclusiveInterviews", "reports", "events"].map((tab) => (
+          {[
+            "interviews",
+            "articles",
+            "exclusiveInterviews",
+            "reports",
+            "events",
+          ].map((tab) => (
             <li
               key={tab}
               onClick={() => setActiveTab(tab as any)}
@@ -425,7 +457,13 @@ export default function AdminDashboard({
                 </div>
                 <div>
                   <label className="block mb-2 text-sm">Write up</label>
-                  <textarea name="write_up" id="" value={formData.write_up} onChange={handleChange} rows={60} className="w-full p-2 rounded bg-transparent border border-gray-700"></textarea>
+                  <ReactQuill
+                    value={formData.write_up}
+                    onChange={(value) => setFormData({ ...formData, write_up: value })}
+                    modules={modules}
+                    theme="snow"
+                    placeholder="Write your interview content here..."
+                  />
                 </div>
               </>
             )}
@@ -566,7 +604,6 @@ export default function AdminDashboard({
                 </div>
 
                 {/* City MultiSelect */}
-                
 
                 {/* Country MultiSelect */}
                 <MultiSelect
