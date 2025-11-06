@@ -7,10 +7,21 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const pathname = usePathname(); // 👈 get current path
+  const pathname = usePathname();
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+    }
+  };
 
   // Nav links list
   const navLinks = [
@@ -56,7 +67,10 @@ const Navbar = () => {
       </ul>
 
       {/* === SEARCH (DESKTOP ONLY) === */}
-      <div className="hidden lg:flex border border-gray-400 rounded-xl px-3 py-2 items-center space-x-2">
+      <form
+        onSubmit={handleSearch}
+        className="hidden lg:flex border border-gray-400 rounded-xl px-3 py-2 items-center space-x-2"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-4 w-4 text-orange-400"
@@ -74,9 +88,11 @@ const Navbar = () => {
         <input
           type="text"
           placeholder="Search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           className="bg-transparent outline-none text-sm text-gray-200 placeholder-gray-400 w-[120px]"
         />
-      </div>
+      </form>
 
       {/* === MOBILE HAMBURGER ICON === */}
       <motion.button
