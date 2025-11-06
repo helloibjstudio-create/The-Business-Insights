@@ -6,7 +6,7 @@ import { BusinessLogo } from "@/public";
 
 export default function Footer() {
   return (
-    <footer key="footer" className="bg-black z-30 relative text-white py-10 md:py-14 font-sans">
+    <footer key="footer" className="bg-black border-t border-gray-900 z-30 relative text-white py-10 md:py-14 font-sans">
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
         {/* Left Section */}
         <div className="space-y-5">

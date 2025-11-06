@@ -136,7 +136,7 @@ const Events = () => {
           />
         </div>
 
-        <section className="relative w-[90%] mx-auto text-white py-10 px-6 md:px-12 lg:px-20 bg-white/5 backdrop-blur-2xl border mb-70 font-sans border-white/10 rounded-2xl top-20">
+        <section className="relative w-[90%] mx-auto z-20 text-white py-10 px-6 md:px-12 lg:px-20 bg-white/5 backdrop-blur-2xl border mb-70 font-sans border-white/10 rounded-2xl top-20">
           <div className="grid grid-cols-1 gap-[42px] mt-10">
             {currentInterviews.map((event) => (
               <section

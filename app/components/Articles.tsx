@@ -204,7 +204,7 @@ export default function Articles() {
             w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
             border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] 
             px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3">
-          <p className="whitespace-nowrap font-sans">✨ Voices Behind Change</p>
+          <p className="whitespace-nowrap font-sans">✨ Ideas That Move Markets</p>
         </div>
 
         <h1 className="text-[36px] md:text-[60px] lg:text-[80px] font-[400] mt-6 max-w-[850px] leading-tight">
