@@ -218,14 +218,13 @@ export default function HeroParallax() {
   initial={{ opacity: 0, y: 30 }}
   animate={showNext ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
   transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
-  className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-[55px]"
+  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[55px]"
 >
   {visibleInterviews.map((person) => (
     <motion.div
-      key={person.name}
+      key={person.id}
       className="rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-500"
     >
-      {/* Image container — fixed height */}
       <div className="relative w-full h-[420px] overflow-hidden">
         <Image
           src={person.image_url}
@@ -244,7 +243,7 @@ export default function HeroParallax() {
           {person.description}
         </p>
         <Link
-          href={`/exclusive/${exclusiveInterviews}`}
+          href={`/exclusive/${person.id}`}
           className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
         >
           Read More{" "}
@@ -260,7 +259,6 @@ export default function HeroParallax() {
     </motion.div>
   ))}
 </motion.div>
-
         </motion.div>
       </motion.div>
     </section>

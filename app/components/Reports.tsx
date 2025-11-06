@@ -120,16 +120,16 @@ const Reports = () => {
       <Navbar />
 
       {/* === Hero Section === */}
-      <div className="relative h-screen top-21 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 space-y-6">
+      <div className="relative h-screen top-21 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 space-y-2 lg:space-y-6">
         <div className="inline-flex items-center justify-center w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3">
           <p className="whitespace-nowrap font-sans">📈 Where Analysis Meets Opportunity</p>
         </div>
 
-        <h1 className="font-[400] leading-tight text-3xl sm:text-4xl md:text-5xl lg:text-[80px] max-w-[90%] sm:max-w-[650px] md:max-w-[800px] lg:w-[975px]">
+        <h1 className="font-[400] leading-tight text-[36px] md:text-[60px] lg:text-[80px] max-w-[90%] sm:max-w-[650px] md:max-w-[800px] lg:w-[975px]">
           Reports
         </h1>
 
-        <p className="text-white text-xs sm:text-sm md:text-base lg:text-[20px] max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl leading-relaxed font-sans">
+        <p className="text-white text-[18px] lg:text-[20px] max-w-[99%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl leading-relaxed font-sans">
           Browse our latest publications and gain a deeper understanding of
           emerging trends and critical topics through our in-depth analysis,
           interviews with local business and political leaders, and comprehensive

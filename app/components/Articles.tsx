@@ -5,7 +5,7 @@ import Image from "next/image";
 import Navbar from "../components/Navbar";
 import { ArticleBg, InterviewBg, thirdOrange } from "@/public";
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Search, SlidersHorizontal } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Search, SlidersHorizontal } from "lucide-react";
 import Footer from "./Footer";
 
 interface Article {
@@ -17,6 +17,7 @@ interface Article {
   year: string;
   link: string;
   country: string;
+  write_up: string;
 }
 
 const Articles = () => {
@@ -27,6 +28,8 @@ const Articles = () => {
   const [years, setYears] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(8);
+  
+    const [selectedInterview, setSelectedInterview] = useState<Article | null>(null);
 
   // Responsive pagination setup
   useEffect(() => {
@@ -105,6 +108,126 @@ const Articles = () => {
     return pages;
   };
 
+  if (selectedInterview) {
+      return (
+        <section className="bg-black text-white min-h-screen">
+          <Navbar />
+  
+          <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
+            {/* Back button */}
+            <button
+              onClick={() => setSelectedInterview(null)}
+              className="flex items-center text-orange-400 mb-10 hover:text-orange-500 transition"
+            >
+              <ArrowLeft className="mr-2 w-4 h-4" /> Back to articles
+            </button>
+  
+            {/* Interview content */}
+            <div className="flex flex-col-reverse bg-white/3 backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] font-sans gap-10">
+  
+    {/* TEXT SECTION */}
+    <div className="w-full">
+      
+  
+      <div className="space-y-6 text-white font-sans font-normal leading-relaxed">
+        <p>{selectedInterview.description}</p>
+  
+        {selectedInterview.write_up ? (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: selectedInterview.write_up,
+            }}
+          />
+        ) : (
+          <>
+            <p>
+              Can you please give us an introduction to{" "}
+              {selectedInterview.name} and its role in the{" "}
+              {selectedInterview.country} market?
+            </p>
+            <p>
+              What sets apart the {selectedInterview.country} industry
+              from the rest of the region?
+            </p>
+            <p>
+              How do you assess the current {selectedInterview.country} market?
+            </p>
+            <p>
+              What do you anticipate as the aftermath of recent global events
+              in your sector?
+            </p>
+          </>
+        )}
+      </div>
+    </div>
+  
+  
+              {/* Image + name card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative w-full h-[500px] font-sans rounded-xl overflow-hidden shadow-lg"
+              >
+                <Image
+                  src={selectedInterview.image_url}
+                  alt={selectedInterview.name}
+                  fill
+                  className="object-fit inset-0 w-full h-fit"
+                />
+                
+              </motion.div>
+              <h1 className="text-3xl md:text-4xl font-semibold mb-6">
+        {selectedInterview.name}
+      </h1>
+            </div>
+            
+  
+            {/* Related */}
+            <div className="mt-20 font-sans">
+              <h2 className="text-2xl mb-6 font-semibold">
+                You may also be interested in...
+              </h2>
+              <div className="grid md:grid-cols-2 gap-8">
+                {articles
+                  .filter((item) => item.id !== selectedInterview.id)
+                  .slice(0, 2)
+                  .map((related) => (
+                    <div
+                      key={related.id}
+                      onClick={() => setSelectedInterview(related)}
+                      className="cursor-pointer bg-[#111] rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+                    >
+                      <div className="relative w-full h-[240px]">
+                        <Image
+                          src={related.image_url}
+                          alt={related.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="p-5">
+                        <h4 className="text-lg font-semibold mb-1">
+                          {related.name}
+                        </h4>
+                        <p className="text-sm text-gray-400 mb-3">
+                          {related.sector}
+                        </p>
+                        <span className="text-orange-400 hover:underline text-sm">
+                          Read More →
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+  
+          <Footer />
+        </section>
+      );
+    }
+
   return (
     <section className="relative bg-black text-white overflow-hidden">
       {/* Background Image */}
@@ -135,15 +258,15 @@ const Articles = () => {
 
         <h1
           className="font-[400] leading-tight 
-            text-3xl sm:text-4xl md:text-5xl lg:text-[80px] 
+            text-[36px] md:text-[60px] lg:text-[80px] 
             max-w-[90%] sm:max-w-[650px] md:max-w-[743px] lg:w-[743px]"
         >
           Insight That <span className="text-[#E25B2B]">Shapes Tomorrow.</span>
         </h1>
 
         <p
-          className="text-white text-xs sm:text-sm md:text-base lg:text-[20px] font-sans 
-            max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl 
+          className="text-white text-[18px] lg:text-[20px] font-sans 
+            max-w-[92%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl 
             leading-relaxed"
         >
           The Business Insight delivers bold perspectives, market intelligence,
@@ -231,7 +354,7 @@ const Articles = () => {
           {/* PAGINATED GRID */}
           <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-[42px] mt-10 transition-all duration-500">
             {currentArticles.map((article) => (
-              <section key={article.id} className="relative">
+              <section key={article.id} onClick={() => setSelectedInterview(article)} className="relative">
                 <div className="relative">
                   <Image
                     src={article.image_url}
