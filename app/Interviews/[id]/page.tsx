@@ -18,7 +18,7 @@ interface Interview {
   year: string;
   link: string;
   country: string;
-  content?: string;
+  write_up?: string;
 }
 
 export default function InterviewDetailPage() {
@@ -66,9 +66,9 @@ useEffect(() => {
             </h1>
             <div className="space-y-6 text-gray-300 leading-relaxed">
               <p>{interview.description}</p>
-              {interview.content ? (
+              {interview.write_up ? (
                 <div
-                  dangerouslySetInnerHTML={{ __html: interview.content }}
+                  dangerouslySetInnerHTML={{ __html: interview.write_up }}
                 />
               ) : (
                 <>

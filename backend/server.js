@@ -193,6 +193,33 @@ app.put("/api/:table/:id", async (req, res) => {
   res.json({ success: true, data });
 });
 
+
+// ===================================================================
+// 🔎 UNIVERSAL GET-BY-ID ROUTE
+// ===================================================================
+app.get("/api/:table/:id", async (req, res) => {
+  const { table, id } = req.params;
+  console.log(`🔍 Fetching from ${table} with ID ${id}`);
+
+  try {
+    const { data, error } = await supabase
+      .from(table)
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error || !data) {
+      console.error(`❌ Fetch error from ${table}:`, error?.message || "Not found");
+      return res.status(404).json({ error: "Record not found" });
+    }
+
+    res.json(data);
+  } catch (err) {
+    console.error(`⚠️ Unexpected error in GET /api/${table}/${id}:`, err.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // ===================================================================
 // 🗑️ UNIVERSAL DELETE ROUTE
 // ===================================================================

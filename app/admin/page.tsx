@@ -425,7 +425,7 @@ export default function AdminDashboard({
                 </div>
                 <div>
                   <label className="block mb-2 text-sm">Write up</label>
-                  <textarea name="write_up" id="" value={formData.write_up} onChange={handleChange} rows={40} className="w-full p-2 rounded bg-transparent border border-gray-700"></textarea>
+                  <textarea name="write_up" id="" value={formData.write_up} onChange={handleChange} rows={60} className="w-full p-2 rounded bg-transparent border border-gray-700"></textarea>
                 </div>
               </>
             )}

@@ -17,7 +17,7 @@ interface Interview {
   year: string;
   link: string;
   country: string;
-  content?: string; // optional for long body
+  write_up?: string; // optional for long body
 }
 
 const ITEMS_PER_PAGE = 8;
@@ -97,10 +97,10 @@ const Interviews = () => {
 
               <div className="space-y-6 text-gray-300 leading-relaxed">
                 <p>{selectedInterview.description}</p>
-                {selectedInterview.content ? (
+                {selectedInterview.write_up ? (
                   <div
                     dangerouslySetInnerHTML={{
-                      __html: selectedInterview.content,
+                      __html: selectedInterview.write_up,
                     }}
                   />
                 ) : (
