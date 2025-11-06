@@ -95,7 +95,7 @@ app.get("/api/interviews/:id", async (req, res) => {
 app.post("/api/exclusiveInterviews", async (req, res) => {
   const { name, sector, image_url, description, country, write_up, year, link } = req.body;
   const { data, error } = await supabase
-    .from("exclusive")
+    .from("exclusiveInterviews")
     .insert([{ name, sector, image_url, write_up, description, country, year, link }]);
 
   if (error) return res.status(400).json({ error: error.message });
@@ -103,7 +103,7 @@ app.post("/api/exclusiveInterviews", async (req, res) => {
 });
 
 app.get("/api/exclusiveInterviews", async (req, res) => {
-  const { data, error } = await supabase.from("exclusive").select("*").order("id", { ascending: false });
+  const { data, error } = await supabase.from("exclusiveInterviews").select("*").order("id", { ascending: false });
   if (error) return res.status(400).json({ error: error.message });
   res.json(data);
 });
