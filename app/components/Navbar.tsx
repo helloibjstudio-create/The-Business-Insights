@@ -6,8 +6,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,23 +22,23 @@ const Navbar = () => {
     }
   };
 
-  // Nav links list
+  // ✅ All routes lowercase to match /app directory
   const navLinks = [
     { name: "Interviews", href: "/Interviews" },
     { name: "Articles", href: "/articles" },
     { name: "Reports", href: "/reports" },
-    { name: "Events", href: "/Events" },
+    { name: "Events", href: "/events" },
     { name: "About Us", href: "/about" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 px-6 sm:px-10 py-6 flex items-center justify-between text-white backdrop-blur-md bg-black/20 border-b border-white/10 transition-all">
+    <nav className="fixed top-0 left-0 w-full z-60 px-6 sm:px-10 py-6 flex items-center justify-between text-white backdrop-blur-md bg-black/30 border-b border-white/10 transition-all">
       {/* === LOGO === */}
-      <Link href="/" className="flex items-center">
+      <Link href="/" className="flex items-center relative z-50">
         <Image
           src={BusinessLogo}
           alt="Business Insight Logo"
-          width={180}
+          width={200}
           height={45}
           className="w-[160px] sm:w-[200px] md:w-[244px] transition-all"
         />
@@ -48,7 +47,7 @@ const Navbar = () => {
       {/* === DESKTOP LINKS === */}
       <ul className="hidden lg:flex space-x-8 text-[16px] font-sans font-medium">
         {navLinks.map((link) => {
-          const isActive = pathname === link.href; // 👈 check if current page
+          const isActive = pathname === link.href;
           return (
             <li key={link.name}>
               <Link
@@ -66,10 +65,10 @@ const Navbar = () => {
         })}
       </ul>
 
-      {/* === SEARCH (DESKTOP ONLY) === */}
+      {/* === SEARCH BAR (DESKTOP) === */}
       <form
         onSubmit={handleSearch}
-        className="hidden lg:flex border border-gray-400 rounded-xl px-3 py-2 items-center space-x-2"
+        className="hidden lg:flex border border-gray-500/40 rounded-xl px-3 py-2 items-center space-x-2 relative z-50"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -94,41 +93,16 @@ const Navbar = () => {
         />
       </form>
 
-      {/* === MOBILE HAMBURGER ICON === */}
+      {/* === MOBILE MENU ICON === */}
       <motion.button
         whileTap={{ scale: 0.9 }}
         onClick={() => setMenuOpen(!menuOpen)}
-        className="md:hidden flex text-white focus:outline-none z-70 relative"
+        className="lg:hidden flex text-white focus:outline-none z-50 relative"
       >
-        <motion.div
-          animate={menuOpen ? { rotate: 180 } : { rotate: 0 }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-        >
-          {menuOpen ? (
-            <motion.div
-              key="close"
-              initial={{ opacity: 0, rotate: -90 }}
-              animate={{ opacity: 1, rotate: 0 }}
-              exit={{ opacity: 0, rotate: 90 }}
-              transition={{ duration: 0.4 }}
-            >
-              <X size={30} strokeWidth={2.5} />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="menu"
-              initial={{ opacity: 0, rotate: 90 }}
-              animate={{ opacity: 1, rotate: 0 }}
-              exit={{ opacity: 0, rotate: -90 }}
-              transition={{ duration: 0.4 }}
-            >
-              <Menu size={30} strokeWidth={2.5} />
-            </motion.div>
-          )}
-        </motion.div>
+        {menuOpen ? <X size={30} strokeWidth={2.5} /> : <Menu size={30} strokeWidth={2.5} />}
       </motion.button>
 
-      {/* === FULL-SCREEN MOBILE MENU === */}
+      {/* === MOBILE FULLSCREEN MENU === */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -136,8 +110,8 @@ const Navbar = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="fixed inset-0 bg-black/90 backdrop-blur-7xl z-50 flex flex-col items-center justify-center h-screen space-y-10 text-white text-2xl font-semibold font-sans"
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center space-y-10 text-white text-2xl font-semibold font-sans"
           >
             {navLinks.map((item, i) => {
               const isActive = pathname === item.href;

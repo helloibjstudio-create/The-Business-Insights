@@ -3,14 +3,9 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import { InterviewBg, thirdOrange } from "@/public";
-import { useEffect, useState } from "react";
-import {
-  ArrowUpRight,
-  Search,
-  SlidersHorizontal,
-  ArrowLeft,
-} from "lucide-react";
+import { InterviewBg } from "@/public";
+import { useEffect, useState, useCallback } from "react";
+import { ArrowUpRight, ArrowLeft } from "lucide-react";
 import Footer from "./Footer";
 import SearchAndFilter from "./SearchFilter";
 
@@ -23,7 +18,7 @@ interface Interview {
   year: string;
   link: string;
   country: string;
-  write_up?: string; // optional for long body
+  write_up?: string;
 }
 
 const ITEMS_PER_PAGE = 8;
@@ -35,21 +30,27 @@ const Interviews = () => {
     null
   );
   const [filteredInterviews, setFilteredInterviews] = useState<Interview[]>([]);
-  useEffect(() => {
-    setFilteredInterviews(interviews);
-  }, [interviews]);
+
+  // ✅ Memoize the handler so SearchAndFilter doesn’t trigger infinite re-renders
+  const handleFiltered = useCallback((filtered: Interview[]) => {
+    setFilteredInterviews(filtered);
+  }, []);
 
   // Fetch all interviews
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/interviews`)
       .then((res) => res.json())
-      .then((data) => setInterviews(data))
+      .then((data) => {
+        setInterviews(data);
+        setFilteredInterviews(data); // set initially
+      })
       .catch((err) => console.error("Error fetching interviews:", err));
   }, []);
 
-  const totalPages = Math.ceil(interviews.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredInterviews.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentInterviews = interviews.slice(
+
+  const currentInterviews = filteredInterviews.slice(
     startIndex,
     startIndex + ITEMS_PER_PAGE
   );
@@ -58,7 +59,6 @@ const Interviews = () => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page);
   };
 
-  // PAGINATION NUMBERS
   const renderPageNumbers = () => {
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {
@@ -99,7 +99,6 @@ const Interviews = () => {
         <Navbar />
 
         <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
-          {/* Back button */}
           <button
             onClick={() => setSelectedInterview(null)}
             className="flex items-center text-orange-400 mb-10 hover:text-orange-500 transition"
@@ -107,9 +106,7 @@ const Interviews = () => {
             <ArrowLeft className="mr-2 w-4 h-4" /> Back to interviews
           </button>
 
-          {/* Interview content */}
           <div className="flex flex-col-reverse bg-white/3 backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] lg:flex-row font-sans gap-10">
-            {/* TEXT SECTION */}
             <div className="w-full">
               <h1 className="text-3xl md:text-4xl font-semibold mb-6">
                 {selectedInterview.name}
@@ -117,7 +114,6 @@ const Interviews = () => {
 
               <div className="space-y-6 text-white font-sans font-normal leading-relaxed">
                 <p>{selectedInterview.description}</p>
-
                 {selectedInterview.write_up ? (
                   <div
                     dangerouslySetInnerHTML={{
@@ -148,7 +144,6 @@ const Interviews = () => {
               </div>
             </div>
 
-            {/* Image + name card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -175,13 +170,13 @@ const Interviews = () => {
             </motion.div>
           </div>
 
-          {/* Related */}
+          {/* Related section */}
           <div className="mt-20 font-sans">
             <h2 className="text-2xl mb-6 font-semibold">
               You may also be interested in...
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
-              {interviews
+              {filteredInterviews
                 .filter((item) => item.id !== selectedInterview.id)
                 .slice(0, 2)
                 .map((related) => (
@@ -224,7 +219,7 @@ const Interviews = () => {
   return (
     <section className="relative bg-black text-white overflow-hidden">
       {/* Background */}
-      <div className="absolute h-screen inset-0">
+      <div className="absolute h-screen inset-0 z-0 pointer-events-none">
         <Image
           src={InterviewBg}
           alt="Interview background"
@@ -251,22 +246,24 @@ const Interviews = () => {
           Exclusive Interviews with{" "}
           <span className="text-[#E25B2B]">Leaders & Innovators</span>
         </h1>
-        <p className=" mt-4 font-sans text-[18px] lg:text-[20px] max-w-[850px] text-white">
-          Dive into conversations that shape industries, nations and
-          futures.From business visionaries to policy makers, our interviews
-          bring you first-hand perspectives on what’s next.
+        <p className="mt-4 font-sans text-[18px] lg:text-[20px] max-w-[850px] text-white">
+          Dive into conversations that shape industries, nations and futures.
+          From business visionaries to policy makers, our interviews bring you
+          first-hand perspectives on what’s next.
         </p>
       </div>
 
-      {/* Search bar */}
-      <SearchAndFilter
-        data={interviews}
-        onFiltered={setFilteredInterviews}
-        fields={{
-          search: ["name", "description", "sector", "year"],
-          filters: { year: "year", country: "country", sector: "sector" },
-        }}
-      />
+      {/* ✅ FIXED SearchAndFilter */}
+      <div className="relative z-50">
+        <SearchAndFilter
+          data={interviews}
+          onFiltered={handleFiltered}
+          fields={{
+            search: ["name", "description", "sector", "year"],
+            filters: { year: "year", country: "country", sector: "sector" },
+          }}
+        />
+      </div>
 
       {/* Grid */}
       <div className="relative font-sans w-[90%] mx-auto mt-40 py-10">
@@ -276,9 +273,7 @@ const Interviews = () => {
         </p>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-[42px]">
-          {filteredInterviews
-          .slice(startIndex, startIndex + ITEMS_PER_PAGE)
-          .map((interview) => (
+          {currentInterviews.map((interview) => (
             <div
               key={interview.id}
               onClick={() => setSelectedInterview(interview)}
@@ -326,9 +321,7 @@ const Interviews = () => {
           >
             Prev
           </button>
-
           {renderPageNumbers()}
-
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             className="text-gray-400 hover:text-orange-400 transition"

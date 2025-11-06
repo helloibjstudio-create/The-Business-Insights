@@ -12,6 +12,10 @@ interface SearchItem {
   name: string;
   description?: string;
   image_url: string;
+  title: string;
+  sector: string;
+  year: string;
+  country: string;
 }
 
 interface SearchResults {
@@ -37,6 +41,7 @@ export default function SearchContent() {
     events: [],
   });
   const [loading, setLoading] = useState(false);
+  const normalize = (val: any) => String(val ?? "").toLowerCase();
 
   // 🕒 Debounce effect
   useEffect(() => {
@@ -47,8 +52,10 @@ export default function SearchContent() {
     return () => clearTimeout(handler);
   }, [query, router]);
 
-  const highlightMatch = (text: string) => {
+  const highlightMatch = (text?: string) => {
+    if (!text) return ""; // avoid .replace on undefined
     if (!debouncedQuery) return text;
+
     const regex = new RegExp(`(${debouncedQuery})`, "gi");
     return text.replace(regex, "<span class='text-orange-400'>$1</span>");
   };
@@ -85,9 +92,20 @@ export default function SearchContent() {
         const data = await Promise.all(responses.map((r) => r.json()));
 
         const filterByQuery = (arr: SearchItem[]) =>
-          arr.filter((item) =>
-            item?.name?.toLowerCase().includes(debouncedQuery)
-          );
+          arr.filter((item) => {
+            const text = [
+              item.name,
+              item.description,
+              item.sector,
+              item.year,
+              item.country,
+              item.title,
+            ]
+              .map(normalize)
+              .join(" ");
+
+            return text.includes(debouncedQuery);
+          });
 
         setResults({
           exclusiveInterviews: filterByQuery(data[0]),
@@ -109,7 +127,7 @@ export default function SearchContent() {
   return (
     <main className="min-h-screen bg-black text-white font-sans">
       <Navbar />
-      <div className="max-w-7xl mx-auto px-6 py-20">
+      <div className="max-w-7xl mx-auto px-6 py-40">
         <h1 className="text-4xl font-semibold mb-10">
           Search results for:{" "}
           <span className="text-orange-400">{debouncedQuery}</span>
@@ -158,7 +176,9 @@ export default function SearchContent() {
                         <h3
                           className="text-xl font-semibold mb-2"
                           dangerouslySetInnerHTML={{
-                            __html: highlightMatch(item.name),
+                            __html: highlightMatch(
+                              item.name || item.title || ""
+                            ),
                           }}
                         />
                         <p className="text-gray-300 text-sm mb-3">

@@ -4,13 +4,14 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
 import { InterviewBg, ReportBg, thirdOrange } from "@/public";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ArrowUpRight,
   Search,
   SlidersHorizontal,
 } from "lucide-react";
 import Footer from "./Footer";
+import SearchAndFilter from "./SearchFilter";
 
 interface Report {
   id: number;
@@ -25,6 +26,12 @@ const Reports = () => {
   const [reports, setReports] = useState<Report[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(9);
+   const [filteredInterviews, setFilteredInterviews] = useState<Report[]>([]);
+  
+    // ✅ Memoize the handler so SearchAndFilter doesn’t trigger infinite re-renders
+    const handleFiltered = useCallback((filtered: Report[]) => {
+      setFilteredInterviews(filtered);
+    }, []);
 
   // ✅ Fetch data from your backend
   useEffect(() => {
@@ -138,15 +145,16 @@ const Reports = () => {
       </div>
 
       {/* === Search Bar === */}
-      <div className="flex relative lg:top-50 ml-10 items-center justify-start w-64 sm:w-80 md:w-96 h-9 px-3 rounded-md border border-orange-600/40 bg-orange-950/10 backdrop-blur-sm focus-within:border-orange-500/70 transition-all duration-200">
-        <Search className="w-4 h-4 text-orange-500 mr-2" />
-        <input
-          type="text"
-          placeholder="Search"
-          className="flex-1 bg-transparent outline-none text-sm text-orange-100 placeholder:text-orange-500/60"
-        />
-        <SlidersHorizontal className="w-4 h-4 text-orange-500 cursor-pointer hover:text-orange-400 transition-colors" />
-      </div>
+      <div className="relative z-50">
+              <SearchAndFilter
+                data={reports}
+                onFiltered={handleFiltered}
+                fields={{
+                  search: ["title"],
+                  filters: {},
+                }}
+              />
+            </div>
 
       {/* === Content === */}
       <section>
@@ -166,7 +174,7 @@ const Reports = () => {
         >
           {/* === Grid of Reports === */}
           <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[42px] mt-10">
-            {currentReports.map((report) => (
+            {(filteredInterviews.length > 0 ? filteredInterviews : currentReports).map((report) => (
               <section
                 key={report.id}
                 className="relative bg-transparent text-white font-sans"

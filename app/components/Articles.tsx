@@ -3,10 +3,12 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import { ArticleBg, InterviewBg, thirdOrange } from "@/public";
-import { useEffect, useState } from "react";
-import { ArrowLeft, ArrowUpRight, Search, SlidersHorizontal } from "lucide-react";
+import { ArticleBg, thirdOrange } from "@/public";
+import { useEffect, useState, useMemo } from "react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import Footer from "./Footer";
+import SearchAndFilter from "./SearchFilter";
+
 
 interface Article {
   id: number;
@@ -20,59 +22,35 @@ interface Article {
   write_up: string;
 }
 
-const Articles = () => {
+const ITEMS_PER_PAGE = 8;
+
+export default function Articles() {
   const [articles, setArticles] = useState<Article[]>([]);
-  const [showFilters, setShowFilters] = useState(false);
-  const [countries, setCountries] = useState<string[]>([]);
-  const [sectors, setSectors] = useState<string[]>([]);
-  const [years, setYears] = useState<string[]>([]);
+  const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(8);
-  
-    const [selectedInterview, setSelectedInterview] = useState<Article | null>(null);
 
-  // Responsive pagination setup
-  useEffect(() => {
-    const updateItemsPerPage = () => {
-      if (window.innerWidth < 640) setItemsPerPage(4); // mobile
-      else if (window.innerWidth < 1024) setItemsPerPage(8); // tablet
-      else setItemsPerPage(10); // desktop
-    };
-
-    updateItemsPerPage();
-    window.addEventListener("resize", updateItemsPerPage);
-    return () => window.removeEventListener("resize", updateItemsPerPage);
-  }, []);
-
-  // Fetch filter options
-  useEffect(() => {
-    fetch("http://localhost:5000/api/filters")
-      .then((res) => res.json())
-      .then((data) => {
-        setCountries(data.countries || []);
-        setSectors(data.sectors || []);
-        setYears(data.years || []);
-      })
-      .catch((err) => console.error("Error fetching filters:", err));
-  }, []);
-
-  // Fetch articles
+  // Fetch all articles
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/articles`)
       .then((res) => res.json())
-      .then((data) => setArticles(data))
+      .then((data) => {
+        setArticles(data);
+        setFilteredArticles(data);
+      })
       .catch((err) => console.error("Error fetching articles:", err));
   }, []);
 
   // Pagination logic
-  const totalPages = Math.ceil(articles.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentArticles = articles.slice(startIndex, startIndex + itemsPerPage);
+  const totalPages = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentArticles = useMemo(
+    () => filteredArticles.slice(startIndex, startIndex + ITEMS_PER_PAGE),
+    [filteredArticles, startIndex]
+  );
 
   const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-    }
+    if (page >= 1 && page <= totalPages) setCurrentPage(page);
   };
 
   const renderPageNumbers = () => {
@@ -108,336 +86,221 @@ const Articles = () => {
     return pages;
   };
 
-  if (selectedInterview) {
-      return (
-        <section className="bg-black text-white min-h-screen">
-          <Navbar />
-  
-          <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
-            {/* Back button */}
-            <button
-              onClick={() => setSelectedInterview(null)}
-              className="flex items-center text-orange-400 mb-10 hover:text-orange-500 transition"
-            >
-              <ArrowLeft className="mr-2 w-4 h-4" /> Back to articles
-            </button>
-  
-            {/* Interview content */}
-            <div className="flex flex-col-reverse bg-white/3 backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] font-sans gap-10">
-  
-    {/* TEXT SECTION */}
-    <div className="w-full">
-      
-  
-      <div className="space-y-6 text-white font-sans font-normal leading-relaxed">
-        <p>{selectedInterview.description}</p>
-  
-        {selectedInterview.write_up ? (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: selectedInterview.write_up,
-            }}
-          />
-        ) : (
-          <>
-            <p>
-              post not yet ready.....
-            </p>
-          </>
-        )}
-      </div>
-    </div>
-  
-  
-              {/* Image + name card */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="relative w-full h-[500px] font-sans rounded-xl overflow-hidden shadow-lg"
-              >
-                <Image
-                  src={selectedInterview.image_url}
-                  alt={selectedInterview.name}
-                  fill
-                  className="object-fit inset-0 w-full h-fit"
-                />
-                
-              </motion.div>
+  // ===== DETAIL VIEW =====
+  if (selectedArticle) {
+    return (
+      <section className="bg-black text-white min-h-screen">
+        <Navbar />
+
+        <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
+          <button
+            onClick={() => setSelectedArticle(null)}
+            className="flex items-center text-orange-400 mb-10 hover:text-orange-500 transition"
+          >
+            <ArrowLeft className="mr-2 w-4 h-4" /> Back to articles
+          </button>
+
+          <div className="flex flex-col-reverse bg-white/5 backdrop-blur-2xl border border-white/10 p-6 rounded-[20px] font-sans gap-10">
+            {/* Text section */}
+            <div className="w-full">
               <h1 className="text-3xl md:text-4xl font-semibold mb-6">
-        {selectedInterview.name}
-      </h1>
-            </div>
-            
-  
-            {/* Related */}
-            <div className="mt-20 font-sans">
-              <h2 className="text-2xl mb-6 font-semibold">
-                You may also be interested in...
-              </h2>
-              <div className="grid md:grid-cols-2 gap-8">
-                {articles
-                  .filter((item) => item.id !== selectedInterview.id)
-                  .slice(0, 2)
-                  .map((related) => (
-                    <div
-                      key={related.id}
-                      onClick={() => setSelectedInterview(related)}
-                      className="cursor-pointer bg-[#111] rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
-                    >
-                      <div className="relative w-full h-[240px]">
-                        <Image
-                          src={related.image_url}
-                          alt={related.name}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="p-5">
-                        <h4 className="text-lg font-semibold mb-1">
-                          {related.name}
-                        </h4>
-                        <p className="text-sm text-gray-400 mb-3">
-                          {related.sector}
-                        </p>
-                        <span className="text-orange-400 hover:underline text-sm">
-                          Read More →
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+                {selectedArticle.name}
+              </h1>
+              <div className="space-y-6 text-white font-normal leading-relaxed">
+                <p>{selectedArticle.description}</p>
+
+                {selectedArticle.write_up ? (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: selectedArticle.write_up,
+                    }}
+                  />
+                ) : (
+                  <p>Post not yet ready…</p>
+                )}
               </div>
             </div>
-          </div>
-  
-          <Footer />
-        </section>
-      );
-    }
 
+            {/* Image */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="relative w-full h-[500px] rounded-xl overflow-hidden shadow-lg"
+            >
+              <Image
+                src={selectedArticle.image_url}
+                alt={selectedArticle.name}
+                fill
+                className="object-cover"
+              />
+            </motion.div>
+          </div>
+
+          {/* Related Articles */}
+          <div className="mt-20">
+            <h2 className="text-2xl mb-6 font-semibold">
+              You may also be interested in...
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              {articles
+                .filter((item) => item.id !== selectedArticle.id)
+                .slice(0, 2)
+                .map((related) => (
+                  <div
+                    key={related.id}
+                    onClick={() => setSelectedArticle(related)}
+                    className="cursor-pointer bg-[#111] rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+                  >
+                    <div className="relative w-full h-[240px]">
+                      <Image
+                        src={related.image_url}
+                        alt={related.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="p-5">
+                      <h4 className="text-lg font-semibold mb-1">
+                        {related.name}
+                      </h4>
+                      <p className="text-sm text-gray-400 mb-3">
+                        {related.sector}
+                      </p>
+                      <span className="text-orange-400 hover:underline text-sm">
+                        Read More →
+                      </span>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
+
+        <Footer />
+      </section>
+    );
+  }
+
+  // ===== MAIN LIST VIEW =====
   return (
     <section className="relative bg-black text-white overflow-hidden">
-      {/* Background Image */}
       <div className="absolute h-screen inset-0">
         <Image
           src={ArticleBg}
-          alt="Interview background"
+          alt="Article background"
           fill
-          className="object-cover h-screen object-center opacity-70"
+          className="object-cover opacity-70"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30" />
       </div>
 
-      {/* Navbar */}
       <Navbar />
 
-      {/* Hero Content */}
-      <div className="relative top-30 h-screen z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10  space-y-6">
-        <div
-          className="inline-flex items-center justify-center 
+      {/* Hero */}
+      <div className="relative h-screen top-28 z-30 flex flex-col items-center justify-center text-center px-4">
+        <div className="inline-flex items-center justify-center 
             w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
             border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] 
-            px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3"
-        >
-          <p className="whitespace-nowrap font-sans">✨ Ideas That Move Markets</p>
+            px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3">
+          <p className="whitespace-nowrap font-sans">✨ Voices Behind Change</p>
         </div>
 
-        <h1
-          className="font-[400] leading-tight 
-            text-[36px] md:text-[60px] lg:text-[80px] 
-            max-w-[90%] sm:max-w-[650px] md:max-w-[743px] lg:w-[743px]"
-        >
-          Insight That <span className="text-[#E25B2B]">Shapes Tomorrow.</span>
+        <h1 className="text-[36px] md:text-[60px] lg:text-[80px] font-[400] mt-6 max-w-[850px] leading-tight">
+          Insight That <span className="text-[#E25B2B] ">Shapes Tomorrow.</span>
         </h1>
 
-        <p
-          className="text-white text-[18px] lg:text-[20px] font-sans 
-            max-w-[92%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl 
-            leading-relaxed"
-        >
+        <p className="mt-4 text-[18px] font-sans lg:text-[20px] max-w-[850px] text-white">
           The Business Insight delivers bold perspectives, market intelligence,
           and stories that drive transformation across the world.
         </p>
       </div>
 
-      {/* Search + Filters */}
-      <div className="flex relative top-50 ml-10 items-center justify-start w-64 h-9 px-3 rounded-md border border-orange-600/40 bg-orange-950/10 backdrop-blur-sm focus-within:border-orange-500/70 transition-all duration-200">
-        <Search className="w-4 h-4 text-orange-500 mr-2" />
-        <input
-          type="text"
-          placeholder="Search"
-          className="flex-1 bg-transparent outline-none text-sm text-orange-100 placeholder:text-orange-500/60"
-        />
-        <SlidersHorizontal
-          className="w-4 h-4 text-orange-500 cursor-pointer hover:text-orange-400 transition-colors"
-          onClick={() => setShowFilters((prev) => !prev)}
-        />
-        {showFilters && (
-          <div className="absolute top-12 left-0 w-full bg-[#1c1c1c] border border-orange-900/30 rounded-lg shadow-lg p-4 z-50 space-y-3">
-            <div>
-              <label className="block text-sm text-orange-400 mb-1">Country</label>
-              <select className="w-full bg-[#2b2b2b] border border-gray-700 rounded p-2 text-sm">
-                <option value="">All</option>
-                {countries.map((country, i) => (
-                  <option key={i} value={country}>
-                    {country}
-                  </option>
-                ))}
-              </select>
-            </div>
+      {/* Search & Filter */}
+      <SearchAndFilter
+        data={articles}
+        onFiltered={setFilteredArticles}
+        fields={{
+          search: ["name", "description", "sector", "year"],
+          filters: { year: "year", country: "country", sector: "sector" },
+        }}
+      />
 
-            <div>
-              <label className="block text-sm text-orange-400 mb-1">Sector</label>
-              <select className="w-full bg-[#2b2b2b] border border-gray-700 rounded p-2 text-sm">
-                <option value="">All</option>
-                {sectors.map((sector, i) => (
-                  <option key={i} value={sector}>
-                    {sector}
-                  </option>
-                ))}
-              </select>
-            </div>
+      {/* Grid */}
+      <div className="relative w-[90%] mx-auto font-sans text-white mt-40 py-10">
+        <h1 className="text-[50px] font-[500] mb-2">Articles</h1>
+        <p className="text-[18px] text-gray-300 mb-10">
+          Explore our latest articles and insights for a fresh perspective on
+          industry trends and news.
+        </p>
 
-            <div>
-              <label className="block text-sm text-orange-400 mb-1">Year</label>
-              <select className="w-full bg-[#2b2b2b] border border-gray-700 rounded p-2 text-sm">
-                <option value="">All</option>
-                {years.map((year, i) => (
-                  <option key={i} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        )}
-      </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-[42px]">
+          {currentArticles.map((article) => (
+            <div
+              key={article.id}
+              onClick={() => setSelectedArticle(article)}
+              className="cursor-pointer"
+            >
+              <div className="relative">
+                <Image
+                  src={article.image_url}
+                  alt={article.name}
+                  width={633}
+                  height={413}
+                  className="object-cover rounded-md w-full h-auto"
+                />
+                <div className="absolute bottom-3 left-3 bg-black/30 text-white text-xs px-3 py-1 rounded-md border border-orange-500">
+                  {article.sector}
+                </div>
+              </div>
 
-      <section>
-        <div className="absolute -top-20 w-full h-full">
-          <Image
-            src={thirdOrange}
-            alt="Third section banner"
-            fill
-            className="object-contain h-[50%] lg:h-fit"
-            priority
-          />
+              <div className="mt-3 space-y-1 py-2">
+                <div className="flex items-center space-x-2">
+                  <p className="text-sm text-gray-400">{article.country}</p>
+                  <span className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
+                  <p className="text-sm text-gray-400">{article.year}</p>
+                </div>
+                <h2 className="text-[28px] font-[500]">{article.name}</h2>
+                <span className="text-orange-500 hover:underline text-lg flex items-center">
+                  Read more <ArrowUpRight className="ml-1 w-4 h-4" />
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* Main Section */}
-        <section
-          className="relative w-[90%] top-50 mb-120 mx-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
-          bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] mt-20 border-white/10 h-auto"
-        >
-          <h1 className="text-[40px] sm:text-[50px] md:text-[60px] font-sans font-[500]">
-            Articles
-          </h1>
-          <p className="text-[16px] sm:text-[18px] md:text-[20px] font-sans font-[500]">
-            Explore our latest articles and insights for a fresh perspective on
-            industry trends and news.
-          </p>
-
-          {/* PAGINATED GRID */}
-          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-[42px] mt-10 transition-all duration-500">
-            {currentArticles.map((article) => (
-              <section key={article.id} onClick={() => setSelectedInterview(article)} className="relative">
-                <div className="relative">
-                  <Image
-                    src={article.image_url}
-                    alt={article.name}
-                    width={633}
-                    height={413}
-                    className="object-cover rounded-md w-full h-auto"
-                    priority
-                  />
-                  <div className="absolute bottom-3 left-3 text-white text-xs md:text-sm px-3 py-1">
-                    {(Array.isArray(article.sector)
-                      ? article.sector
-                      : [article.sector]
-                    ).map((sector, i) => (
-                      <span
-                        key={i}
-                        className="text-orange-400 text-xs font-medium px-3 py-1 mx-1 bg-black/60 rounded-full border border-orange-600/40"
-                      >
-                        {sector}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-3 space-y-1 py-2">
-                  <div className="flex items-center space-x-2">
-                    <p className="text-[14px] md:text-[16px] font-sans font-[400] text-white/70">
-                      {Array.isArray(article.country)
-                        ? article.country.join(", ")
-                        : article.country}
-                    </p>
-                    <span className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
-                    <p className="text-[14px] md:text-[16px] font-sans font-[400] text-white/70">
-                      {article.year}
-                    </p>
-                  </div>
-                  <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-sans font-[500] text-white">
-                    {article.name}
-                  </h2>
-                  <a
-                    href={article.link}
-                    className="text-orange-500 hover:underline"
-                  >
-                    Read more <ArrowUpRight className="inline-block w-4 h-4 ml-1" />
-                  </a>
-                </div>
-              </section>
-            ))}
-          </div>
-
-          {/* Pagination */}
-          <div className="flex justify-center items-center space-x-2 mt-10 text-sm flex-wrap">
-            <button
-              onClick={() => handlePageChange(1)}
-              className="text-gray-400 hover:text-orange-400 transition"
-            >
-              First
-            </button>
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              className="text-gray-400 hover:text-orange-400 transition"
-            >
-              Prev
-            </button>
-
-            {renderPageNumbers()}
-
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              className="text-gray-400 hover:text-orange-400 transition"
-            >
-              Next
-            </button>
-            <button
-              onClick={() => handlePageChange(totalPages)}
-              className="text-gray-400 hover:text-orange-400 transition"
-            >
-              Last
-            </button>
-          </div>
-        </section>
-      </section>
-
-      {/* Left glow */}
-      <motion.div
-        initial={{ opacity: 0, x: -100 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 2, ease: "easeOut" }}
-        className="absolute bottom-0 left-0 w-[1200px] h-[1200px] 
-        bg-[radial-gradient(circle_at_left_bottom,_rgba(232,96,46,0.55),_transparent_70%)] 
-        blur-3xl pointer-events-none z-0"
-      />
+        {/* Pagination */}
+        <div className="flex justify-center items-center space-x-2 mt-10 text-sm flex-wrap">
+          <button
+            onClick={() => handlePageChange(1)}
+            className="text-gray-400 hover:text-orange-400 transition"
+          >
+            First
+          </button>
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            className="text-gray-400 hover:text-orange-400 transition"
+          >
+            Prev
+          </button>
+          {renderPageNumbers()}
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            className="text-gray-400 hover:text-orange-400 transition"
+          >
+            Next
+          </button>
+          <button
+            onClick={() => handlePageChange(totalPages)}
+            className="text-gray-400 hover:text-orange-400 transition"
+          >
+            Last
+          </button>
+        </div>
+      </div>
 
       <Footer />
     </section>
   );
-};
-
-export default Articles;
+}
