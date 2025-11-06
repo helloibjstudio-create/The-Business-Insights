@@ -517,6 +517,16 @@ export default function AdminDashboard({
                     className="w-full p-2 rounded bg-transparent border border-gray-700"
                   />
                 </div>
+                <div>
+                  <label className="block mb-2 text-sm">Write up</label>
+                  <ReactQuill
+                    value={formData.write_up}
+                    onChange={(value) => setFormData({ ...formData, write_up: value })}
+                    modules={modules}
+                    theme="snow"
+                    placeholder="Write your interview content here..."
+                  />
+                </div>
               </>
             )}
 

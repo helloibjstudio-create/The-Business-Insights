@@ -220,9 +220,14 @@ const Interviews = () => {
       <Navbar />
 
       {/* Hero */}
-      <div className="relative md:h-screen z-30 flex flex-col items-center justify-center text-center px-4 pt-28 sm:pt-32">
-        <div className="inline-flex items-center justify-center border border-orange-500 text-white px-6 py-2 rounded-full text-base">
-          ✨ Voices Behind Change
+      <div className="relative md:h-screen z-30 flex flex-col items-center justify-center text-center px-4 top-30">
+        <div
+          className="inline-flex items-center justify-center 
+            w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
+            border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] 
+            px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3"
+        >
+          <p className="whitespace-nowrap font-sans">✨ Voices Behind Change</p>
         </div>
         <h1 className="text-[36px] md:text-[60px] lg:text-[80px] max-w-[875px] font-[400] leading-[36px] md:leading-[60px] lg:leading-[72px] mt-6">
           Exclusive Interviews with{" "}

@@ -5,13 +5,24 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react"; // clean icons
+import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname(); // 👈 get current path
+
+  // Nav links list
+  const navLinks = [
+    { name: "Interviews", href: "/Interviews" },
+    { name: "Articles", href: "/articles" },
+    { name: "Reports", href: "/reports" },
+    { name: "Events", href: "/Events" },
+    { name: "About Us", href: "/about" },
+  ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 px-6 sm:px-10 py-6 flex items-center justify-between text-white backdrop-blur-md  bg-black/20 border-b border-white/10 transition-all">
+    <nav className="fixed top-0 left-0 w-full z-50 px-6 sm:px-10 py-6 flex items-center justify-between text-white backdrop-blur-md bg-black/20 border-b border-white/10 transition-all">
       {/* === LOGO === */}
       <Link href="/" className="flex items-center">
         <Image
@@ -25,17 +36,40 @@ const Navbar = () => {
 
       {/* === DESKTOP LINKS === */}
       <ul className="hidden lg:flex space-x-8 text-[16px] font-sans font-medium">
-        <li><Link href="/Interviews" className="hover:text-orange-400">Interviews</Link></li>
-        <li><Link href="/articles" className="hover:text-orange-400">Articles</Link></li>
-        <li><Link href="/reports" className="hover:text-orange-400">Reports</Link></li>
-        <li><Link href="/Events" className="hover:text-orange-400">Events</Link></li>
-        <li><Link href="/about" className="hover:text-orange-400">About Us</Link></li>
+        {navLinks.map((link) => {
+          const isActive = pathname === link.href; // 👈 check if current page
+          return (
+            <li key={link.name}>
+              <Link
+                href={link.href}
+                className={`relative transition-colors duration-300 ${
+                  isActive
+                    ? "text-orange-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-orange-400"
+                    : "hover:text-orange-400"
+                }`}
+              >
+                {link.name}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
 
       {/* === SEARCH (DESKTOP ONLY) === */}
       <div className="hidden lg:flex border border-gray-400 rounded-xl px-3 py-2 items-center space-x-2">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-4 w-4 text-orange-400"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
         </svg>
         <input
           type="text"
@@ -89,28 +123,29 @@ const Navbar = () => {
             transition={{ duration: 0.4 }}
             className="fixed inset-0 bg-black/90 backdrop-blur-7xl z-50 flex flex-col items-center justify-center h-screen space-y-10 text-white text-2xl font-semibold font-sans"
           >
-            {[
-              { name: "Interviews", href: "/Interviews" },
-              { name: "Articles", href: "/articles" },
-              { name: "Reports", href: "/reports" },
-              { name: "Events", href: "/Events" },
-              { name: "About Us", href: "/about" },
-            ].map((item, i) => (
-              <motion.div
-                key={item.name}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * i, duration: 0.4 }}
-              >
-                <Link
-                  href={item.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="hover:text-orange-400 cursor-pointer transition-colors"
+            {navLinks.map((item, i) => {
+              const isActive = pathname === item.href;
+              return (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * i, duration: 0.4 }}
                 >
-                  {item.name}
-                </Link>
-              </motion.div>
-            ))}
+                  <Link
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={`transition-colors ${
+                      isActive
+                        ? "text-orange-400 underline underline-offset-4"
+                        : "hover:text-orange-400"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>

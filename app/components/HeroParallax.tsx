@@ -15,6 +15,7 @@ interface ExclusiveInterview {
   year: string;
   link: string;
   country: string;
+  write_up: string;
 }
 
 export default function HeroParallax() {
@@ -63,7 +64,7 @@ export default function HeroParallax() {
   const yText = useTransform(smoothProgress, [0, 0.45], ["0%", "-12%"]);
 
   const opacityNextSection = useTransform(smoothProgress, [0.35, 1], [0, 1]);
-  const yNextSection = useTransform(smoothProgress, [0.25, 1], ["15%", "0%"]);
+  const yNextSection = useTransform(smoothProgress, [0.45, 1], ["15%", "0%"]);
 
   // === AUTO SCROLL CONTROL (ADAPTIVE) ===
   // === AUTO SCROLL CONTROL (ADAPTIVE) ===
@@ -242,8 +243,8 @@ export default function HeroParallax() {
         <p className="text-[clamp(0.9rem,2vw,1.1rem)] py-2 text-white mb-3">
           {person.description}
         </p>
-        <a
-          href={person.link}
+        <Link
+          href={`/exclusive/${exclusiveInterviews}`}
           className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
         >
           Read More{" "}
@@ -254,7 +255,7 @@ export default function HeroParallax() {
             height={17}
             className="ml-1"
           />
-        </a>
+        </Link>
       </div>
     </motion.div>
   ))}
