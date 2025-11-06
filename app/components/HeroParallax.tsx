@@ -32,7 +32,7 @@ export default function HeroParallax() {
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/exclusiveInterviews`)
       .then((res) => res.json())
-      .then((data) => setExclusiveInterviews(data))
+      .then((data) => setExclusiveInterviews(Array.isArray(data) ? data : []))
       .catch((err) => console.error("Error fetching interviews:", err));
   }, []);
 
