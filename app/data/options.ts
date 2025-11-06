@@ -401,6 +401,7 @@ export const countries = [
   "United Arab Emirates",
   "United Kingdom",
   "United States of America",
+  "USA",
   "Uruguay",
   "Uzbekistan",
   "Vanuatu",
