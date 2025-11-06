@@ -41,6 +41,7 @@ export default function AdminDashboard({
     discounted_price: "",
     state: "",
     country: [] as string[],
+    write_up: "",
   });
 
   interface Interview {
@@ -54,6 +55,7 @@ export default function AdminDashboard({
     discounted_price: string;
     state: string;
     country: string;
+    write_up: string;
   }
   interface ExclusiveInterview {
     id: string;
@@ -66,6 +68,7 @@ export default function AdminDashboard({
     discounted_price: string;
     state: string;
     country: string;
+    write_up: string;
   }
   interface Article {
     id: string;
@@ -79,6 +82,7 @@ export default function AdminDashboard({
     discounted_price: string;
     state: string;
     country: string;
+    write_up: string;
   }
   interface Reports {
     id: string;
@@ -92,6 +96,7 @@ export default function AdminDashboard({
     discounted_price: string;
     state: string;
     country: string;
+    write_up: string;
   }
   interface Events {
     id: string;
@@ -105,6 +110,7 @@ export default function AdminDashboard({
     discounted_price: string;
     state: string;
     country: string;
+    write_up: string;
   }
 
   const [interviews, setInterviews] = useState<Interview[]>([]);
@@ -187,6 +193,7 @@ export default function AdminDashboard({
         link: "",
         discounted_price: "",
         country: [],
+        write_up: "",
       });
 
       fetch(`http://localhost:5000/api/${activeTab}`)
@@ -246,6 +253,7 @@ export default function AdminDashboard({
       price: item.price || "",
       year: item.year || "",
       link: item.link || "",
+      write_up: item.write_up || "",
       discounted_price: item.discounted_price || "",
       state: item.state || "",
       country: Array.isArray(item.country)
@@ -414,6 +422,10 @@ export default function AdminDashboard({
                     onChange={handleChange}
                     className="w-full p-2 rounded bg-transparent border border-gray-700"
                   />
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm">Write up</label>
+                  <textarea name="write_up" id="" value={formData.write_up}></textarea>
                 </div>
               </>
             )}

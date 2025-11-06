@@ -1,12 +1,11 @@
 "use client";
 
-import { ArrowUpRight, Phone } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Phone } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import {
   articles,
   BusinessLogo,
-  curvedImages,
   dhl,
   mailbox,
   moreInterviews,
@@ -19,15 +18,58 @@ import HeroParallax from "./HeroParallax";
 import { useEffect, useState } from "react";
 import ScrollBackButton from "./ScrollBackButton";
 import Footer from "./Footer";
+import Link from "next/link";
+import Navbar from "./Navbar";
 
 const hedvig = Hedvig_Letters_Serif({
   subsets: ["latin"],
   weight: ["400"],
 });
 
+interface ExclusiveInterview {
+  id: number;
+  name: string;
+  sector: string;
+  image_url: string;
+  description: string;
+  year: string;
+  link: string;
+  country: string;
+}
 
+interface Interview {
+  id: string;
+  name: string;
+  sector: string;
+  image_url: string;
+  description: string;
+  year: string;
+  link: string;
+  country: string;
+  content?: string; // optional for long body
+}
 
 const Hero = () => {
+  const [selectedInterview, setSelectedInterview] = useState<Interview | null>(null);
+  const [exclusiveInterviews, setExclusiveInterviews] = useState<
+      ExclusiveInterview[]
+      >([]);
+      useEffect(() => {
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/exclusiveInterviews`)
+        .then((res) => res.json())
+        .then((data) => setExclusiveInterviews(data))
+        .catch((err) => console.error("Error fetching interviews:", err));
+      }, []);
+      const [interviews, setInterviews] = useState<Interview[]>([]);
+      useEffect(() => {
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/interviews`)
+        .then((res) => res.json())
+        .then((data) => setInterviews(data))
+        .catch((err) => console.error("Error fetching interviews:", err));
+      }, []);
+      const limitedInterviews = interviews.slice(0, 9);
+        const featured = interviews[0];
+  const others = interviews.slice(1);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -38,15 +80,6 @@ const Hero = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  const [current, setCurrent] = useState(0);
-
-  // Auto-rotate every 4s
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % curvedImages.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <main className="overflow-x-hidden relative bg-transparent">
@@ -55,7 +88,7 @@ const Hero = () => {
       <AnimatePresence mode="wait">
         <motion.div className="max-w-7xl relative text-white mx-auto px-4 sm:px-6 md:px-10  ">
           {/* --- ARTICLES SECTION --- */}
-          <div key="articles-section" className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 gap-6">
+          <div key="articles-section" className="flex flex-col md:flex-row md:items-center font-sans md:justify-between mb-12 gap-6">
             <div>
               <h2 className="text-[32px] sm:text-[48px] md:text-[60px] font-semibold font-sans">
                 Articles
@@ -65,16 +98,16 @@ const Hero = () => {
                 on industry trends and news.
               </p>
             </div>
-            <motion.button
+            <Link href="/articles"><motion.button
               whileHover={{ scale: 1.05 }}
               className="bg-orange-500 hover:bg-white text-white hover:text-orange-500 px-6 sm:px-8 py-3 rounded-lg text-[16px] sm:text-[18px] transition"
             >
               View All Articles
-            </motion.button>
+            </motion.button></Link>
           </div>
 
           {/* --- ARTICLE CARDS --- */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 font-sans sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {articles.map((article, i) => (
               <motion.div
                 key={i}
@@ -126,85 +159,97 @@ const Hero = () => {
             className="z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 object-contain w-[90%] sm:w-[80%] lg:w-[70%]"
           />
         </div>
+    
+        <section
+  key="more-interviews"
+  className="max-w-7xl mx-auto w-[90%] text-white py-16 px-4 -top-40 sm:px-6 md:px-12 lg:px-20 backdrop-blur-2xl relative font-sans bg-white/3 border border-white/10 rounded-2xl"
+>
+  <h2 className="text-[32px] sm:text-[48px] md:text-[60px] font-semibold mb-8 md:mb-12 text-center md:text-left">
+    More Interviews
+  </h2>
 
-        {/* --- MORE INTERVIEWS --- */}
-        <section key="more-interviews" className="max-w-7xl mx-auto w-[90%] text-white py-16 px-4 -top-40 sm:px-6 md:px-12 lg:px-20 backdrop-blur-2xl relative font-sans bg-white/3 border border-white/10 rounded-2xl">
-          <h2 className="text-[32px] sm:text-[48px] md:text-[60px] font-semibold mb-8 md:mb-12 text-center md:text-left">
-            More Interviews
-          </h2>
+  {interviews.length > 0 ? (
+    <>
+      {/* Featured */}
+      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 mb-12 items-center">
+        <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+          <Image
+            src={interviews[0].image_url}
+            alt={interviews[0].name}
+            fill
+            className="object-cover"
+          />
+        </div>
+        <div className="flex flex-col justify-center text-center md:text-left px-2">
+          <h3 className="text-[28px] sm:text-[36px] md:text-[40px] font-semibold">
+            {interviews[0].name}
+          </h3>
+          <p className="italic text-[18px] sm:text-[20px] md:text-[24px] text-white mb-3">
+            {interviews[0].sector}
+          </p>
+          <p className="text-[16px] sm:text-[18px] md:text-[20px] text-white mb-6 italic">
+            {interviews[0].description}
+          </p>
+          <Link href={"/Interviews"}>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              className="bg-orange-500 hover:bg-white text-white hover:text-orange-500 px-6 sm:px-8 py-3 rounded-lg text-[16px] sm:text-[18px] transition"
+            >
+              Read More
+            </motion.button>
+          </Link>
+        </div>
+      </div>
 
-          {/* Featured */}
-          <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 mb-12 items-center">
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+      {/* Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {interviews.slice(1).map((interview, i) => (
+          <motion.div
+            key={interview.id || i}
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: i * 0.1 }}
+            className="rounded-xl overflow-hidden hover:bg-[#1b1b1b] transition"
+          >
+            <div className="relative aspect-[4/3]">
               <Image
-                src={moreInterviews[0].img}
-                alt={moreInterviews[0].name}
+                src={interview.image_url}
+                alt={interview.name}
                 fill
                 className="object-cover"
               />
             </div>
-            <div className="flex flex-col justify-center text-center md:text-left px-2">
-              <h3 className="text-[28px] sm:text-[36px] md:text-[40px] font-semibold">
-                {moreInterviews[0].name}
-              </h3>
-              <p className="italic text-[18px] sm:text-[20px] md:text-[24px] text-white mb-3">
-                {moreInterviews[0].title}
+            <div className="p-4 sm:p-6 text-center md:text-left">
+              <p className="text-orange-400 text-[14px] sm:text-[16px] mb-1">
+                {interview.name}
               </p>
-              <p className="text-[16px] sm:text-[18px] md:text-[20px] text-white mb-6 italic">
-                {moreInterviews[0].description}
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                className="bg-orange-500 hover:bg-white text-white hover:text-orange-500 px-6 sm:px-8 py-3 rounded-lg text-[16px] sm:text-[18px] transition"
+              <h4 className="font-semibold text-[18px] sm:text-[20px] mb-3">
+                {interview.sector}
+              </h4>
+              <Link
+                href={`/Interviews/${interview.id}`}
+                className="inline-flex items-center text-orange-400 hover:text-orange-500 text-[14px] sm:text-[16px]"
               >
-                Read More
-              </motion.button>
+                Read More <ArrowUpRight size={16} className="ml-1" />
+              </Link>
             </div>
-          </div>
+          </motion.div>
+        ))}
+      </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {moreInterviews.slice(1).map((interview, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 80 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-                className="rounded-xl overflow-hidden hover:bg-[#1b1b1b] transition"
-              >
-                <div className="relative aspect-[4/3]">
-                  <Image
-                    src={interview.img}
-                    alt={interview.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-4 sm:p-6 text-center md:text-left">
-                  <p className="text-orange-400 text-[14px] sm:text-[16px] mb-1">
-                    {interview.title}
-                  </p>
-                  <h4 className="font-semibold text-[18px] sm:text-[20px] mb-3">
-                    {interview.name}
-                  </h4>
-                  <a
-                    href={interview.link}
-                    className="inline-flex items-center text-orange-400 hover:text-orange-500 text-[14px] sm:text-[16px]"
-                  >
-                    Read More <ArrowUpRight size={16} className="ml-1" />
-                  </a>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+      {/* Button */}
+      <div className="flex justify-center mt-10">
+        <button className="inline-flex items-center justify-center px-6 sm:px-8 py-3 rounded-lg bg-orange-500 cursor-pointer font-sans hover:bg-white text-white hover:text-orange-500 text-[16px] sm:text-[18px]">
+          More Interviews
+        </button>
+      </div>
+    </>
+  ) : (
+    <p className="text-center text-gray-400 text-lg">Loading interviews...</p>
+  )}
+</section>
+    
 
-          {/* Button */}
-          <div className="flex justify-center mt-10">
-            <button className="inline-flex items-center justify-center px-6 sm:px-8 py-3 rounded-lg bg-orange-500 cursor-pointer font-sans hover:bg-white text-white hover:text-orange-500 text-[16px] sm:text-[18px]">
-              More Interviews
-            </button>
-          </div>
-        </section>
         <section
           key="reports"
           className="relative bg-transparent px-4 sm:px-6 md:px-12 lg:px-20"
@@ -278,42 +323,25 @@ const Hero = () => {
             </p>
 
             {/* Button */}
+            <Link href="/events">
             <button
               onClick={() => window.open(moreInterviews[0].link, "_blank")}
               className="flex items-center px-6 sm:px-8 md:px-[37px] py-3 sm:py-3.5 md:py-[13px] mt-6 md:mt-5 font-sans rounded-[10px] bg-[#E8602E] hover:bg-white cursor-pointer m-auto font-medium hover:text-[#E8602E] text-base sm:text-lg md:text-[20px] z-20 relative transition-all duration-300"
             >
               Learn More
-            </button>
+            </button></Link>
 
             {/* Overlay/Subtract Image */}
-            <div className="relative w-full h-[220px] sm:h-[500px] md:h-[750px] overflow-hidden flex items-center justify-center bg-transparent z-30">
-      {/* Scene perspective */}
-      <div className="relative w-full h-full [perspective:1200px]">
-        <motion.div
-          className="absolute inset-0 flex w-[300%] h-full"
-          animate={{ x: `-${current * 100}%` }}
-          transition={{ duration: 1.2, ease: "easeInOut" }}
-        >
-          {curvedImages.map((src, i) => (
-            <div
-              key={i}
-              className="relative w-full h-full flex-shrink-0 [transform:rotateY(-10deg)] [transform-origin:center] overflow-hidden"
-            >
+            <div className="relative top-5 left-0 w-full h-[220px] sm:h-[500px] md:h-[750px] z-10 overflow-visible pointer-events-none">
               <Image
-                src={src.images_Carousel}
-                alt={`Curved Slide ${i + 1}`}
+                src={subtract}
+                alt="Subtract overlay"
                 fill
-                className="object-cover object-center [filter:brightness(0.95)]"
-                priority={i === 0}
+                className="object-cover md:object-cover glow-orange"
+                priority
               />
-              {/* Optional overlay gradient to enhance curve feel */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" />
             </div>
-          ))}
-        </motion.div>
-      </div>
-    </div>
-    </div>
+          </div>
         </section>
         <section
           key="Newsletter"

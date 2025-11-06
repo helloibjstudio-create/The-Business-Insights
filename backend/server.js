@@ -9,8 +9,12 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: "*",  // or specify your frontend URL
+  origin: [
+    "http://localhost:3000",          // local dev
+    "https://the-business-insights.vercel.app" /
+  ],  // or specify your frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 app.use(express.json());
 
@@ -55,10 +59,10 @@ app.get("/test-db", async (req, res) => {
 // 🟠 INTERVIEWS
 // ===================================================================
 app.post("/api/interviews", async (req, res) => {
-  const { name, sector, image_url, description, country, year, link } = req.body;
+  const { name, sector, image_url, description, country, year, link, write_up } = req.body;
   const { data, error } = await supabase
     .from("interviews")
-    .insert([{ name, sector, image_url, description, country, year, link }]);
+    .insert([{ name, sector, image_url, description, country, year, link, write_up }]);
 
   if (error) return res.status(400).json({ error: error.message });
   res.json({ success: true, data });
@@ -70,11 +74,30 @@ app.get("/api/interviews", async (req, res) => {
   res.json(data);
 });
 
+app.get("/api/interviews/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const interview = await db
+      .from("interviews")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (!interview) {
+      return res.status(404).json({ error: "Interview not found" });
+    }
+
+    res.json(interview);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.post("/api/exclusiveInterviews", async (req, res) => {
-  const { name, sector, image_url, description, country, year, link } = req.body;
+  const { name, sector, image_url, description, country, write_up, year, link } = req.body;
   const { data, error } = await supabase
     .from("exclusive")
-    .insert([{ name, sector, image_url, description, country, year, link }]);
+    .insert([{ name, sector, image_url, write_up, description, country, year, link }]);
 
   if (error) return res.status(400).json({ error: error.message });
   res.json({ success: true, data });
@@ -91,10 +114,10 @@ app.get("/api/exclusiveInterviews", async (req, res) => {
 // 🟢 ARTICLES
 // ===================================================================
 app.post("/api/articles", async (req, res) => {
-  const { name, sector, image_url, description, country, year, } = req.body;
+  const { name, sector, image_url, description, write_up, country, year, } = req.body;
   const { data, error } = await supabase
     .from("articles")
-    .insert([{ name, sector, image_url, description, country, year, }]);
+    .insert([{ name, sector, write_up, image_url, description, country, year, }]);
 
   if (error) return res.status(400).json({ error: error.message });
   res.json({ success: true, data });

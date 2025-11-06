@@ -15,11 +15,11 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
  */
 router.post("/", async (req, res) => {
   console.log("Received body:", req.body);
-  const { name, sector, image_url, description, country, year, link } = req.body;
+  const { name, sector, image_url, description, country, year, link, write_up } = req.body;
 
   const { data, error } = await supabase
     .from("interviews")
-    .insert([{ name, sector, image_url, description, year, country, link }])
+    .insert([{ name, sector, image_url, description, year, country, link, write_up }])
     .select();
 
   if (error) return res.status(400).json({ error: error.message });

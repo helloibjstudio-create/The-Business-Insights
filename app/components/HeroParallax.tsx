@@ -6,7 +6,7 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import Navbar from "./Navbar";
 import Link from "next/link";
-interface Interview {
+interface ExclusiveInterview {
   id: number;
   name: string;
   sector: string;
@@ -22,12 +22,16 @@ export default function HeroParallax() {
   const [scrolled, setScrolled] = useState(false);
   const [autoScrolling, setAutoScrolling] = useState(false);
   const [showNext, setShowNext] = useState(false);
-  const [vh, setVh] = useState<number>(typeof window !== "undefined" ? window.innerHeight : 0);
-  const [interviews, setInterviews] = useState<Interview[]>([]);
+  const [vh, setVh] = useState<number>(
+    typeof window !== "undefined" ? window.innerHeight : 0
+  );
+  const [exclusiveInterviews, setExclusiveInterviews] = useState<
+    ExclusiveInterview[]
+  >([]);
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/interviews`)
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/exclusiveInterviews`)
       .then((res) => res.json())
-      .then((data) => setInterviews(data))
+      .then((data) => setExclusiveInterviews(data))
       .catch((err) => console.error("Error fetching interviews:", err));
   }, []);
 
@@ -62,50 +66,55 @@ export default function HeroParallax() {
   const yNextSection = useTransform(smoothProgress, [0.45, 1], ["15%", "0%"]);
 
   // === AUTO SCROLL CONTROL (ADAPTIVE) ===
-    // === AUTO SCROLL CONTROL (ADAPTIVE) ===
+  // === AUTO SCROLL CONTROL (ADAPTIVE) ===
   const nextSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-  const handleScroll = () => {
-    if (autoScrolling) return;
+    const handleScroll = () => {
+      if (autoScrolling) return;
 
-    const y = window.scrollY;
-    const vh = window.innerHeight;
-    const isMobile = window.innerWidth <= 768;
+      const y = window.scrollY;
+      const vh = window.innerHeight;
+      const isMobile = window.innerWidth <= 768;
 
-    // Trigger earlier on mobile (faster feel)
-    const triggerDown = isMobile ? vh * 0.3 : vh * 0.45;
+      // Trigger earlier on mobile (faster feel)
+      const triggerDown = isMobile ? vh * 0.3 : vh * 0.45;
 
-    // Get the next section top position
-    const nextTop =
-      nextSectionRef.current?.getBoundingClientRect().top! + window.scrollY;
+      // Get the next section top position
+      const nextTop =
+        nextSectionRef.current?.getBoundingClientRect().top! + window.scrollY;
 
-    // Smooth scroll down once hero passes threshold
-    if (!scrolled && y > triggerDown) {
-      setScrolled(true);
-      setAutoScrolling(true);
+      // Smooth scroll down once hero passes threshold
+      if (!scrolled && y > triggerDown) {
+        setScrolled(true);
+        setAutoScrolling(true);
 
-      // Always scroll to exact start of the next section
-      window.scrollTo({
-        top: nextTop,
-        behavior: "smooth",
-      });
+        // Always scroll to exact start of the next section
+        window.scrollTo({
+          top: nextTop,
+          behavior: "smooth",
+        });
 
-      // Delay to avoid mid-scroll flickers
-      setTimeout(() => {
-        setAutoScrolling(false);
-        setShowNext(true);
-      }, isMobile ? 1600 : 300);
-    }
-  };
+        // Delay to avoid mid-scroll flickers
+        setTimeout(
+          () => {
+            setAutoScrolling(false);
+            setShowNext(true);
+          },
+          isMobile ? 1600 : 300
+        );
+      }
+    };
 
-  window.addEventListener("scroll", handleScroll, { passive: true });
-  return () => window.removeEventListener("scroll", handleScroll);
-}, [scrolled, autoScrolling, vh]);
-
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrolled, autoScrolling, vh]);
 
   return (
-    <section ref={ref} className="relative  h-[260vh] md:h-[200vh] lg:h-[220vh] overflow-hidden bg-black">
+    <section
+      ref={ref}
+      className="relative  h-[260vh] md:h-[200vh] lg:h-[220vh] overflow-hidden bg-black"
+    >
       <Navbar />
 
       {/* === BACKGROUND === */}
@@ -158,7 +167,7 @@ export default function HeroParallax() {
 
       {/* === NEXT SECTION === */}
       <motion.div
-      ref={nextSectionRef}
+        ref={nextSectionRef}
         style={{ opacity: opacityNextSection, y: yNextSection }}
         className="relative font-sans bottom-0 z-10 w-full h-screen flex items-center justify-center px-[clamp(1rem,5vw,5rem)] bg-transparent text-white"
       >
@@ -178,13 +187,14 @@ export default function HeroParallax() {
               </p>
             </div>
             <Link href="/Interviews">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] cursor-pointer px-[clamp(1rem,4vw,2rem)] py-[clamp(0.6rem,1.2vw,1rem)] rounded-[10px] font-medium text-[clamp(1rem,2vw,1.25rem)]"
-            >
-              View All Interviews
-            </motion.button></Link>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+                className="bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] cursor-pointer px-[clamp(1rem,4vw,2rem)] py-[clamp(0.6rem,1.2vw,1rem)] rounded-[10px] font-medium text-[clamp(1rem,2vw,1.25rem)]"
+              >
+                View All Interviews
+              </motion.button>
+            </Link>
           </div>
 
           {/* INTERVIEW GRID */}
@@ -192,27 +202,30 @@ export default function HeroParallax() {
             initial={{ opacity: 0, y: 30 }}
             animate={showNext ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[clamp(1rem,2vw,2rem)]"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[55px]"
           >
-            {interviews.map((person) => (
+            {exclusiveInterviews.map((person) => (
               <motion.div
                 key={person.name}
                 className="rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-500"
               >
-                <div className="relative h-[clamp(220px,40vw,300px)]">
+                {/* Image container — fixed height */}
+                <div className="relative w-full h-[420px] overflow-hidden">
                   <Image
                     src={person.image_url}
                     alt={person.name}
                     fill
-                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 25vw"
+                    className="object-cover object-top"
                   />
                 </div>
-                <div className="pt-[clamp(1rem,3vw,1.5rem)] px-[clamp(0.8rem,2vw,1.5rem)]">
+
+                <div className="pt-[clamp(1rem,3vw,1.5rem)] px-[0px]">
                   <h3 className="font-semibold text-[clamp(1.3rem,2.5vw,1.9rem)]">
                     {person.name}
                   </h3>
                   <p className="text-[clamp(0.9rem,2vw,1.1rem)] py-2 text-white mb-3">
-                    {person.title}
+                    {person.description}
                   </p>
                   <a
                     href={person.link}
