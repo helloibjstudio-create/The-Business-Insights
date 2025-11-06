@@ -120,7 +120,7 @@ const Reports = () => {
       <Navbar />
 
       {/* === Hero Section === */}
-      <div className="relative h-screen top-10 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 space-y-6">
+      <div className="relative h-screen top-21 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 space-y-6">
         <div className="inline-flex items-center justify-center w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3">
           <p className="whitespace-nowrap font-sans">📈 Where Analysis Meets Opportunity</p>
         </div>
@@ -150,7 +150,7 @@ const Reports = () => {
 
       {/* === Content === */}
       <section>
-        <div className="absolute -top-130 w-full h-full">
+        <div className="relative -top-130 w-full h-full">
           <Image
             src={thirdOrange}
             alt="Third section banner"

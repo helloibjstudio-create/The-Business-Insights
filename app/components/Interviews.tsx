@@ -231,7 +231,7 @@ const Interviews = () => {
         </div>
         <h1 className="text-[36px] md:text-[60px] lg:text-[80px] max-w-[875px] font-[400] leading-[36px] md:leading-[60px] lg:leading-[72px] mt-6">
           Exclusive Interviews with{" "}
-          <span className="text-orange-500">Leaders & Innovators</span>
+          <span className="text-[#E25B2B]">Leaders & Innovators</span>
         </h1>
         <p className=" mt-4 font-sans text-[18px] lg:text-[20px] max-w-[850px] text-white">
           Dive into conversations that shape industries, nations and futures.From business visionaries to policy makers, our interviews bring you first-hand perspectives on what’s next.

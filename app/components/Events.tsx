@@ -106,7 +106,7 @@ const Events = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="relative top-20 z-30 flex flex-col items-center justify-center text-center px-6 pt-32 space-y-6">
+      <div className="relative h-screen top-17 z-30 flex flex-col items-center justify-center text-center px-6  space-y-6">
         <div className="inline-flex items-center justify-center border border-[#E8602E] px-4 py-2 rounded-full font-medium tracking-wide bg-transparent glow-orange3">
           <p className="whitespace-nowrap font-sans text-sm md:text-lg">
             🔥 Where Insight Meets Experience

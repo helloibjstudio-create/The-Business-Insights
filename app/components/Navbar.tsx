@@ -44,7 +44,7 @@ const Navbar = () => {
                 href={link.href}
                 className={`relative transition-colors duration-300 ${
                   isActive
-                    ? "text-orange-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-orange-400"
+                    ? "text-[#E25B2B] after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-[#E25B2B]"
                     : "hover:text-orange-400"
                 }`}
               >
@@ -137,7 +137,7 @@ const Navbar = () => {
                     onClick={() => setMenuOpen(false)}
                     className={`transition-colors ${
                       isActive
-                        ? "text-orange-400 underline underline-offset-4"
+                        ? "text-[#E25B2B] underline underline-offset-4"
                         : "hover:text-orange-400"
                     }`}
                   >

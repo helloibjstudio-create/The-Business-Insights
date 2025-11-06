@@ -113,7 +113,7 @@ const Articles = () => {
           src={ArticleBg}
           alt="Interview background"
           fill
-          className="object-cover object-center opacity-70"
+          className="object-cover h-screen object-center opacity-70"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30" />
@@ -123,7 +123,7 @@ const Articles = () => {
       <Navbar />
 
       {/* Hero Content */}
-      <div className="relative top-30 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 md:pt-40 space-y-6">
+      <div className="relative top-30 h-screen z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10  space-y-6">
         <div
           className="inline-flex items-center justify-center 
             w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
