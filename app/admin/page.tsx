@@ -266,12 +266,12 @@ export default function AdminDashboard({
   };
 
   return (
-    <div className="min-h-screen bg-transparent font-sans font-[500] text-white flex">
+    <div className=" bg-transparent w-full h-full font-sans font-[500] text-white flex">
       <Image
         src={BusinessHero}
         alt="Background"
         fill
-        className="absolute -z-10 opacity-20 object-cover"
+        className="absolute -z-10 h-screen opacity-20 object-cover"
       />
       {/* Sidebar */}
       <aside className="w-64 bg-transparent backdrop-blur-2xl rounded-r-[20px] p-6 space-y-4 border-r border-gray-700">
@@ -425,7 +425,7 @@ export default function AdminDashboard({
                 </div>
                 <div>
                   <label className="block mb-2 text-sm">Write up</label>
-                  <textarea name="write_up" id="" value={formData.write_up}></textarea>
+                  <textarea name="write_up" id="" value={formData.write_up} onChange={handleChange} rows={40} className="w-full p-2 rounded bg-transparent border border-gray-700"></textarea>
                 </div>
               </>
             )}

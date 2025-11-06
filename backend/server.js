@@ -76,21 +76,20 @@ app.get("/api/interviews", async (req, res) => {
 
 app.get("/api/interviews/:id", async (req, res) => {
   const { id } = req.params;
-  try {
-    const interview = await db
-      .from("interviews")
-      .select("*")
-      .eq("id", id)
-      .single();
+  console.log("🔍 Fetching interview:", id);
 
-    if (!interview) {
-      return res.status(404).json({ error: "Interview not found" });
-    }
+  const { data, error } = await supabase
+    .from("interviews")
+    .select("*")
+    .eq("id", id)
+    .single();
 
-    res.json(interview);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  if (error) {
+    console.error("❌ Fetch error:", error.message);
+    return res.status(404).json({ error: "Interview not found" });
   }
+
+  res.json(data);
 });
 
 app.post("/api/exclusiveInterviews", async (req, res) => {
