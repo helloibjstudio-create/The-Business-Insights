@@ -63,7 +63,7 @@ export default function HeroParallax() {
   const yText = useTransform(smoothProgress, [0, 0.45], ["0%", "-12%"]);
 
   const opacityNextSection = useTransform(smoothProgress, [0.35, 1], [0, 1]);
-  const yNextSection = useTransform(smoothProgress, [0.45, 1], ["15%", "0%"]);
+  const yNextSection = useTransform(smoothProgress, [0.25, 1], ["15%", "0%"]);
 
   // === AUTO SCROLL CONTROL (ADAPTIVE) ===
   // === AUTO SCROLL CONTROL (ADAPTIVE) ===
@@ -109,6 +109,20 @@ export default function HeroParallax() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled, autoScrolling, vh]);
+
+    const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreen = () => setIsMobile(window.innerWidth < 640);
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
+
+  // Only show 2 on mobile, all on larger screens
+  const visibleInterviews = isMobile
+    ? exclusiveInterviews.slice(0, 2)
+    : exclusiveInterviews;
 
   return (
     <section
@@ -198,52 +212,54 @@ export default function HeroParallax() {
           </div>
 
           {/* INTERVIEW GRID */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={showNext ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[55px]"
-          >
-            {exclusiveInterviews.map((person) => (
-              <motion.div
-                key={person.name}
-                className="rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-500"
-              >
-                {/* Image container — fixed height */}
-                <div className="relative w-full h-[420px] overflow-hidden">
-                  <Image
-                    src={person.image_url}
-                    alt={person.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 25vw"
-                    className="object-cover object-top"
-                  />
-                </div>
+         {/* INTERVIEW GRID */}
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  animate={showNext ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+  transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
+  className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-[55px]"
+>
+  {visibleInterviews.map((person) => (
+    <motion.div
+      key={person.name}
+      className="rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-500"
+    >
+      {/* Image container — fixed height */}
+      <div className="relative w-full h-[420px] overflow-hidden">
+        <Image
+          src={person.image_url}
+          alt={person.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 25vw"
+          className="object-cover object-top"
+        />
+      </div>
 
-                <div className="pt-[clamp(1rem,3vw,1.5rem)] px-[0px]">
-                  <h3 className="font-semibold text-[clamp(1.3rem,2.5vw,1.9rem)]">
-                    {person.name}
-                  </h3>
-                  <p className="text-[clamp(0.9rem,2vw,1.1rem)] py-2 text-white mb-3">
-                    {person.description}
-                  </p>
-                  <a
-                    href={person.link}
-                    className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
-                  >
-                    Read More{" "}
-                    <Image
-                      src={vector2}
-                      alt="vector-2"
-                      width={17}
-                      height={17}
-                      className="ml-1"
-                    />
-                  </a>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+      <div className="pt-[clamp(1rem,3vw,1.5rem)] px-[0px]">
+        <h3 className="font-semibold text-[clamp(1.3rem,2.5vw,1.9rem)]">
+          {person.name}
+        </h3>
+        <p className="text-[clamp(0.9rem,2vw,1.1rem)] py-2 text-white mb-3">
+          {person.description}
+        </p>
+        <a
+          href={person.link}
+          className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
+        >
+          Read More{" "}
+          <Image
+            src={vector2}
+            alt="vector-2"
+            width={17}
+            height={17}
+            className="ml-1"
+          />
+        </a>
+      </div>
+    </motion.div>
+  ))}
+</motion.div>
+
         </motion.div>
       </motion.div>
     </section>
