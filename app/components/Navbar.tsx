@@ -111,7 +111,7 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center space-y-10 text-white text-2xl font-semibold font-sans"
+            className="fixed inset-0 bg-black/95 backdrop-blur-xl z-90 flex flex-col items-center justify-center space-y-10 text-white text-2xl h-screen font-semibold font-sans"
           >
             {navLinks.map((item, i) => {
               const isActive = pathname === item.href;
