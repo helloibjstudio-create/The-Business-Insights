@@ -5,8 +5,14 @@ import Image from "next/image";
 import Navbar from "../components/Navbar";
 import { InterviewBg, thirdOrange } from "@/public";
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Search, SlidersHorizontal, ArrowLeft } from "lucide-react";
+import {
+  ArrowUpRight,
+  Search,
+  SlidersHorizontal,
+  ArrowLeft,
+} from "lucide-react";
 import Footer from "./Footer";
+import SearchAndFilter from "./SearchFilter";
 
 interface Interview {
   id: string;
@@ -25,7 +31,13 @@ const ITEMS_PER_PAGE = 8;
 const Interviews = () => {
   const [interviews, setInterviews] = useState<Interview[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedInterview, setSelectedInterview] = useState<Interview | null>(null);
+  const [selectedInterview, setSelectedInterview] = useState<Interview | null>(
+    null
+  );
+  const [filteredInterviews, setFilteredInterviews] = useState<Interview[]>([]);
+  useEffect(() => {
+    setFilteredInterviews(interviews);
+  }, [interviews]);
 
   // Fetch all interviews
   useEffect(() => {
@@ -37,7 +49,10 @@ const Interviews = () => {
 
   const totalPages = Math.ceil(interviews.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentInterviews = interviews.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const currentInterviews = interviews.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page);
@@ -47,7 +62,11 @@ const Interviews = () => {
   const renderPageNumbers = () => {
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {
-      if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+      if (
+        i === 1 ||
+        i === totalPages ||
+        (i >= currentPage - 2 && i <= currentPage + 2)
+      ) {
         pages.push(
           <button
             key={i}
@@ -90,45 +109,44 @@ const Interviews = () => {
 
           {/* Interview content */}
           <div className="flex flex-col-reverse bg-white/3 backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] lg:flex-row font-sans gap-10">
+            {/* TEXT SECTION */}
+            <div className="w-full">
+              <h1 className="text-3xl md:text-4xl font-semibold mb-6">
+                {selectedInterview.name}
+              </h1>
 
-  {/* TEXT SECTION */}
-  <div className="w-full">
-    <h1 className="text-3xl md:text-4xl font-semibold mb-6">
-      {selectedInterview.name}
-    </h1>
+              <div className="space-y-6 text-white font-sans font-normal leading-relaxed">
+                <p>{selectedInterview.description}</p>
 
-    <div className="space-y-6 text-white font-sans font-normal leading-relaxed">
-      <p>{selectedInterview.description}</p>
-
-      {selectedInterview.write_up ? (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: selectedInterview.write_up,
-          }}
-        />
-      ) : (
-        <>
-          <p>
-            Can you please give us an introduction to{" "}
-            {selectedInterview.name} and its role in the{" "}
-            {selectedInterview.country} market?
-          </p>
-          <p>
-            What sets apart the {selectedInterview.country} industry
-            from the rest of the region?
-          </p>
-          <p>
-            How do you assess the current {selectedInterview.country} market?
-          </p>
-          <p>
-            What do you anticipate as the aftermath of recent global events
-            in your sector?
-          </p>
-        </>
-      )}
-    </div>
-  </div>
-
+                {selectedInterview.write_up ? (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: selectedInterview.write_up,
+                    }}
+                  />
+                ) : (
+                  <>
+                    <p>
+                      Can you please give us an introduction to{" "}
+                      {selectedInterview.name} and its role in the{" "}
+                      {selectedInterview.country} market?
+                    </p>
+                    <p>
+                      What sets apart the {selectedInterview.country} industry
+                      from the rest of the region?
+                    </p>
+                    <p>
+                      How do you assess the current {selectedInterview.country}{" "}
+                      market?
+                    </p>
+                    <p>
+                      What do you anticipate as the aftermath of recent global
+                      events in your sector?
+                    </p>
+                  </>
+                )}
+              </div>
+            </div>
 
             {/* Image + name card */}
             <motion.div
@@ -234,20 +252,21 @@ const Interviews = () => {
           <span className="text-[#E25B2B]">Leaders & Innovators</span>
         </h1>
         <p className=" mt-4 font-sans text-[18px] lg:text-[20px] max-w-[850px] text-white">
-          Dive into conversations that shape industries, nations and futures.From business visionaries to policy makers, our interviews bring you first-hand perspectives on what’s next.
+          Dive into conversations that shape industries, nations and
+          futures.From business visionaries to policy makers, our interviews
+          bring you first-hand perspectives on what’s next.
         </p>
       </div>
 
       {/* Search bar */}
-      <div className="flex relative top-30 ml-10 items-center w-64 h-9 px-3 rounded-md border border-orange-600/40 bg-orange-950/10 backdrop-blur-sm">
-        <Search className="w-4 h-4 text-orange-500 mr-2" />
-        <input
-          type="text"
-          placeholder="Search"
-          className="flex-1 bg-transparent outline-none text-sm text-orange-100 placeholder:text-orange-500/60"
-        />
-        <SlidersHorizontal className="w-4 h-4 text-orange-500 cursor-pointer hover:text-orange-400 transition-colors" />
-      </div>
+      <SearchAndFilter
+        data={interviews}
+        onFiltered={setFilteredInterviews}
+        fields={{
+          search: ["name", "description", "sector", "year"],
+          filters: { year: "year", country: "country", sector: "sector" },
+        }}
+      />
 
       {/* Grid */}
       <div className="relative font-sans w-[90%] mx-auto mt-40 py-10">
@@ -257,7 +276,9 @@ const Interviews = () => {
         </p>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-[42px]">
-          {currentInterviews.map((interview) => (
+          {filteredInterviews
+          .slice(startIndex, startIndex + ITEMS_PER_PAGE)
+          .map((interview) => (
             <div
               key={interview.id}
               onClick={() => setSelectedInterview(interview)}
