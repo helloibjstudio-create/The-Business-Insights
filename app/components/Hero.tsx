@@ -275,12 +275,11 @@ const Hero = () => {
               comprehensive data and statistics.
             </p>
 
-            <button
-              onClick={() => window.open(moreInterviews[0].link, "_blank")}
+            <Link href="/reports"><button
               className="inline-flex items-center justify-center px-6 sm:px-[37px] py-3 sm:py-[13px] mt-4 font-sans rounded-[10px] bg-orange-500 text-white hover:bg-white cursor-pointer font-medium hover:text-orange-400 text-base sm:text-[20px] w-[160px] sm:w-[202px] transition-all duration-300"
             >
               More Reports
-            </button>
+            </button></Link>
           </div>
 
           {/* Report Cards Grid */}
@@ -333,7 +332,6 @@ const Hero = () => {
             {/* Button */}
             <Link href="/events">
             <button
-              onClick={() => window.open(moreInterviews[0].link, "_blank")}
               className="flex items-center px-6 sm:px-8 md:px-[37px] py-3 sm:py-3.5 md:py-[13px] mt-6 md:mt-5 font-sans rounded-[10px] bg-[#E8602E] hover:bg-white cursor-pointer m-auto font-medium hover:text-[#E8602E] text-base sm:text-lg md:text-[20px] z-20 relative transition-all duration-300"
             >
               Learn More
