@@ -133,36 +133,34 @@ useEffect(() => {
               You may also be interested in...
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
-              {interviews.filter((item) => item.id !== interviews.id)
-                .slice(0, 2)
-                .map((related) => (
-                  <div
-                    key={related.id}
-                    onClick={() => setInterviews(related)}
-                    className="cursor-pointer bg-[#111] rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
-                  >
-                    <div className="relative w-full h-[240px]">
-                      <Image
-                        src={related.image_url}
-                        alt={related.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="p-5">
-                      <h4 className="text-lg font-semibold mb-1">
-                        {related.name}
-                      </h4>
-                      <p className="text-sm text-gray-400 mb-3">
-                        {related.sector}
-                      </p>
-                      <span className="text-orange-400 hover:underline text-sm">
-                        Read More →
-                      </span>
-                    </div>
-                  </div>
-                ))}
-            </div>
+  {Array.isArray(interviews) &&
+    interviews
+      .filter((item) => item.id !== interviews?.id)
+      .slice(0, 2)
+      .map((related) => (
+        <div
+          key={related.id}
+          onClick={() => setInterviews(related)}
+          className="cursor-pointer bg-[#111] rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+        >
+          <div className="relative w-full h-[240px]">
+            <Image
+              src={related.image_url}
+              alt={related.name}
+              fill
+              className="object-cover"
+            />
+          </div>
+          <div className="p-5">
+            <h4 className="text-lg font-semibold mb-1">{related.name}</h4>
+            <p className="text-sm text-gray-400 mb-3">{related.sector}</p>
+            <span className="text-orange-400 hover:underline text-sm">
+              Read More →
+            </span>
+          </div>
+        </div>
+      ))}
+</div>
           </div>
         </div>
 

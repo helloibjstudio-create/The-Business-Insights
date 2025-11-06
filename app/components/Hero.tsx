@@ -144,12 +144,12 @@ const Hero = () => {
         </motion.div>
 
         {/* --- DHL BANNER --- */}
-        <div key="dhl-banner" className="relative w-full min-h-[50vh] sm:h-[70vh] md:h-screen">
+        <div key="dhl-banner" className="relative w-full min-h-[50vh] sm:h-[70vh] md:h-screen mb-20 md:mb-0">
           <Image
             src={thirdOrange}
             alt="Background"
             fill
-            className="absolute inset-0 object-contain h-full w-full"
+            className="absolute inset-0 object-contain lg:object-cover  h-full w-full"
           />
           <Image
             src={dhl}
@@ -239,9 +239,10 @@ const Hero = () => {
 
       {/* Button */}
       <div className="flex justify-center mt-10">
+        <Link href="/Interviews">
         <button className="inline-flex items-center justify-center px-6 sm:px-8 py-3 rounded-lg bg-orange-500 cursor-pointer font-sans hover:bg-white text-white hover:text-orange-500 text-[16px] sm:text-[18px]">
           More Interviews
-        </button>
+        </button></Link>
       </div>
     </>
   ) : (
