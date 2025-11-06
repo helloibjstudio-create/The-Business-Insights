@@ -131,7 +131,7 @@ export default function HeroParallax() {
   return (
     <section
       ref={ref}
-      className="relative  h-[260vh] md:h-[200vh] lg:h-[220vh] overflow-hidden bg-black"
+      className="relative  h-[300vh] md:h-[300vh] lg:h-[220vh] overflow-hidden bg-black"
     >
       <Navbar />
 
@@ -187,7 +187,7 @@ export default function HeroParallax() {
       <motion.div
         ref={nextSectionRef}
         style={{ opacity: opacityNextSection, y: yNextSection }}
-        className="relative font-sans bottom-0 z-10 w-full h-screen flex items-center justify-center px-[clamp(1rem,5vw,5rem)] bg-transparent text-white"
+        className="relative font-sans top-120 bottom-0 z-10 w-full h-screen flex items-center justify-center px-[clamp(1rem,5vw,5rem)] bg-transparent text-white"
       >
         <motion.div
           initial={{ opacity: 0, y: 100 }}
@@ -228,7 +228,7 @@ export default function HeroParallax() {
       key={person.id}
       className="rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-500"
     >
-      <div className="relative w-full h-[420px] overflow-hidden">
+      <div className="relative w-full h-[220px] lg:h-[420px] overflow-hidden">
         <Image
           src={person.image_url}
           alt={person.name}
