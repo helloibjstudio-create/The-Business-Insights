@@ -11,7 +11,7 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:3000",          // local dev
-    "https://the-business-insights.vercel.app" /
+    "https://the-business-insights.vercel.app"
   ],  // or specify your frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
