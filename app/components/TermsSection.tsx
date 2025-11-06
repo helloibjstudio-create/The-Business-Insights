@@ -34,14 +34,14 @@ const TermsSection = () => {
         </div>
 
         <section
-          className="relative z-10 w-[90%] mx-auto mt-24 mb-32 p-6 sm:p-10 md:p-16 
-        bg-black/70 border border-white/10 backdrop-blur-xl rounded-2xl shadow-[0_0_40px_rgba(232,96,46,0.1)] 
-        leading-relaxed text-gray-200 text-[15px] sm:text-base"
+          className="relative z-10 w-[90%] top-20 mx-auto mt-24 mb-32 p-6 sm:p-10 md:p-16 
+        bg-orange-500/3 border border-white/10 backdrop-blur-2xl rounded-2xl shadow-[0_0_40px_rgba(232,96,46,0.1)] 
+        leading-relaxed text-[15px] sm:text-base"
         >
         
-          <h1 className="text-[73px] pb-[40px]">Terms of use</h1>
-          <div>
-            <h1>Definitions</h1>
+          <h1 className="text-[36px] md:text-[55px] lg:text-[73px] pb-[15px] md:pb-[30px] lg:pb-[40px]">Terms of use</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Definitions</h1>
             <p>
               The term “thebusinessinsight.com” (referred to herein as the
               “Website”) pertains to an online service operated and supplied by
@@ -49,8 +49,8 @@ const TermsSection = () => {
               Website encompasses services and content provided by the Company.
             </p>
           </div>
-          <div>
-            <h1>Introduction</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Introduction</h1>
             <p>
               These stipulations regulate your utilization of this Website. By
               accessing and using this Website, you acknowledge your acceptance
@@ -59,8 +59,8 @@ const TermsSection = () => {
               this Website.
             </p>
           </div>
-          <div>
-            <h1>Cookie usage</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Cookie usage</h1>
             <p>
               This Website employs cookies. By accessing and using this Website
               while agreeing to these terms and conditions, you provide consent
@@ -68,8 +68,8 @@ const TermsSection = () => {
               privacy policy/cookies policy.
             </p>
           </div>
-          <div>
-            <h1>Website Usage License</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Website Usage License</h1>
             <p>
               Unless explicitly stated otherwise, the Company and/or its
               licensors retain intellectual property rights concerning the
@@ -78,20 +78,20 @@ const TermsSection = () => {
               reserved.
             </p>
           </div>
-          <div>
-            <h1>You're allowed to:</h1>
-            <ul>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">You're allowed to:</h1>
+            <li>
               <li>
                 View, download (for caching purposes only), and print pages or
                 other content from the Website for personal use, adhering to the
                 limitations stipulated below and in other sections of these
                 terms and conditions.
               </li>
-            </ul>
+            </li>
           </div>
-          <div>
-            <h1>You must not:</h1>
-            <ul>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">You must not:</h1>
+            <li>
               <li>
                 Republish material from this Website, including reposting it on
                 another Website.
@@ -107,14 +107,14 @@ const TermsSection = () => {
                 Redistribute material from this Website, except for content
                 explicitly and expressly designated for redistribution.
               </li>
-            </ul>
+            </li>
             <p>
               Content designed for redistribution may only be redistributed
               within your organization.
             </p>
           </div>
-          <div>
-            <h2>Acceptable Usage:</h2>
+          <div className="font-sans">
+            <h2 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Acceptable Usage:</h2>
             <p>
               You must refrain from using this Website in any manner that could
               cause damage to the Website, impair its availability or
@@ -134,8 +134,8 @@ const TermsSection = () => {
               is disallowed.
             </p>
           </div>
-          <div>
-            <h1>No Warranties</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">No Warranties</h1>
             <p>
               This Website is provided “as is,” without any express or implied
               representations or warranties. The Company does not make any
@@ -143,29 +143,29 @@ const TermsSection = () => {
               information and materials presented on it. The Company does not
               guarantee that:
             </p>
-            <ul>
-              <li>
+            <li>
+              <li className="decoration-dotted">
                 This Website will be consistently available or available at all.
               </li>
               <li>
                 The information on this Website is complete, accurate, true, or
                 not misleading.
               </li>
-            </ul>
+            </li>
             <p>
               Nothing on this Website constitutes or should be interpreted as
               advice of any kind. For advice regarding legal or financial
               matters, it is recommended to consult an appropriate professional.
             </p>
           </div>
-          <div>
-            <h1>Limitations of Liability</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Limitations of Liability</h1>
             <p>
               The Company will not be held liable to you (whether under contract
               law, tort law, or otherwise) concerning the contents of, usage of,
               or any other connection to this Website:
             </p>
-            <ul>
+            <li>
               <li>
                 For direct loss to the extent the Website is provided without
                 charge.
@@ -177,20 +177,20 @@ const TermsSection = () => {
                 relationships; loss of reputation or goodwill; or loss or
                 corruption of data or information.
               </li>
-            </ul>
+            </li>
             <p>
               These limitations of liability apply even if the Company has been
               advised of the potential loss.
             </p>
           </div>
-          <div>
-            <p>Exceptions</p>
+          <div className="font-sans">
+            <p className="text-[18px] md:text-[22px] lg:text-[25px] pb-[3px] lg:pb-[9px] underline">Exceptions</p>
             <p>
               Nothing in this Website disclaimer is meant to exclude or limit
               any implied warranty mandated by law, nor to exclude or limit the
               Company’s liability for:
             </p>
-            <ul>
+            <li>
               <li>
                 Death or personal injury resulting from the Company’s
                 negligence.
@@ -203,10 +203,10 @@ const TermsSection = () => {
                 Matters for which it is unlawful or illegal for the Company to
                 exclude or limit liability.
               </li>
-            </ul>
+            </li>
           </div>
-          <div>
-            <h1>Reasonableness:</h1>
+          <div className="font-sans">
+            <h1 className="text-[18px] md:text-[22px] lg:text-[25px] pb-[3px] lg:pb-[9px] underline">Reasonableness:</h1>
             <p>
               Through the utilization of this Website, you acknowledge that the
               exclusions and limitations of liability specified in this Website
@@ -214,8 +214,8 @@ const TermsSection = () => {
               must refrain from using this Website.
             </p>
           </div>
-          <div>
-            <h1>Involvement of Other Parties:</h1>
+          <div className="font-sans">
+            <h1 className="text-[18px] md:text-[22px] lg:text-[25px] pb-[3px] lg:pb-[9px] underline">Involvement of Other Parties:</h1>
             <p>
               You recognize that, as a limited liability entity, the Company has
               a vested interest in restricting the personal liability of its
@@ -230,8 +230,8 @@ const TermsSection = () => {
               and subcontractors.
             </p>
           </div>
-          <div>
-            <h1>Unenforceable Provisions:</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Unenforceable Provisions:</h1>
             <p>
               In the event that any provision of this Website disclaimer is
               deemed unenforceable under applicable law, the enforceability of
@@ -240,8 +240,8 @@ const TermsSection = () => {
               be deemed deleted while the remainder continues to be valid.
             </p>
           </div>
-          <div>
-            <h1>Indemnification:</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Indemnification:</h1>
             <p>
               You hereby agree to indemnify the Company and commit to indemnify
               the Company against any losses, damages, costs, liabilities, and
@@ -253,8 +253,8 @@ const TermsSection = () => {
               provision of these terms and conditions.
             </p>
           </div>
-          <div>
-            <h1>Account Access:</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Account Access:</h1>
             <p>
               Certain features of this Website might necessitate your
               registration. The Company may assign a password and username or
@@ -270,8 +270,8 @@ const TermsSection = () => {
               incurred through such use.
             </p>
           </div>
-          <div>
-            <h1>Purchases on the Website:</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Purchases on the Website:</h1>
             <p>
               Transactions through this Website may be conducted electronically
               from start to finish at the Company’s discretion. If
@@ -307,8 +307,8 @@ const TermsSection = () => {
               services is restricted or prohibited in your jurisdiction.
             </p>
           </div>
-          <div>
-            <h1>Links:</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Links:</h1>
             <p>
               This Website may contain links to third-party websites on the
               internet, owned and operated by entities other than the Company.
@@ -316,8 +316,8 @@ const TermsSection = () => {
               operation or content of any such third-party websites
             </p>
           </div>
-          <div>
-            <h1>Termination:</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Termination:</h1>
             <p>
               You can terminate these Terms at any time by closing your account,
               discontinuing your use of this Website, and informing the Company
@@ -327,8 +327,8 @@ const TermsSection = () => {
               its sole discretion.
             </p>
           </div>
-          <div>
-            <h1>Breach of Terms and Conditions:</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Breach of Terms and Conditions:</h1>
             <p>
               Without prejudice to the Company’s other rights outlined in these
               terms and conditions, if you breach these terms and conditions in
@@ -338,8 +338,8 @@ const TermsSection = () => {
               legal action.
             </p>
           </div>
-          <div>
-            <h1>Variation:</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Variation:</h1>
             <p>
               The Company may revise these terms and conditions periodically.
               The revised terms and conditions will apply to your use of this
@@ -348,8 +348,8 @@ const TermsSection = () => {
               version.
             </p>
           </div>
-          <div>
-            <h1>Assignment:</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Assignment:</h1>
             <p>
               The Company may transfer, subcontract, or otherwise manage its
               rights and obligations under these terms and conditions without
@@ -358,8 +358,8 @@ const TermsSection = () => {
               rights and obligations under these terms and conditions.
             </p>
           </div>
-          <div>
-            <h1>Severability:</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Severability:</h1>
             <p>
               If a provision of these terms and conditions is deemed unlawful or
               unenforceable by a court or competent authority, the remaining
@@ -369,8 +369,8 @@ const TermsSection = () => {
               the provision will remain in effect.
             </p>
           </div>
-          <div>
-            <h1>Entire Agreement:</h1>
+          <div className="font-sans">
+            <h1 className="text-[26px] md:text-[36px] lg:text-[38px] pb-[3px] lg:pb-[9px] underline">Entire Agreement:</h1>
             <p>
               These terms and conditions constitute the entire agreement between
               you and the Company regarding your use of this Website,
@@ -382,7 +382,31 @@ const TermsSection = () => {
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 2, ease: "easeOut" }}
+          className="absolute top-30 right-0 w-[1200px] h-[1200px] 
+  bg-[radial-gradient(circle_at_left_bottom,_rgba(232,96,46,0.55),_transparent_70%)] 
+  blur-3xl pointer-events-none z-0"
+        />
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 2, ease: "easeOut" }}
           className="absolute bottom-0 left-0 w-[1200px] h-[1200px] 
+  bg-[radial-gradient(circle_at_left_bottom,_rgba(232,96,46,0.55),_transparent_70%)] 
+  blur-3xl pointer-events-none z-0"
+        />
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+          className="absolute top-0 right-0 w-[1200px] h-[1200px] 
+  bg-[radial-gradient(circle_at_left_bottom,_rgba(232,96,46,0.55),_transparent_70%)] 
+  blur-3xl pointer-events-none z-0"
+        />
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+          className="absolute top-420 -right-150 w-[1200px] h-[1200px] 
   bg-[radial-gradient(circle_at_left_bottom,_rgba(232,96,46,0.55),_transparent_70%)] 
   blur-3xl pointer-events-none z-0"
         />
