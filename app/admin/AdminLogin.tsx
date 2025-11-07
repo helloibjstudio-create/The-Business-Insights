@@ -13,7 +13,7 @@ export default function AdminLogin({ onLogin }: { onLogin: () => void }) {
     setLoading(true);
     setError("");
 
-    const res = await fetch("/api/admin-login", {
+    const res = await fetch("api/admin-login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
