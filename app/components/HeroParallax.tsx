@@ -144,7 +144,7 @@ export default function HeroParallax() {
   return (
     <section
       ref={ref}
-      className="relative h-[calc(var(--vh,1vh)*210)] md:h-[calc(var(--vh,1vh)*210)] lg:h-[calc(var(--vh,1vh)*220)] overflow-hidden bg-black"
+      className="relative h-[calc(var(--vh,1vh)*235)] md:h-[calc(var(--vh,1vh)*210)] lg:h-[calc(var(--vh,1vh)*220)] overflow-hidden bg-black"
     >
       <Navbar />
 
