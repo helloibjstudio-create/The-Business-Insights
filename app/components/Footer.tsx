@@ -6,7 +6,7 @@ import { BusinessLogo } from "@/public";
 
 export default function Footer() {
   return (
-    <footer key="footer" className="bg-black border-t border-gray-900 z-30 relative text-white py-10 md:py-14 font-sans">
+    <footer key="footer" className="bg-black z-30 relative text-white py-10 md:py-14 font-sans">
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
         {/* Left Section */}
         <div className="space-y-5">
@@ -79,22 +79,22 @@ export default function Footer() {
         {/* Middle Section */}
         <div>
           <h3 className="text-lg font-semibold mb-4">Company</h3>
-          <ul className="space-y-3 text-white">
-            <li className="hover:text-[#E25B2B] cursor-pointer transition">
+          <ul className="space-y-3  text-white">
+            <li className="hover:text-[#E25B2B] cursor-pointer transition w-fit">
               About us
             </li>
+            <li className="hover:text-[#E25B2B] cursor-pointer transition w-fit">
             <Link href="/Terms">
-            <li className="hover:text-[#E25B2B] cursor-pointer transition">
               Terms of Use
-            </li>
             </Link>
-            <li className="hover:text-[#E25B2B] cursor-pointer transition">
+            </li>
+            <li className="hover:text-[#E25B2B] cursor-pointer transition w-fit">
               Cookies Policy
             </li>
-            <li className="hover:text-[#E25B2B] cursor-pointer transition">
+            <li className="hover:text-[#E25B2B] cursor-pointer transition w-fit">
               Career
             </li>
-            <li className="hover:text-[#E25B2B] cursor-pointer transition">
+            <li className="hover:text-[#E25B2B] cursor-pointer transition w-fit">
               Privacy Policy
             </li>
           </ul>

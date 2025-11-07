@@ -3,13 +3,9 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import { InterviewBg, ReportBg, thirdOrange } from "@/public";
+import { InterviewBg, ReportBg, thirdOrange, vector2 } from "@/public";
 import { useCallback, useEffect, useState } from "react";
-import {
-  ArrowUpRight,
-  Search,
-  SlidersHorizontal,
-} from "lucide-react";
+import { ArrowUpRight, Search, SlidersHorizontal } from "lucide-react";
 import Footer from "./Footer";
 import SearchAndFilter from "./SearchFilter";
 
@@ -26,12 +22,12 @@ const Reports = () => {
   const [reports, setReports] = useState<Report[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(9);
-   const [filteredInterviews, setFilteredInterviews] = useState<Report[]>([]);
-  
-    // ✅ Memoize the handler so SearchAndFilter doesn’t trigger infinite re-renders
-    const handleFiltered = useCallback((filtered: Report[]) => {
-      setFilteredInterviews(filtered);
-    }, []);
+  const [filteredInterviews, setFilteredInterviews] = useState<Report[]>([]);
+
+  // ✅ Memoize the handler so SearchAndFilter doesn’t trigger infinite re-renders
+  const handleFiltered = useCallback((filtered: Report[]) => {
+    setFilteredInterviews(filtered);
+  }, []);
 
   // ✅ Fetch data from your backend
   useEffect(() => {
@@ -87,9 +83,7 @@ const Reports = () => {
             key={i}
             onClick={() => handlePageChange(i)}
             className={`px-2 py-1 ${
-              currentPage === i
-                ? "text-orange-500 font-bold"
-                : "text-gray-400"
+              currentPage === i ? "text-orange-500 font-bold" : "text-gray-400"
             } hover:text-orange-400 transition`}
           >
             {i}
@@ -129,7 +123,9 @@ const Reports = () => {
       {/* === Hero Section === */}
       <div className="relative h-screen top-21 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 space-y-2 lg:space-y-6">
         <div className="inline-flex items-center justify-center w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3">
-          <p className="whitespace-nowrap font-sans">📈 Where Analysis Meets Opportunity</p>
+          <p className="whitespace-nowrap font-sans">
+            📈 Where Analysis Meets Opportunity
+          </p>
         </div>
 
         <h1 className="font-[400] leading-tight text-[36px] md:text-[60px] lg:text-[80px] max-w-[90%] sm:max-w-[650px] md:max-w-[800px] lg:w-[975px]">
@@ -139,22 +135,22 @@ const Reports = () => {
         <p className="text-white text-[18px] lg:text-[20px] max-w-[99%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl leading-relaxed font-sans">
           Browse our latest publications and gain a deeper understanding of
           emerging trends and critical topics through our in-depth analysis,
-          interviews with local business and political leaders, and comprehensive
-          data and statistics.
+          interviews with local business and political leaders, and
+          comprehensive data and statistics.
         </p>
       </div>
 
       {/* === Search Bar === */}
       <div className="relative z-50">
-              <SearchAndFilter
-                data={reports}
-                onFiltered={handleFiltered}
-                fields={{
-                  search: ["title"],
-                  filters: {},
-                }}
-              />
-            </div>
+        <SearchAndFilter
+          data={reports}
+          onFiltered={handleFiltered}
+          fields={{
+            search: ["title"],
+            filters: {},
+          }}
+        />
+      </div>
 
       {/* === Content === */}
       <section>
@@ -174,7 +170,10 @@ const Reports = () => {
         >
           {/* === Grid of Reports === */}
           <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[42px] mt-10">
-            {(filteredInterviews.length > 0 ? filteredInterviews : currentReports).map((report) => (
+            {(filteredInterviews.length > 0
+              ? filteredInterviews
+              : currentReports
+            ).map((report) => (
               <section
                 key={report.id}
                 className="relative bg-transparent text-white font-sans"
@@ -209,10 +208,16 @@ const Reports = () => {
                     href={report.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-[#E8602E] hover:text-white font-medium transition-colors underline duration-200"
+                    className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
                   >
                     Explore Now
-                    <ArrowUpRight className="inline-block w-5 h-5 ml-1" />
+                    <Image
+                      src={vector2}
+                      alt="vector-2"
+                      width={17}
+                      height={17}
+                      className="ml-1"
+                    />
                   </a>
                 </div>
               </section>

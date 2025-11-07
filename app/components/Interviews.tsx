@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import { InterviewBg } from "@/public";
+import { InterviewBg, vector2 } from "@/public";
 import { useEffect, useState, useCallback } from "react";
 import { ArrowUpRight, ArrowLeft } from "lucide-react";
 import Footer from "./Footer";
@@ -299,8 +299,14 @@ const Interviews = () => {
                   <p className="text-sm text-gray-400">{interview.year}</p>
                 </div>
                 <h2 className="text-[28px] font-[500]">{interview.name}</h2>
-                <span className="text-orange-500 hover:underline text-lg flex items-center">
-                  Read more <ArrowUpRight className="ml-1 w-4 h-4" />
+                <span className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]">
+                  Read more <Image
+                              src={vector2}
+                              alt="vector-2"
+                              width={17}
+                              height={17}
+                              className="ml-1"
+                            />
                 </span>
               </div>
             </div>

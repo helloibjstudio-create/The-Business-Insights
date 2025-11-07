@@ -3,12 +3,11 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import { ArticleBg, thirdOrange } from "@/public";
+import { ArticleBg, thirdOrange, vector2 } from "@/public";
 import { useEffect, useState, useMemo } from "react";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import Footer from "./Footer";
 import SearchAndFilter from "./SearchFilter";
-
 
 interface Article {
   id: number;
@@ -200,11 +199,15 @@ export default function Articles() {
 
       {/* Hero */}
       <div className="relative h-screen top-28 z-30 flex flex-col items-center justify-center text-center px-4">
-        <div className="inline-flex items-center justify-center 
+        <div
+          className="inline-flex items-center justify-center 
             w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
             border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] 
-            px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3">
-          <p className="whitespace-nowrap font-sans">✨ Ideas That Move Markets</p>
+            px-4 sm:px-6 py-2 rounded-full font-medium tracking-wide backdrop-blur-md glow-orange3"
+        >
+          <p className="whitespace-nowrap font-sans">
+            ✨ Ideas That Move Markets
+          </p>
         </div>
 
         <h1 className="text-[36px] md:text-[60px] lg:text-[80px] font-[400] mt-6 max-w-[850px] leading-tight">
@@ -250,20 +253,45 @@ export default function Articles() {
                   height={413}
                   className="object-cover rounded-md w-full h-auto"
                 />
-                <div className="absolute bottom-3 left-3 bg-black/30 text-white text-xs px-3 py-1 rounded-md border border-orange-500">
-                  {article.sector}
+                <div className="absolute bottom-3 left-3 flex flex-row gap-2">
+                  {article.sector.map((s, i) => (
+                    <div
+                      key={i}
+                      className="bg-black/30 text-white text-xs px-3 py-1 rounded-md border border-orange-500"
+                    >
+                      {s}
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div className="mt-3 space-y-1 py-2">
                 <div className="flex items-center space-x-2">
-                  <p className="text-sm text-gray-400">{article.country}</p>
+                  <p className="text-sm text-gray-400 items-center">
+                    {article.country.map((c, i) => (
+                      <span key={i}>
+                        {c}
+                        {i < article.country.length - 1 && (
+                          <span className="text-orange-500 items-center rounded-full mx-1">
+                            •
+                          </span>
+                        )}
+                      </span>
+                    ))}
+                  </p>
                   <span className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
                   <p className="text-sm text-gray-400">{article.year}</p>
                 </div>
                 <h2 className="text-[28px] font-[500]">{article.name}</h2>
-                <span className="text-orange-500 hover:underline text-lg flex items-center">
-                  Read more <ArrowUpRight className="ml-1 w-4 h-4" />
+                <span className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]">
+                  Read more{" "}
+                  <Image
+                    src={vector2}
+                    alt="vector-2"
+                    width={17}
+                    height={17}
+                    className="ml-1"
+                  />
                 </span>
               </div>
             </div>

@@ -131,8 +131,8 @@ const Hero = () => {
                     className="object-cover"
                   />
                 </div>
-                <div className="pt-6 px-4 pb-8">
-                  <h3 className="font-semibold text-[20px] sm:text-[22px] md:text-[26px]">
+                <div className="pt-6 pb-8">
+                  <h3 className="font-semibold text-[20px] sm:text-[22px] md:text-[22px]">
                     {article.name}
                   </h3>
                   <p className="text-gray-300 text-[16px] sm:text-[18px] py-2.5 mb-3">
@@ -163,7 +163,7 @@ const Hero = () => {
             alt="DHL Banner"
             width={1280}
             height={333}
-            className="z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 object-contain w-[90%] sm:w-[80%] lg:w-[70%]"
+            className="z-10 absolute top-2/5 left-1/2 -translate-x-1/2 -translate-y-1/2 object-contain w-[90%] sm:w-[80%] lg:w-[90%]"
           />
         </div>
     
