@@ -2,53 +2,24 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { createClient } from "@supabase/supabase-js";
-import bcrypt from "bcryptjs";
 
 dotenv.config();
 
 const app = express();
 
-/* =====================================================
-   ✅ FIXED & ROBUST CORS CONFIGURATION
-===================================================== */
-
-// Allow both production and local URLs
-const allowedOrigins = [
-  "http://localhost:3000",
-  "http://127.0.0.1:3000",
-  "https://the-business-insights.vercel.app",
-];
-
-// Always run this first
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.header("Access-Control-Allow-Credentials", "true");
-
-  // Handle preflight OPTIONS requests
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-  next();
-});
-
-// Use Express JSON parser
+// Middleware
+app.use(cors({
+  origin: [
+    "http://localhost:3000",          // local dev
+    "https://the-business-insights.vercel.app"
+  ],  // or specify your frontend URL
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(express.json());
 
-/* =====================================================
-   ✅ SUPABASE CONNECTION
-===================================================== */
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-
 // Supabase setup
-
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 // router.get("/", async (req, res) => {
 //   try {
@@ -292,33 +263,34 @@ app.delete("/api/:table/:id", async (req, res) => {
 // ===================================================================
 // 🧩 ADMIN LOGIN
 // ===================================================================
+// import bcrypt from "bcryptjs";
 
-app.post("/api/admin", async (req, res) => {
-  try {
-    const { username, password } = req.body;
+// app.post("/api/admin", async (req, res) => {
+//   try {
+//     const { username, password } = req.body;
 
-    const adminUsername = process.env.ADMIN_USERNAME;
-    const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
+//     const adminUsername = process.env.ADMIN_USERNAME;
+//     const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
 
-    if (!adminUsername || !adminPasswordHash) {
-      return res.status(500).json({ error: "Server not configured properly" });
-    }
+//     if (!adminUsername || !adminPasswordHash) {
+//       return res.status(500).json({ error: "Server not configured properly" });
+//     }
 
-    if (username !== adminUsername) {
-      return res.status(401).json({ error: "Invalid username" });
-    }
+//     if (username !== adminUsername) {
+//       return res.status(401).json({ error: "Invalid username" });
+//     }
 
-    const match = await bcrypt.compare(password, adminPasswordHash);
-    if (!match) {
-      return res.status(401).json({ error: "Invalid password" });
-    }
+//     const match = await bcrypt.compare(password, adminPasswordHash);
+//     if (!match) {
+//       return res.status(401).json({ error: "Invalid password" });
+//     }
 
-    return res.status(200).json({ success: true, message: "Login successful" });
-  } catch (err) {
-    console.error("Admin login error:", err.message);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-});
+//     return res.status(200).json({ success: true, message: "Login successful" });
+//   } catch (err) {
+//     console.error("Admin login error:", err.message);
+//     return res.status(500).json({ error: "Internal server error" });
+//   }
+// });
 
 
 
