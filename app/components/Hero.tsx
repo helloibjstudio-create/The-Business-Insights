@@ -330,7 +330,7 @@ const Hero = () => {
             </p>
 
             {/* Button */}
-            <Link href="/events">
+            <Link href="/Events">
             <button
               className="flex items-center px-6 sm:px-8 md:px-[37px] py-3 sm:py-3.5 md:py-[13px] mt-6 md:mt-5 font-sans rounded-[10px] bg-[#E8602E] text-white hover:bg-white cursor-pointer m-auto font-medium hover:text-[#E8602E] text-base sm:text-lg md:text-[20px] z-20 relative transition-all duration-300"
             >
