@@ -10,6 +10,7 @@ import { countries, sectors } from "../data/options";
 import cities from "cities-list";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
+import AdminLogin from "./AdminLogin";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
@@ -290,6 +291,16 @@ export default function AdminDashboard({
     });
     setView("create");
   };
+
+   const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("admin_token");
+    if (token) setLoggedIn(true);
+  }, []);
+
+  if (!loggedIn)
+    return <AdminLogin onLogin={() => setLoggedIn(true)} />;
 
   return (
     <div className=" bg-transparent w-full h-full font-sans font-[500] text-white flex">

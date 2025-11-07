@@ -35,7 +35,7 @@ const TermsSection = () => {
 
         <section
           className="relative z-10 w-[90%] top-20 mx-auto mt-24 mb-32 p-6 sm:p-10 md:p-16 
-        bg-orange-500/3 border border-white/10 backdrop-blur-2xl rounded-2xl shadow-[0_0_40px_rgba(232,96,46,0.1)] 
+        bg-orange-500/3 border border-white/10 backdrop-blur-2xl glow-orange2 rounded-2xl shadow-[0_0_40px_rgba(232,96,46,0.1)] 
         leading-relaxed text-[15px] sm:text-base"
         >
         
