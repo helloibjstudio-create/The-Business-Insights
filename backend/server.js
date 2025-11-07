@@ -2,24 +2,53 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { createClient } from "@supabase/supabase-js";
+import bcrypt from "bcryptjs";
 
 dotenv.config();
 
 const app = express();
 
-// Middleware
-app.use(cors({
-  origin: [
-    "http://localhost:3000",          // local dev
-    "https://the-business-insights.vercel.app"
-  ],  // or specify your frontend URL
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
+/* =====================================================
+   ✅ FIXED & ROBUST CORS CONFIGURATION
+===================================================== */
+
+// Allow both production and local URLs
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  "https://the-business-insights.vercel.app",
+];
+
+// Always run this first
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+
+  // Handle preflight OPTIONS requests
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
+// Use Express JSON parser
 app.use(express.json());
 
-// Supabase setup
+/* =====================================================
+   ✅ SUPABASE CONNECTION
+===================================================== */
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
+// Supabase setup
+
 
 // router.get("/", async (req, res) => {
 //   try {
@@ -263,7 +292,6 @@ app.delete("/api/:table/:id", async (req, res) => {
 // ===================================================================
 // 🧩 ADMIN LOGIN
 // ===================================================================
-import bcrypt from "bcryptjs";
 
 app.post("/api/admin", async (req, res) => {
   try {
