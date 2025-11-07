@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { createClient } from "@supabase/supabase-js";
-import adminRoutes from "./routes/admin.js";
+// import adminRoutes from "./routes/admin.js";
+import bcrypt from "bcryptjs";
 
 
 dotenv.config();
@@ -57,7 +58,7 @@ app.get("/test-db", async (req, res) => {
 });
 
 
-app.use("/api/admin", adminRoutes);
+// app.use("/api/admin", adminRoutes);
 
 
 // ===================================================================
@@ -268,34 +269,34 @@ app.delete("/api/:table/:id", async (req, res) => {
 // ===================================================================
 // 🧩 ADMIN LOGIN
 // ===================================================================
-// import bcrypt from "bcryptjs";
 
-// app.post("/api/admin", async (req, res) => {
-//   try {
-//     const { username, password } = req.body;
 
-//     const adminUsername = process.env.ADMIN_USERNAME;
-//     const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
+app.post("/api/admin", async (req, res) => {
+  try {
+    const { username, password } = req.body;
 
-//     if (!adminUsername || !adminPasswordHash) {
-//       return res.status(500).json({ error: "Server not configured properly" });
-//     }
+    const adminUsername = process.env.ADMIN_USERNAME;
+    const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
 
-//     if (username !== adminUsername) {
-//       return res.status(401).json({ error: "Invalid username" });
-//     }
+    if (!adminUsername || !adminPasswordHash) {
+      return res.status(500).json({ error: "Server not configured properly" });
+    }
 
-//     const match = await bcrypt.compare(password, adminPasswordHash);
-//     if (!match) {
-//       return res.status(401).json({ error: "Invalid password" });
-//     }
+    if (username !== adminUsername) {
+      return res.status(401).json({ error: "Invalid username" });
+    }
 
-//     return res.status(200).json({ success: true, message: "Login successful" });
-//   } catch (err) {
-//     console.error("Admin login error:", err.message);
-//     return res.status(500).json({ error: "Internal server error" });
-//   }
-// });
+    const match = await bcrypt.compare(password, adminPasswordHash);
+    if (!match) {
+      return res.status(401).json({ error: "Invalid password" });
+    }
+
+    return res.status(200).json({ success: true, message: "Login successful" });
+  } catch (err) {
+    console.error("Admin login error:", err.message);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 
 
