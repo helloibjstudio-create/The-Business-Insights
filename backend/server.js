@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { createClient } from "@supabase/supabase-js";
+import adminRoutes from "./routes/admin.js";
+
 
 dotenv.config();
 
@@ -53,6 +55,9 @@ app.get("/test-db", async (req, res) => {
   if (error) return res.status(400).json({ error: error.message });
   res.json(data);
 });
+
+
+app.use("/api/admin", adminRoutes);
 
 
 // ===================================================================
