@@ -28,14 +28,12 @@ const Events = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // ✅ Get base URL from environment or fallback to local
-  const API_BASE_URL =
-    process.env.NEXT_PUBLIC_API_BASE_URL ||
-    "https://the-business-insights-b3de-server-ig8wbmwey.vercel.app/";
+ 
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}api/events`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/articles`);
         if (!res.ok) throw new Error(`Failed to fetch events: ${res.status}`);
         const data = await res.json();
         setEvents(data);
@@ -45,7 +43,7 @@ const Events = () => {
     };
 
     fetchEvents();
-  }, [API_BASE_URL]);
+  }, []);
 
   // Pagination logic
   const totalPages = Math.ceil(events.length / ITEMS_PER_PAGE);
