@@ -60,14 +60,17 @@ export default function HeroParallax() {
   });
 
   // === PARALLAX ANIMATIONS (RESPONSIVE) ===
-  const scale = useTransform(smoothProgress, [0, 1], [1, 1.6]);
+  const scale = useTransform(smoothProgress, [0, 0.3, 1], [1, 1.4, 1.6]);
+
   const yBackground = useTransform(smoothProgress, [0, 1], ["0%", "-8%"]);
 
-  const opacityText = useTransform(smoothProgress, [0, 0.45], [1, 0]);
-  const yText = useTransform(smoothProgress, [0, 0.45], ["0%", "-12%"]);
+  const opacityText = useTransform(smoothProgress, [0, 0.1], [1, 0]);
 
-  const opacityNextSection = useTransform(smoothProgress, [0.35, 1], [0, 1]);
-  const yNextSection = useTransform(smoothProgress, [0.45, 1], ["15%", "0%"]);
+  const yText = useTransform(smoothProgress, [0, 0.1], ["0%", "-20%"]);
+
+
+  const opacityNextSection = useTransform(smoothProgress, [0.05, 0.4], [0, 1]);
+ const yNextSection = useTransform(smoothProgress, [0.1, 0.5], ["20%", "0%"]);
 
   // === AUTO SCROLL CONTROL (ADAPTIVE) ===
   // === AUTO SCROLL CONTROL (ADAPTIVE) ===
@@ -114,6 +117,16 @@ export default function HeroParallax() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled, autoScrolling, vh]);
 
+  useEffect(() => {
+  const setVh = () => {
+    const vhValue = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vhValue}px`);
+  };
+  setVh();
+  window.addEventListener("resize", setVh);
+  return () => window.removeEventListener("resize", setVh);
+}, []);
+
     const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -131,7 +144,7 @@ export default function HeroParallax() {
   return (
     <section
       ref={ref}
-      className="relative  h-[210vh] md:h-[210vh] lg:h-[220vh] overflow-hidden bg-black"
+      className="relative h-[calc(var(--vh,1vh)*210)] md:h-[calc(var(--vh,1vh)*210)] lg:h-[calc(var(--vh,1vh)*220)] overflow-hidden bg-black"
     >
       <Navbar />
 

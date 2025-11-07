@@ -105,7 +105,7 @@ export default function Articles() {
               <h1 className="text-3xl md:text-4xl font-semibold mb-6">
                 {selectedArticle.name}
               </h1>
-              <div className="space-y-6 text-white font-normal leading-relaxed">
+              <div className="space-y-1 text-white font-normal leading-relaxed">
                 <p>{selectedArticle.description}</p>
 
                 {selectedArticle.write_up ? (
