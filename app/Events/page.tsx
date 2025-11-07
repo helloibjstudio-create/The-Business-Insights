@@ -1,4 +1,4 @@
-import Articles from "../components/Articles";
+
 import Events from "../components/Events";
 
 

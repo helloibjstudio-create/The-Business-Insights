@@ -33,7 +33,7 @@ const Events = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/articles`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/events`);
         if (!res.ok) throw new Error(`Failed to fetch events: ${res.status}`);
         const data = await res.json();
         setEvents(data);
