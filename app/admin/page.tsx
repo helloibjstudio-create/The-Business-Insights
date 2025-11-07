@@ -292,15 +292,15 @@ export default function AdminDashboard({
     setView("create");
   };
 
-   const [loggedIn, setLoggedIn] = useState(false);
+     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("admin_token");
-    if (token) setLoggedIn(true);
+    const loggedIn = localStorage.getItem("admin_logged_in") === "true";
+    setIsLoggedIn(loggedIn);
   }, []);
 
-  if (!loggedIn)
-    return <AdminLogin onLogin={() => setLoggedIn(true)} />;
+  if (!isLoggedIn)
+    return <AdminLogin onLogin={() => setIsLoggedIn(true)} />;
 
   return (
     <div className=" bg-transparent w-full h-full font-sans font-[500] text-white flex">

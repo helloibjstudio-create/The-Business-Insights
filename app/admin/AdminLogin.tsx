@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import bcrypt from "bcryptjs";
-
 
 export default function AdminLogin({ onLogin }: { onLogin: () => void }) {
   const [username, setUsername] = useState("");
@@ -12,32 +10,30 @@ export default function AdminLogin({ onLogin }: { onLogin: () => void }) {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
+    setError("");
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/admin`, {
+    const res = await fetch("/api/admin-login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
     });
 
-    const result = await res.json();
+    const data = await res.json();
 
     if (!res.ok) {
-      setError(result.error || "Login failed");
+      setError(data.message || "Invalid credentials");
       setLoading(false);
       return;
     }
 
-    localStorage.setItem("admin_token", result.token);
+    localStorage.setItem("admin_logged_in", "true");
     onLogin();
   };
 
-
-
   return (
     <div className="w-full h-screen flex items-center justify-center bg-black text-white">
-      <div className="bg-black/70 border border-gray-800 backdrop-blur-xl p-10 rounded-2xl w-[90%] max-w-md">
+      <div className="bg-black/70 border border-gray-800 p-8 rounded-2xl w-[90%] max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center text-orange-500">
           Admin Login
         </h1>
