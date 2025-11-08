@@ -203,7 +203,7 @@ export default function HeroParallax() {
       <motion.div
         ref={nextSectionRef}
         style={{ opacity: opacityNextSection, y: yNextSection }}
-        className="relative font-sans -top-40 lg:-top-15 bottom-0 z-10 w-full h-screen flex items-center justify-center px-[clamp(1rem,5vw,5rem)] bg-transparent text-white"
+        className="relative font-sans -top-37 lg:-top-20 bottom-0 z-10 w-full h-screen flex items-center justify-center px-[clamp(1rem,5vw,5rem)] bg-transparent text-white"
       >
         <motion.div
           initial={{ opacity: 0, y: 100 }}
