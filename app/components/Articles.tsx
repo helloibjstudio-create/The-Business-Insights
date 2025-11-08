@@ -254,30 +254,34 @@ export default function Articles() {
                   className="object-cover rounded-md w-full h-auto"
                 />
                 <div className="absolute bottom-3 left-3 flex flex-row gap-2">
-                  {article.sector.split(",").map((s, i) => (
-                    <div
-                      key={i}
-                      className="bg-black/30 text-white text-xs px-3 py-1 rounded-md border border-orange-500"
-                    >
-                      {s}
-                    </div>
-                  ))}
+                  {(article.sector ? article.sector.split(",") : []).map(
+                    (s, i) => (
+                      <div
+                        key={i}
+                        className="bg-black/30 text-white text-xs px-3 py-1 rounded-md border border-orange-500"
+                      >
+                        {s.trim()}
+                      </div>
+                    )
+                  )}
                 </div>
               </div>
 
               <div className="mt-3 space-y-1 py-2">
                 <div className="flex items-center space-x-2">
                   <p className="text-sm text-gray-400 items-center">
-                    {article.country.split(",").map((c, i) => (
-                      <span key={i}>
-                        {c}
-                        {i < article.country.length - 1 && (
-                          <span className="text-orange-500 items-center rounded-full mx-1">
-                            •
-                          </span>
-                        )}
-                      </span>
-                    ))}
+                    {(article.country ? article.country.split(",") : []).map(
+                      (c, i, arr) => (
+                        <span key={i}>
+                          {c.trim()}
+                          {i < arr.length - 1 && (
+                            <span className="text-orange-500 items-center rounded-full mx-1">
+                              •
+                            </span>
+                          )}
+                        </span>
+                      )
+                    )}
                   </p>
                   <span className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
                   <p className="text-sm text-gray-400">{article.year}</p>
