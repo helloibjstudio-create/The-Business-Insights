@@ -254,7 +254,7 @@ export default function Articles() {
                   className="object-cover rounded-md w-full h-auto"
                 />
                 <div className="absolute bottom-3 left-3 flex flex-row gap-2">
-                  {article.sector.map((s, i) => (
+                  {article.sector.split(",").map((s, i) => (
                     <div
                       key={i}
                       className="bg-black/30 text-white text-xs px-3 py-1 rounded-md border border-orange-500"
@@ -268,7 +268,7 @@ export default function Articles() {
               <div className="mt-3 space-y-1 py-2">
                 <div className="flex items-center space-x-2">
                   <p className="text-sm text-gray-400 items-center">
-                    {article.country.map((c, i) => (
+                    {article.country.split(",").map((c, i) => (
                       <span key={i}>
                         {c}
                         {i < article.country.length - 1 && (
