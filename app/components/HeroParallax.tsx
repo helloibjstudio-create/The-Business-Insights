@@ -144,14 +144,16 @@ export default function HeroParallax() {
   return (
     <section
       ref={ref}
-      className="relative h-[calc(var(--vh,1vh)*235)] md:h-[calc(var(--vh,1vh)*210)] lg:h-[calc(var(--vh,1vh)*220)] overflow-hidden bg-black"
+      // className="relative h-[calc(var(--vh,1vh)*220)] md:h-[calc(var(--vh,1vh)*210)] lg:h-[calc(var(--vh,1vh)*220)] overflow-hidden bg-black"
+      className="relative h-[calc(var(--vh,1vh)*200)] overflow-hidden bg-black"
     >
       <Navbar />
 
       {/* === BACKGROUND === */}
+      <div className="absolute inset-0 overflow-hidden z-0">
       <motion.div
         style={{ scale, y: yBackground }}
-        className="absolute w-full h-[220vh] inset-0 z-0"
+        className="absolute w-full will-change-transform inset-0 z-0"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/70 to-black z-[5] pointer-events-none" />
         <Image
@@ -162,6 +164,7 @@ export default function HeroParallax() {
           className="object-cover object-center brightness-75"
         />
       </motion.div>
+      </div>
 
       {/* === HERO TEXT === */}
       <motion.div
@@ -200,7 +203,7 @@ export default function HeroParallax() {
       <motion.div
         ref={nextSectionRef}
         style={{ opacity: opacityNextSection, y: yNextSection }}
-        className="relative font-sans top-20 bottom-0 z-10 w-full h-screen flex items-center justify-center px-[clamp(1rem,5vw,5rem)] bg-transparent text-white"
+        className="relative font-sans -top-40 lg:-top-15 bottom-0 z-10 w-full h-screen flex items-center justify-center px-[clamp(1rem,5vw,5rem)] bg-transparent text-white"
       >
         <motion.div
           initial={{ opacity: 0, y: 100 }}
