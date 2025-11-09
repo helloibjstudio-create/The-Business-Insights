@@ -104,7 +104,7 @@ const Events = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="relative h-screen top-7 z-30 flex flex-col items-center justify-center text-center px-6  space-y-6">
+      <div className="relative h-screen top-2 lg:top-7 z-30 flex flex-col items-center justify-center text-center px-6  space-y-6">
         <div className="inline-flex items-center justify-center 
             w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
             border border-[#E8602E] text-white text-sm sm:text-base md:text-[20px] 

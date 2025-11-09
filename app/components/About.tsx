@@ -41,7 +41,7 @@ const About = () => {
       <Navbar />
 
       {/* Hero Content */}
-      <div className="relative h-screen top-10 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 md:pt-25 space-y-6">
+      <div className="relative h-screen top-5 lg:top-10 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 md:pt-25 space-y-6">
         {/* Tagline */}
         <div>
           <h1 className="text-[67px] lg:text-[99px]">About Us</h1>

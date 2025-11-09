@@ -203,7 +203,7 @@ export default function Articles() {
       <Navbar />
 
       {/* Hero */}
-      <div className="relative h-screen top-18 z-30 flex flex-col items-center justify-center text-center px-4">
+      <div className="relative h-screen top-13 lg:top-18 z-30 flex flex-col items-center justify-center text-center px-4">
         <div
           className="inline-flex items-center justify-center 
             w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
