@@ -207,10 +207,10 @@ const Reports = () => {
                   </div>
 
                   <a
-                    href={report.link}
+                    onClick={() => setSelectedReport(report)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-[#E8602E] hover:underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
+                    className="inline-flex cursor-pointer items-center text-[#E8602E] hover:underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
                   >
                     Explore Now
                     <Image
