@@ -29,11 +29,6 @@ const Interviews = () => {
   const [selectedInterview, setSelectedInterview] = useState<Interview | null>(
     null
   );
-  useEffect(() => {
-  if (selectedInterview) {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-}, [selectedInterview]);
   const [filteredInterviews, setFilteredInterviews] = useState<Interview[]>([]);
 
   // ✅ Memoize the handler so SearchAndFilter doesn’t trigger infinite re-renders
