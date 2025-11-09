@@ -12,6 +12,7 @@ import {
   reports,
   subtract,
   thirdOrange,
+  vector2,
 } from "@/public";
 import { Hedvig_Letters_Serif } from "next/font/google";
 import HeroParallax from "./HeroParallax";
@@ -139,11 +140,18 @@ const Hero = () => {
                     {article.description}
                   </p>
                   <Link
-                href={`/articles/${article.id}`}
-                className="inline-flex items-center text-orange-400 hover:text-orange-500 text-[14px] sm:text-[16px]"
-              >
-                Read More <ArrowUpRight size={16} className="ml-1" />
-              </Link>
+          href={`/articles/${article.id}`}
+          className="inline-flex items-center text-[#E8602E] hover:underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
+        >
+          Read More{" "}
+          <Image
+            src={vector2}
+            alt="vector-2"
+            width={17}
+            height={17}
+            className="ml-1"
+          />
+        </Link>
                 </div>
               </motion.div>
             ))}
@@ -151,7 +159,8 @@ const Hero = () => {
         </motion.div>
 
         {/* --- DHL BANNER --- */}
-        <div key="dhl-banner" className="relative w-full min-h-[50vh] sm:h-[70vh] md:h-screen mb-20 md:mb-0">
+        <a href="https://www.dhl.com/us-en/home/innovation-in-logistics/innovation-center-middle-east-and-africa.html">
+          <div key="dhl-banner" className="relative w-full min-h-[50vh] sm:h-[70vh] md:h-screen mb-20 md:mb-0">
           <Image
             src={thirdOrange}
             alt="Background"
@@ -166,6 +175,7 @@ const Hero = () => {
             className="z-10 absolute top-2/5 left-1/2 -translate-x-1/2 -translate-y-1/2 object-contain w-[90%] sm:w-[80%] lg:w-[90%]"
           />
         </div>
+        </a>
     
         <section
   key="more-interviews"
@@ -234,11 +244,18 @@ const Hero = () => {
                 {interview.sector}
               </h4>
               <Link
-                href={`/Interviews/${interview.id}`}
-                className="inline-flex items-center text-orange-400 hover:text-orange-500 text-[14px] sm:text-[16px]"
-              >
-                Read More <ArrowUpRight size={16} className="ml-1" />
-              </Link>
+          href={`/Interviews/${interview.id}`}
+          className="inline-flex items-center text-[#E8602E] hover:underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
+        >
+          Read More{" "}
+          <Image
+            src={vector2}
+            alt="vector-2"
+            width={17}
+            height={17}
+            className="ml-1"
+          />
+        </Link>
             </div>
           </motion.div>
         ))}
@@ -264,7 +281,7 @@ const Hero = () => {
         >
           {/* Header */}
           <div className="text-center mb-10">
-            <h2 className="text-[28px] sm:text-4xl md:text-[80px] font-normal text-white leading-tight">
+            <h2 className="text-[36px] sm:text-4xl md:text-[80px] font-normal text-white leading-tight">
               Discover Our <span className="text-orange-400">Reports</span>
             </h2>
 
@@ -287,7 +304,7 @@ const Hero = () => {
             {reports.map((report, index) => (
               <div
                 key={index}
-                className="rounded-lg overflow-hidden shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300 bg-white 
+                className="rounded-lg overflow-hidden shadow-lg border hover:scale-103 border-gray-200 hover:shadow-xl transition-all duration-300 bg-white 
               w-full xs:max-w-[320px] sm:w-[calc(50%-12px)] md:w-[calc(33.333%-21px)] max-w-[360px]"
               >
                 <div className="relative w-full h-[320px] sm:h-[420px] md:h-[564px]">

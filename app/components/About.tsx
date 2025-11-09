@@ -80,7 +80,7 @@ const About = () => {
             priority
           />
         </div>
-        <section className="relative bg-transparent text-white py-16 px-6 md:px-20 lg:px-32 overflow-hidden">
+        <section className="relative bg-transparent  text-white py-16 px-6 md:px-20 lg:px-32 overflow-hidden">
       <div className="max-w-9xl mx-auto flex flex-col-reverse lg:flex-row gap-12 items-center">
         {/* LEFT TEXT CONTENT */}
         <div className="space-y-0">

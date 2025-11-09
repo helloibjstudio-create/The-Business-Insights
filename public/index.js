@@ -4,7 +4,7 @@ export const vector = "https://res.cloudinary.com/dnzntr9lt/image/upload/v176172
 export const vector2 = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761728195/Vector_2_obp6ev.svg"
 export const vector3 = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762149114/Vector_3_ex10r0.svg"
 export const thirdOrange = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761841548/Vector_1_dtvr4e.png"
-export const dhl = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761841522/image_2_jupfeq.svg"
+export const dhl = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762659426/image_2_bolmpu.png"
 export const subtract = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762388963/Subtract_2_rwzk5y.png"
 export const mailbox = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761941720/image_8_oigpnz.png"
 export const InterviewBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1761949081/background_xkhjfp.png"
@@ -13,6 +13,7 @@ export const AboutHero = "https://res.cloudinary.com/dnzntr9lt/image/upload/v176
 export const AboutSecond = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762310856/Rectangle_5942_silglu.png"
 export const ArticleBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762344981/background_2_znx25z.png"
 export const ReportBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762345231/background_3_iaw83v.png"
+export const Cart = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762656417/image_8_1_pevhrx.png"
 
 
  export const curvedImages = [

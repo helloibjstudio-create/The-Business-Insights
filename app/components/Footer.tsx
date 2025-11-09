@@ -81,7 +81,7 @@ export default function Footer() {
           <h3 className="text-lg font-semibold mb-4">Company</h3>
           <ul className="space-y-3  text-white">
             <li className="hover:text-[#E25B2B] cursor-pointer transition w-fit">
-              About us
+              <Link href="/about">About us</Link>
             </li>
             <li className="hover:text-[#E25B2B] cursor-pointer transition w-fit">
             <Link href="/Terms">
@@ -89,7 +89,8 @@ export default function Footer() {
             </Link>
             </li>
             <li className="hover:text-[#E25B2B] cursor-pointer transition w-fit">
-              Cookies Policy
+              <Link href="/cookies">
+              Cookies Policy</Link>
             </li>
             <li className="hover:text-[#E25B2B] cursor-pointer transition w-fit">
               Career

@@ -27,6 +27,11 @@ export default function Articles() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+    useEffect(() => {
+  if (selectedArticle) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}, [selectedArticle]);
   const [currentPage, setCurrentPage] = useState(1);
 
   // Fetch all articles
@@ -88,21 +93,21 @@ export default function Articles() {
   // ===== DETAIL VIEW =====
   if (selectedArticle) {
     return (
-      <section className="bg-black text-white min-h-screen">
+      <section className="bg-black text-white min-h-screen ">
         <Navbar />
 
         <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
           <button
             onClick={() => setSelectedArticle(null)}
-            className="flex items-center text-orange-400 mb-10 hover:text-orange-500 transition"
+            className="flex items-center text-orange-400 mb-10 hover:text-orange-500 font-sans transition"
           >
-            <ArrowLeft className="mr-2 w-4 h-4" /> Back to articles
+            <ArrowLeft className="mr-2 w-4 h-4 font-sans" /> Back to articles
           </button>
 
           <div className="flex flex-col-reverse bg-white/5 backdrop-blur-2xl border border-white/10 p-6 rounded-[20px] font-sans gap-10">
             {/* Text section */}
             <div className="w-full">
-              <h1 className="text-3xl md:text-4xl font-semibold mb-6">
+              <h1 className="text-[26px] md:text-4xl font-semibold mb-6">
                 {selectedArticle.name}
               </h1>
               <div className="space-y-1 text-white font-normal leading-relaxed">
@@ -125,7 +130,7 @@ export default function Articles() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="relative w-full h-[500px] rounded-xl overflow-hidden shadow-lg"
+              className="relative w-full h-[250px] lg:h-[500px] rounded-xl overflow-hidden shadow-lg"
             >
               <Image
                 src={selectedArticle.image_url}
@@ -137,8 +142,8 @@ export default function Articles() {
           </div>
 
           {/* Related Articles */}
-          <div className="mt-20">
-            <h2 className="text-2xl mb-6 font-semibold">
+          <div className="mt-20 font-sans">
+            <h2 className="text-2xl mb-6 font-semibold font-sans">
               You may also be interested in...
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
@@ -232,7 +237,7 @@ export default function Articles() {
 
       {/* Grid */}
       <div className="relative w-[90%] mx-auto font-sans text-white mt-40 py-10">
-        <h1 className="text-[50px] font-[500] mb-2">Articles</h1>
+        <h1 className="text-[32px] sm:text-[48px] md:text-[60px] font-[500] mb-2">Articles</h1>
         <p className="text-[18px] text-gray-300 mb-10">
           Explore our latest articles and insights for a fresh perspective on
           industry trends and news.
@@ -295,8 +300,10 @@ export default function Articles() {
                       </span>
                     ))}
                   </p>
-                  <span className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
-                  <p className="text-sm text-gray-400">{article.year}</p>
+                  <span className="text-orange-500 items-center rounded-full">
+                            •
+                          </span>
+                  <p className="text-[18px] text-gray-400">{article.year}</p>
                 </div>
                 <h2 className="text-[28px] font-[500]">{article.name}</h2>
                 <span className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]">

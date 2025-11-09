@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import { InterviewBg, ReportBg, thirdOrange, vector2 } from "@/public";
+import { Cart, InterviewBg, ReportBg, thirdOrange, vector2 } from "@/public";
 import { useCallback, useEffect, useState } from "react";
 import { ArrowUpRight, Search, SlidersHorizontal } from "lucide-react";
 import Footer from "./Footer";
@@ -23,6 +23,7 @@ const Reports = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(9);
   const [filteredInterviews, setFilteredInterviews] = useState<Report[]>([]);
+  const [selectedReport, setSelectedReport] = useState<Report | null>(null);
 
   // ✅ Memoize the handler so SearchAndFilter doesn’t trigger infinite re-renders
   const handleFiltered = useCallback((filtered: Report[]) => {
@@ -176,7 +177,8 @@ const Reports = () => {
             ).map((report) => (
               <section
                 key={report.id}
-                className="relative bg-transparent text-white font-sans"
+                onClick={() => setSelectedReport(report)}
+                className="relative bg-transparent text-white  hover:scale-103 font-sans"
               >
                 <div className="relative">
                   <Image
@@ -194,7 +196,7 @@ const Reports = () => {
                     <h2 className="text-[22px] md:text-[26px] font-medium">
                       {report.title}
                     </h2>
-                    <div className="flex flex-col items-center gap-3">
+                    <div className="flex flex-col items-center">
                       <span className="text-[#E8602E] font-[600] text-[26px] font-semibold">
                         ${report.price}.00
                       </span>
@@ -208,7 +210,7 @@ const Reports = () => {
                     href={report.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
+                    className="inline-flex items-center text-[#E8602E] hover:underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
                   >
                     Explore Now
                     <Image
@@ -266,6 +268,90 @@ const Reports = () => {
             blur-3xl pointer-events-none z-0"
         />
       </section>
+
+      {selectedReport && (
+        <div className="fixed inset-0 z-[200] bg-black/70 backdrop-blur-md flex items-center justify-center overflow-hidden">
+          <motion.section
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            key="Newsletter"
+            className="relative bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[952px] h-fit w-full mx-auto overflow-visible px-6 md:px-10 py-10 flex flex-col md:flex-row items-center justify-between font-sans"
+          >
+            {/* Mailbox Image */}
+            <div className="absolute -top-16 sm:-top-20 md:-top-24 lg:-top-28 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 flex justify-center md:justify-start w-full md:w-auto z-0">
+              <Image
+                src={Cart}
+                alt="Mailbox illustration"
+                width={450}
+                height={450}
+                className="w-[250px] sm:w-[250px] md:w-[420px] z-0 lg:w-[450px] h-auto object-contain"
+                priority
+              />
+            </div>
+
+            {/* Text & Form Wrapper */}
+            <div className="mt-32 sm:mt-36 md:mt-0 md:ml-[340px] lg:ml-[380px] flex flex-col items-center md:items-start text-center md:text-left space-y-5 md:space-y-6 w-full px-4 md:px-0">
+              <h2 className="text-2xl sm:text-3xl md:text-[30px] font-[600] leading-snug max-w-[520px]">
+                Contact us for purchasing
+              </h2>
+
+              <form className="flex relative items-center bg-[#2D0C00] rounded-full px-2 sm:px-3 py-2 gap-2 w-full max-w-[500px] justify-between overflow-hidden">
+                {/* Icon */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="flex-shrink-0 hidden xs:block"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M11.5 6C8.189 6 5.5 8.689 5.5 12C5.5 15.311 8.189 18 11.5 18C14.811 18 17.5 15.311 17.5 12C17.5 8.689 14.811 6 11.5 6ZM11.5 8C13.708 8 15.5 9.792 15.5 12C15.5 14.208 13.708 16 11.5 16C9.292 16 7.5 14.208 7.5 12C7.5 9.792 9.292 8 11.5 8Z"
+                    fill="white"
+                  />
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M19.25 17L19.343 16.999C20.304 16.975 21.22 16.583 21.902 15.902C22.605 15.198 23 14.245 23 13.25V11C23 5.52 18.592 1.07 13.129 1.001L13 1H12C5.929 1 1 5.929 1 12C1 18.071 5.929 23 12 23C12.552 23 13 22.552 13 22C13 21.448 12.552 21 12 21C7.033 21 3 16.967 3 12C3 7.033 7.033 3 12 3H13C17.418 3 21 6.582 21 11V13.25C21 13.714 20.816 14.159 20.487 14.487C20.159 14.816 19.714 15 19.25 15M19.25 15C18.786 15 18.341 14.816 18.013 14.487C17.684 14.159 17.5 13.714 17.5 13.25V8C17.5 7.465 17.08 7.028 16.551 7.001L16.5 7C15.948 7 15.5 7.448 15.5 8C15.5 8 15.5 10.935 15.5 13.25C15.5 14.245 15.895 15.198 16.598 15.902C17.302 16.605 18.255 17 19.25 17"
+                    fill="white"
+                  />
+                </svg>
+
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-grow min-w-0 text-white placeholder-gray-300 z-30 bg-transparent outline-none text-sm md:text-base px-2"
+                />
+
+                <button
+                  type="submit"
+                  className="bg-white text-[#282828] text-xs sm:text-sm md:text-base px-3 sm:px-5 py-1 sm:py-1.5 rounded-full font-medium hover:bg-gray-200 transition flex-shrink-0"
+                >
+                  Submit
+                </button>
+              </form>
+
+              <p className="text-sm sm:text-base md:text-[18px] text-white/80 font-[500]">
+                Interested in unlocking valuable insights for your business?
+                Contact us today to explore and purchase our comprehensive
+                report, tailored to meet your specific needs and drive informed
+                decision-making.
+              </p>
+            </div>
+
+            {/* Close button */}
+            <button
+              onClick={() => setSelectedReport(null)}
+              className="absolute top-3 right-4 text-white text-2xl hover:opacity-70"
+            >
+              ×
+            </button>
+          </motion.section>
+        </div>
+      )}
 
       {/* === Footer === */}
       <Footer />

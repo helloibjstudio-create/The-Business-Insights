@@ -78,15 +78,15 @@ export default function SearchAndFilter<T extends Record<string, any>>({
   const yearOptions = ["2025", "2024", "2023", "2022"];
 
   return (
-    <div className="relative cursor-pointer w-full max-w-md mx-auto mb-10">
+    <div className="relative cursor-pointer font-sans w-full z-50 max-w-md mx-auto mb-10">
       {/* Search bar */}
-      <div className="flex items-center w-full h-10 px-3 rounded-md border border-orange-600/40 bg-orange-950/10 backdrop-blur-sm">
+      <div className="flex items-center w-[70%] mx-auto lg:w-full h-10 px-3 rounded-md border border-orange-600/40 bg-orange-950/10 backdrop-blur-sm">
         <Search className="w-4 h-4 text-orange-500 mr-2" />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search by title, description, sector or year..."
+          placeholder="Search by title..."
           className="flex-1 bg-transparent outline-none text-sm text-orange-100 placeholder:text-orange-500/60"
         />
         <SlidersHorizontal

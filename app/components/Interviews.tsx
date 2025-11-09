@@ -29,6 +29,11 @@ const Interviews = () => {
   const [selectedInterview, setSelectedInterview] = useState<Interview | null>(
     null
   );
+  useEffect(() => {
+  if (selectedInterview) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}, [selectedInterview]);
   const [filteredInterviews, setFilteredInterviews] = useState<Interview[]>([]);
 
   // ✅ Memoize the handler so SearchAndFilter doesn’t trigger infinite re-renders
@@ -101,7 +106,7 @@ const Interviews = () => {
         <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
           <button
             onClick={() => setSelectedInterview(null)}
-            className="flex items-center text-orange-400 mb-10 hover:text-orange-500 transition"
+            className="flex items-center text-orange-400 font-sans cursor-pointer mb-10 hover:text-orange-500 transition"
           >
             <ArrowLeft className="mr-2 w-4 h-4" /> Back to interviews
           </button>
@@ -143,31 +148,33 @@ const Interviews = () => {
                 )}
               </div>
             </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="relative w-full h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
-            >
-              <Image
-                src={selectedInterview.image_url}
-                alt={selectedInterview.name}
-                fill
-                className="object-cover"
-              />
-              <div className="absolute bottom-0 left-0 bg-orange-500 p-6 w-full md:w-[85%] text-white rounded-tr-2xl">
-                <p className="text-sm opacity-80 uppercase mb-1">
+            <div className="w-[472.2px] h-[400px]">
+              <div className="p-6 w-full justify-self-end text-end text-white rounded-tr-2xl">
+                <p className="text-[18px] opacity-80 uppercase mb-1">
                   {selectedInterview.sector}
                 </p>
                 <h3 className="text-xl font-semibold">
                   {selectedInterview.name}
                 </h3>
-                <p className="text-sm mt-2 opacity-80">
+                <p className="text-[18px] mt-2 opacity-80">
                   {selectedInterview.description}
                 </p>
               </div>
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative w-[372.2px] h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
+              >
+                <Image
+                  src={selectedInterview.image_url}
+                  alt={selectedInterview.name}
+                  width={472.2}
+                  height={400}
+                  className="object-cover w-full h-full rounded-xl"
+                />
+              </motion.div>
+            </div>
           </div>
 
           {/* Related section */}
@@ -183,7 +190,7 @@ const Interviews = () => {
                   <div
                     key={related.id}
                     onClick={() => setSelectedInterview(related)}
-                    className="cursor-pointer bg-[#111] rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+                    className="cursor-pointer bg-[#111]/10 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
                   >
                     <div className="relative w-full h-[240px]">
                       <Image
@@ -267,7 +274,9 @@ const Interviews = () => {
 
       {/* Grid */}
       <div className="relative font-sans w-[90%] mx-auto mt-40 py-10">
-        <h1 className="text-[clamp(1.8rem,5vw,3.5rem)] font-[500] mb-2">Exclusive Interviews</h1>
+        <h1 className="text-[clamp(1.8rem,5vw,3.5rem)] font-[500] mb-2">
+          Exclusive Interviews
+        </h1>
         <p className="text-[18px] text-gray-300 mb-10">
           Unlock the insights of industry leaders
         </p>
@@ -287,7 +296,7 @@ const Interviews = () => {
                   height={413}
                   className="object-cover rounded-md w-full h-auto"
                 />
-                <div className="absolute bottom-3 left-3 bg-black/30 text-white text-xs px-3 py-1 rounded-md border border-orange-500">
+                <div className="absolute bottom-3 left-3 bg-black/30 text-white text-[18px] font-[500] px-3 py-1 rounded-md border border-orange-500">
                   {interview.sector}
                 </div>
               </div>
@@ -300,13 +309,14 @@ const Interviews = () => {
                 </div>
                 <h2 className="text-[28px] font-[500]">{interview.name}</h2>
                 <span className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]">
-                  Read more <Image
-                              src={vector2}
-                              alt="vector-2"
-                              width={17}
-                              height={17}
-                              className="ml-1"
-                            />
+                  Read more{" "}
+                  <Image
+                    src={vector2}
+                    alt="vector-2"
+                    width={17}
+                    height={17}
+                    className="ml-1"
+                  />
                 </span>
               </div>
             </div>

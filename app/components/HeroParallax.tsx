@@ -46,6 +46,15 @@ export default function HeroParallax() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+   useEffect(() => {
+    // Always scroll to top on mount (first render)
+    window.scrollTo(0, 0);
+
+    // Some browsers delay layout, so do it again after a short delay
+    const timeout = setTimeout(() => window.scrollTo(0, 0), 100);
+    return () => clearTimeout(timeout);
+  }, []);
+
   // === SCROLL PROGRESS ===
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -254,18 +263,18 @@ export default function HeroParallax() {
         />
       </div>
 
-      <div className="pt-[clamp(1rem,3vw,1.5rem)]">
+      <div className="pt-[clamp(1rem,3vw,1.5rem)] font-sans">
         <h3 className="font-semibold text-[clamp(1.3rem,2.5vw,1.7rem)]">
           {person.name}
         </h3>
-        <p className="text-[clamp(0.9rem,2vw,1.1rem)] py-2 text-white mb-3">
+        <p className="text-[clamp(0.9rem,2vw,1.1rem)] py-1 text-white">
           {person.description}
         </p>
         <Link
           href={`/exclusive/${person.id}`}
-          className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
+          className="inline-flex items-center text-[#E8602E]  hover:underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
         >
-          Read More{" "}
+          Read More{" "}{" "}
           <Image
             src={vector2}
             alt="vector-2"
