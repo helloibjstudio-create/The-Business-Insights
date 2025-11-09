@@ -264,7 +264,7 @@ const Hero = () => {
         >
           {/* Header */}
           <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-4xl md:text-[80px] font-normal text-white leading-tight">
+            <h2 className="text-[28px] sm:text-4xl md:text-[80px] font-normal text-white leading-tight">
               Discover Our <span className="text-orange-400">Reports</span>
             </h2>
 

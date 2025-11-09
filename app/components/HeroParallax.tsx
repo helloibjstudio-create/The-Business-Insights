@@ -254,7 +254,7 @@ export default function HeroParallax() {
         />
       </div>
 
-      <div className="pt-[clamp(1rem,3vw,1.5rem)] px-[0px]">
+      <div className="pt-[clamp(1rem,3vw,1.5rem)]">
         <h3 className="font-semibold text-[clamp(1.3rem,2.5vw,1.7rem)]">
           {person.name}
         </h3>

@@ -41,7 +41,7 @@ const About = () => {
       <Navbar />
 
       {/* Hero Content */}
-      <div className="relative h-screen top-20 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 md:pt-25 space-y-6">
+      <div className="relative h-screen top-10 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 md:pt-25 space-y-6">
         {/* Tagline */}
         <div>
           <h1 className="text-[67px] lg:text-[99px]">About Us</h1>
@@ -50,7 +50,7 @@ const About = () => {
         {/* Heading */}
         <h1
           className="font-[400] leading-tight 
-                       text-3xl sm:text-4xl md:text-5xl lg:text-[48px] w-[775px]
+                       text-3xl sm:text-4xl md:text-5xl lg:text-[48px] max-w-[775px]
                        tracking-[-1.92px] font-sans font-[400] leading-[48px] text-"
         >
           Enjoy firsthand <span className={`text-[#E8602E] ${hedvig.className}`}>insights</span> to <span className={`text-[#E8602E] ${hedvig.className}`}>investors, enterprises and governments</span> about the most dynamic markets.
@@ -70,7 +70,7 @@ const About = () => {
         </p>
       </div>
 
-      <section className="relative h-[1223px] top-20">
+      <section className="relative h-full mb-20 top-20">
         <div className="absolute  w-full h-full">
           <Image
             src={thirdOrange}
@@ -81,13 +81,13 @@ const About = () => {
           />
         </div>
         <section className="relative bg-transparent text-white py-16 px-6 md:px-20 lg:px-32 overflow-hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div className="max-w-9xl mx-auto flex flex-col-reverse lg:flex-row gap-12 items-center">
         {/* LEFT TEXT CONTENT */}
-        <div className="space-y-10">
+        <div className="space-y-0">
           {/* Core Values */}
           <div>
             <h2 className="text-3xl md:text-4xl lg:text-[80px] font-[400] mb-4">Core Values</h2>
-            <p className="text-white font-sans font-[500] mb-[80px] text-[20px] leading-relaxed">
+            <p className="text-white font-sans font-[500] mb-[40px] text-[20px] leading-relaxed">
               Our goal is to spotlight global investment prospects with in-depth and
               timely market reports. We aim to create authoritative, unbiased, and
               valuable reports for business leaders. We strive to unite industry
@@ -98,7 +98,7 @@ const About = () => {
           {/* Our Content */}
           <div>
             <h2 className="text-3xl md:text-4xl lg:text-[80px] font-[400] mb-4">Our Content</h2>
-            <p className="text-white font-sans font-[500] mb-[80px] text-[20px] leading-relaxed">
+            <p className="text-white font-sans font-[500] mb-[20px] text-[20px] leading-relaxed">
               Our content exclusively comprises original material, rooted in exclusive
               interviews with corporate executives, governmental figures, and industry
               authorities. Collaborating with esteemed media platforms across the world,
@@ -117,13 +117,13 @@ const About = () => {
 
         {/* RIGHT IMAGE */}
         <div className="flex justify-center md:justify-end">
-          <div className="w-full md:w-[85%] rounded-2xl overflow-hidden shadow-lg">
+          <div className="w-full rounded-2xl overflow-hidden shadow-lg">
             <Image
               src={AboutSecond}
               alt="Business Insight Office"
-              width={538}
-              height={720}
-              className="object-cover w-full h-auto"
+              width={638}
+              height={920}
+              className="object-cover w-[550vh] h-[130vh]"
               priority
             />
           </div>

@@ -198,7 +198,7 @@ export default function Articles() {
       <Navbar />
 
       {/* Hero */}
-      <div className="relative h-screen top-28 z-30 flex flex-col items-center justify-center text-center px-4">
+      <div className="relative h-screen top-18 z-30 flex flex-col items-center justify-center text-center px-4">
         <div
           className="inline-flex items-center justify-center 
             w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
@@ -258,7 +258,7 @@ export default function Articles() {
                     ? article.sector.map((s, i) => (
                         <div
                           key={i}
-                          className="bg-black/30 text-white text-xs px-3 py-1 rounded-md border border-orange-500"
+                          className="bg-black/30 text-white text-[14] px-3 py-1 rounded-md border border-orange-500"
                         >
                           {s}
                         </div>
@@ -278,7 +278,7 @@ export default function Articles() {
 
               <div className="mt-3 space-y-1 py-2">
                 <div className="flex items-center space-x-2">
-                  <p className="text-sm text-gray-400 items-center">
+                  <p className="text-[18px] text-gray-400 items-center">
                     {(Array.isArray(article.country)
                       ? article.country
                       : typeof article.country === "string"

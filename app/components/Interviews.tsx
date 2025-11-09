@@ -233,7 +233,7 @@ const Interviews = () => {
       <Navbar />
 
       {/* Hero */}
-      <div className="relative h-screen z-30 flex flex-col items-center justify-center text-center px-4 top-30">
+      <div className="relative h-screen z-30 flex flex-col items-center justify-center text-center px-4 top-20">
         <div
           className="inline-flex items-center justify-center 
             w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
@@ -267,7 +267,7 @@ const Interviews = () => {
 
       {/* Grid */}
       <div className="relative font-sans w-[90%] mx-auto mt-40 py-10">
-        <h1 className="text-[50px] font-[500] mb-2">Exclusive Interviews</h1>
+        <h1 className="text-[clamp(1.8rem,5vw,3.5rem)] font-[500] mb-2">Exclusive Interviews</h1>
         <p className="text-[18px] text-gray-300 mb-10">
           Unlock the insights of industry leaders
         </p>
