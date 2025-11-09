@@ -61,6 +61,28 @@ export default function HeroParallax() {
     offset: ["start start", "end end"],
   });
 
+const handleExploreClick = () => {
+  if (autoScrolling) return; // prevent double-trigger mid-scroll
+
+  const nextTop =
+    nextSectionRef.current?.getBoundingClientRect().top! + window.scrollY;
+
+  setAutoScrolling(true);
+  setShowNext(false);
+
+  window.scrollTo({
+    top: nextTop,
+    behavior: "smooth",
+  });
+
+  setTimeout(() => {
+    setAutoScrolling(false);
+    setShowNext(true);
+    setScrolled(false); // reset so button works again
+  }, window.innerWidth <= 768 ? 1600 : 800);
+};
+
+
   // === SPRING FOR SMOOTHNESS ===
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 12,
@@ -102,24 +124,19 @@ export default function HeroParallax() {
 
       // Smooth scroll down once hero passes threshold
       if (!scrolled && y > triggerDown) {
-        setScrolled(true);
-        setAutoScrolling(true);
-
-        // Always scroll to exact start of the next section
-        window.scrollTo({
-          top: nextTop,
-          behavior: "smooth",
-        });
-
-        // Delay to avoid mid-scroll flickers
-        setTimeout(
-          () => {
-            setAutoScrolling(false);
-            setShowNext(true);
-          },
-          isMobile ? 1600 : 300
-        );
-      }
+  setScrolled(true);
+  setAutoScrolling(true);
+  window.scrollTo({
+    top: nextTop,
+    behavior: "smooth",
+  });
+  setTimeout(() => {
+    setAutoScrolling(false);
+    setShowNext(true);
+  }, isMobile ? 1600 : 800);
+} else if (scrolled && y < triggerDown * 0.5) {
+  setScrolled(false); // allow re-trigger when user scrolls up again
+}
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -202,6 +219,7 @@ export default function HeroParallax() {
         <motion.button
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
+           onClick={handleExploreClick}
           className="mt-8 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] px-[clamp(1rem,4vw,2rem)] py-[clamp(0.6rem,1.5vw,1rem)] rounded-xl font-semibold tracking-wide font-sans text-[clamp(1rem,2vw,1.2rem)] shadow-md"
         >
           Explore

@@ -41,14 +41,14 @@ const CookiesSection = () => {
           <h1 className="text-[36px] md:text-[55px] lg:text-[73px]">
             Cookies Policy
           </h1>
-          <p className="mb-5">
+          <p className="mb-5 font-sans">
             Information last updated: 16th August 2018 
           </p>
-            <p className="mb-5">The Business Insight
+            <p className="mb-5 font-sans">The Business Insight
             (“we,” “us,” or “our”) employs cookies on the thebusinessinsight.com
             website (referred to as the “Service”). Your use of the Service
             implies your agreement to the utilization of cookies. </p>
-            <p className="mb-12">Our Cookies
+            <p className="mb-12 font-sans">Our Cookies
             Policy delineates the nature of cookies, their application, the
             possible involvement of third-party partners in their use on the
             Service, your choices concerning cookies, and additional insights

@@ -93,10 +93,10 @@ export default function Footer() {
               Cookies Policy</Link>
             </li>
             <li className="hover:text-[#E25B2B] cursor-pointer transition w-fit">
-              Career
+              <Link href="/career">Career</Link>
             </li>
             <li className="hover:text-[#E25B2B] cursor-pointer transition w-fit">
-              Privacy Policy
+              <Link href="/privacy">Privacy Policy</Link>
             </li>
           </ul>
         </div>
