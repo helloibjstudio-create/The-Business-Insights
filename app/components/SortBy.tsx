@@ -1,39 +1,90 @@
 "use client";
 
 import { useState } from "react";
-import { SlidersHorizontal, SortAscIcon, SortDesc } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { SlidersHorizontal, ChevronDown, SlidersHorizontalIcon } from "lucide-react";
 
 interface SortByProps {
   onChange: (value: string) => void;
 }
 
-export default function SortBy({ onChange }: SortByProps) {
-  const [selected, setSelected] = useState("");
+const sortOptions = [
+  { value: "", label: "Sort by" },
+  { value: "price_asc", label: "Price: Low → High" },
+  { value: "price_desc", label: "Price: High → Low" },
+  { value: "title_asc", label: "Name: A → Z" },
+  { value: "title_desc", label: "Name: Z → A" },
+  { value: "discount_asc", label: "Discount: Low → High" },
+  { value: "discount_desc", label: "Discount: High → Low" },
+];
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setSelected(value);
-    onChange(value);
+export default function SortBy({ onChange }: SortByProps) {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(sortOptions[0]);
+
+  const handleSelect = (option: (typeof sortOptions)[0]) => {
+    setSelected(option);
+    setOpen(false);
+    onChange(option.value);
   };
 
   return (
-    <div className="flex items-center justify-end w-full sm:w-auto">
-      <div className="flex items-center gap-2 border-[0.5px] border-[#E8602E] rounded-[5px] px-3 py-2 backdrop-blur-md bg-transparent font-sans text-white text-sm sm:text-base">
-        <SortAscIcon size={16} className="text-[#E8602E]" />
-        <select
-          value={selected}
-          onChange={handleChange}
-          className="bg-transparent outline-none text-white text-sm sm:text-base cursor-pointer"
+    <div className="relative font-sans z-50">
+      {/* === Button === */}
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => setOpen((prev) => !prev)}
+        className="flex items-center gap-2 px-4 py-2.5 rounded-xl 
+          bg-white/5 border border-[#E8602E] backdrop-blur-md 
+          hover:bg-white/10 transition-all duration-300 text-white shadow-sm"
+      >
+        <SlidersHorizontalIcon
+          size={18}
+          className="text-[#E8602E] transition-transform duration-300 group-hover:rotate-90"
+        />
+        <span className="text-sm sm:text-base">{selected.label}</span>
+        <motion.div
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
         >
-          <option className="bg-black w-full outline-none  border-b-2 hover:bg-orange-500 text-[#E8602E]" value="">Sort by</option>
-          <option className="bg-black w-full outline-none  border-b-2 hover:bg-orange-500 text-[#E8602E]" value="price_asc">Price: Low → High</option>
-          <option className="bg-black w-full outline-none  border-b-2 hover:bg-orange-500 text-[#E8602E]" value="price_desc">Price: High → Low</option>
-          <option className="bg-black w-full outline-none  border-b-2 hover:bg-orange-500 text-[#E8602E]" value="title_asc">Name: A → Z</option>
-          <option className="bg-black w-full outline-none  border-b-2 hover:bg-orange-500 text-[#E8602E]" value="title_desc">Name: Z → A</option>
-          <option className="bg-black w-full outline-none  border-b-2 hover:bg-orange-500 text-[#E8602E]" value="discount_asc">Discount: Low → High</option>
-          <option className="bg-black w-full outline-none  border-b-2 hover:bg-orange-500 text-[#E8602E]" value="discount_desc">Discount: High → Low</option>
-        </select>
-      </div>
+          <ChevronDown size={16} className="text-[#E8602E]" />
+        </motion.div>
+      </motion.button>
+
+      {/* === Dropdown === */}
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute right-0 mt-2 w-52 bg-black/80 border border-white/10 rounded-xl 
+              backdrop-blur-md shadow-lg overflow-hidden z-50"
+          >
+            {sortOptions.map((option, i) => (
+              <motion.li
+                key={option.value}
+                onClick={() => handleSelect(option)}
+                whileHover={{
+                  backgroundColor: "rgba(232, 96, 46, 0.2)",
+                  x: 4,
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className={`cursor-pointer px-4 py-2.5 text-sm text-gray-200 
+                  hover:text-[#E8602E] transition-colors duration-200 ${
+                    selected.value === option.value
+                      ? "text-[#E8602E] font-semibold"
+                      : ""
+                  }`}
+              >
+                {option.label}
+              </motion.li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
