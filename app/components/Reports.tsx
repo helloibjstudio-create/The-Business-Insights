@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 import { ArrowUpRight, Search, SlidersHorizontal } from "lucide-react";
 import Footer from "./Footer";
 import SearchAndFilter from "./SearchFilter";
+import SortBy from "./SortBy";
 
 interface Report {
   id: number;
@@ -24,6 +25,7 @@ const Reports = () => {
   const [itemsPerPage, setItemsPerPage] = useState(9);
   const [filteredInterviews, setFilteredInterviews] = useState<Report[]>([]);
   const [selectedReport, setSelectedReport] = useState<Report | null>(null);
+  const [sortOption, setSortOption] = useState<string>("");
 
   // ✅ Memoize the handler so SearchAndFilter doesn’t trigger infinite re-renders
   const handleFiltered = useCallback((filtered: Report[]) => {
@@ -45,6 +47,27 @@ const Reports = () => {
     };
     fetchReports();
   }, []);
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        let url = `${process.env.NEXT_PUBLIC_API_BASE_URL}api/reports`;
+
+        // ✅ Append sort parameter to backend request
+        if (sortOption) {
+          url += `?sort=${sortOption}`;
+        }
+
+        const res = await fetch(url);
+        const data = await res.json();
+        setReports(data);
+      } catch (err) {
+        console.error("Error fetching reports:", err);
+      }
+    };
+
+    fetchReports();
+  }, [sortOption]);
 
   // ✅ Responsive items per page
   useEffect(() => {
@@ -142,7 +165,8 @@ const Reports = () => {
       </div>
 
       {/* === Search Bar === */}
-      <div className="relative z-50">
+      {/* === Search + Sort === */}
+      <div className="relative z-50 flex flex-col sm:flex-row items-center justify-between gap-4 w-[90%] mx-auto mt-5">
         <SearchAndFilter
           data={reports}
           onFiltered={handleFiltered}
@@ -151,6 +175,7 @@ const Reports = () => {
             filters: {},
           }}
         />
+        <SortBy onChange={(value) => setSortOption(value)} />
       </div>
 
       {/* === Content === */}

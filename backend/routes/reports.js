@@ -45,19 +45,36 @@ router.post("/", async (req, res) => {
  * GET /api/reports
  * Fetch all reports
  */
-router.get("/", async (req, res) => {
-  const { data, error } = await supabase
-    .from("reports")
-    .select("*")
-    .order("created_at", { ascending: false }); // ⬅️ better ordering field
+router.get("/reports", async (req, res) => {
+  try {
+    const sort = req.query.sort;
+    let query = supabase.from("reports").select("*");
 
-  if (error) {
-    console.error("❌ Supabase fetch error:", error.message);
-    return res.status(400).json({ error: error.message });
+    switch (sort) {
+      case "price_asc":
+        query = query.order("price", { ascending: true });
+        break;
+      case "price_desc":
+        query = query.order("price", { ascending: false });
+        break;
+      case "title_asc":
+        query = query.order("title", { ascending: true });
+        break;
+      case "title_desc":
+        query = query.order("title", { ascending: false });
+        break;
+      default:
+        query = query.order("id", { ascending: false });
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
   }
-
-  res.json(data);
 });
+
 
 /**
  * PUT /api/reports/:id
