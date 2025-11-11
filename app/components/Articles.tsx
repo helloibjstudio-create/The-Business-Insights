@@ -21,7 +21,7 @@ interface Article {
   write_up: string;
 }
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 9;
 
 export default function Articles() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -243,7 +243,7 @@ export default function Articles() {
           industry trends and news.
         </p>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-[42px]">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-[42px]">
           {currentArticles.map((article) => (
             <div
               key={article.id}
@@ -254,16 +254,16 @@ export default function Articles() {
                 <Image
                   src={article.image_url}
                   alt={article.name}
-                  width={633}
-                  height={413}
+                  width={333}
+                  height={333}
                   className="object-cover rounded-md w-full h-auto"
                 />
-                <div className="absolute bottom-3 left-3 flex flex-row gap-2">
+                <div className="absolute bottom-3 left-3 flex flex-col gap-1">
                   {Array.isArray(article.sector)
                     ? article.sector.map((s, i) => (
                         <div
                           key={i}
-                          className="bg-black/30 text-white text-[14] px-3 py-1 rounded-md border border-orange-500"
+                          className="bg-black/30 text-white text-[14px] px-2 py-0.5 rounded-md border border-orange-500"
                         >
                           {s}
                         </div>
@@ -305,7 +305,7 @@ export default function Articles() {
                           </span>
                   <p className="text-[18px] text-gray-400">{article.year}</p>
                 </div>
-                <h2 className="text-[28px] font-[500]">{article.name}</h2>
+                <h2 className="text-[22px] font-[500]">{article.name}</h2>
                 <span className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]">
                   Read more{" "}
                   <Image

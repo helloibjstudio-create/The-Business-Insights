@@ -6,6 +6,7 @@ import Image from "next/image";
 import {
   articles,
   BusinessLogo,
+  Cart,
   dhl,
   mailbox,
   moreInterviews,
@@ -50,33 +51,60 @@ interface Interview {
   content?: string; // optional for long body
 }
 
+interface Report {
+  id: number;
+  title: string;
+  image_url: string;
+  price: string;
+  discounted_price: string;
+  link: string;
+}
+
 const Hero = () => {
-  const [selectedInterview, setSelectedInterview] = useState<Interview | null>(null);
+  const [selectedInterview, setSelectedInterview] = useState<Interview | null>(
+    null
+  );
+  const [reports, setReports] = useState<Report[]>([]);
   const [exclusiveInterviews, setExclusiveInterviews] = useState<
-      ExclusiveInterview[]
-      >([]);
-      useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/exclusiveInterviews`)
-        .then((res) => res.json())
-        .then((data) => setExclusiveInterviews(data))
-        .catch((err) => console.error("Error fetching interviews:", err));
-      }, []);
-      const [interviews, setInterviews] = useState<Interview[]>([]);
-      useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/interviews`)
-        .then((res) => res.json())
-        .then((data) => setInterviews(data))
-        .catch((err) => console.error("Error fetching interviews:", err));
-      }, []);
-      const [articles, setArticles] = useState<Interview[]>([]);
-      useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/articles`)
-        .then((res) => res.json())
-        .then((data) => setArticles(data))
-        .catch((err) => console.error("Error fetching interviews:", err));
-      }, []);
-      const limitedInterviews = interviews.slice(0, 9);
-        const featured = interviews[0];
+    ExclusiveInterview[]
+  >([]);
+    const [selectedReport, setSelectedReport] = useState<Report | null>(null);
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/exclusiveInterviews`)
+      .then((res) => res.json())
+      .then((data) => setExclusiveInterviews(data))
+      .catch((err) => console.error("Error fetching interviews:", err));
+  }, []);
+  const [interviews, setInterviews] = useState<Interview[]>([]);
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/interviews`)
+      .then((res) => res.json())
+      .then((data) => setInterviews(data))
+      .catch((err) => console.error("Error fetching interviews:", err));
+  }, []);
+  const [articles, setArticles] = useState<Interview[]>([]);
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/articles`)
+      .then((res) => res.json())
+      .then((data) => setArticles(data))
+      .catch((err) => console.error("Error fetching interviews:", err));
+  }, []);
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}api/reports`
+        );
+        const data = await res.json();
+        setReports(data);
+      } catch (err) {
+        console.error("Error fetching reports:", err);
+      }
+    };
+    fetchReports();
+  }, []);
+  const limitedInterviews = interviews.slice(0, 9);
+  const featured = interviews[0];
   const others = interviews.slice(1);
   const [visible, setVisible] = useState(false);
 
@@ -90,13 +118,16 @@ const Hero = () => {
   }, []);
 
   return (
-    <main className="overflow-x-hidden relative bg-transparent">
+    <main className="overflow-x-hidden relative bg-transparent text-white">
       <HeroParallax />
 
       <AnimatePresence mode="wait">
         <motion.div className="max-w-7xl relative text-white mx-auto px-4 sm:px-6 md:px-10  ">
           {/* --- ARTICLES SECTION --- */}
-          <div key="articles-section" className="flex flex-col md:flex-row md:items-center font-sans md:justify-between mb-12 gap-6">
+          <div
+            key="articles-section"
+            className="flex flex-col md:flex-row md:items-center font-sans md:justify-between mb-12 gap-6"
+          >
             <div>
               <h2 className="text-[32px] sm:text-[48px] md:text-[60px] font-semibold font-sans">
                 Articles
@@ -106,12 +137,14 @@ const Hero = () => {
                 on industry trends and news.
               </p>
             </div>
-            <Link href="/articles"><motion.button
-              whileHover={{ scale: 1.05 }}
-              className="bg-orange-500 hover:bg-white text-white hover:text-orange-500 px-6 sm:px-8 py-3 rounded-lg text-[16px] sm:text-[18px] transition"
-            >
-              View All Articles
-            </motion.button></Link>
+            <Link href="/articles">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                className="bg-orange-500 hover:bg-white text-white hover:text-orange-500 px-6 sm:px-8 py-3 rounded-lg text-[16px] sm:text-[18px] transition"
+              >
+                View All Articles
+              </motion.button>
+            </Link>
           </div>
 
           {/* --- ARTICLE CARDS --- */}
@@ -140,18 +173,18 @@ const Hero = () => {
                     {article.description}
                   </p>
                   <Link
-          href={`/articles/${article.id}`}
-          className="inline-flex items-center text-[#E8602E] hover:underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
-        >
-          Read More{" "}
-          <Image
-            src={vector2}
-            alt="vector-2"
-            width={17}
-            height={17}
-            className="ml-1"
-          />
-        </Link>
+                    href={`/articles/${article.id}`}
+                    className="inline-flex items-center text-[#E8602E] hover:underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
+                  >
+                    Read More{" "}
+                    <Image
+                      src={vector2}
+                      alt="vector-2"
+                      width={17}
+                      height={17}
+                      className="ml-1"
+                    />
+                  </Link>
                 </div>
               </motion.div>
             ))}
@@ -160,120 +193,125 @@ const Hero = () => {
 
         {/* --- DHL BANNER --- */}
         <a href="https://www.dhl.com/us-en/home/innovation-in-logistics/innovation-center-middle-east-and-africa.html">
-          <div key="dhl-banner" className="relative w-full min-h-[50vh] sm:h-[70vh] md:h-screen mb-20 md:mb-0">
-          <Image
-            src={thirdOrange}
-            alt="Background"
-            fill
-            className="absolute inset-0 object-contain lg:object-cover  h-full w-full"
-          />
-          <Image
-            src={dhl}
-            alt="DHL Banner"
-            width={1280}
-            height={333}
-            className="z-10 absolute top-2/5 left-1/2 -translate-x-1/2 -translate-y-1/2 object-contain w-[90%] sm:w-[80%] lg:w-[90%]"
-          />
-        </div>
-        </a>
-    
-        <section
-  key="more-interviews"
-  className="max-w-7xl mx-auto w-[90%] text-white py-16 px-4 -top-40 sm:px-6 md:px-12 lg:px-20 backdrop-blur-2xl relative font-sans bg-white/3 border border-white/10 rounded-2xl"
->
-  <h2 className="text-[32px] sm:text-[48px] md:text-[60px] font-semibold mb-8 md:mb-12 text-center md:text-left">
-    More Interviews
-  </h2>
-
-  {interviews.length > 0 ? (
-    <>
-      {/* Featured */}
-      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 mb-12 items-center">
-        <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
-          <Image
-            src={interviews[0].image_url}
-            alt={interviews[0].name}
-            fill
-            className="object-cover"
-          />
-        </div>
-        <div className="flex flex-col justify-center text-center md:text-left px-2">
-          <h3 className="text-[28px] sm:text-[36px] md:text-[40px] font-semibold">
-            {interviews[0].name}
-          </h3>
-          <p className="italic text-[18px] sm:text-[20px] md:text-[24px] text-white mb-3">
-            {interviews[0].sector}
-          </p>
-          <p className="text-[16px] sm:text-[18px] md:text-[20px] text-white mb-6 italic">
-            {interviews[0].description}
-          </p>
-          <Link href={"/Interviews"}>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              className="bg-orange-500 hover:bg-white text-white hover:text-orange-500 px-6 sm:px-8 py-3 rounded-lg text-[16px] sm:text-[18px] transition"
-            >
-              Read More
-            </motion.button>
-          </Link>
-        </div>
-      </div>
-
-      {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {interviews.slice(0, 9).map((interview, i) => (
-          <motion.div
-            key={interview.id || i}
-            initial={{ opacity: 0, y: 80 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: i * 0.1 }}
-            className="rounded-xl overflow-hidden hover:bg-[#1b1b1b]/10 hover:scale-105 transition"
+          <div
+            key="dhl-banner"
+            className="relative w-full min-h-[50vh] sm:h-[70vh] md:h-screen mb-20 md:mb-0"
           >
-            <div className="relative aspect-[4/3]">
-              <Image
-                src={interview.image_url}
-                alt={interview.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="p-4 sm:p-6 text-center md:text-left">
-              <p className=" text-[14px] sm:text-[20px] mb-1">
-                {interview.name}
-              </p>
-              <h4 className="font-semibold text-[18px] sm:text-[20px] mb-3">
-                {interview.sector}
-              </h4>
-              <Link
-          href={`/Interviews/${interview.id}`}
-          className="inline-flex items-center text-[#E8602E] hover:underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
-        >
-          Read More{" "}
-          <Image
-            src={vector2}
-            alt="vector-2"
-            width={17}
-            height={17}
-            className="ml-1"
-          />
-        </Link>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+            <Image
+              src={thirdOrange}
+              alt="Background"
+              fill
+              className="absolute inset-0 object-contain lg:object-cover  h-full w-full"
+            />
+            <Image
+              src={dhl}
+              alt="DHL Banner"
+              width={1280}
+              height={333}
+              className="z-10 absolute top-2/5 left-1/2 -translate-x-1/2 -translate-y-1/2 object-contain w-[90%] sm:w-[80%] lg:w-[90%]"
+            />
+          </div>
+        </a>
 
-      {/* Button */}
-      <div className="flex justify-center mt-10">
-        <Link href="/Interviews">
-        <button className="inline-flex items-center justify-center px-6 sm:px-8 py-3 rounded-lg bg-orange-500 cursor-pointer font-sans hover:bg-white text-white hover:text-orange-500 text-[16px] sm:text-[18px]">
-          More Interviews
-        </button></Link>
-      </div>
-    </>
-  ) : (
-    <p className="text-center text-gray-400 text-lg">Loading interviews...</p>
-  )}
-</section>
-    
+        <section
+          key="more-interviews"
+          className="max-w-7xl mx-auto w-[90%] text-white py-16 px-4 -top-40 sm:px-6 md:px-12 lg:px-20 backdrop-blur-2xl relative font-sans bg-white/3 border border-white/10 rounded-2xl"
+        >
+          <h2 className="text-[32px] sm:text-[48px] md:text-[60px] font-semibold mb-8 md:mb-12 text-center md:text-left">
+            More Interviews
+          </h2>
+
+          {interviews.length > 0 ? (
+            <>
+              {/* Featured */}
+              <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 mb-12 items-center">
+                <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                  <Image
+                    src={interviews[0].image_url}
+                    alt={interviews[0].name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-col justify-center text-center md:text-left px-2">
+                  <h3 className="text-[28px] sm:text-[36px] md:text-[40px] font-semibold">
+                    {interviews[0].name}
+                  </h3>
+                  <p className="italic text-[18px] sm:text-[20px] md:text-[24px] text-white mb-3">
+                    {interviews[0].sector}
+                  </p>
+                  <p className="text-[16px] sm:text-[18px] md:text-[20px] text-white mb-6 italic">
+                    {interviews[0].description}
+                  </p>
+                  <Link href={"/Interviews"}>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      className="bg-orange-500 hover:bg-white text-white hover:text-orange-500 px-6 sm:px-8 py-3 rounded-lg text-[16px] sm:text-[18px] transition"
+                    >
+                      Read More
+                    </motion.button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {interviews.slice(0, 9).map((interview, i) => (
+                  <motion.div
+                    key={interview.id || i}
+                    initial={{ opacity: 0, y: 80 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: i * 0.1 }}
+                    className="rounded-xl overflow-hidden hover:bg-[#1b1b1b]/10 hover:scale-105 transition"
+                  >
+                    <div className="relative aspect-[4/3]">
+                      <Image
+                        src={interview.image_url}
+                        alt={interview.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="p-4 sm:p-6 text-center md:text-left">
+                      <p className=" text-[14px] sm:text-[20px] mb-1">
+                        {interview.name}
+                      </p>
+                      <h4 className="font-semibold text-[18px] sm:text-[20px] mb-3">
+                        {interview.sector}
+                      </h4>
+                      <Link
+                        href={`/Interviews/${interview.id}`}
+                        className="inline-flex items-center text-[#E8602E] hover:underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
+                      >
+                        Read More{" "}
+                        <Image
+                          src={vector2}
+                          alt="vector-2"
+                          width={17}
+                          height={17}
+                          className="ml-1"
+                        />
+                      </Link>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Button */}
+              <div className="flex justify-center mt-10">
+                <Link href="/Interviews">
+                  <button className="inline-flex items-center justify-center px-6 sm:px-8 py-3 rounded-lg bg-orange-500 cursor-pointer font-sans hover:bg-white text-white hover:text-orange-500 text-[16px] sm:text-[18px]">
+                    More Interviews
+                  </button>
+                </Link>
+              </div>
+            </>
+          ) : (
+            <p className="text-center text-gray-400 text-lg">
+              Loading interviews...
+            </p>
+          )}
+        </section>
 
         <section
           key="reports"
@@ -292,36 +330,65 @@ const Hero = () => {
               comprehensive data and statistics.
             </p>
 
-            <Link href="/reports"><button
-              className="inline-flex items-center justify-center px-6 sm:px-[37px] py-3 sm:py-[13px] mt-4 font-sans rounded-[10px] bg-orange-500 text-white hover:bg-white cursor-pointer font-medium hover:text-orange-400 text-base sm:text-[20px] w-[160px] sm:w-[202px] transition-all duration-300"
-            >
-              More Reports
-            </button></Link>
+            <Link href="/reports">
+              <button className="inline-flex items-center justify-center px-6 sm:px-[37px] py-3 sm:py-[13px] mt-4 font-sans rounded-[10px] bg-orange-500 text-white hover:bg-white cursor-pointer font-medium hover:text-orange-400 text-base sm:text-[20px] w-[160px] sm:w-[202px] transition-all duration-300">
+                More Reports
+              </button>
+            </Link>
           </div>
 
           {/* Report Cards Grid */}
-          <div className="flex flex-wrap justify-center gap-6 sm:gap-[32px]">
-            {reports.map((report, index) => (
-              <div
-                key={index}
-                className="rounded-lg overflow-hidden shadow-lg border hover:scale-103 border-gray-200 hover:shadow-xl transition-all duration-300 bg-white 
-              w-full xs:max-w-[320px] sm:w-[calc(50%-12px)] md:w-[calc(33.333%-21px)] max-w-[360px]"
+          {/* === Grid of Reports (from backend only) === */}
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 font-sans gap-20 mt-10">
+            {reports.map((report) => (
+              <section
+                key={report.id}
+                onClick={() => setSelectedReport(report)}
+                className="group relative bg-white/3 hover:bg-white/5 transition-all rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:scale-105 duration-300"
               >
-                <div className="relative w-full h-[320px] sm:h-[420px] md:h-[564px]">
+                {/* === Image === */}
+                <div className="relative aspect-square w-full">
                   <Image
-                    src={report.img}
+                    src={report.image_url}
                     alt={report.title}
                     fill
-                    className="object-cover"
+                    className="object-cover object-center transition-transform duration-300"
+                    priority
                   />
                 </div>
-              </div>
+
+                {/* === Text Section === */}
+                <div className="p-4 sm:p-5 flex flex-col justify-between h-[calc(100%-auto)]">
+                  <h2 className="text-lg sm:text-xl font-semibold mb-3 line-clamp-2">
+                    {report.title}
+                  </h2>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-col items-start">
+                      <span className="text-[#E8602E] font-bold text-lg sm:text-xl">
+                        ${report.price}.00
+                      </span>
+                      <span className="text-gray-400 text-sm line-through">
+                        ${report.discounted_price}.00
+                      </span>
+                    </div>
+
+                    <a
+                      onClick={() => setSelectedReport(report)}
+                      className="text-[#E8602E] hover:underline flex items-center gap-1 text-sm sm:text-base"
+                    >
+                      Explore
+                      <Image src={vector2} alt="arrow" width={15} height={15} />
+                    </a>
+                  </div>
+                </div>
+              </section>
             ))}
           </div>
         </section>
         <section
           key="events"
-          className=" w-full flex flex-col justify-around items-center overflow-visible bg-black py-20 md:py-32"
+          className=" w-full flex flex-col justify-around items-center overflow-visible bg-black pt-20 md:pt-32"
         >
           {/* Section Title */}
           <h3 className="text-center text-3xl sm:text-4xl md:text-[60px] font-medium font-sans text-white mt-10 md:mt-0">
@@ -348,11 +415,10 @@ const Hero = () => {
 
             {/* Button */}
             <Link href="/Events">
-            <button
-              className="flex items-center px-6 sm:px-8 md:px-[37px] py-3 sm:py-3.5 md:py-[13px] mt-6 md:mt-5 font-sans rounded-[10px] bg-[#E8602E] text-white hover:bg-white cursor-pointer m-auto font-medium hover:text-[#E8602E] text-base sm:text-lg md:text-[20px] z-20 relative transition-all duration-300"
-            >
-              Learn More
-            </button></Link>
+              <button className="flex items-center px-6 sm:px-8 md:px-[37px] py-3 sm:py-3.5 md:py-[13px] mt-6 md:mt-5 font-sans rounded-[10px] bg-[#E8602E] text-white hover:bg-white cursor-pointer m-auto font-medium hover:text-[#E8602E] text-base sm:text-lg md:text-[20px] z-20 relative transition-all duration-300">
+                Learn More
+              </button>
+            </Link>
 
             {/* Overlay/Subtract Image */}
             <div className="relative top-5 left-0 w-full h-[220px] sm:h-[500px] md:h-[750px] z-10 overflow-visible pointer-events-none">
@@ -368,7 +434,7 @@ const Hero = () => {
         </section>
         <section
           key="Newsletter"
-          className="relative bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[1000px] mx-auto  lg:mt-56 overflow-visible px-6 md:px-10 py-10 flex flex-col md:flex-row items-center justify-between"
+          className="relative bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[1000px] mx-auto  lg:mt-28 overflow-visible px-6 md:px-10 py-10 flex flex-col md:flex-row items-center justify-between"
         >
           {/* Mailbox Image */}
           <div className="absolute -top-16 sm:-top-20 md:-top-24 lg:-top-28 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 flex justify-center md:justify-start w-full md:w-auto z-0">
@@ -432,6 +498,90 @@ const Hero = () => {
             </p>
           </div>
         </section>
+
+        {selectedReport && (
+                <div className="fixed inset-0 z-[200] bg-black/70 backdrop-blur-md flex items-center justify-center overflow-hidden">
+                  <motion.section
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                    key="Newsletter"
+                    className="relative bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[952px] h-fit w-full mx-auto overflow-visible px-6 md:px-10 py-10 flex flex-col md:flex-row items-center justify-between font-sans"
+                  >
+                    {/* Mailbox Image */}
+                    <div className="absolute -top-16 sm:-top-20 md:-top-24 lg:-top-28 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 flex justify-center md:justify-start w-full md:w-auto z-0">
+                      <Image
+                        src={Cart}
+                        alt="Mailbox illustration"
+                        width={450}
+                        height={450}
+                        className="w-[250px] sm:w-[250px] md:w-[420px] z-0 lg:w-[450px] h-auto object-contain"
+                        priority
+                      />
+                    </div>
+        
+                    {/* Text & Form Wrapper */}
+                    <div className="mt-32 sm:mt-36 md:mt-0 md:ml-[340px] lg:ml-[380px] flex flex-col items-center md:items-start text-center md:text-left space-y-5 md:space-y-6 w-full px-4 md:px-0">
+                      <h2 className="text-2xl sm:text-3xl md:text-[30px] font-[600] leading-snug max-w-[520px]">
+                        Contact us for purchasing
+                      </h2>
+        
+                      <form className="flex relative items-center bg-[#2D0C00] rounded-full px-2 sm:px-3 py-2 gap-2 w-full max-w-[500px] justify-between overflow-hidden">
+                        {/* Icon */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          className="flex-shrink-0 hidden xs:block"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M11.5 6C8.189 6 5.5 8.689 5.5 12C5.5 15.311 8.189 18 11.5 18C14.811 18 17.5 15.311 17.5 12C17.5 8.689 14.811 6 11.5 6ZM11.5 8C13.708 8 15.5 9.792 15.5 12C15.5 14.208 13.708 16 11.5 16C9.292 16 7.5 14.208 7.5 12C7.5 9.792 9.292 8 11.5 8Z"
+                            fill="white"
+                          />
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M19.25 17L19.343 16.999C20.304 16.975 21.22 16.583 21.902 15.902C22.605 15.198 23 14.245 23 13.25V11C23 5.52 18.592 1.07 13.129 1.001L13 1H12C5.929 1 1 5.929 1 12C1 18.071 5.929 23 12 23C12.552 23 13 22.552 13 22C13 21.448 12.552 21 12 21C7.033 21 3 16.967 3 12C3 7.033 7.033 3 12 3H13C17.418 3 21 6.582 21 11V13.25C21 13.714 20.816 14.159 20.487 14.487C20.159 14.816 19.714 15 19.25 15M19.25 15C18.786 15 18.341 14.816 18.013 14.487C17.684 14.159 17.5 13.714 17.5 13.25V8C17.5 7.465 17.08 7.028 16.551 7.001L16.5 7C15.948 7 15.5 7.448 15.5 8C15.5 8 15.5 10.935 15.5 13.25C15.5 14.245 15.895 15.198 16.598 15.902C17.302 16.605 18.255 17 19.25 17"
+                            fill="white"
+                          />
+                        </svg>
+        
+                        <input
+                          type="email"
+                          placeholder="Enter your email"
+                          className="flex-grow min-w-0 text-white placeholder-gray-300 z-30 bg-transparent outline-none text-sm md:text-base px-2"
+                        />
+        
+                        <button
+                          type="submit"
+                          className="bg-white text-[#282828] text-xs sm:text-sm md:text-base px-3 sm:px-5 py-1 sm:py-1.5 rounded-full font-medium hover:bg-gray-200 transition flex-shrink-0"
+                        >
+                          Submit
+                        </button>
+                      </form>
+        
+                      <p className="text-sm sm:text-base md:text-[18px] text-white/80 font-[500]">
+                        Interested in unlocking valuable insights for your business?
+                        Contact us today to explore and purchase our comprehensive
+                        report, tailored to meet your specific needs and drive informed
+                        decision-making.
+                      </p>
+                    </div>
+        
+                    {/* Close button */}
+                    <button
+                      onClick={() => setSelectedReport(null)}
+                      className="absolute top-3 right-4 text-white text-2xl hover:opacity-70"
+                    >
+                      ×
+                    </button>
+                  </motion.section>
+                </div>
+              )}
         <Footer />
       </AnimatePresence>
 

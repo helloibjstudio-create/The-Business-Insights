@@ -170,7 +170,8 @@ const Reports = () => {
           bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-10 lg:top-65 border-white/10"
         >
           {/* === Grid of Reports === */}
-          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[42px] mt-10">
+          {/* === Grid of Reports === */}
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 font-sans gap-20 mt-10">
             {(filteredInterviews.length > 0
               ? filteredInterviews
               : currentReports
@@ -178,49 +179,43 @@ const Reports = () => {
               <section
                 key={report.id}
                 onClick={() => setSelectedReport(report)}
-                className="relative bg-transparent text-white  hover:scale-103 font-sans"
+                className="group relative bg-white/3 hover:bg-white/5 transition-all rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:scale-105 duration-300"
               >
-                <div className="relative">
+                {/* === Image === */}
+                <div className="relative aspect-square w-full">
                   <Image
                     src={report.image_url}
                     alt={report.title}
-                    width={633}
-                    height={413}
-                    className="object-cover rounded-md shadow-lg"
+                    fill
+                    className="object-cover object-center transition-transform duration-300 "
                     priority
                   />
                 </div>
 
-                <div className="mt-4">
-                  <div className="flex items-baseline justify-between">
-                    <h2 className="text-[22px] md:text-[26px] font-medium">
-                      {report.title}
-                    </h2>
-                    <div className="flex flex-col items-center">
-                      <span className="text-[#E8602E] font-[600] text-[26px] font-semibold">
+                {/* === Text Section === */}
+                <div className="p-4 sm:p-5 flex flex-col justify-between h-[calc(100%-auto)]">
+                  <h2 className="text-lg sm:text-xl font-semibold mb-3 line-clamp-2">
+                    {report.title}
+                  </h2>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-col items-start">
+                      <span className="text-[#E8602E] font-bold text-lg sm:text-xl">
                         ${report.price}.00
                       </span>
-                      <span className="text-white font-[500] line-through text-[18px]">
+                      <span className="text-gray-400 text-sm line-through">
                         ${report.discounted_price}.00
                       </span>
                     </div>
-                  </div>
 
-                  <a
-                    onClick={() => setSelectedReport(report)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex cursor-pointer items-center text-[#E8602E] hover:underline text-[clamp(0.9rem,1.8vw,1.1rem)]"
-                  >
-                    Explore Now
-                    <Image
-                      src={vector2}
-                      alt="vector-2"
-                      width={17}
-                      height={17}
-                      className="ml-1"
-                    />
-                  </a>
+                    <a
+                      onClick={() => setSelectedReport(report)}
+                      className="text-[#E8602E] hover:underline flex items-center gap-1 text-sm sm:text-base"
+                    >
+                      Explore
+                      <Image src={vector2} alt="arrow" width={15} height={15} />
+                    </a>
+                  </div>
                 </div>
               </section>
             ))}
