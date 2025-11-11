@@ -48,26 +48,29 @@ const Reports = () => {
     fetchReports();
   }, []);
 
-  useEffect(() => {
-    const fetchReports = async () => {
-      try {
-        let url = `${process.env.NEXT_PUBLIC_API_BASE_URL}api/reports`;
+// ✅ Sort client-side after fetching
+useEffect(() => {
+  if (!sortOption) return;
 
-        // ✅ Append sort parameter to backend request
-        if (sortOption) {
-          url += `?sort=${sortOption}`;
-        }
+  const sortedReports = [...reports].sort((a, b) => {
+    if (sortOption === "price_asc") {
+      return parseFloat(a.price) - parseFloat(b.price);
+    } else if (sortOption === "price_desc") {
+      return parseFloat(b.price) - parseFloat(a.price);
+    } else if (sortOption === "title_asc") {
+      return a.title.localeCompare(b.title);
+    } else if (sortOption === "title_desc") {
+      return b.title.localeCompare(a.title);
+    }
+    return 0;
+  });
 
-        const res = await fetch(url);
-        const data = await res.json();
-        setReports(data);
-      } catch (err) {
-        console.error("Error fetching reports:", err);
-      }
-    };
+  setCurrentPage(1);
 
-    fetchReports();
-  }, [sortOption]);
+
+  setReports(sortedReports);
+}, [sortOption]);
+
 
   // ✅ Responsive items per page
   useEffect(() => {
@@ -167,14 +170,6 @@ const Reports = () => {
       {/* === Search Bar === */}
       {/* === Search + Sort === */}
       <div className="relative z-50 flex flex-col sm:flex-row items-center justify-between gap-4 w-[90%] mx-auto mt-5">
-        <SearchAndFilter
-          data={reports}
-          onFiltered={handleFiltered}
-          fields={{
-            search: ["title"],
-            filters: {},
-          }}
-        />
         <SortBy onChange={(value) => setSortOption(value)} />
       </div>
 
@@ -192,7 +187,7 @@ const Reports = () => {
 
         <section
           className="relative mb-70 w-[90%] justify-center m-auto text-white py-15 px-4 sm:px-6 md:px-12 lg:px-20 
-          bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-10 lg:top-65 border-white/10"
+          bg-white/3 backdrop-blur-2xl border-[1px] rounded-[20px] top-10 lg:top-25 border-white/10"
         >
           {/* === Grid of Reports === */}
           {/* === Grid of Reports === */}
