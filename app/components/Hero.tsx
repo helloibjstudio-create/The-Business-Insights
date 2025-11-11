@@ -246,7 +246,7 @@ const Hero = () => {
                   <Link href={"/Interviews"}>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
-                      className="bg-orange-500 hover:bg-white text-white hover:text-orange-500 px-6 sm:px-8 py-3 rounded-lg text-[16px] sm:text-[18px] transition"
+                      className="bg-orange-500 cursor-pointer hover:bg-white text-white hover:text-orange-500 px-6 sm:px-8 py-3 rounded-lg text-[16px] sm:text-[18px] transition"
                     >
                       Read More
                     </motion.button>
@@ -486,7 +486,7 @@ const Hero = () => {
 
               <button
                 type="submit"
-                className="bg-white text-[#282828] text-sm md:text-base px-5 py-1.5 rounded-full font-medium hover:bg-gray-200 transition"
+                className="bg-white cursor-pointer text-[#282828] text-sm md:text-base px-5 py-1.5 rounded-full font-medium hover:bg-gray-200 transition"
               >
                 Subscribe
               </button>
@@ -558,7 +558,7 @@ const Hero = () => {
         
                         <button
                           type="submit"
-                          className="bg-white text-[#282828] text-xs sm:text-sm md:text-base px-3 sm:px-5 py-1 sm:py-1.5 rounded-full font-medium hover:bg-gray-200 transition flex-shrink-0"
+                          className="bg-white text-[#282828] text-xs sm:text-sm md:text-base cursor-pointer px-3 sm:px-5 py-1 sm:py-1.5 rounded-full font-medium hover:bg-gray-200 transition flex-shrink-0"
                         >
                           Submit
                         </button>
@@ -575,7 +575,7 @@ const Hero = () => {
                     {/* Close button */}
                     <button
                       onClick={() => setSelectedReport(null)}
-                      className="absolute top-3 right-4 text-white text-2xl hover:opacity-70"
+                      className="absolute top-3 right-4 text-white text-2xl cursor-pointer hover:opacity-70"
                     >
                       ×
                     </button>

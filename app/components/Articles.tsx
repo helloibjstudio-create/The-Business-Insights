@@ -248,7 +248,7 @@ export default function Articles() {
             <div
               key={article.id}
               onClick={() => setSelectedArticle(article)}
-              className="cursor-pointer"
+              className="cursor-pointer hover:scale-105"
             >
               <div className="relative">
                 <Image

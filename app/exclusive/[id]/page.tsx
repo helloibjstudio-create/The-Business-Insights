@@ -54,7 +54,7 @@ export default function ExclusiveInterviewDetailPage() {
 
   if (!interview) {
     return (
-      <div className="text-center text-white py-40">
+      <div className="text-center font-sans text-white py-40">
         Loading interview details...
       </div>
     );
@@ -67,8 +67,8 @@ export default function ExclusiveInterviewDetailPage() {
       <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
         {/* Back button */}
         <button
-          onClick={() => router.push("/exclusiveInterviews")}
-          className="flex items-center text-orange-400 mb-10 hover:text-orange-500 transition"
+          onClick={() => router.push("/")}
+          className="flex items-center text-orange-400 mb-10 cursor-pointer font-sans hover:text-orange-500 transition"
         >
           <ArrowLeft className="mr-2 w-4 h-4" /> Back to Exclusive Interviews
         </button>
