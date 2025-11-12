@@ -122,11 +122,11 @@ const Hero = () => {
       <HeroParallax />
 
       <AnimatePresence mode="wait">
-        <motion.div className="max-w-7xl relative text-white mx-auto px-4 sm:px-6 md:px-10  ">
+        <motion.div className="max-w-7xl relative text-white mx-auto  ">
           {/* --- ARTICLES SECTION --- */}
           <div
             key="articles-section"
-            className="flex flex-col md:flex-row md:items-center font-sans md:justify-between mb-12 gap-6"
+            className="flex flex-col md:flex-row md:items-center w-full font-sans md:justify-between mb-12 gap-6"
           >
             <div>
               <h2 className="text-[32px] sm:text-[48px] md:text-[60px] font-semibold font-sans">
@@ -397,7 +397,7 @@ const Hero = () => {
 
           <div className="relative w-full h-auto overflow-visible px-4 sm:px-6 md:px-0 mt-6 md:mt-0">
             {/* Heading */}
-            <h3 className="text-2xl sm:text-3xl md:text-[48px] w-full max-w-[803px] my-4 text-center mx-auto tracking-tight md:tracking-[-1.92px] leading-snug md:leading-[48px] font-sans font-medium text-white z-20 relative">
+            <h3 className="text-2xl sm:text-3xl md:text-[36px] w-full max-w-[803px] my-4 text-center mx-auto tracking-tight md:tracking-[-1.92px] leading-snug md:leading-[48px] font-sans font-medium text-white z-20 relative">
               Enjoy the best{" "}
               <span className={`text-[#E8602E] ${hedvig.className}`}>
                 Events and Exhibitions
