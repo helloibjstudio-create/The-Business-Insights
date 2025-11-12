@@ -22,6 +22,10 @@ const hedvig = Hedvig_Letters_Serif({
 
 const About = () => {
   
+      useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+  
 
   return (
     <section className="relative  bg-black text-white overflow-hidden">

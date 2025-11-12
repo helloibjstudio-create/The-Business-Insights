@@ -27,6 +27,12 @@ const Events = () => {
   const [events, setEvents] = useState<Events[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+    useEffect(() => {
+if (events) {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+}, [events, currentPage]);
+
   // ✅ Get base URL from environment or fallback to local
  
 

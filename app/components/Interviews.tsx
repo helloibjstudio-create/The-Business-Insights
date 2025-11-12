@@ -55,6 +55,10 @@ const Interviews = () => {
     startIndex + ITEMS_PER_PAGE
   );
 
+  useEffect(() => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}, [selectedInterview, currentPage]);
+
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page);
   };

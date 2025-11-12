@@ -88,6 +88,12 @@ useEffect(() => {
     return () => window.removeEventListener("resize", updateItemsPerPage);
   }, []);
 
+    useEffect(() => {
+  if (selectedReport) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  }, [selectedReport, currentPage]);
+
   // ✅ Pagination calculations
   const totalPages = Math.ceil(reports.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;

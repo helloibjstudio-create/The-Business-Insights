@@ -27,13 +27,13 @@ export default function Articles() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-    useEffect(() => {
-  if (selectedArticle) {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-}, [selectedArticle]);
   const [currentPage, setCurrentPage] = useState(1);
-
+  
+  useEffect(() => {
+if (selectedArticle) {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+}, [selectedArticle, currentPage]);
   // Fetch all articles
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/articles`)
