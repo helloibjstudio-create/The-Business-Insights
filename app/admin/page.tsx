@@ -10,6 +10,7 @@ import { countries, sectors } from "../data/options";
 import cities from "cities-list";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
+import ImageUploader from "../components/ImageUploader";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
@@ -291,8 +292,6 @@ export default function AdminDashboard({
     setView("create");
   };
 
-
-
   return (
     <div className=" bg-transparent w-full h-full font-sans font-[500] text-white flex">
       <Image
@@ -429,15 +428,13 @@ export default function AdminDashboard({
                   />
                 </div>
 
-                <div>
-                  <label className="block mb-2 text-sm">Image URL</label>
-                  <input
-                    name="image_url"
-                    value={formData.image_url}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
+                <ImageUploader
+                  label="Image"
+                  value={formData.image_url}
+                  onChange={(url) =>
+                    setFormData({ ...formData, image_url: url })
+                  }
+                />
 
                 <div>
                   <label className="block mb-2 text-sm">Country</label>
@@ -461,7 +458,9 @@ export default function AdminDashboard({
                   <label className="block mb-2 text-sm">Write up</label>
                   <ReactQuill
                     value={formData.write_up}
-                    onChange={(value) => setFormData({ ...formData, write_up: value })}
+                    onChange={(value) =>
+                      setFormData({ ...formData, write_up: value })
+                    }
                     modules={modules}
                     theme="snow"
                     placeholder="Write your interview content here..."
@@ -491,15 +490,13 @@ export default function AdminDashboard({
                   />
                 </div>
 
-                <div>
-                  <label className="block mb-2 text-sm">Image URL</label>
-                  <input
-                    name="image_url"
-                    value={formData.image_url}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
+                <ImageUploader
+                  label="Image"
+                  value={formData.image_url}
+                  onChange={(url) =>
+                    setFormData({ ...formData, image_url: url })
+                  }
+                />
 
                 <div>
                   <label className="block mb-2 text-sm">Country</label>
@@ -523,7 +520,9 @@ export default function AdminDashboard({
                   <label className="block mb-2 text-sm">Write up</label>
                   <ReactQuill
                     value={formData.write_up}
-                    onChange={(value) => setFormData({ ...formData, write_up: value })}
+                    onChange={(value) =>
+                      setFormData({ ...formData, write_up: value })
+                    }
                     modules={modules}
                     theme="snow"
                     placeholder="Write your interview content here..."
@@ -553,15 +552,13 @@ export default function AdminDashboard({
                   }
                 />
 
-                <div>
-                  <label className="block mb-2 text-sm">Image URL</label>
-                  <input
-                    name="image_url"
-                    value={formData.image_url}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
+                <ImageUploader
+                  label="Image"
+                  value={formData.image_url}
+                  onChange={(url) =>
+                    setFormData({ ...formData, image_url: url })
+                  }
+                />
 
                 <MultiSelect
                   label="Countries"
@@ -585,7 +582,9 @@ export default function AdminDashboard({
                   <label className="block mb-2 text-sm">Write up</label>
                   <ReactQuill
                     value={formData.write_up}
-                    onChange={(value) => setFormData({ ...formData, write_up: value })}
+                    onChange={(value) =>
+                      setFormData({ ...formData, write_up: value })
+                    }
                     modules={modules}
                     theme="snow"
                     placeholder="Write your interview content here..."
@@ -638,18 +637,13 @@ export default function AdminDashboard({
                 />
 
                 {/* Image URL */}
-                <div>
-                  <label className="block mb-2 text-sm text-gray-300">
-                    Image URL
-                  </label>
-                  <input
-                    name="image_url"
-                    value={formData.image_url || ""}
-                    onChange={handleChange}
-                    placeholder="https://example.com/image.jpg"
-                    className="w-full p-2 rounded bg-transparent border border-gray-700 focus:border-orange-500 outline-none"
-                  />
-                </div>
+                <ImageUploader
+                  label="Image"
+                  value={formData.image_url}
+                  onChange={(url) =>
+                    setFormData({ ...formData, image_url: url })
+                  }
+                />
                 <div>
                   <label className="block mb-2 text-sm text-gray-300">
                     State
@@ -681,15 +675,13 @@ export default function AdminDashboard({
 
             {activeTab === "reports" && (
               <>
-                <div>
-                  <label className="block mb-2 text-sm">Image URL</label>
-                  <input
-                    name="image_url"
-                    value={formData.image_url}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
+                <ImageUploader
+                  label="Image"
+                  value={formData.image_url}
+                  onChange={(url) =>
+                    setFormData({ ...formData, image_url: url })
+                  }
+                />
 
                 <div>
                   <label className="block mb-2 text-sm">Title</label>

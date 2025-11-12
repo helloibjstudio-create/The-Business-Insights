@@ -1,8 +1,12 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef } from "react";
-import { Search, SlidersHorizontal } from "lucide-react";
-import { countries as countryOptions, sectors as sectorOptions } from "../data/options";
+import { motion, AnimatePresence } from "framer-motion";
+import { Search, SlidersHorizontal, ChevronDown } from "lucide-react";
+import {
+  countries as countryOptions,
+  sectors as sectorOptions,
+} from "../data/options";
 
 interface SearchAndFilterProps<T> {
   data: T[];
@@ -31,8 +35,14 @@ export default function SearchAndFilter<T extends Record<string, any>>({
     title: "",
   });
   const [showFilters, setShowFilters] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const lastFilteredRef = useRef<T[]>([]);
+  const wrapperRef = useRef<HTMLDivElement>(null); // ✅ added for outside click
+
+  const currentYear = new Date().getFullYear();
+const yearOptions = Array.from({ length: currentYear - 2000 + 1 }, (_, i) => (2000 + i).toString());
+
 
   // ✅ Filtering logic
   const filteredData = useMemo(() => {
@@ -48,11 +58,9 @@ export default function SearchAndFilter<T extends Record<string, any>>({
       const matchesYear =
         !filters.year ||
         String(item[fields.filters.year!] || "") === filters.year;
-
       const matchesCountry =
         !filters.country ||
         String(item[fields.filters.country!] || "") === filters.country;
-
       const matchesSector =
         !filters.sector ||
         String(item[fields.filters.sector!] || "") === filters.sector;
@@ -60,11 +68,17 @@ export default function SearchAndFilter<T extends Record<string, any>>({
         !filters.title ||
         String(item[fields.filters.title!] || "") === filters.title;
 
-      return matchesQuery && matchesYear && matchesCountry && matchesSector && matchesTitle;
+      return (
+        matchesQuery &&
+        matchesYear &&
+        matchesCountry &&
+        matchesSector &&
+        matchesTitle
+      );
     });
   }, [query, filters, data, fields]);
 
-  // ✅ Avoid infinite updates
+  // ✅ Prevent infinite updates
   useEffect(() => {
     const current = JSON.stringify(filteredData);
     const last = JSON.stringify(lastFilteredRef.current);
@@ -74,82 +88,174 @@ export default function SearchAndFilter<T extends Record<string, any>>({
     }
   }, [filteredData, onFiltered]);
 
-  // 🟠 Placeholder year options (to be replaced later)
-  const yearOptions = ["2025", "2024", "2023", "2022"];
+  // ✅ Close filter when clicking outside
+useEffect(() => {
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      wrapperRef.current &&
+      !wrapperRef.current.contains(event.target as Node)
+    ) {
+      setShowFilters(false);
+      setOpenDropdown(null);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => document.removeEventListener("mousedown", handleClickOutside);
+}, []);
+
 
   return (
-    <div className="relative cursor-pointer font-sans w-full z-50 max-w-md mx-auto mb-10">
-      {/* Search bar */}
-      <div className="flex items-center w-[70%] mx-auto lg:w-full h-10 px-3 rounded-md border border-orange-600/40 bg-orange-950/10 backdrop-blur-sm">
-        <Search className="w-4 h-4 text-orange-500 mr-2" />
+    <div ref={wrapperRef} className="relative w-full max-w-lg mx-auto z-50 font-sans">
+      {/* 🔍 Search bar */}
+      <motion.div
+        className="flex items-center w-[70%] mx-auto lg:w-full px-4 py-2.5 rounded-xl 
+          bg-white/5 border border-white/10 backdrop-blur-md 
+          shadow-sm text-white focus-within:shadow-orange-500/30 transition-all"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <Search className="w-4 h-4 text-[#E8602E] mr-2" />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search by title..."
-          className="flex-1 bg-transparent outline-none text-sm text-orange-100 placeholder:text-orange-500/60"
+          className="flex-1 bg-transparent outline-none text-sm text-orange-100 placeholder:text-orange-400/60"
         />
-        <SlidersHorizontal
+        <motion.div
           onClick={() => setShowFilters((p) => !p)}
-          className="w-4 h-4 text-orange-500 cursor-pointer hover:text-orange-400 transition-colors"
-        />
-      </div>
+          whileHover={{ rotate: 90 }}
+          transition={{ duration: 0.3 }}
+          className="cursor-pointer"
+        >
+          <SlidersHorizontal className="w-4 h-4 text-[#E8602E]" />
+        </motion.div>
+      </motion.div>
 
-      {/* Filter dropdown */}
-      {showFilters && (
-        <div className="absolute mt-2 w-full bg-black/90 border border-orange-600/30 rounded-lg p-4 space-y-3 text-sm z-50">
-          {/* Year */}
-          <div className="flex flex-col gap-2">
-            <label className="text-orange-400">Year</label>
-            <select
+      {/* 🧡 Filter Panel */}
+      <AnimatePresence>
+        {showFilters && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+            className="absolute mt-3 w-full bg-black/80 border border-white/10 
+              rounded-2xl p-5 space-y-4 backdrop-blur-md shadow-xl"
+          >
+            {/* 🔸 Year Dropdown */}
+            <FilterDropdown
+              label="Year"
               value={filters.year}
-              onChange={(e) => setFilters((f) => ({ ...f, year: e.target.value }))}
-              className="bg-black border border-orange-600/30 rounded p-2 text-white"
-            >
-              <option value="">All</option>
-              {yearOptions.map((y) => (
-                <option key={y} value={y}>
-                  {y}
-                </option>
-              ))}
-            </select>
-          </div>
+              options={yearOptions}
+              openDropdown={openDropdown}
+              setOpenDropdown={setOpenDropdown}
+              onSelect={(val) => setFilters((f) => ({ ...f, year: val }))}
+            />
 
-          {/* Country */}
-          <div className="flex flex-col gap-2">
-            <label className="text-orange-400">Country</label>
-            <select
+            {/* 🔸 Country Dropdown */}
+            <FilterDropdown
+              label="Country"
               value={filters.country}
-              onChange={(e) => setFilters((f) => ({ ...f, country: e.target.value }))}
-              className="bg-black border border-orange-600/30 rounded p-2 text-white"
-            >
-              <option value="">All</option>
-              {countryOptions.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-          </div>
+              options={countryOptions}
+              openDropdown={openDropdown}
+              setOpenDropdown={setOpenDropdown}
+              onSelect={(val) => setFilters((f) => ({ ...f, country: val }))}
+            />
 
-          {/* Sector */}
-          <div className="flex flex-col gap-2">
-            <label className="text-orange-400">Sector</label>
-            <select
+            {/* 🔸 Sector Dropdown */}
+            <FilterDropdown
+              label="Sector"
               value={filters.sector}
-              onChange={(e) => setFilters((f) => ({ ...f, sector: e.target.value }))}
-              className="bg-black border border-orange-600/30 rounded p-2 text-white"
-            >
-              <option value="">All</option>
-              {sectorOptions.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </div>
+              options={sectorOptions}
+              openDropdown={openDropdown}
+              setOpenDropdown={setOpenDropdown}
+              onSelect={(val) => setFilters((f) => ({ ...f, sector: val }))}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/* ===============================
+   🧩 Subcomponent: FilterDropdown
+   =============================== */
+interface FilterDropdownProps {
+  label: string;
+  value: string;
+  options: string[];
+  openDropdown: string | null;
+  setOpenDropdown: (key: string | null) => void;
+  onSelect: (val: string) => void;
+}
+
+function FilterDropdown({
+  label,
+  value,
+  options,
+  openDropdown,
+  setOpenDropdown,
+  onSelect,
+}: FilterDropdownProps) {
+  const isOpen = openDropdown === label;
+
+  return (
+    <div className="relative">
+      {/* Label + Button */}
+      <button
+        onClick={() => setOpenDropdown(isOpen ? null : label)}
+        className="flex justify-between items-center w-full px-3 py-2 
+          text-sm bg-white/5 rounded-lg border border-white/10 
+          text-white hover:bg-white/10 transition-all"
+      >
+        <span className="text-orange-400">{label}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-gray-300 text-xs truncate max-w-[120px]">
+            {value || "All"}
+          </span>
+          <motion.div
+            animate={{ rotate: isOpen ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ChevronDown size={14} className="text-[#E8602E]" />
+          </motion.div>
         </div>
-      )}
+      </button>
+
+      {/* Dropdown Options */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.ul
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.2 }}
+            className="absolute left-0 right-0 mt-2 bg-black/90 border border-white/10 
+              rounded-lg shadow-lg backdrop-blur-md z-50 overflow-hidden max-h-48 overflow-y-auto"
+          >
+            <li
+              onClick={() => onSelect("")}
+              className="px-4 py-2 text-sm text-gray-300 hover:bg-orange-500/10 hover:text-[#E8602E] cursor-pointer"
+            >
+              All
+            </li>
+            {options.map((opt) => (
+              <li
+                key={opt}
+                onClick={() => onSelect(opt)}
+                className={`px-4 py-2 text-sm cursor-pointer hover:bg-orange-500/10 hover:text-[#E8602E] ${
+                  value === opt ? "text-[#E8602E] font-medium" : "text-gray-200"
+                }`}
+              >
+                {opt}
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
