@@ -339,7 +339,7 @@ const Hero = () => {
 
           {/* Report Cards Grid */}
           {/* === Grid of Reports (from backend only) === */}
-          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 font-sans gap-20 mt-10">
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 font-sans gap-20 mt-10">
             {reports.map((report) => (
               <section
                 key={report.id}
@@ -358,7 +358,7 @@ const Hero = () => {
                 </div>
 
                 {/* === Text Section === */}
-                <div className="p-4 sm:p-5 flex flex-col justify-between h-[calc(100%-auto)]">
+                <div className="p-1 sm:p-2 flex flex-col justify-between h-[calc(100%-auto)]">
                   <h2 className="text-lg sm:text-xl font-semibold mb-3 line-clamp-2">
                     {report.title}
                   </h2>
