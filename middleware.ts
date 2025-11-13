@@ -4,7 +4,7 @@ export function middleware(req: NextRequest) {
   const host = req.headers.get("host") || "";
 
   // Replace this with your actual production domain
-  const productionDomain = "https://the-business-insights.vercel.app/";
+  const productionDomain = "the-business-insights.vercel.app";
 
   // If it's the production site, block it
   if (host === productionDomain) {
