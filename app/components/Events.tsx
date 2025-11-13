@@ -165,9 +165,9 @@ const Events = () => {
           />
         </div>
 
-        <section className="relative w-[1000px] mb-60 font-sans mx-auto z-20 py-10 px-6 md:px-12 lg:px-20 bg-white/3 backdrop-blur-2xl border border-white/10 rounded-2xl top-20">
+        <section className="relative lg:w-[1000px] mb-60 font-sans mx-auto z-20 py-10 px-6 md:px-12 lg:px-20 bg-white/3 backdrop-blur-2xl border border-white/10 rounded-2xl top-20">
           {/* 🔍 Filter Button */}
-          <div className="flex justify-end mb-6">
+          <div className="flex justify-start mb-6">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -193,9 +193,9 @@ const Events = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -30 }}
                   transition={{ duration: 0.4 }}
-                  className="flex flex-col md:flex-row items-center bg-black/50 border border-white/10 rounded-xl overflow-hidden shadow-md hover:scale-[1.02] transition-transform duration-300"
+                  className="flex flex-col lg:flex-row items-center bg-black/50 border border-white/10 rounded-xl overflow-hidden shadow-md hover:scale-[1.02] transition-transform duration-300"
                 >
-                  <div className="relative w-full lg:w-[433px] h-[250px] lg:h-[313px] bg-black">
+                  <div className="relative w-full lg:w-[433px] rounded-[30px] h-[250px] md:h-[300px] lg:h-[313px] bg-black">
                     <Image
                       src={event.image_url}
                       alt={event.title}
@@ -204,7 +204,7 @@ const Events = () => {
                       priority
                     />
                   </div>
-                  <div className="flex flex-col justify-center p-6 w-full md:w-[70%]">
+                  <div className="flex flex-col justify-center p-6 w-full lg:w-[70%]">
                     <p className="text-white text-[18px] mb-2 italic">
                       {event.date
                         ? new Date(event.date).toLocaleDateString("en-US", {
