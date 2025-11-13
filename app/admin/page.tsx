@@ -45,8 +45,8 @@ export default function AdminDashboard({
   const [view, setView] = useState<"list" | "create">("list");
 
   useEffect(() => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}, [activeTab, view]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [activeTab, view]);
 
   const [formData, setFormData] = useState({
     id: null as string | null,
@@ -142,15 +142,15 @@ export default function AdminDashboard({
   const [events, setEvents] = useState<Events[]>([]);
   const router = useRouter();
 
-    const [searchQuery, setSearchQuery] = useState("");
-  
-    const handleSearch = (e: React.FormEvent) => {
-      e.preventDefault();
-      if (searchQuery.trim()) {
-        router.push(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
-        setSearchQuery("");
-      }
-    };
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+    }
+  };
 
   const getActiveData = () => {
     switch (activeTab) {
@@ -310,7 +310,14 @@ export default function AdminDashboard({
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [setActiveTab, setArticles, setEvents, setInterviews, setExclusiveInterviews, setReports,]);
+  }, [
+    setActiveTab,
+    setArticles,
+    setEvents,
+    setInterviews,
+    setExclusiveInterviews,
+    setReports,
+  ]);
 
   return (
     <div className=" bg-transparent w-full h-full font-sans font-[500] text-white flex">
@@ -319,80 +326,84 @@ export default function AdminDashboard({
         alt="Background"
         width={2000}
         height={2000}
-        className="absolute -z-10 h-[300vh] opacity-20 object-cover"
+        className="fixed -z-10 h-full opacity-20 object-cover"
       />
       {/* Sidebar */}
-      <aside className="w-64 bg-transparent backdrop-blur-2xl rounded-r-[20px] p-6 space-y-4 border-r border-gray-700">
+      <aside className="fixed left-0 top-0 h-screen w-64 bg-black/30 backdrop-blur-2xl rounded-r-[20px] p-6 space-y-4 border-r border-gray-700 overflow-hidden z-50">
         <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
         <ul className="space-y-3">
-  {["interviews", "articles", "exclusiveInterviews", "reports", "events"].map(
-    (tab) => (
-      <li
-        key={tab}
-        onClick={() => {
-          setActiveTab(tab as any);
-          setView("list"); // reset to list view
-          setFormData({
-            id: null,
-            name: "",
-            sector: [],
-            image_url: "",
-            description: "",
-            title: "",
-            price: "",
-            year: "",
-            link: "",
-            discounted_price: "",
-            state: "",
-            country: [],
-            write_up: "",
-          });
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}
-        className={`cursor-pointer p-2 rounded-md transition ${
-          activeTab === tab ? "text-orange-500 " : "hover:text-gray-700"
-        }`}
-      >
-        {tab}
-      </li>
-    )
-  )}
-</ul>
+          {[
+            "interviews",
+            "articles",
+            "exclusiveInterviews",
+            "reports",
+            "events",
+          ].map((tab) => (
+            <li
+              key={tab}
+              onClick={() => {
+                setActiveTab(tab as any);
+                setView("list"); // reset to list view
+                setFormData({
+                  id: null,
+                  name: "",
+                  sector: [],
+                  image_url: "",
+                  description: "",
+                  title: "",
+                  price: "",
+                  year: "",
+                  link: "",
+                  discounted_price: "",
+                  state: "",
+                  country: [],
+                  write_up: "",
+                });
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className={`cursor-pointer p-2 rounded-md transition ${
+                activeTab === tab ? "text-orange-500 " : "hover:text-gray-400"
+              }`}
+            >
+              {tab}
+            </li>
+          ))}
+        </ul>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-10 overflow-auto z-90">
+      <main className="ml-64 flex-1 p-10 overflow-auto z-40">
         <h2 className="text-3xl text-center font-semibold mb-8 capitalize">
           {activeTab}
         </h2>
         <div className="flex items-center justify-between mb-10">
           <div className="flex items-center gap-4">
             <form
-        onSubmit={handleSearch}
-        className="hidden lg:flex border border-gray-500/40 rounded-xl px-3 py-2 items-center space-x-2 relative z-50"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4 text-[#E25B2B]"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
-        <input
-          type="text"
-          placeholder="Search"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="bg-transparent outline-none text-sm text-gray-200 placeholder-gray-400 w-[120px]"
-        />
-      </form>
+              onSubmit={handleSearch}
+              className="hidden lg:flex border border-gray-500/40 rounded-xl px-3 py-2 items-center space-x-2 relative z-50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 text-[#E25B2B]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="bg-transparent outline-none text-sm text-gray-200 placeholder-gray-400 w-[120px]"
+              />
+            </form>
           </div>
           {view === "list" && (
             <button
@@ -640,7 +651,6 @@ export default function AdminDashboard({
                     modules={modules}
                     theme="snow"
                     placeholder="Write your interview content here..."
-                    
                   />
                 </div>
               </>
@@ -796,21 +806,20 @@ export default function AdminDashboard({
           </form>
         )}
 
-         
         <motion.div
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 2, ease: "easeOut" }}
           className="absolute bottom-0 left-0 w-[1200px] h-[1200px] 
   bg-[radial-gradient(circle_at_left_bottom,_rgba(232,96,46,0.55),_transparent_40%)] 
-  blur-3xl pointer-events-none -z-90"
+  blur-3xl pointer-events-none -z-90 fixed"
         />
-        
+
         <motion.div
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 2, ease: "easeOut" }}
-          className="absolute top-220 -right-200 w-[1200px] h-[1200px] 
+          className="absolute top-0 fixed -right-200 w-[1200px] h-[1200px] 
   bg-[radial-gradient(circle_at_left_bottom,_rgba(232,96,46,0.55),_transparent_50%)] 
   blur-3xl pointer-events-none -z-90"
         />
