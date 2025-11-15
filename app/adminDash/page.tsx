@@ -13,6 +13,7 @@ import "react-quill-new/dist/quill.snow.css";
 import ImageUploader from "../components/ImageUploader";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import SuccessPopup from "../components/SuccessPopup";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
@@ -145,6 +146,7 @@ export default function AdminDashboard({
   const router = useRouter();
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -214,69 +216,68 @@ export default function AdminDashboard({
     });
 
     const handleSaveDraft = async () => {
-  try {
-    const draftData = { ...formData, draft: true }; // flag it as draft
+      try {
+        const draftData = { ...formData, draft: true }; // flag it as draft
 
-    const url = draftData.id
-      ? `${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}/${draftData.id}`
-      : `${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}`;
+        const url = draftData.id
+          ? `${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}/${draftData.id}`
+          : `${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}`;
 
-    const res = await fetch(url, {
-      method: draftData.id ? "PUT" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(draftData),
-    });
-
-    const data = await res.json();
-
-    if (data.error) {
-      alert("Error saving draft: " + data.error);
-    } else {
-      alert(`${activeTab} saved as draft successfully!`);
-      setFormData({
-        id: data.id || null,
-        name: "",
-        sector: [],
-        image_url: "",
-        description: "",
-        state: "",
-        title: "",
-        price: "",
-        year: "",
-        link: "",
-        discounted_price: "",
-        country: [],
-        write_up: "",
-      });
-
-      // Optionally refresh the list if you have a "Drafts" tab
-      fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}`)
-        .then((res) => res.json())
-        .then((newData) => {
-          if (activeTab === "interviews") setInterviews(newData);
-          if (activeTab === "exclusiveInterviews") setExclusiveInterviews(newData);
-          if (activeTab === "articles") setArticles(newData);
-          if (activeTab === "reports") setReports(newData);
-          if (activeTab === "events") setEvents(newData);
+        const res = await fetch(url, {
+          method: draftData.id ? "PUT" : "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(draftData),
         });
 
-      setView("list");
-    }
-  } catch (err) {
-    console.error(err);
-    alert("Something went wrong while saving draft.");
-  }
-};
+        const data = await res.json();
 
+        if (data.error) {
+          alert("Error saving draft: " + data.error);
+        } else {
+          alert(`${activeTab} saved as draft successfully!`);
+          setFormData({
+            id: data.id || null,
+            name: "",
+            sector: [],
+            image_url: "",
+            description: "",
+            state: "",
+            title: "",
+            price: "",
+            year: "",
+            link: "",
+            discounted_price: "",
+            country: [],
+            write_up: "",
+          });
+
+          // Optionally refresh the list if you have a "Drafts" tab
+          fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}`)
+            .then((res) => res.json())
+            .then((newData) => {
+              if (activeTab === "interviews") setInterviews(newData);
+              if (activeTab === "exclusiveInterviews")
+                setExclusiveInterviews(newData);
+              if (activeTab === "articles") setArticles(newData);
+              if (activeTab === "reports") setReports(newData);
+              if (activeTab === "events") setEvents(newData);
+            });
+
+          setView("list");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Something went wrong while saving draft.");
+      }
+    };
 
     const data = await res.json();
 
     if (data.error) {
       alert("Error: " + data.error);
     } else {
-      alert(
-        `${activeTab} ${formData.id ? "updated" : "uploaded"} successfully!`
-      );
+      setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 3200);
       setFormData({
         id: null as string | null,
         name: "",
@@ -337,9 +338,6 @@ export default function AdminDashboard({
         });
     }
   };
-
- 
-
 
   // === EDIT ITEM ===
   const handleEdit = (item: any) => {
@@ -954,7 +952,7 @@ export default function AdminDashboard({
                 >
                   Publish {activeTab}
                 </button>
-                
+
                 <button
                   type="button"
                   onClick={() => setView("list")}
@@ -984,6 +982,7 @@ export default function AdminDashboard({
   blur-3xl pointer-events-none -z-90"
           />
         </main>
+        <SuccessPopup show={showPopup} />
       </div>
       )
     </>
