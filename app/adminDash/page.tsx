@@ -144,9 +144,6 @@ export default function AdminDashboard({
   const [events, setEvents] = useState<Events[]>([]);
   const router = useRouter();
 
-
-
-
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = (e: React.FormEvent) => {
@@ -215,6 +212,62 @@ export default function AdminDashboard({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
+
+    const handleSaveDraft = async () => {
+  try {
+    const draftData = { ...formData, draft: true }; // flag it as draft
+
+    const url = draftData.id
+      ? `${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}/${draftData.id}`
+      : `${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}`;
+
+    const res = await fetch(url, {
+      method: draftData.id ? "PUT" : "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(draftData),
+    });
+
+    const data = await res.json();
+
+    if (data.error) {
+      alert("Error saving draft: " + data.error);
+    } else {
+      alert(`${activeTab} saved as draft successfully!`);
+      setFormData({
+        id: data.id || null,
+        name: "",
+        sector: [],
+        image_url: "",
+        description: "",
+        state: "",
+        title: "",
+        price: "",
+        year: "",
+        link: "",
+        discounted_price: "",
+        country: [],
+        write_up: "",
+      });
+
+      // Optionally refresh the list if you have a "Drafts" tab
+      fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}`)
+        .then((res) => res.json())
+        .then((newData) => {
+          if (activeTab === "interviews") setInterviews(newData);
+          if (activeTab === "exclusiveInterviews") setExclusiveInterviews(newData);
+          if (activeTab === "articles") setArticles(newData);
+          if (activeTab === "reports") setReports(newData);
+          if (activeTab === "events") setEvents(newData);
+        });
+
+      setView("list");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong while saving draft.");
+  }
+};
+
 
     const data = await res.json();
 
@@ -285,6 +338,9 @@ export default function AdminDashboard({
     }
   };
 
+ 
+
+
   // === EDIT ITEM ===
   const handleEdit = (item: any) => {
     setFormData({
@@ -323,7 +379,7 @@ export default function AdminDashboard({
     setExclusiveInterviews,
     setReports,
   ]);
-   const supabase = createClientComponentClient();
+  const supabase = createClientComponentClient();
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<any>(null);
 
@@ -341,600 +397,595 @@ export default function AdminDashboard({
   }, [router, supabase]);
 
   useEffect(() => {
-  // Function to logout user
-  const logout = async () => {
-    await supabase.auth.signOut();
-    router.replace("/login");
-  };
+    // Function to logout user
+    const logout = async () => {
+      await supabase.auth.signOut();
+      router.replace("/login");
+    };
 
-  // === 1. Logout on tab/browser close ===
-  const handleBeforeUnload = async (e: BeforeUnloadEvent) => {
-    await logout();
-  };
-  window.addEventListener("beforeunload", handleBeforeUnload);
+    // === 1. Logout on tab/browser close ===
+    const handleBeforeUnload = async (e: BeforeUnloadEvent) => {
+      await logout();
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
-  // === 2. Logout on inactivity (10 min) ===
-  let inactivityTimeout: NodeJS.Timeout;
+    // === 2. Logout on inactivity (10 min) ===
+    let inactivityTimeout: NodeJS.Timeout;
 
-  const resetTimeout = () => {
-    clearTimeout(inactivityTimeout);
-    inactivityTimeout = setTimeout(() => {
-      alert("You have been logged out due to inactivity.");
-      logout();
-    }, 10 * 60 * 1000); // 10 minutes
-  };
-
-  const activityEvents = ["mousemove", "keydown", "mousedown", "touchstart"];
-  activityEvents.forEach((event) =>
-    window.addEventListener(event, resetTimeout)
-  );
-
-  // === 3. Optional: detect tab visibility ===
-  const handleVisibilityChange = () => {
-    if (document.hidden) {
-      // user left the tab
+    const resetTimeout = () => {
+      clearTimeout(inactivityTimeout);
       inactivityTimeout = setTimeout(() => {
-        alert("You have been logged out because you left the tab.");
+        alert("You have been logged out due to inactivity.");
         logout();
       }, 10 * 60 * 1000); // 10 minutes
-    } else {
-      resetTimeout(); // user came back, reset timer
-    }
-  };
-  document.addEventListener("visibilitychange", handleVisibilityChange);
+    };
 
-  // initialize inactivity timeout
-  resetTimeout();
-
-  // CLEANUP
-  return () => {
-    window.removeEventListener("beforeunload", handleBeforeUnload);
+    const activityEvents = ["mousemove", "keydown", "mousedown", "touchstart"];
     activityEvents.forEach((event) =>
-      window.removeEventListener(event, resetTimeout)
+      window.addEventListener(event, resetTimeout)
     );
-    document.removeEventListener(
-      "visibilitychange",
-      handleVisibilityChange
-    );
-    clearTimeout(inactivityTimeout);
-  };
-}, [router, supabase]);
 
+    // === 3. Optional: detect tab visibility ===
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        // user left the tab
+        inactivityTimeout = setTimeout(() => {
+          alert("You have been logged out because you left the tab.");
+          logout();
+        }, 10 * 60 * 1000); // 10 minutes
+      } else {
+        resetTimeout(); // user came back, reset timer
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // initialize inactivity timeout
+    resetTimeout();
+
+    // CLEANUP
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      activityEvents.forEach((event) =>
+        window.removeEventListener(event, resetTimeout)
+      );
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      clearTimeout(inactivityTimeout);
+    };
+  }, [router, supabase]);
 
   if (loading) return <div>Loading...</div>;
   if (!session) return null; // prevents dashboard from showing while redirecting
 
   const handleLogout = async () => {
-  const { error } = await supabase.auth.signOut();
-  if (error) {
-    alert("Error logging out: " + error.message);
-  } else {
-    router.replace("/login"); // redirect to login page
-  }
-};
-
-  
-
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      alert("Error logging out: " + error.message);
+    } else {
+      router.replace("/login"); // redirect to login page
+    }
+  };
 
   return (
     <>
-    
-    <div className=" bg-transparent w-full h-full font-sans font-[500] text-white flex">
-      <Image
-        src={BusinessHero}
-        alt="Background"
-        width={2000}
-        height={2000}
-        className="fixed -z-10 h-full opacity-20 object-cover"
-      />
-      {/* Sidebar */}
-      <aside className="fixed left-0 top-0 h-screen w-64 bg-black/30 backdrop-blur-2xl rounded-r-[20px] p-6 space-y-4 border-r border-gray-700 overflow-hidden z-50">
-        <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
-        <ul className="space-y-3">
-          {[
-            "interviews",
-            "articles",
-            "exclusiveInterviews",
-            "reports",
-            "events",
-          ].map((tab) => (
-            <li
-              key={tab}
-              onClick={() => {
-                setActiveTab(tab as any);
-                setView("list"); // reset to list view
-                setFormData({
-                  id: null,
-                  name: "",
-                  sector: [],
-                  image_url: "",
-                  description: "",
-                  title: "",
-                  price: "",
-                  year: "",
-                  link: "",
-                  discounted_price: "",
-                  state: "",
-                  country: [],
-                  write_up: "",
-                });
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-              className={`cursor-pointer p-2 rounded-md transition ${
-                activeTab === tab ? "text-orange-500 " : "hover:text-gray-400"
-              }`}
-            >
-              {tab}
-            </li>
-          ))}
-        </ul>
-        <div className="mt-8 border-t border-gray-700  bottom-0 pt-4">
-  <button
-    onClick={handleLogout}
-    className="w-full flex items-center justify-center cursor-pointer gap-2 px-4 py-2 bg-orange-600 hover:bg-white text-white hover:text-orange-600 rounded-md font-semibold transition"
-  >
-    Logout
-  </button>
-</div>
-      </aside>
-
-      {/* Main Content */}
-      <main className="ml-64 flex-1 p-10 overflow-auto z-40">
-        <h2 className="text-3xl text-center font-semibold mb-8 capitalize">
-          {activeTab}
-        </h2>
-        <div className="flex items-center justify-between mb-10">
-          <div className="flex items-center gap-4">
-            <form
-              onSubmit={handleSearch}
-              className="hidden lg:flex border border-gray-500/40 rounded-xl px-3 py-2 items-center space-x-2 relative z-50"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 text-[#E25B2B]"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+      <div className=" bg-transparent w-full h-full font-sans font-[500] text-white flex">
+        <Image
+          src={BusinessHero}
+          alt="Background"
+          width={2000}
+          height={2000}
+          className="fixed -z-10 h-full opacity-20 object-cover"
+        />
+        {/* Sidebar */}
+        <aside className="fixed left-0 top-0 h-screen w-64 bg-black/30 backdrop-blur-2xl rounded-r-[20px] p-6 space-y-4 border-r border-gray-700 overflow-hidden z-50">
+          <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+          <ul className="space-y-3">
+            {[
+              "interviews",
+              "articles",
+              "exclusiveInterviews",
+              "reports",
+              "events",
+            ].map((tab) => (
+              <li
+                key={tab}
+                onClick={() => {
+                  setActiveTab(tab as any);
+                  setView("list"); // reset to list view
+                  setFormData({
+                    id: null,
+                    name: "",
+                    sector: [],
+                    image_url: "",
+                    description: "",
+                    title: "",
+                    price: "",
+                    year: "",
+                    link: "",
+                    discounted_price: "",
+                    state: "",
+                    country: [],
+                    write_up: "",
+                  });
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className={`cursor-pointer p-2 rounded-md transition w-fit ${
+                  activeTab === tab ? "text-orange-500 " : "hover:text-gray-400"
+                }`}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-              <input
-                type="text"
-                placeholder="Search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-transparent outline-none text-sm text-gray-200 placeholder-gray-400 w-[120px]"
-              />
-            </form>
-          </div>
-          {view === "list" && (
+                {tab}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8 border-t border-gray-700  bottom-0 pt-4">
             <button
-              onClick={() => setView("create")}
-              className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md font-semibold transition"
+              onClick={handleLogout}
+              className="w-full flex items-center justify-center cursor-pointer gap-2 px-4 py-2 bg-orange-600 hover:bg-white text-white hover:text-orange-600 rounded-md font-semibold transition"
             >
-              <Plus size={18} /> Create
+              Logout
             </button>
-          )}
-        </div>
+          </div>
+        </aside>
 
-        {view === "list" ? (
-          <motion.div
-            key="list"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="bg-black/30 backdrop-blur-xl rounded-2xl p-6 border border-white/10 shadow-xl"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {activeData.map((item, index) => (
-                <div
-                  key={index}
-                  className="bg-transparent border border-white/10 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+        {/* Main Content */}
+        <main className="ml-64 flex-1 p-10 overflow-auto z-40">
+          <h2 className="text-3xl text-center font-semibold mb-8 capitalize">
+            {activeTab}
+          </h2>
+          <div className="flex items-center justify-between mb-10">
+            <div className="flex items-center gap-4">
+              <form
+                onSubmit={handleSearch}
+                className="hidden lg:flex border border-gray-500/40 rounded-xl px-3 py-2 items-center space-x-2 relative z-50"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 text-[#E25B2B]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  <div className="relative h-[240px]">
-                    <Image
-                      src={item.image_url}
-                      alt={item.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <p className="text-gray-300 text-sm mb-1">
-                      {item.description} • {item.year}
-                    </p>
-                    <h2 className="text-lg font-semibold">{item.name}</h2>
-                    <p className="text-gray-400 text-sm mb-3">{item.sector}</p>
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() => handleEdit(item)}
-                        className="flex items-center gap-1 bg-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-600"
-                      >
-                        <Edit3 size={14} /> Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(String(item.id))}
-                        className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
-                      >
-                        <Trash2 size={14} /> Delete
-                      </button>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                <input
+                  type="text"
+                  placeholder="Search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="bg-transparent outline-none text-sm text-gray-200 placeholder-gray-400 w-[120px]"
+                />
+              </form>
+            </div>
+            {view === "list" && (
+              <button
+                onClick={() => setView("create")}
+                className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md font-semibold transition"
+              >
+                <Plus size={18} /> Create
+              </button>
+            )}
+          </div>
+
+          {view === "list" ? (
+            <motion.div
+              key="list"
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="bg-black/30 backdrop-blur-xl rounded-2xl p-6 border border-white/10 shadow-xl"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {activeData.map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-transparent border border-white/10 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+                  >
+                    <div className="relative h-[240px]">
+                      <Image
+                        src={item.image_url}
+                        alt={item.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <p className="text-gray-300 text-sm mb-1">
+                        {item.description} • {item.year}
+                      </p>
+                      <h2 className="text-lg font-semibold">{item.name}</h2>
+                      <p className="text-gray-400 text-sm mb-3">
+                        {item.sector}
+                      </p>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => handleEdit(item)}
+                          className="flex items-center gap-1 bg-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-600"
+                        >
+                          <Edit3 size={14} /> Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(String(item.id))}
+                          className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                        >
+                          <Trash2 size={14} /> Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        ) : (
-          <form
-            onSubmit={handleSubmit}
-            className="bg-transparent backdrop-blur-2xl m-auto p-8 rounded-xl shadow-md max-w-2xl space-y-6 border border-gray-800"
-          >
-            {/* Fields depending on category */}
-            {activeTab === "interviews" && (
-              <>
-                <div>
-                  <label className="block mb-2 text-sm">Name</label>
-                  <input
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
+                ))}
+              </div>
+            </motion.div>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              className="bg-transparent backdrop-blur-2xl m-auto p-8 rounded-xl shadow-md max-w-2xl space-y-6 border border-gray-800"
+            >
+              {/* Fields depending on category */}
+              {activeTab === "interviews" && (
+                <>
+                  <div>
+                    <label className="block mb-2 text-sm">Name</label>
+                    <input
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
 
-                <div>
-                  <label className="block mb-2 text-sm">Sector</label>
-                  <input
-                    name="sector"
+                  <div>
+                    <label className="block mb-2 text-sm">Sector</label>
+                    <input
+                      name="sector"
+                      value={formData.sector}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
+
+                  <ImageUploader
+                    label="Image"
+                    value={formData.image_url}
+                    onChange={(url) =>
+                      setFormData({ ...formData, image_url: url })
+                    }
+                  />
+
+                  <div>
+                    <label className="block mb-2 text-sm">Country</label>
+                    <input
+                      name="country"
+                      value={formData.country}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
+                  <div>
+                    <label className="block mb-2 text-sm">Year</label>
+                    <input
+                      name="year"
+                      value={formData.year}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
+                  <div>
+                    <label className="block mb-2 text-sm">Write up</label>
+                    <ReactQuill
+                      value={formData.write_up}
+                      onChange={(value) =>
+                        setFormData({ ...formData, write_up: value })
+                      }
+                      modules={modules}
+                      theme="snow"
+                      placeholder="Write your interview content here..."
+                      className="font-[100]"
+                    />
+                  </div>
+                </>
+              )}
+              {activeTab === "exclusiveInterviews" && (
+                <>
+                  <div>
+                    <label className="block mb-2 text-sm">Name</label>
+                    <input
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block mb-2 text-sm">description</label>
+                    <input
+                      name="description"
+                      value={formData.description}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
+
+                  <ImageUploader
+                    label="Image"
+                    value={formData.image_url}
+                    onChange={(url) =>
+                      setFormData({ ...formData, image_url: url })
+                    }
+                  />
+
+                  <div>
+                    <label className="block mb-2 text-sm">Country</label>
+                    <input
+                      name="country"
+                      value={formData.country}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
+                  <div>
+                    <label className="block mb-2 text-sm">Year</label>
+                    <input
+                      name="year"
+                      value={formData.year}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
+                  <div>
+                    <label className="block mb-2 text-sm">Write up</label>
+                    <ReactQuill
+                      value={formData.write_up}
+                      onChange={(value) =>
+                        setFormData({ ...formData, write_up: value })
+                      }
+                      modules={modules}
+                      theme="snow"
+                      placeholder="Write your interview content here..."
+                    />
+                  </div>
+                </>
+              )}
+
+              {activeTab === "articles" && (
+                <>
+                  <div>
+                    <label className="block mb-2 text-sm">Name</label>
+                    <input
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
+
+                  <MultiSelect
+                    label="Sector"
+                    options={sectors}
                     value={formData.sector}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    onChange={(selected) =>
+                      setFormData({ ...formData, sector: selected })
+                    }
                   />
-                </div>
 
-                <ImageUploader
-                  label="Image"
-                  value={formData.image_url}
-                  onChange={(url) =>
-                    setFormData({ ...formData, image_url: url })
-                  }
-                />
+                  <ImageUploader
+                    label="Image"
+                    value={formData.image_url}
+                    onChange={(url) =>
+                      setFormData({ ...formData, image_url: url })
+                    }
+                  />
 
-                <div>
-                  <label className="block mb-2 text-sm">Country</label>
-                  <input
-                    name="country"
+                  <MultiSelect
+                    label="Countries"
+                    options={countries}
                     value={formData.country}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm">Year</label>
-                  <input
-                    name="year"
-                    value={formData.year}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm">Write up</label>
-                  <ReactQuill
-                    value={formData.write_up}
-                    onChange={(value) =>
-                      setFormData({ ...formData, write_up: value })
+                    onChange={(selected) =>
+                      setFormData({ ...formData, country: selected })
                     }
-                    modules={modules}
-                    theme="snow"
-                    placeholder="Write your interview content here..."
-                    className="font-[100]"
                   />
-                </div>
-              </>
-            )}
-            {activeTab === "exclusiveInterviews" && (
-              <>
-                <div>
-                  <label className="block mb-2 text-sm">Name</label>
-                  <input
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
 
-                <div>
-                  <label className="block mb-2 text-sm">description</label>
-                  <input
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
+                  <div>
+                    <label className="block mb-2 text-sm">Year</label>
+                    <input
+                      name="year"
+                      value={formData.year}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
+                  <div>
+                    <label className="block mb-2 text-sm">Write up</label>
+                    <ReactQuill
+                      value={formData.write_up}
+                      onChange={(value) =>
+                        setFormData({ ...formData, write_up: value })
+                      }
+                      modules={modules}
+                      theme="snow"
+                      placeholder="Write your interview content here..."
+                    />
+                  </div>
+                </>
+              )}
 
-                <ImageUploader
-                  label="Image"
-                  value={formData.image_url}
-                  onChange={(url) =>
-                    setFormData({ ...formData, image_url: url })
-                  }
-                />
+              {activeTab === "events" && (
+                <>
+                  {/* Event Name */}
+                  <div>
+                    <label className="block mb-2 text-sm text-gray-300">
+                      Event Name
+                    </label>
+                    <input
+                      name="name"
+                      value={formData.name || ""}
+                      onChange={handleChange}
+                      placeholder="e.g., INDABA"
+                      className="w-full p-2 rounded bg-transparent border border-gray-700 focus:border-orange-500 outline-none"
+                    />
+                  </div>
 
-                <div>
-                  <label className="block mb-2 text-sm">Country</label>
-                  <input
-                    name="country"
-                    value={formData.country}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm">Year</label>
-                  <input
-                    name="year"
-                    value={formData.year}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm">Write up</label>
-                  <ReactQuill
-                    value={formData.write_up}
-                    onChange={(value) =>
-                      setFormData({ ...formData, write_up: value })
+                  {/* Event Date */}
+                  <div>
+                    <label className="block mb-2 text-sm text-gray-300">
+                      Date
+                    </label>
+                    <input
+                      name="year"
+                      type="text"
+                      value={formData.year || ""}
+                      onChange={handleChange}
+                      placeholder="e.g., 5–8 February 2024"
+                      className="w-full p-2 rounded bg-transparent border border-gray-700 focus:border-orange-500 outline-none"
+                    />
+                  </div>
+
+                  {/* City MultiSelect */}
+
+                  {/* Country MultiSelect */}
+                  <MultiSelect
+                    label="Country"
+                    options={countries} // your countries array
+                    value={formData.country || []}
+                    onChange={(selected) =>
+                      setFormData({ ...formData, country: selected })
                     }
-                    modules={modules}
-                    theme="snow"
-                    placeholder="Write your interview content here..."
                   />
-                </div>
-              </>
-            )}
 
-            {activeTab === "articles" && (
-              <>
-                <div>
-                  <label className="block mb-2 text-sm">Name</label>
-                  <input
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
-
-                <MultiSelect
-                  label="Sector"
-                  options={sectors}
-                  value={formData.sector}
-                  onChange={(selected) =>
-                    setFormData({ ...formData, sector: selected })
-                  }
-                />
-
-                <ImageUploader
-                  label="Image"
-                  value={formData.image_url}
-                  onChange={(url) =>
-                    setFormData({ ...formData, image_url: url })
-                  }
-                />
-
-                <MultiSelect
-                  label="Countries"
-                  options={countries}
-                  value={formData.country}
-                  onChange={(selected) =>
-                    setFormData({ ...formData, country: selected })
-                  }
-                />
-
-                <div>
-                  <label className="block mb-2 text-sm">Year</label>
-                  <input
-                    name="year"
-                    value={formData.year}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm">Write up</label>
-                  <ReactQuill
-                    value={formData.write_up}
-                    onChange={(value) =>
-                      setFormData({ ...formData, write_up: value })
+                  {/* Image URL */}
+                  <ImageUploader
+                    label="Image"
+                    value={formData.image_url}
+                    onChange={(url) =>
+                      setFormData({ ...formData, image_url: url })
                     }
-                    modules={modules}
-                    theme="snow"
-                    placeholder="Write your interview content here..."
                   />
-                </div>
-              </>
-            )}
+                  <div>
+                    <label className="block mb-2 text-sm text-gray-300">
+                      State
+                    </label>
+                    <input
+                      name="state"
+                      value={formData.state || ""}
+                      onChange={handleChange}
+                      placeholder="e.g New york"
+                      className="w-full p-2 rounded bg-transparent border border-gray-700 focus:border-orange-500 outline-none"
+                    />
+                  </div>
 
-            {activeTab === "events" && (
-              <>
-                {/* Event Name */}
-                <div>
-                  <label className="block mb-2 text-sm text-gray-300">
-                    Event Name
-                  </label>
-                  <input
-                    name="name"
-                    value={formData.name || ""}
-                    onChange={handleChange}
-                    placeholder="e.g., INDABA"
-                    className="w-full p-2 rounded bg-transparent border border-gray-700 focus:border-orange-500 outline-none"
+                  {/* Description */}
+                  <div>
+                    <label className="block mb-2 text-sm text-gray-300">
+                      Description
+                    </label>
+                    <textarea
+                      name="description"
+                      value={formData.description || ""}
+                      onChange={handleChange}
+                      placeholder="Enter short event description..."
+                      className="w-full p-2 rounded bg-transparent border border-gray-700 focus:border-orange-500 outline-none min-h-[100px]"
+                    />
+                  </div>
+                </>
+              )}
+
+              {activeTab === "reports" && (
+                <>
+                  <ImageUploader
+                    label="Image"
+                    value={formData.image_url}
+                    onChange={(url) =>
+                      setFormData({ ...formData, image_url: url })
+                    }
                   />
-                </div>
 
-                {/* Event Date */}
-                <div>
-                  <label className="block mb-2 text-sm text-gray-300">
-                    Date
-                  </label>
-                  <input
-                    name="year"
-                    type="text"
-                    value={formData.year || ""}
-                    onChange={handleChange}
-                    placeholder="e.g., 5–8 February 2024"
-                    className="w-full p-2 rounded bg-transparent border border-gray-700 focus:border-orange-500 outline-none"
-                  />
-                </div>
+                  <div>
+                    <label className="block mb-2 text-sm">Title</label>
+                    <input
+                      name="title"
+                      value={formData.title}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
 
-                {/* City MultiSelect */}
+                  <div>
+                    <label className="block mb-2 text-sm">Price</label>
+                    <input
+                      name="price"
+                      type="number"
+                      value={formData.price}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
+                  <div>
+                    <label className="block mb-2 text-sm">
+                      Discounted Price
+                    </label>
+                    <input
+                      name="discounted_price"
+                      type="number"
+                      value={formData.discounted_price}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
+                  <div>
+                    <label className="block mb-2 text-sm">Write up</label>
+                    <textarea
+                      name="description"
+                      value={formData.description}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded bg-transparent border border-gray-700"
+                    />
+                  </div>
+                </>
+              )}
 
-                {/* Country MultiSelect */}
-                <MultiSelect
-                  label="Country"
-                  options={countries} // your countries array
-                  value={formData.country || []}
-                  onChange={(selected) =>
-                    setFormData({ ...formData, country: selected })
-                  }
-                />
+              <div className="flex justify-between gap-4">
+                <button
+                  type="submit"
+                  className="bg-orange-600 text-white cursor-pointer px-6 py-2 rounded-full font-semibold hover:bg-orange-600/20 transition"
+                >
+                  Publish {activeTab}
+                </button>
+                
+                <button
+                  type="button"
+                  onClick={() => setView("list")}
+                  className="text-gray-300 hover:text-orange-400 underline cursor-pointer"
+                >
+                  Back
+                </button>
+              </div>
+            </form>
+          )}
 
-                {/* Image URL */}
-                <ImageUploader
-                  label="Image"
-                  value={formData.image_url}
-                  onChange={(url) =>
-                    setFormData({ ...formData, image_url: url })
-                  }
-                />
-                <div>
-                  <label className="block mb-2 text-sm text-gray-300">
-                    State
-                  </label>
-                  <input
-                    name="state"
-                    value={formData.state || ""}
-                    onChange={handleChange}
-                    placeholder="e.g New york"
-                    className="w-full p-2 rounded bg-transparent border border-gray-700 focus:border-orange-500 outline-none"
-                  />
-                </div>
-
-                {/* Description */}
-                <div>
-                  <label className="block mb-2 text-sm text-gray-300">
-                    Description
-                  </label>
-                  <textarea
-                    name="description"
-                    value={formData.description || ""}
-                    onChange={handleChange}
-                    placeholder="Enter short event description..."
-                    className="w-full p-2 rounded bg-transparent border border-gray-700 focus:border-orange-500 outline-none min-h-[100px]"
-                  />
-                </div>
-              </>
-            )}
-
-            {activeTab === "reports" && (
-              <>
-                <ImageUploader
-                  label="Image"
-                  value={formData.image_url}
-                  onChange={(url) =>
-                    setFormData({ ...formData, image_url: url })
-                  }
-                />
-
-                <div>
-                  <label className="block mb-2 text-sm">Title</label>
-                  <input
-                    name="title"
-                    value={formData.title}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
-
-                <div>
-                  <label className="block mb-2 text-sm">Price</label>
-                  <input
-                    name="price"
-                    type="number"
-                    value={formData.price}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm">Discounted Price</label>
-                  <input
-                    name="discounted_price"
-                    type="number"
-                    value={formData.discounted_price}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm">Write up</label>
-                  <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded bg-transparent border border-gray-700"
-                  />
-                </div>
-              </>
-            )}
-
-            <div className="flex justify-between">
-              <button
-                type="submit"
-                className="bg-orange-500 text-black px-6 py-2 rounded-full font-semibold hover:bg-orange-600 transition"
-              >
-                Publish {activeTab}
-              </button>
-              <button
-                type="button"
-                onClick={() => setView("list")}
-                className="text-gray-300 hover:text-orange-400 underline cursor-pointer"
-              >
-                Back
-              </button>
-            </div>
-          </form>
-        )}
-
-        <motion.div
-          initial={{ opacity: 0, x: -100 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 2, ease: "easeOut" }}
-          className="absolute bottom-0 left-0 w-[1200px] h-[1200px] 
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 2, ease: "easeOut" }}
+            className="absolute bottom-0 left-0 w-[1200px] h-[1200px] 
   bg-[radial-gradient(circle_at_left_bottom,_rgba(232,96,46,0.55),_transparent_40%)] 
   blur-3xl pointer-events-none -z-90 fixed"
-        />
+          />
 
-        <motion.div
-          initial={{ opacity: 0, x: -100 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 2, ease: "easeOut" }}
-          className="absolute top-0 fixed -right-200 w-[1200px] h-[1200px] 
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 2, ease: "easeOut" }}
+            className="absolute top-0 fixed -right-200 w-[1200px] h-[1200px] 
   bg-[radial-gradient(circle_at_left_bottom,_rgba(232,96,46,0.55),_transparent_50%)] 
   blur-3xl pointer-events-none -z-90"
-        />
-      </main>
-    </div>
-    )
-    
-  
+          />
+        </main>
+      </div>
+      )
     </>
   );
 }
