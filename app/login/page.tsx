@@ -3,6 +3,8 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { BusinessHero } from "@/public";
 
 export default function Login() {
   const supabase = createClientComponentClient();
@@ -27,25 +29,43 @@ export default function Login() {
   }
 
   return (
-    <form
-      onSubmit={handleLogin}
-      className="flex flex-col gap-4 max-w-sm text-white mx-auto mt-20"
-    >
-      <input
-        type="email"
-        className="border p-2"
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
+    <div className="relative h-screen w-screen flex items-center font-sans justify-center">
+      {/* Background Image */}
+      <Image
+        src={BusinessHero} // Replace with your image path
+        alt="Background"
+        fill
+        className="object-cover opacity-50"
+        priority
       />
-      <input
-        type="password"
-        className="border p-2"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button className="bg-blue-600 text-white py-2 rounded">
-        Login
-      </button>
-    </form>
+
+      {/* Frosted Glass Login Container */}
+      <div className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-20 w-full max-w-md shadow-lg flex flex-col gap-6">
+        <h2 className="text-2xl font-semibold text-white text-center">
+          Welcome Back
+        </h2>
+        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+          <input
+            type="email"
+            className="p-3 rounded-md bg-white/20 placeholder-white text-white border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            className="p-3 rounded-md bg-white/20 placeholder-white text-white border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="py-3 bg-orange-600 text-white rounded-md font-semibold hover:bg-white hover:text-orange-600 cursor-pointer transition-colors"
+          >
+            Login
+          </button>
+        </form>
+        
+      </div>
+    </div>
   );
 }

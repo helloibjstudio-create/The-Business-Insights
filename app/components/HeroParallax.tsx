@@ -165,7 +165,7 @@ const handleExploreClick = () => {
   // Only show 2 on mobile, all on larger screens
   const visibleInterviews = isMobile
     ? exclusiveInterviews.slice(0, 2)
-    : exclusiveInterviews;
+    : exclusiveInterviews.slice(0, 4);
 
   return (
     <section

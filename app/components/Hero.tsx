@@ -107,6 +107,7 @@ const Hero = () => {
   const featured = interviews[0];
   const others = interviews.slice(1);
   const [visible, setVisible] = useState(false);
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -149,7 +150,7 @@ const Hero = () => {
 
           {/* --- ARTICLE CARDS --- */}
           <div className="grid grid-cols-1 font-sans sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {articles.map((article, i) => (
+            {articles.slice(0, 6).map((article, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 80 }}
@@ -340,7 +341,7 @@ const Hero = () => {
           {/* Report Cards Grid */}
           {/* === Grid of Reports (from backend only) === */}
           <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 font-sans gap-20 mt-10">
-            {reports.map((report) => (
+            {reports.slice(0, 12).map((report) => (
               <section
                 key={report.id}
                 onClick={() => setSelectedReport(report)}

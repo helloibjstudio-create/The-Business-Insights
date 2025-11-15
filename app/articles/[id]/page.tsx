@@ -69,21 +69,21 @@ export default function InterviewDetailPage() {
 
   if (!interview) {
     return (
-      <div className="text-center text-white py-40">
+      <div className="text-center font-sans text-white py-40">
         Loading interview details...
       </div>
     );
   }
 
   return (
-    <section className="bg-black text-white min-h-screen">
+    <section className="bg-black text-white font-sans min-h-screen">
       <Navbar />
 
       <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
         {/* Back button */}
         <button
           onClick={() => router.push("/articles")}
-          className="flex items-center text-orange-400 mb-10 hover:text-orange-500 transition"
+          className="flex items-center text-orange-400 mb-10 cursor-pointer hover:text-orange-500 transition"
         >
           <ArrowLeft className="mr-2 w-4 h-4" /> Back to articles
         </button>
