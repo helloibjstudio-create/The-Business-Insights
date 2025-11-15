@@ -340,6 +340,67 @@ export default function AdminDashboard({
     checkSession();
   }, [router, supabase]);
 
+  useEffect(() => {
+  // Function to logout user
+  const logout = async () => {
+    await supabase.auth.signOut();
+    router.replace("/login");
+  };
+
+  // === 1. Logout on tab/browser close ===
+  const handleBeforeUnload = async (e: BeforeUnloadEvent) => {
+    await logout();
+  };
+  window.addEventListener("beforeunload", handleBeforeUnload);
+
+  // === 2. Logout on inactivity (10 min) ===
+  let inactivityTimeout: NodeJS.Timeout;
+
+  const resetTimeout = () => {
+    clearTimeout(inactivityTimeout);
+    inactivityTimeout = setTimeout(() => {
+      alert("You have been logged out due to inactivity.");
+      logout();
+    }, 10 * 60 * 1000); // 10 minutes
+  };
+
+  const activityEvents = ["mousemove", "keydown", "mousedown", "touchstart"];
+  activityEvents.forEach((event) =>
+    window.addEventListener(event, resetTimeout)
+  );
+
+  // === 3. Optional: detect tab visibility ===
+  const handleVisibilityChange = () => {
+    if (document.hidden) {
+      // user left the tab
+      inactivityTimeout = setTimeout(() => {
+        alert("You have been logged out because you left the tab.");
+        logout();
+      }, 10 * 60 * 1000); // 10 minutes
+    } else {
+      resetTimeout(); // user came back, reset timer
+    }
+  };
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+
+  // initialize inactivity timeout
+  resetTimeout();
+
+  // CLEANUP
+  return () => {
+    window.removeEventListener("beforeunload", handleBeforeUnload);
+    activityEvents.forEach((event) =>
+      window.removeEventListener(event, resetTimeout)
+    );
+    document.removeEventListener(
+      "visibilitychange",
+      handleVisibilityChange
+    );
+    clearTimeout(inactivityTimeout);
+  };
+}, [router, supabase]);
+
+
   if (loading) return <div>Loading...</div>;
   if (!session) return null; // prevents dashboard from showing while redirecting
 
