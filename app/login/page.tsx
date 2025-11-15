@@ -4,7 +4,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { BusinessHero } from "@/public";
+import { BusinessHero, BusinessLogo } from "@/public";
 
 export default function Login() {
   const supabase = createClientComponentClient();
@@ -40,7 +40,15 @@ export default function Login() {
       />
 
       {/* Frosted Glass Login Container */}
-      <div className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-20 w-full max-w-md shadow-lg flex flex-col gap-6">
+      <div className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-10 w-full max-w-md shadow-lg flex flex-col gap-6">
+      <Image
+        src={BusinessLogo}
+        alt="Business Logo"
+        width={230}
+        height={230}
+        priority
+        className="relative m-auto"
+      />
         <h2 className="text-2xl font-semibold text-white text-center">
           Welcome Back
         </h2>
@@ -59,7 +67,7 @@ export default function Login() {
           />
           <button
             type="submit"
-            className="py-3 bg-orange-600 text-white rounded-md font-semibold hover:bg-white hover:text-orange-600 cursor-pointer transition-colors"
+            className="py-3 bg-orange-600 text-white rounded-md font-semibold hover:bg-white/30 cursor-pointer transition-colors"
           >
             Login
           </button>

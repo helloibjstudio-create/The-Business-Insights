@@ -343,6 +343,15 @@ export default function AdminDashboard({
   if (loading) return <div>Loading...</div>;
   if (!session) return null; // prevents dashboard from showing while redirecting
 
+  const handleLogout = async () => {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    alert("Error logging out: " + error.message);
+  } else {
+    router.replace("/login"); // redirect to login page
+  }
+};
+
   
 
 
@@ -362,11 +371,11 @@ export default function AdminDashboard({
         <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
         <ul className="space-y-3">
           {[
-            "interviews",
-            "articles",
-            "exclusiveInterviews",
-            "reports",
-            "events",
+            "Interviews",
+            "Articles",
+            "Exclusive Interviews",
+            "Reports",
+            "Events",
           ].map((tab) => (
             <li
               key={tab}
@@ -398,6 +407,14 @@ export default function AdminDashboard({
             </li>
           ))}
         </ul>
+        <div className="mt-8 border-t border-gray-700  bottom-0 pt-4">
+  <button
+    onClick={handleLogout}
+    className="w-full flex items-center justify-center cursor-pointer gap-2 px-4 py-2 bg-orange-600 hover:bg-white text-white hover:text-orange-600 rounded-md font-semibold transition"
+  >
+    Logout
+  </button>
+</div>
       </aside>
 
       {/* Main Content */}
