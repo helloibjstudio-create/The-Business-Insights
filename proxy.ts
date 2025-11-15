@@ -2,15 +2,31 @@ import { NextResponse } from "next/server";
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import type { NextRequest } from "next/server";
 
-const ADMIN_EMAIL = "Linajafari@hotmail.fr"; // CHANGE THIS
+// Replace with your admin email
+const ADMIN_EMAIL = "Linajafari@hotmail.fr";
+
+// Ensure env variables exist
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+  throw new Error(
+    "Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY in environment variables!"
+  );
+}
 
 export async function proxy(req: NextRequest) {
   const res = NextResponse.next();
 
-  // create supabase middleware client
-  const supabase = createMiddlewareClient({ req, res });
+  // Create Supabase middleware client with explicit URL and Key
+  const supabase = createMiddlewareClient({
+    req,
+    res,
+    supabaseUrl: SUPABASE_URL,
+    supabaseKey: SUPABASE_ANON_KEY,
+  });
 
-  // This await is now valid because middleware is async
+  // Get session
   const {
     data: { session },
   } = await supabase.auth.getSession();
