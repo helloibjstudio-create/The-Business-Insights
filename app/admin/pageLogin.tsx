@@ -1,6 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import AdminDashboard from "./page";
+import AdminDashboard from "../components/page";
 
 export default async function DashboardPage() {
   const supabase = createServerComponentClient({ cookies });
