@@ -371,11 +371,11 @@ export default function AdminDashboard({
         <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
         <ul className="space-y-3">
           {[
-            "Interviews",
-            "Articles",
-            "Exclusive Interviews",
-            "Reports",
-            "Events",
+            "interviews",
+            "articles",
+            "exclusiveInterviews",
+            "reports",
+            "events",
           ].map((tab) => (
             <li
               key={tab}

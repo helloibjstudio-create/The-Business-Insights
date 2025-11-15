@@ -76,11 +76,11 @@ useEffect(() => {
   useEffect(() => {
     const updateItemsPerPage = () => {
       if (window.innerWidth < 640) {
-        setItemsPerPage(3); // mobile
+        setItemsPerPage(6); // mobile
       } else if (window.innerWidth < 1024) {
         setItemsPerPage(6); // tablet
       } else {
-        setItemsPerPage(9); // desktop
+        setItemsPerPage(12); // desktop
       }
     };
     updateItemsPerPage();
@@ -197,7 +197,7 @@ useEffect(() => {
         >
           {/* === Grid of Reports === */}
           {/* === Grid of Reports === */}
-          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 font-sans gap-14 mt-10">
+          <div className="relative grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 font-sans gap-14 mt-10">
             {(filteredInterviews.length > 0
               ? filteredInterviews
               : currentReports

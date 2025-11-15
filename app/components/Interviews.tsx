@@ -21,7 +21,7 @@ interface Interview {
   write_up?: string;
 }
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 9;
 
 const Interviews = () => {
   const [interviews, setInterviews] = useState<Interview[]>([]);
@@ -306,7 +306,7 @@ const Interviews = () => {
                   <span className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
                   <p className="text-sm text-gray-400">{interview.year}</p>
                 </div>
-                <h2 className="text-[28px] font-[500]">{interview.name}</h2>
+                <h2 className="text-[22px] font-[500]">{interview.name}</h2>
                 <span className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]">
                   Read more{" "}
                   <Image
