@@ -23,13 +23,13 @@ export default function Login() {
       return;
     }
 
-    router.push("/AdminDashboard");
+    router.push("/admin");
   }
 
   return (
     <form
       onSubmit={handleLogin}
-      className="flex flex-col gap-4 max-w-sm mx-auto mt-20"
+      className="flex flex-col gap-4 max-w-sm text-white mx-auto mt-20"
     >
       <input
         type="email"
