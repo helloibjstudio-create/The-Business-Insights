@@ -23,7 +23,7 @@ export default function Login() {
       return;
     }
 
-    router.push("/admin");
+    router.replace("/adminDash");
   }
 
   return (

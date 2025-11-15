@@ -12,6 +12,7 @@ import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
 import ImageUploader from "../components/ImageUploader";
 import { useRouter } from "next/navigation";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
@@ -26,7 +27,6 @@ const modules = {
 };
 
 export default function AdminDashboard({
-  session,
   Interviews: InterviewsProp,
   exclusiveInterviews: exclusiveInterviewsProp,
   Articles: ArticlesProp,
@@ -323,10 +323,32 @@ export default function AdminDashboard({
     setExclusiveInterviews,
     setReports,
   ]);
+   const supabase = createClientComponentClient();
+  const [loading, setLoading] = useState(true);
+  const [session, setSession] = useState<any>(null);
+
+  useEffect(() => {
+    async function checkSession() {
+      const { data } = await supabase.auth.getSession();
+      if (!data.session) {
+        router.replace("/login");
+      } else {
+        setSession(data.session);
+      }
+      setLoading(false);
+    }
+    checkSession();
+  }, [router, supabase]);
+
+  if (loading) return <div>Loading...</div>;
+  if (!session) return null; // prevents dashboard from showing while redirecting
+
+  
+
 
   return (
     <>
-    {session?.user?.email && (
+    
     <div className=" bg-transparent w-full h-full font-sans font-[500] text-white flex">
       <Image
         src={BusinessHero}
@@ -833,7 +855,7 @@ export default function AdminDashboard({
       </main>
     </div>
     )
-    }
+    
   
     </>
   );
