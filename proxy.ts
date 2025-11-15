@@ -22,8 +22,6 @@ export async function proxy(req: NextRequest) {
   const supabase = createMiddlewareClient({
     req,
     res,
-    supabaseUrl: SUPABASE_URL,
-    supabaseKey: SUPABASE_ANON_KEY,
   });
 
   // Get session

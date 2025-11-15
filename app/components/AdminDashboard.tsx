@@ -5,15 +5,13 @@ import { Edit3, Plus, Search, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import MultiSelect from "./MultiSelect";
+import MultiSelect from "../components/MultiSelect";
 import { countries, sectors } from "../data/options";
 import cities from "cities-list";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
-import ImageUploader from "./ImageUploader";
+import ImageUploader from "../components/ImageUploader";
 import { useRouter } from "next/navigation";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
