@@ -171,7 +171,7 @@ const handleExploreClick = () => {
     <section
       ref={ref}
       // className="relative h-[calc(var(--vh,1vh)*220)] md:h-[calc(var(--vh,1vh)*210)] lg:h-[calc(var(--vh,1vh)*220)] overflow-hidden bg-black"
-      className="relative h-[200vh] overflow-hidden bg-black"
+      className="relative h-[220vh] overflow-hidden bg-black"
     >
       <Navbar />
 
@@ -230,7 +230,7 @@ const handleExploreClick = () => {
       <motion.div
         ref={nextSectionRef}
         style={{ opacity: opacityNextSection, y: yNextSection }}
-        className="relative font-sans -top-37 lg:-top-20 bottom-0 z-10 w-full h-screen flex items-center justify-center px-[clamp(1rem,5vw,5rem)] bg-transparent text-white"
+        className="relative font-sans -top-37 lg:top-0 bottom-0 z-10 w-full h-screen flex items-center justify-center px-[clamp(1rem,5vw,5rem)] bg-transparent text-white"
       >
         <motion.div
           initial={{ opacity: 0, y: 100 }}
