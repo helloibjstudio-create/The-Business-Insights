@@ -236,7 +236,7 @@ if (selectedArticle) {
       />
 
       {/* Grid */}
-      <div className="relative w-[90%] mx-auto font-sans text-white mt-40 py-10">
+      <div className="relative w-[90%] mx-auto font-sans text-white mt-10 py-10">
         <h1 className="text-[32px] sm:text-[48px] md:text-[60px] font-[500] mb-2">Articles</h1>
         <p className="text-[18px] text-gray-300 mb-10">
           Explore our latest articles and insights for a fresh perspective on

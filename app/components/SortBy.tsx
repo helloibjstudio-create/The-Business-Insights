@@ -37,7 +37,7 @@ export default function SortBy({ onChange }: SortByProps) {
         onClick={() => setOpen((prev) => !prev)}
         className="flex items-center gap-2 px-4 py-2.5 rounded-xl 
           bg-white/5 border border-[#E8602E] backdrop-blur-md 
-          hover:bg-white/10 transition-all duration-300 text-white shadow-sm"
+          hover:bg-white/10 transition-all duration-300 cursor-pointer text-white shadow-sm"
       >
         <SlidersHorizontalIcon
           size={18}

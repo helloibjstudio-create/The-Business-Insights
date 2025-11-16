@@ -106,7 +106,7 @@ useEffect(() => {
 
 
   return (
-    <div ref={wrapperRef} className="relative w-full max-w-lg mx-auto z-50 font-sans">
+    <div ref={wrapperRef} className="relative w-full max-w-sm ml-20 z-50 font-sans">
       {/* 🔍 Search bar */}
       <motion.div
         className="flex items-center w-[70%] mx-auto lg:w-full px-4 py-2.5 rounded-xl 

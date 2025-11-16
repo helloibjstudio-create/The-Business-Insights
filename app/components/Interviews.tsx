@@ -260,7 +260,7 @@ const Interviews = () => {
       </div>
 
       {/* ✅ FIXED SearchAndFilter */}
-      <div className="relative z-50">
+      <div className="relative justify-start z-50">
         <SearchAndFilter
           data={interviews}
           onFiltered={handleFiltered}
@@ -272,7 +272,7 @@ const Interviews = () => {
       </div>
 
       {/* Grid */}
-      <div className="relative font-sans w-[90%] mx-auto mt-40 py-10">
+      <div className="relative font-sans w-[90%] mx-auto mt-10 py-10">
         <h1 className="text-[clamp(1.8rem,5vw,3.5rem)] font-[500] mb-2">
           Exclusive Interviews
         </h1>

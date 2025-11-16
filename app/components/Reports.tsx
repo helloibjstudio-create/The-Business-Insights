@@ -48,29 +48,27 @@ const Reports = () => {
     fetchReports();
   }, []);
 
-// ✅ Sort client-side after fetching
-useEffect(() => {
-  if (!sortOption) return;
+  // ✅ Sort client-side after fetching
+  useEffect(() => {
+    if (!sortOption) return;
 
-  const sortedReports = [...reports].sort((a, b) => {
-    if (sortOption === "price_asc") {
-      return parseFloat(a.price) - parseFloat(b.price);
-    } else if (sortOption === "price_desc") {
-      return parseFloat(b.price) - parseFloat(a.price);
-    } else if (sortOption === "title_asc") {
-      return a.title.localeCompare(b.title);
-    } else if (sortOption === "title_desc") {
-      return b.title.localeCompare(a.title);
-    }
-    return 0;
-  });
+    const sortedReports = [...reports].sort((a, b) => {
+      if (sortOption === "price_asc") {
+        return parseFloat(a.price) - parseFloat(b.price);
+      } else if (sortOption === "price_desc") {
+        return parseFloat(b.price) - parseFloat(a.price);
+      } else if (sortOption === "title_asc") {
+        return a.title.localeCompare(b.title);
+      } else if (sortOption === "title_desc") {
+        return b.title.localeCompare(a.title);
+      }
+      return 0;
+    });
 
-  setCurrentPage(1);
+    setCurrentPage(1);
 
-
-  setReports(sortedReports);
-}, [sortOption]);
-
+    setReports(sortedReports);
+  }, [sortOption]);
 
   // ✅ Responsive items per page
   useEffect(() => {
@@ -88,10 +86,10 @@ useEffect(() => {
     return () => window.removeEventListener("resize", updateItemsPerPage);
   }, []);
 
-    useEffect(() => {
-  if (selectedReport) {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  useEffect(() => {
+    if (selectedReport) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }, [selectedReport, currentPage]);
 
   // ✅ Pagination calculations
@@ -208,12 +206,30 @@ useEffect(() => {
                 className="group relative bg-white/3 hover:bg-white/5 transition-all rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:scale-105 duration-300"
               >
                 {/* === Image === */}
-                <div className="relative aspect-square w-full">
+                <div
+                  className="
+    relative 
+    w-full 
+    h-[340px] sm:h-[360px] lg:h-[380px] 
+    bg-[#0F0F0F] 
+    rounded-xl 
+    border border-white/10 
+    shadow-[0_0_20px_rgba(255,255,255,0.05)] 
+    overflow-hidden 
+    flex items-center justify-center
+    p-4
+    group
+  "
+                >
                   <Image
                     src={report.image_url}
                     alt={report.title}
                     fill
-                    className="object-cover object-center transition-transform duration-300 "
+                    className="
+      object-contain
+      transition-transform duration-500
+      group-hover:scale-[1.03]
+    "
                     priority
                   />
                 </div>

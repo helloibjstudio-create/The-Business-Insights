@@ -14,6 +14,7 @@ export const AboutSecond = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1
 export const ArticleBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762344981/background_2_znx25z.png"
 export const ReportBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762345231/background_3_iaw83v.png"
 export const Cart = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762656417/image_8_1_pevhrx.png"
+export const Oman = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1763315841/cropped-Banner-Omans-infrastructure-funds_api0jz.png"
 
 
  export const curvedImages = [
