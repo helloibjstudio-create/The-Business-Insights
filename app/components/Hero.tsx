@@ -348,15 +348,33 @@ const Hero = () => {
                 className="group relative bg-white/3 hover:bg-white/5 transition-all rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:scale-105 duration-300"
               >
                 {/* === Image === */}
-                <div className="relative aspect-square w-full">
-                  <Image
-                    src={report.image_url}
-                    alt={report.title}
-                    fill
-                    className="object-cover object-center transition-transform duration-300"
-                    priority
-                  />
-                </div>
+                <div
+                                  className="
+                    relative 
+                    w-full 
+                    h-[340px] sm:h-[360px] lg:h-[380px] 
+                    bg-[#0F0F0F] 
+                    rounded-xl 
+                    border border-white/10 
+                    shadow-[0_0_20px_rgba(255,255,255,0.05)] 
+                    overflow-hidden 
+                    flex items-center justify-center
+                    
+                    group
+                  "
+                                >
+                                  <Image
+                                    src={report.image_url}
+                                    alt={report.title}
+                                    fill
+                                    className="
+                      object-contain
+                      transition-transform duration-500
+                      group-hover:scale-[1.03]
+                    "
+                                    priority
+                                  />
+                                </div>
 
                 {/* === Text Section === */}
                 <div className="p-1 sm:p-2 flex flex-col justify-between h-[calc(100%-auto)]">
