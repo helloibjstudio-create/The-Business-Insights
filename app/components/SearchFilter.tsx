@@ -111,7 +111,7 @@ useEffect(() => {
       <motion.div
         className="flex items-center w-[70%] mx-auto lg:w-full px-4 py-2.5 rounded-xl 
           bg-white/5 border border-white/10 backdrop-blur-md 
-          shadow-sm text-white focus-within:shadow-orange-500/30 transition-all"
+          shadow-sm text-white focus-within:shadow-orange-500/30 transition-all mb-4"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
@@ -123,15 +123,20 @@ useEffect(() => {
           placeholder="Search by title..."
           className="flex-1 bg-transparent outline-none text-sm text-orange-100 placeholder:text-orange-400/60"
         />
+      </motion.div>
+      <div className="flex items-center w-[70%] mx-auto lg:w-full px-4 py-1.5 cursor-pointer rounded-xl 
+          bg-white/5 border border-white/10 backdrop-blur-md 
+          shadow-sm focus-within:shadow-orange-500/30 transition-all gap-2 text-orange-400/60"onClick={() => setShowFilters((p) => !p)} >
         <motion.div
           onClick={() => setShowFilters((p) => !p)}
           whileHover={{ rotate: 90 }}
           transition={{ duration: 0.3 }}
-          className="cursor-pointer"
+          className="cursor-pointer flex items-center"
         >
           <SlidersHorizontal className="w-4 h-4 text-[#E8602E]" />
         </motion.div>
-      </motion.div>
+          <p>filter</p>
+      </div>
 
       {/* 🧡 Filter Panel */}
       <AnimatePresence>
