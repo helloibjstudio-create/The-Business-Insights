@@ -309,7 +309,7 @@ const Hero = () => {
             </>
           ) : (
             <p className="text-center text-gray-400 text-lg">
-              Loading interviews...
+              Loading interviews.....
             </p>
           )}
         </section>
