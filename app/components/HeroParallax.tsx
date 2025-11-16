@@ -171,7 +171,7 @@ const handleExploreClick = () => {
     <section
       ref={ref}
       // className="relative h-[calc(var(--vh,1vh)*220)] md:h-[calc(var(--vh,1vh)*210)] lg:h-[calc(var(--vh,1vh)*220)] overflow-hidden bg-black"
-      className="relative h-[200vh] lg:h-[220vh] overflow-hidden bg-black"
+      className="relative h-[200vh] lg:h-[212vh] overflow-hidden bg-black"
     >
       <Navbar />
 
