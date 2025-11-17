@@ -42,7 +42,7 @@ const Career = () => {
         </div>
 
         <section
-          className="relative z-10 w-[300px] md:w-[500px] lg:w-[1000px] top-20 mx-auto mt-24 mb-32 p-6 md:p-9 
+          className="relative z-10 w-[380px] md:w-[500px] lg:w-[1000px] top-20 mx-auto mt-24 mb-32 p-6 md:p-9 
         bg-orange-500/3 border border-white/10 backdrop-blur-2xl glow-orange2 rounded-2xl shadow-[0_0_40px_rgba(232,96,46,0.1)] 
         leading-relaxed text-[15px] sm:text-base"
         >
