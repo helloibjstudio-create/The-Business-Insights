@@ -22,7 +22,7 @@ export default function HeroParallax() {
   const ref = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [autoScrolling, setAutoScrolling] = useState(false);
-  const [showNext, setShowNext] = useState(false);
+  const [showNext, setShowNext] = useState(true);
   const [vh, setVh] = useState<number>(
     typeof window !== "undefined" ? window.innerHeight : 0
   );
@@ -107,41 +107,41 @@ const handleExploreClick = () => {
   // === AUTO SCROLL CONTROL (ADAPTIVE) ===
   const nextSectionRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (autoScrolling) return;
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       if (autoScrolling) return;
 
-      const y = window.scrollY;
-      const vh = window.innerHeight;
-      const isMobile = window.innerWidth <= 768;
+//       const y = window.scrollY;
+//       const vh = window.innerHeight;
+//       const isMobile = window.innerWidth <= 768;
 
-      // Trigger earlier on mobile (faster feel)
-      const triggerDown = isMobile ? vh * 0.3 : vh * 0.45;
+//       // Trigger earlier on mobile (faster feel)
+//       const triggerDown = isMobile ? vh * 0.3 : vh * 0.45;
 
-      // Get the next section top position
-      const nextTop =
-        nextSectionRef.current?.getBoundingClientRect().top! + window.scrollY;
+//       // Get the next section top position
+//       const nextTop =
+//         nextSectionRef.current?.getBoundingClientRect().top! + window.scrollY;
 
-      // Smooth scroll down once hero passes threshold
-      if (!scrolled && y > triggerDown) {
-  setScrolled(true);
-  setAutoScrolling(true);
-  window.scrollTo({
-    top: nextTop,
-    behavior: "smooth",
-  });
-  setTimeout(() => {
-    setAutoScrolling(false);
-    setShowNext(true);
-  }, isMobile ? 1600 : 800);
-} else if (scrolled && y < triggerDown * 0.5) {
-  setScrolled(false); // allow re-trigger when user scrolls up again
-}
-    };
+//       // Smooth scroll down once hero passes threshold
+//       if (!scrolled && y > triggerDown) {
+//   setScrolled(true);
+//   setAutoScrolling(true);
+//   window.scrollTo({
+//     top: nextTop,
+//     behavior: "smooth",
+//   });
+//   setTimeout(() => {
+//     setAutoScrolling(false);
+//     setShowNext(true);
+//   }, isMobile ? 1600 : 800);
+// } else if (scrolled && y < triggerDown * 0.5) {
+//   setScrolled(false); // allow re-trigger when user scrolls up again
+// }
+//     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrolled, autoScrolling, vh]);
+//     window.addEventListener("scroll", handleScroll, { passive: true });
+//     return () => window.removeEventListener("scroll", handleScroll);
+//   }, [scrolled, autoScrolling, vh]);
 
   useEffect(() => {
   const setVh = () => {
