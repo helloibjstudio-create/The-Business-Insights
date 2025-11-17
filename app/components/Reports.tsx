@@ -235,7 +235,7 @@ const Reports = () => {
                 </div>
 
                 {/* === Text Section === */}
-                <div className="p-1 sm:p-2 flex flex-col justify-between h-[calc(100%-auto)]">
+                <div className="p-4 sm:p-2 flex flex-col justify-between h-[calc(100%-auto)]">
                   <h2 className="text-lg sm:text-xl font-semibold mb-3 line-clamp-2">
                     {report.title}
                   </h2>
@@ -255,7 +255,7 @@ const Reports = () => {
                       className="text-[#E8602E] hover:underline flex items-center gap-1 text-sm sm:text-base"
                     >
                       Explore
-                      <Image src={vector2} alt="arrow" width={15} height={15} />
+                      <Image src={vector2} alt="arrow" width={10} height={10} />
                     </a>
                   </div>
                 </div>

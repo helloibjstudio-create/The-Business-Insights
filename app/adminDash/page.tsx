@@ -635,15 +635,14 @@ export default function AdminDashboard({
                     />
                   </div>
 
-                  <div>
-                    <label className="block mb-2 text-sm">Sector</label>
-                    <input
-                      name="sector"
-                      value={formData.sector}
-                      onChange={handleChange}
-                      className="w-full p-2 rounded bg-transparent border border-gray-700"
-                    />
-                  </div>
+                  <MultiSelect
+                    label="Sector"
+                    options={sectors}
+                    value={formData.sector}
+                    onChange={(selected) =>
+                      setFormData({ ...formData, sector: selected })
+                    }
+                  />
 
                   <ImageUploader
                     label="Image"
@@ -653,15 +652,14 @@ export default function AdminDashboard({
                     }
                   />
 
-                  <div>
-                    <label className="block mb-2 text-sm">Country</label>
-                    <input
-                      name="country"
-                      value={formData.country}
-                      onChange={handleChange}
-                      className="w-full p-2 rounded bg-transparent border border-gray-700"
-                    />
-                  </div>
+                  <MultiSelect
+                    label="Countries"
+                    options={countries}
+                    value={formData.country}
+                    onChange={(selected) =>
+                      setFormData({ ...formData, country: selected })
+                    }
+                  />
                   <div>
                     <label className="block mb-2 text-sm">Year</label>
                     <input
@@ -716,24 +714,8 @@ export default function AdminDashboard({
                     }
                   />
 
-                  <div>
-                    <label className="block mb-2 text-sm">Country</label>
-                    <input
-                      name="country"
-                      value={formData.country}
-                      onChange={handleChange}
-                      className="w-full p-2 rounded bg-transparent border border-gray-700"
-                    />
-                  </div>
-                  <div>
-                    <label className="block mb-2 text-sm">Year</label>
-                    <input
-                      name="year"
-                      value={formData.year}
-                      onChange={handleChange}
-                      className="w-full p-2 rounded bg-transparent border border-gray-700"
-                    />
-                  </div>
+                  
+                  
                   <div>
                     <label className="block mb-2 text-sm">Write up</label>
                     <ReactQuill

@@ -152,7 +152,7 @@ const About = () => {
                   alt="Business Insight Office"
                   width={638}
                   height={920}
-                  className="object-cover w-[550vh] h-[130vh]"
+                  className="object-cover w-[550vh] lg:h-[130vh]"
                   priority
                 />
               </div>

@@ -296,8 +296,8 @@ const handleExploreClick = () => {
           <Image
             src={vector2}
             alt="vector-2"
-            width={17}
-            height={17}
+            width={10}
+            height={10}
             className="ml-1"
           />
         </Link>

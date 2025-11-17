@@ -124,7 +124,6 @@ export default function ExclusiveInterviewDetailPage() {
               className="object-cover"
             />
             <div className="absolute bottom-0 left-0 bg-orange-500 p-6 w-full md:w-[85%] text-white rounded-tr-2xl">
-              <p className="text-sm opacity-80 uppercase mb-1">{interview.sector}</p>
               <h3 className="text-xl font-semibold">{interview.name}</h3>
               <p className="text-sm mt-2 opacity-80">{interview.description}</p>
             </div>

@@ -147,7 +147,7 @@ if (selectedArticle) {
               You may also be interested in...
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
-              {articles
+              {filteredArticles
                 .filter((item) => item.id !== selectedArticle.id)
                 .slice(0, 2)
                 .map((related) => (
@@ -311,8 +311,8 @@ if (selectedArticle) {
                   <Image
                     src={vector2}
                     alt="vector-2"
-                    width={17}
-                    height={17}
+                    width={10}
+                    height={10}
                     className="ml-1"
                   />
                 </span>

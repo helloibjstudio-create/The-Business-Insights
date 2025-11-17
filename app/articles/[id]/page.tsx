@@ -70,7 +70,7 @@ export default function InterviewDetailPage() {
   if (!interview) {
     return (
       <div className="text-center font-sans text-white py-40">
-        Loading interview details...
+        Loading article details...
       </div>
     );
   }
@@ -150,7 +150,7 @@ export default function InterviewDetailPage() {
                   <p className="text-sm text-gray-400 mb-3">
                     {related.sector}
                   </p>
-                  <Link href={`/exclusive/${related.id}`}><span className="text-orange-400 hover:underline text-sm">
+                  <Link href={`/articles/${related.id}`}><span className="text-orange-400 hover:underline text-sm">
                       Read More →
                     </span></Link>
                 </div>
