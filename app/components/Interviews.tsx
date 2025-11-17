@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import { InterviewBg, vector2 } from "@/public";
+import { Anni, InterviewBg, vector2 } from "@/public";
 import { useEffect, useState, useCallback } from "react";
 import { ArrowUpRight, ArrowLeft } from "lucide-react";
 import Footer from "./Footer";
@@ -100,8 +100,6 @@ const Interviews = () => {
   if (selectedInterview) {
     return (
       <section className="bg-black text-white min-h-screen">
-        <Navbar />
-
         <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
           <button
             onClick={() => setSelectedInterview(null)}
@@ -109,6 +107,17 @@ const Interviews = () => {
           >
             <ArrowLeft className="mr-2 w-4 h-4" /> Back to interviews
           </button>
+        <a href="https://www.takatufscholars.om/">
+                <Image
+                  src={Anni}
+                  alt="DHL Banner"
+                  width={1180}
+                  height={233}
+                  className="z-10 relative mx-auto mb-12 object-contain w-[90%] sm:w-[80%] lg:w-[80%]"
+                />
+              </a>
+        <Navbar />
+
 
           <div className="flex flex-col-reverse min-h-screen bg-white/3 backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] lg:flex-row font-sans gap-10">
             <div className="w-full">
@@ -147,8 +156,11 @@ const Interviews = () => {
                 )}
               </div>
             </div>
-            <div className="w-[472.2px] h-[400px]">
+            <div className=" w-full lg:w-[472.2px] lg:h-[400px]">
               <div className="p-6 w-full justify-self-end text-end text-white rounded-tr-2xl">
+                <p className="text-[18px] opacity-80 uppercase mb-1">
+                  {selectedInterview.year}
+                </p>
                 <p className="text-[18px] opacity-80 uppercase mb-1">
                   {selectedInterview.sector}
                 </p>
@@ -163,7 +175,7 @@ const Interviews = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="relative w-[372.2px] h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
+                className="relative lg:w-[372.2px] h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
               >
                 <Image
                   src={selectedInterview.image_url}

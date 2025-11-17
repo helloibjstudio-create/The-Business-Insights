@@ -110,8 +110,11 @@ export default function InterviewDetailPage() {
                 )}
               </div>
             </div>
-            <div className="w-[472.2px] h-[400px]">
+            <div className=" w-full lg:w-[472.2px] lg:h-[400px]">
               <div className="p-6 w-full justify-self-end text-end text-white rounded-tr-2xl">
+                <p className="text-[18px] opacity-80 uppercase mb-1">
+                  {interview.year}
+                </p>
                 <p className="text-[18px] opacity-80 uppercase mb-1">
                   {interview.sector}
                 </p>
@@ -126,7 +129,7 @@ export default function InterviewDetailPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="relative w-[372.2px] h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
+                className="relative lg:w-[372.2px] h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
               >
                 <Image
                   src={interview.image_url}
