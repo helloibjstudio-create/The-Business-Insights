@@ -133,7 +133,7 @@ const Hero = () => {
               <h2 className="text-[32px] sm:text-[48px] md:text-[60px] font-semibold font-sans">
                 Articles
               </h2>
-              <p className="text-gray-300 text-[16px] sm:text-[18px] md:text-[20px] mt-2 max-w-[600px]">
+              <p className="text-gray-300 text-[16px] sm:text-[18px] md:text-[20px] mt-2 max-w-[400px] lg:max-w-[600px]">
                 Explore our latest articles and insights for a fresh perspective
                 on industry trends and news.
               </p>
@@ -141,7 +141,7 @@ const Hero = () => {
             <Link href="/articles">
               <motion.button
                 whileHover={{ scale: 1.05 }}
-                className="bg-orange-500 hover:bg-white text-white hover:text-orange-500 px-6 sm:px-8 py-3 rounded-lg text-[16px] sm:text-[18px] transition"
+                className="bg-orange-500 hover:bg-white text-white hover:text-orange-500 px-6 lg:px-9 py-4 lg:py-3  rounded-lg text-[16px] sm:text-[18px] transition"
               >
                 View All Articles
               </motion.button>

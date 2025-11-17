@@ -107,7 +107,7 @@ const Interviews = () => {
           >
             <ArrowLeft className="mr-2 w-4 h-4" /> Back to interviews
           </button>
-        <a href="https://www.takatufscholars.om/">
+              <a href="https://www.takatufscholars.om/">
                 <Image
                   src={Anni}
                   alt="DHL Banner"
@@ -136,21 +136,7 @@ const Interviews = () => {
                 ) : (
                   <>
                     <p>
-                      Can you please give us an introduction to{" "}
-                      {selectedInterview.name} and its role in the{" "}
-                      {selectedInterview.country} market?
-                    </p>
-                    <p>
-                      What sets apart the {selectedInterview.country} industry
-                      from the rest of the region?
-                    </p>
-                    <p>
-                      How do you assess the current {selectedInterview.country}{" "}
-                      market?
-                    </p>
-                    <p>
-                      What do you anticipate as the aftermath of recent global
-                      events in your sector?
+                      post coming up...
                     </p>
                   </>
                 )}
@@ -175,7 +161,7 @@ const Interviews = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="relative lg:w-[372.2px] h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
+                className="relative lg:w-[372.2px] lg:h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
               >
                 <Image
                   src={selectedInterview.image_url}

@@ -77,7 +77,7 @@ export default function ExclusiveInterviewDetailPage() {
         <div className="flex flex-col-reverse bg-white/3 backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] lg:flex-row font-sans gap-10">
           {/* Text section */}
           <div className="w-full">
-            <h1 className="text-3xl md:text-4xl font-semibold mb-6">{interview.name}</h1>
+            <h1 className="text-3xl md:text-4xl font-semibold mb-1">{interview.name}</h1>
 
             <div className="space-y-6 text-white font-sans font-normal leading-relaxed">
               <p>{interview.description}</p>
@@ -91,19 +91,7 @@ export default function ExclusiveInterviewDetailPage() {
               ) : (
                 <>
                   <p>
-                    Can you please give us an introduction to {interview.name} and its
-                    role in the {interview.country} market?
-                  </p>
-                  <p>
-                    What sets apart the {interview.country} industry from the rest of the
-                    region?
-                  </p>
-                  <p>
-                    How do you assess the current {interview.country} market?
-                  </p>
-                  <p>
-                    What do you anticipate as the aftermath of recent global events in
-                    your sector?
+                    post coming up...
                   </p>
                 </>
               )}
@@ -148,7 +136,7 @@ export default function ExclusiveInterviewDetailPage() {
                       src={related.image_url}
                       alt={related.name}
                       fill
-                      className="object-cover"
+                      className="object-contain"
                     />
                   </div>
                   <div className="p-5">

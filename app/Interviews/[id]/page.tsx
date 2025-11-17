@@ -8,6 +8,7 @@ import { ArrowLeft } from "lucide-react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import Link from "next/link";
+import { Anni } from "@/public";
 
 interface Interview {
   id: string;
@@ -46,7 +47,9 @@ export default function InterviewDetailPage() {
 
     fetchInterview();
   }, [id]);
-
+useEffect(() => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}, [interview, relatedInterviews]);
   // Fetch related interviews
   useEffect(() => {
     const fetchRelated = async () => {
@@ -87,9 +90,19 @@ export default function InterviewDetailPage() {
             <ArrowLeft className="mr-2 w-4 h-4" /> Back to interviews
           </button>
 
+          <a href="https://www.takatufscholars.om/">
+                          <Image
+                            src={Anni}
+                            alt="DHL Banner"
+                            width={1180}
+                            height={233}
+                            className="z-10 relative mx-auto mb-12 object-contain w-[90%] sm:w-[80%] lg:w-[80%]"
+                          />
+                        </a>
+
           <div className="flex flex-col-reverse bg-white/3 min-h-screen backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] lg:flex-row font-sans gap-10">
             <div className="w-full">
-              <h1 className="text-3xl md:text-4xl font-semibold mb-6">
+              <h1 className="text-2xl md:text-4xl font-semibold mb-6">
                 {interview.name}
               </h1>
 
@@ -129,7 +142,7 @@ export default function InterviewDetailPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="relative lg:w-[372.2px] h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
+                className="relative lg:w-[372.2px] lg:h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
               >
                 <Image
                   src={interview.image_url}
