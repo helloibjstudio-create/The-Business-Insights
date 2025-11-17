@@ -120,7 +120,7 @@ const Interviews = () => {
 
 
           <div className="flex flex-col-reverse min-h-screen bg-white/3 backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] lg:flex-row font-sans gap-10">
-            <div className="w-full">
+            <div className="w-full relative top-0">
               <h1 className="text-3xl md:text-4xl font-semibold mb-6">
                 {selectedInterview.name}
               </h1>
