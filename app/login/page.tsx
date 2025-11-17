@@ -1,7 +1,7 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { BusinessHero, BusinessLogo } from "@/public";
@@ -27,6 +27,13 @@ export default function Login() {
 
     router.replace("/adminDash");
   }
+
+  useEffect(() => {
+  if (localStorage.getItem("autoLoggedOut") === "true") {
+    localStorage.removeItem("autoLoggedOut");
+  }
+}, []);
+
 
   return (
     <div className="relative h-screen w-screen flex items-center font-sans justify-center">

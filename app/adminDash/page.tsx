@@ -1,7 +1,7 @@
 "use client";
 
 import { BusinessHero } from "@/public";
-import { Edit3, Plus, Search, Trash2 } from "lucide-react";
+import { Edit3, MenuIcon, Plus, Search, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -14,6 +14,7 @@ import ImageUploader from "../components/ImageUploader";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import SuccessPopup from "../components/SuccessPopup";
+import ScrollBackButton from "../components/ScrollBackButton";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
@@ -46,6 +47,7 @@ export default function AdminDashboard({
   >("interviews");
 
   const [view, setView] = useState<"list" | "create">("list");
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -381,6 +383,16 @@ export default function AdminDashboard({
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<any>(null);
 
+  const handleLogout = async () => {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    alert("Error logging out: " + error.message);
+  } else {
+    router.replace("/login");
+  }
+};
+
   useEffect(() => {
     async function checkSession() {
       const { data } = await supabase.auth.getSession();
@@ -394,88 +406,263 @@ export default function AdminDashboard({
     checkSession();
   }, [router, supabase]);
 
-  useEffect(() => {
-    // Function to logout user
-    const logout = async () => {
-      await supabase.auth.signOut();
+useEffect(() => {
+  if (!session) return;
+
+  const INACTIVITY_LIMIT = 30 * 60 * 1000; // 30 minutes
+
+  let inactivityTimer: NodeJS.Timeout;
+
+  const resetInactivityTimer = () => {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(() => {
+      supabase.auth.signOut().then(() => {
+        localStorage.setItem("autoLoggedOut", "true");
+        router.replace("/login");
+      });
+    }, INACTIVITY_LIMIT);
+  };
+
+  // Detect user activity
+  const activityEvents = [
+    "mousemove",
+    "keydown",
+    "mousedown",
+    "touchstart",
+    "scroll",
+  ];
+  activityEvents.forEach(event =>
+    window.addEventListener(event, resetInactivityTimer)
+  );
+
+  resetInactivityTimer();
+
+  // Sync logout across all tabs
+  const handleStorageLogout = (e: StorageEvent) => {
+    if (e.key === "autoLoggedOut") {
       router.replace("/login");
-    };
+    }
+  };
+  window.addEventListener("storage", handleStorageLogout);
 
-    // === 1. Logout on tab/browser close ===
-    const handleBeforeUnload = async (e: BeforeUnloadEvent) => {
-      await logout();
-    };
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    // === 2. Logout on inactivity (10 min) ===
-    let inactivityTimeout: NodeJS.Timeout;
-
-    const resetTimeout = () => {
-      clearTimeout(inactivityTimeout);
-      inactivityTimeout = setTimeout(() => {
-        alert("You have been logged out due to inactivity.");
-        logout();
-      }, 10 * 60 * 1000); // 10 minutes
-    };
-
-    const activityEvents = ["mousemove", "keydown", "mousedown", "touchstart"];
-    activityEvents.forEach((event) =>
-      window.addEventListener(event, resetTimeout)
+  return () => {
+    clearTimeout(inactivityTimer);
+    activityEvents.forEach(event =>
+      window.removeEventListener(event, resetInactivityTimer)
     );
+    window.removeEventListener("storage", handleStorageLogout);
+  };
+}, [session]);
 
-    // === 3. Optional: detect tab visibility ===
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        // user left the tab
-        inactivityTimeout = setTimeout(() => {
-          alert("You have been logged out because you left the tab.");
-          logout();
-        }, 10 * 60 * 1000); // 10 minutes
-      } else {
-        resetTimeout(); // user came back, reset timer
-      }
-    };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    // initialize inactivity timeout
-    resetTimeout();
-
-    // CLEANUP
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-      activityEvents.forEach((event) =>
-        window.removeEventListener(event, resetTimeout)
-      );
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      clearTimeout(inactivityTimeout);
-    };
-  }, [router, supabase]);
-
-  if (loading) return <div>Loading...</div>;
-  if (!session) return null; // prevents dashboard from showing while redirecting
-
-  const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      alert("Error logging out: " + error.message);
-    } else {
-      router.replace("/login"); // redirect to login page
+  const renderCard = (item: any, index: number) => {
+    switch (activeTab) {
+      case "interviews":
+        return (
+          <div
+            key={index}
+            className="bg-black/20 border border-white/10 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+          >
+            <div className="relative h-[340px]">
+              <Image
+                src={item.image_url}
+                alt={item.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="p-4">
+              <p className="text-gray-300 text-sm mb-1">
+                {item.description} • {item.year}
+              </p>
+              <h2 className="text-lg font-semibold">{item.name}</h2>
+              <p className="text-gray-400 text-sm mb-3">{item.sector}</p>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => handleEdit(item)}
+                  className="flex items-center gap-1 bg-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-600"
+                >
+                  <Edit3 size={14} /> Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(String(item.id))}
+                  className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                >
+                  <Trash2 size={14} /> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      case "exclusiveInterviews":
+        return (
+          <div
+            key={index}
+            className="bg-black/25 border border-white/10 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+          >
+            <div className="relative h-[420px]">
+              <Image
+                src={item.image_url}
+                alt={item.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="p-4">
+              <h2 className="text-lg font-semibold">{item.name}</h2>
+              <p className="text-gray-400 text-sm">{item.description}</p>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => handleEdit(item)}
+                  className="flex items-center gap-1 bg-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-600"
+                >
+                  <Edit3 size={14} /> Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(String(item.id))}
+                  className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                >
+                  <Trash2 size={14} /> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      case "articles":
+        return (
+          <div
+            key={index}
+            className="bg-black/20 border border-white/10 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+          >
+            <div className="relative h-[200px]">
+              <Image
+                src={item.image_url}
+                alt={item.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="p-4">
+              <h2 className="text-lg font-semibold">{item.title}</h2>
+              <p className="text-gray-400 text-sm">{item.sector}</p>
+              <p className="text-gray-400 text-sm">{item.year}</p>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => handleEdit(item)}
+                  className="flex items-center gap-1 bg-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-600"
+                >
+                  <Edit3 size={14} /> Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(String(item.id))}
+                  className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                >
+                  <Trash2 size={14} /> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      case "reports":
+        return (
+          <div
+            key={index}
+            className="bg-black/25 border border-white/10 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+          >
+            <div className="relative h-[480px]">
+              <Image
+                src={item.image_url}
+                alt={item.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="p-4">
+              <h2 className="text-lg font-semibold">{item.title}</h2>
+              <p className="text-gray-400 text-sm">Price: ${item.price}</p>
+              <p className="text-gray-400 text-sm">
+                Discount: ${item.discounted_price}
+              </p>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => handleEdit(item)}
+                  className="flex items-center gap-1 bg-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-600"
+                >
+                  <Edit3 size={14} /> Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(String(item.id))}
+                  className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                >
+                  <Trash2 size={14} /> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      case "events":
+        return (
+          <div
+            key={index}
+            className="bg-black/20 border border-white/10 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+          >
+            <div className="relative h-[200px]">
+              <Image
+                src={item.image_url}
+                alt={item.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="p-4">
+              <h2 className="text-lg font-semibold">{item.name}</h2>
+              <p className="text-gray-400 mb-4 text-sm">
+                {item.state} • {item.year}
+              </p>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => handleEdit(item)}
+                  className="flex items-center gap-1 bg-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-600"
+                >
+                  <Edit3 size={14} /> Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(String(item.id))}
+                  className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                >
+                  <Trash2 size={14} /> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      default:
+        return null;
     }
   };
 
   return (
     <>
-      <div className=" bg-transparent w-full h-full font-sans font-[500] text-white flex">
+      <div  className=" bg-transparent w-full h-full font-sans font-[500] text-white flex">
         <Image
+        
           src={BusinessHero}
           alt="Background"
           width={2000}
           height={2000}
           className="fixed -z-10 h-full opacity-20 object-cover"
         />
+        {!sidebarOpen && (
+      <MenuIcon
+        onClick={() => setSidebarOpen(true)}
+        className="sticky top-12 lg:top-10 left-5 lg:left-15  z-50 cursor-pointer text-orange-500 "
+      />
+    )}
         {/* Sidebar */}
-        <aside className="fixed left-0 top-0 h-screen w-64 bg-black/30 backdrop-blur-2xl rounded-r-[20px] p-6 space-y-4 border-r border-gray-700 overflow-hidden z-50">
-          <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+        <aside  className={`fixed left-0 top-0 h-screen w-64 bg-white/3 backdrop-blur-2xl p-6 space-y-4 border-r border-gray-700 overflow-auto transform transition-transform duration-300 z-50
+          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+        `}>
+          <h1 className="text-2xl font-bold mt-5 md:mt-5 lg:mt-0 mb-6">Admin Dashboard</h1>
+          
           <ul className="space-y-3">
             {[
               "interviews",
@@ -488,6 +675,7 @@ export default function AdminDashboard({
                 key={tab}
                 onClick={() => {
                   setActiveTab(tab as any);
+                  setSidebarOpen(false)
                   setView("list"); // reset to list view
                   setFormData({
                     id: null,
@@ -504,6 +692,7 @@ export default function AdminDashboard({
                     country: [],
                     write_up: "",
                   });
+                  setSidebarOpen(false);
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className={`cursor-pointer p-2 rounded-md transition w-fit ${
@@ -515,6 +704,7 @@ export default function AdminDashboard({
             ))}
           </ul>
           <div className="mt-8 border-t border-gray-700  bottom-0 pt-4">
+            
             <button
               onClick={handleLogout}
               className="w-full flex items-center justify-center cursor-pointer gap-2 px-4 py-2 bg-orange-600 hover:bg-white text-white hover:text-orange-600 rounded-md font-semibold transition"
@@ -525,7 +715,7 @@ export default function AdminDashboard({
         </aside>
 
         {/* Main Content */}
-        <main className="ml-64 flex-1 p-10 overflow-auto z-40">
+        <main onClick={ () => setSidebarOpen(false)} className="  p-10 overflow-auto z-40">
           <h2 className="text-3xl text-center font-semibold mb-8 capitalize">
             {activeTab}
           </h2>
@@ -574,47 +764,10 @@ export default function AdminDashboard({
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="bg-black/30 backdrop-blur-xl rounded-2xl p-6 border border-white/10 shadow-xl"
+              className="bg-white/3 backdrop-blur-xl rounded-2xl p-6 border border-white/10 shadow-xl"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {activeData.map((item, index) => (
-                  <div
-                    key={index}
-                    className="bg-transparent border border-white/10 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
-                  >
-                    <div className="relative h-[240px]">
-                      <Image
-                        src={item.image_url}
-                        alt={item.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="p-4">
-                      <p className="text-gray-300 text-sm mb-1">
-                        {item.description} • {item.year}
-                      </p>
-                      <h2 className="text-lg font-semibold">{item.name}</h2>
-                      <p className="text-gray-400 text-sm mb-3">
-                        {item.sector}
-                      </p>
-                      <div className="flex items-center gap-3">
-                        <button
-                          onClick={() => handleEdit(item)}
-                          className="flex items-center gap-1 bg-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-600"
-                        >
-                          <Edit3 size={14} /> Edit
-                        </button>
-                        <button
-                          onClick={() => handleDelete(String(item.id))}
-                          className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
-                        >
-                          <Trash2 size={14} /> Delete
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                {activeData.map((item, index) => renderCard(item, index))}
               </div>
             </motion.div>
           ) : (
@@ -714,8 +867,6 @@ export default function AdminDashboard({
                     }
                   />
 
-                  
-                  
                   <div>
                     <label className="block mb-2 text-sm">Write up</label>
                     <ReactQuill
@@ -945,6 +1096,8 @@ export default function AdminDashboard({
               </div>
             </form>
           )}
+
+          <ScrollBackButton />
 
           <motion.div
             initial={{ opacity: 0, x: -100 }}
