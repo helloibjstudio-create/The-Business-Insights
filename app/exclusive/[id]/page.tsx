@@ -115,15 +115,16 @@ export default function ExclusiveInterviewDetailPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative w-full h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
+            className="relative  lg:w-full h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
           >
             <Image
               src={interview.image_url}
               alt={interview.name}
-              fill
-              className="object-cover"
+              width={100}
+              height={100}
+              className=" object-contain  object-center w-full h-full"
             />
-            <div className="absolute bottom-0 left-0 bg-orange-500 p-6 w-full md:w-[85%] text-white rounded-tr-2xl">
+            <div className="absolute bottom-0 left-0 bg-black/70 p-6 w-full md:w-full text-white rounded-tr-2xl">
               <h3 className="text-xl font-semibold">{interview.name}</h3>
               <p className="text-sm mt-2 opacity-80">{interview.description}</p>
             </div>

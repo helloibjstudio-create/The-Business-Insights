@@ -525,7 +525,7 @@ const Hero = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3 }}
                     key="Newsletter"
-                    className="relative bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[952px] h-fit w-full mx-auto overflow-visible px-6 md:px-10 py-10 flex flex-col md:flex-row items-center justify-between font-sans"
+                    className="relative bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[952px] h-fit w-[95%] lg:w-full mx-auto overflow-visible px-6 md:px-10 py-10 flex flex-col md:flex-row items-center justify-between font-sans"
                   >
                     {/* Mailbox Image */}
                     <div className="absolute -top-16 sm:-top-20 md:-top-24 lg:-top-28 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 flex justify-center md:justify-start w-full md:w-auto z-0">

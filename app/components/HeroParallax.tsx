@@ -171,7 +171,7 @@ const handleExploreClick = () => {
     <section
       ref={ref}
       // className="relative h-[calc(var(--vh,1vh)*220)] md:h-[calc(var(--vh,1vh)*210)] lg:h-[calc(var(--vh,1vh)*220)] overflow-hidden bg-black"
-      className="relative h-[200vh] lg:h-[212vh] overflow-hidden bg-black"
+      className="relative h-[200vh] lg:h-[200vh] overflow-hidden bg-black"
     >
       <Navbar />
 
@@ -271,7 +271,7 @@ const handleExploreClick = () => {
       key={person.id}
       className="rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-500"
     >
-      <div className="relative w-full h-[220px] lg:h-[420px] overflow-hidden">
+      <div className="relative w-full h-[220px] lg:h-[300px] overflow-hidden">
         <Image
           src={person.image_url}
           alt={person.name}

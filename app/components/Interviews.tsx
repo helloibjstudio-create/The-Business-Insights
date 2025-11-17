@@ -110,7 +110,7 @@ const Interviews = () => {
             <ArrowLeft className="mr-2 w-4 h-4" /> Back to interviews
           </button>
 
-          <div className="flex flex-col-reverse bg-white/3 backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] lg:flex-row font-sans gap-10">
+          <div className="flex flex-col-reverse min-h-screen bg-white/3 backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] lg:flex-row font-sans gap-10">
             <div className="w-full">
               <h1 className="text-3xl md:text-4xl font-semibold mb-6">
                 {selectedInterview.name}

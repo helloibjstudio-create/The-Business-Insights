@@ -3,10 +3,7 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, SlidersHorizontal, ChevronDown } from "lucide-react";
-import {
-  countries as countryOptions,
-  sectors as sectorOptions,
-} from "../data/options";
+import { countries as countryOptions, sectors as sectorOptions } from "../data/options";
 
 interface SearchAndFilterProps<T> {
   data: T[];
@@ -38,47 +35,28 @@ export default function SearchAndFilter<T extends Record<string, any>>({
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const lastFilteredRef = useRef<T[]>([]);
-  const wrapperRef = useRef<HTMLDivElement>(null); // ✅ added for outside click
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const currentYear = new Date().getFullYear();
-const yearOptions = Array.from({ length: currentYear - 2000 + 1 }, (_, i) => (2000 + i).toString());
+  const yearOptions = Array.from({ length: currentYear - 2000 + 1 }, (_, i) => (2000 + i).toString());
 
-
-  // ✅ Filtering logic
+  // Filtering logic
   const filteredData = useMemo(() => {
     return data.filter((item) => {
       const matchesQuery =
         !query ||
         fields.search.some((field) =>
-          String(item[field] || "")
-            .toLowerCase()
-            .includes(query.toLowerCase())
+          String(item[field] || "").toLowerCase().includes(query.toLowerCase())
         );
+      const matchesYear = !filters.year || String(item[fields.filters.year!] || "") === filters.year;
+      const matchesCountry = !filters.country || String(item[fields.filters.country!] || "") === filters.country;
+      const matchesSector = !filters.sector || String(item[fields.filters.sector!] || "") === filters.sector;
+      const matchesTitle = !filters.title || String(item[fields.filters.title!] || "") === filters.title;
 
-      const matchesYear =
-        !filters.year ||
-        String(item[fields.filters.year!] || "") === filters.year;
-      const matchesCountry =
-        !filters.country ||
-        String(item[fields.filters.country!] || "") === filters.country;
-      const matchesSector =
-        !filters.sector ||
-        String(item[fields.filters.sector!] || "") === filters.sector;
-      const matchesTitle =
-        !filters.title ||
-        String(item[fields.filters.title!] || "") === filters.title;
-
-      return (
-        matchesQuery &&
-        matchesYear &&
-        matchesCountry &&
-        matchesSector &&
-        matchesTitle
-      );
+      return matchesQuery && matchesYear && matchesCountry && matchesSector && matchesTitle;
     });
   }, [query, filters, data, fields]);
 
-  // ✅ Prevent infinite updates
   useEffect(() => {
     const current = JSON.stringify(filteredData);
     const last = JSON.stringify(lastFilteredRef.current);
@@ -88,30 +66,23 @@ const yearOptions = Array.from({ length: currentYear - 2000 + 1 }, (_, i) => (20
     }
   }, [filteredData, onFiltered]);
 
-  // ✅ Close filter when clicking outside
-useEffect(() => {
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      wrapperRef.current &&
-      !wrapperRef.current.contains(event.target as Node)
-    ) {
-      setShowFilters(false);
-      setOpenDropdown(null);
-    }
-  };
-
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => document.removeEventListener("mousedown", handleClickOutside);
-}, []);
-
+  // Close filter when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setShowFilters(false);
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <div ref={wrapperRef} className="relative w-full max-w-sm ml-2 lg:ml-20 z-50 font-sans">
-      {/* 🔍 Search bar */}
+      {/* Search Bar */}
       <motion.div
-        className="flex items-center w-[70%]  lg:w-full px-4 py-2.5 rounded-xl 
-          bg-white/5 border border-white/10 backdrop-blur-md 
-          shadow-sm text-white focus-within:shadow-orange-500/30 transition-all mb-4"
+        className="flex items-center w-[70%] lg:w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-sm text-white focus-within:shadow-orange-500/30 transition-all mb-4"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
@@ -124,9 +95,12 @@ useEffect(() => {
           className="flex-1 bg-transparent outline-none text-sm text-orange-100 placeholder:text-orange-400/60"
         />
       </motion.div>
-      <div className="flex items-center w-[70%] lg:w-full px-4 py-1.5 cursor-pointer rounded-xl 
-          bg-white/5 border border-white/10 backdrop-blur-md 
-          shadow-sm focus-within:shadow-orange-500/30 transition-all gap-2 text-orange-400/60"onClick={() => setShowFilters((p) => !p)} >
+
+      {/* Filter Button */}
+      <div
+        className="flex items-center w-[70%] lg:w-full px-4 py-1.5 cursor-pointer rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-sm gap-2 text-orange-400/60"
+        onClick={() => setShowFilters((p) => !p)}
+      >
         <motion.div
           onClick={() => setShowFilters((p) => !p)}
           whileHover={{ rotate: 90 }}
@@ -135,10 +109,10 @@ useEffect(() => {
         >
           <SlidersHorizontal className="w-4 h-4 text-[#E8602E]" />
         </motion.div>
-          <p>filter</p>
+        <p>filter</p>
       </div>
 
-      {/* 🧡 Filter Panel */}
+      {/* Filter Panel */}
       <AnimatePresence>
         {showFilters && (
           <motion.div
@@ -146,10 +120,9 @@ useEffect(() => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
-            className="absolute mt-3 w-full bg-black/80 border border-white/10 
-              rounded-2xl p-5 space-y-4 backdrop-blur-md shadow-xl"
+            className="absolute mt-3 bg-black/80 border border-white/10 rounded-2xl p-5 space-y-4 backdrop-blur-md shadow-xl w-[70%] lg:w-full"
           >
-            {/* 🔸 Year Dropdown */}
+            {/* Dropdowns */}
             <FilterDropdown
               label="Year"
               value={filters.year}
@@ -158,8 +131,6 @@ useEffect(() => {
               setOpenDropdown={setOpenDropdown}
               onSelect={(val) => setFilters((f) => ({ ...f, year: val }))}
             />
-
-            {/* 🔸 Country Dropdown */}
             <FilterDropdown
               label="Country"
               value={filters.country}
@@ -168,8 +139,6 @@ useEffect(() => {
               setOpenDropdown={setOpenDropdown}
               onSelect={(val) => setFilters((f) => ({ ...f, country: val }))}
             />
-
-            {/* 🔸 Sector Dropdown */}
             <FilterDropdown
               label="Sector"
               value={filters.sector}
@@ -185,9 +154,9 @@ useEffect(() => {
   );
 }
 
-/* ===============================
-   🧩 Subcomponent: FilterDropdown
-   =============================== */
+// ===============================
+// Subcomponent: FilterDropdown
+// ===============================
 interface FilterDropdownProps {
   label: string;
   value: string;
@@ -208,23 +177,16 @@ function FilterDropdown({
   const isOpen = openDropdown === label;
 
   return (
-    <div className="relative">
-      {/* Label + Button */}
+    <div className="relative w-full">
+      {/* Button */}
       <button
         onClick={() => setOpenDropdown(isOpen ? null : label)}
-        className="flex justify-between items-center w-full px-3 py-2 
-          text-sm bg-white/5 rounded-lg border border-white/10 
-          text-white hover:bg-white/10 transition-all"
+        className="flex justify-between items-center w-full px-3 py-2 text-sm bg-white/5 rounded-lg border border-white/10 text-white hover:bg-white/10 transition-all"
       >
         <span className="text-orange-400">{label}</span>
         <div className="flex items-center gap-2">
-          <span className="text-gray-300 text-xs truncate max-w-[120px]">
-            {value || "All"}
-          </span>
-          <motion.div
-            animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
+          <span className="text-gray-300 text-xs truncate max-w-[120px]">{value || "All"}</span>
+          <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
             <ChevronDown size={14} className="text-[#E8602E]" />
           </motion.div>
         </div>
@@ -238,8 +200,7 @@ function FilterDropdown({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -5 }}
             transition={{ duration: 0.2 }}
-            className="absolute left-0 right-0 mt-2 bg-black/90 border border-white/10 
-              rounded-lg shadow-lg backdrop-blur-md z-50 overflow-hidden max-h-48 overflow-y-auto"
+            className="absolute left-0 w-full mt-2 bg-black/90 border border-white/10 rounded-lg shadow-lg backdrop-blur-md z-50 overflow-hidden max-h-48 overflow-y-auto"
           >
             <li
               onClick={() => onSelect("")}
