@@ -32,7 +32,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-60 px-6 sm:px-10 py-6 flex items-center justify-between text-white backdrop-blur-md bg-black/30 border-b border-white/10 transition-all">
+    <nav className="fixed top-0 left-0 w-full z-60 px-6 sm:px-10 py-6 font-sans flex items-center justify-between text-white backdrop-blur-md bg-black/30 border-b border-white/10 transition-all">
       {/* === LOGO === */}
       <Link href="/" className="flex items-center relative z-50">
         <Image
@@ -72,10 +72,11 @@ const Navbar = () => {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4 text-[#E25B2B]"
+          className="h-4 w-4 text-[#E25B2B] cursor-pointer"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
+          onClick={handleSearch}
         >
           <path
             strokeLinecap="round"
