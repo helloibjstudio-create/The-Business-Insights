@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import { BusinessLogo, InterviewBg, thirdOrange } from "@/public";
+import { Al, BusinessLogo, InterviewBg, thirdOrange } from "@/public";
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
@@ -18,7 +18,16 @@ const TermsSection = () => {
   return (
     <section className="relative  bg-black text-white overflow-hidden">
       {/* Background Image */}
-
+        
+          <a href="https://al-tahaluf.com/en/">
+            <Image
+            src={Al}
+            alt="DHL Banner"
+            width={1180}
+            height={233}
+            className="z-10 relative top-32 md:top-32 lg:top-32 mx-auto  object-contain w-[90%] sm:w-[80%] lg:w-[80%]"
+          />
+          </a>
       {/* Navbar */}
       <Navbar />
 
@@ -32,9 +41,10 @@ const TermsSection = () => {
             priority
           />
         </div>
+              
 
         <section
-          className="relative z-10 w-[300px] md:w-[500px] lg:w-[1000px] top-20 mx-auto mt-24 mb-32 p-6 md:p-9 
+          className="relative z-10 w-[320px] md:w-[500px] lg:w-[1000px] top-20 mx-auto mt-24 mb-32 p-6 md:p-9 
         bg-orange-500/3 border border-white/10 backdrop-blur-2xl glow-orange2 rounded-2xl shadow-[0_0_40px_rgba(232,96,46,0.1)] 
         leading-relaxed text-[15px] sm:text-base"
         >

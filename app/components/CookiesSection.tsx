@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import { BusinessLogo, InterviewBg, thirdOrange } from "@/public";
+import { Anni, BusinessLogo, InterviewBg, thirdOrange } from "@/public";
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
@@ -18,12 +18,20 @@ const CookiesSection = () => {
   return (
     <section className="relative  bg-black text-white overflow-hidden">
       {/* Background Image */}
-
+      <a href="https://www.takatufscholars.om/">
+        <Image
+          src={Anni}
+          alt="DHL Banner"
+          width={1180}
+          height={233}
+          className="z-10 relative top-32 md:top-32 lg:top-32 mx-auto  object-contain w-[90%] sm:w-[80%] lg:w-[80%]"
+        />
+      </a>
       {/* Navbar */}
       <Navbar />
 
       <section>
-        <div className="absolute -top-250 w-full h-full">
+        <div className="absolute -top-20 w-full h-full">
           <Image
             src={thirdOrange}
             alt="Third section banner"
@@ -42,17 +50,20 @@ const CookiesSection = () => {
             Cookies Policy
           </h1>
           <p className="mb-5 font-sans">
-            Information last updated: 16th August 2018 
+            Information last updated: 16th August 2018
           </p>
-            <p className="mb-5 font-sans">The Business Insight
-            (“we,” “us,” or “our”) employs cookies on the thebusinessinsight.com
-            website (referred to as the “Service”). Your use of the Service
-            implies your agreement to the utilization of cookies. </p>
-            <p className="mb-12 font-sans">Our Cookies
-            Policy delineates the nature of cookies, their application, the
-            possible involvement of third-party partners in their use on the
-            Service, your choices concerning cookies, and additional insights
-            into their operation.</p>
+          <p className="mb-5 font-sans">
+            The Business Insight (“we,” “us,” or “our”) employs cookies on the
+            thebusinessinsight.com website (referred to as the “Service”). Your
+            use of the Service implies your agreement to the utilization of
+            cookies.{" "}
+          </p>
+          <p className="mb-12 font-sans">
+            Our Cookies Policy delineates the nature of cookies, their
+            application, the possible involvement of third-party partners in
+            their use on the Service, your choices concerning cookies, and
+            additional insights into their operation.
+          </p>
           <div className="font-sans">
             <h1 className="font-bold">Definition of cookies:</h1>
             <p className="pb-5">

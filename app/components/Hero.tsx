@@ -123,7 +123,7 @@ const Hero = () => {
       <HeroParallax />
 
       <AnimatePresence mode="wait">
-        <motion.div className="max-w-7xl relative text-white mx-auto  ">
+        <motion.div className="max-w-7xl relative text-white mx-10 xl:mx-auto  ">
           {/* --- ARTICLES SECTION --- */}
           <div
             key="articles-section"

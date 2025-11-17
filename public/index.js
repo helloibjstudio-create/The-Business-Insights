@@ -15,6 +15,9 @@ export const ArticleBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v176
 export const ReportBg = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762345231/background_3_iaw83v.png"
 export const Cart = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1762656417/image_8_1_pevhrx.png"
 export const Oman = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1763315841/cropped-Banner-Omans-infrastructure-funds_api0jz.png"
+export const Al = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1763366139/cropped-Banner-Al-Tahalouf-Real-Estate_mbzezq.png"
+export const Anni = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1763367013/cropped-Banner-Takaful_odhegn.jpg"
+export const scho = "https://res.cloudinary.com/dnzntr9lt/image/upload/v1763367383/cropped-Banner-Simaat-property-management_rwhrr8.png"
 
 
  export const curvedImages = [
