@@ -664,45 +664,47 @@ useEffect(() => {
           <h1 className="text-2xl font-bold mt-5 md:mt-5 lg:mt-0 mb-6">Admin Dashboard</h1>
           
           <ul className="space-y-3">
-            {[
-              "interviews",
-              "articles",
-              "exclusiveInterviews",
-              "reports",
-              "events",
-            ].map((tab) => (
-              <li
-                key={tab}
-                onClick={() => {
-                  setActiveTab(tab as any);
-                  setSidebarOpen(false)
-                  setView("list"); // reset to list view
-                  setFormData({
-                    id: null,
-                    name: "",
-                    sector: [],
-                    image_url: "",
-                    description: "",
-                    title: "",
-                    price: "",
-                    year: "",
-                    link: "",
-                    discounted_price: "",
-                    state: "",
-                    country: [],
-                    write_up: "",
-                  });
-                  setSidebarOpen(false);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                className={`cursor-pointer p-2 rounded-md transition w-fit ${
-                  activeTab === tab ? "text-orange-500 " : "hover:text-gray-400"
-                }`}
-              >
-                {tab}
-              </li>
-            ))}
-          </ul>
+  {[
+    { value: "interviews", label: "Interviews" },
+    { value: "articles", label: "Articles" },
+    { value: "exclusiveInterviews", label: "Exclusive Interviews" },
+    { value: "reports", label: "Reports" },
+    { value: "events", label: "Events" },
+  ].map(({ value, label }) => (
+    <li
+      key={value}
+      onClick={() => {
+        setActiveTab(value as any);
+        setSidebarOpen(false);
+        setView("list");
+
+        setFormData({
+          id: null,
+          name: "",
+          sector: [],
+          image_url: "",
+          description: "",
+          title: "",
+          price: "",
+          year: "",
+          link: "",
+          discounted_price: "",
+          state: "",
+          country: [],
+          write_up: "",
+        });
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }}
+      className={`cursor-pointer p-2 rounded-md transition w-fit ${
+        activeTab === value ? "text-orange-500" : "hover:text-gray-400"
+      }`}
+    >
+      {label}
+    </li>
+  ))}
+</ul>
+
           <div className="mt-8 border-t border-gray-700  bottom-0 pt-4">
             
             <button
