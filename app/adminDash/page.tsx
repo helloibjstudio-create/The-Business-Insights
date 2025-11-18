@@ -654,8 +654,15 @@ useEffect(() => {
         {!sidebarOpen && (
       <MenuIcon
   onClick={() => setSidebarOpen(true)}
-  className="fixed top-4 left-4 z-50 cursor-pointer text-orange-500 w-6 h-6 lg:w-8 lg:h-8"
- />
+  className="
+    fixed top-5 left-5 
+    lg:top-6 lg:left-6 
+    w-7 h-7 lg:w-8 lg:h-8 
+    text-orange-500 
+    cursor-pointer z-50 
+    drop-shadow-lg
+  "
+/>
     )}
         {/* Sidebar */}
         <aside  className={`fixed left-0 top-0 h-screen w-64 bg-white/3 backdrop-blur-2xl p-6 space-y-4 border-r border-gray-700 overflow-auto transform transition-transform duration-300 z-50
