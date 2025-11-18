@@ -764,7 +764,7 @@ useEffect(() => {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="bg-white/3 backdrop-blur-xl w-screen rounded-2xl p-6 border border-white/10 shadow-xl"
+              className="bg-white/3 backdrop-blur-xl lg:mr-10 lg:w-screen rounded-2xl p-6 border border-white/10 shadow-xl"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {activeData.map((item, index) => renderCard(item, index))}
