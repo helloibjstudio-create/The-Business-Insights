@@ -1,11 +1,54 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "./Navbar";
 import { BusinessHero } from "@/public";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+
+const MOCK_INTERVIEWS = [
+  {
+    id: "1",
+    name: "Jorge Guerra",
+    sector: "Real Estate",
+    image_url:
+      "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764537072/Image_dpmjfe.png",
+    description:
+      "In terms of single-family homes, the primary opportunity lies in non-FHA 5% financeable condos...",
+    year: "2024",
+    country: "USA",
+    write_up: "<p>Full interview coming soon...</p>",
+  },
+  {
+    id: "2",
+    name: "Jorge Guerra",
+    sector: "Real Estate",
+    image_url:
+      "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764537072/Image_dpmjfe.png",
+    description:
+      "In terms of single-family homes, the primary opportunity lies in non-FHA 5% financeable condos...",
+    year: "2024",
+    country: "USA",
+    write_up: "<p>Full interview coming soon...</p>",
+  },
+  {
+    id: "3",
+    name: "Jorge Guerra",
+    sector: "Real Estate",
+    image_url:
+      "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764537072/Image_dpmjfe.png",
+    description:
+      "In terms of single-family homes, the primary opportunity lies in non-FHA 5% financeable condos...",
+    year: "2024",
+    country: "USA",
+    write_up: "<p>Full interview coming soon...</p>",
+  },
+];
 
 export default function HeroPage() {
+  const router = useRouter();
   return (
     <section className="relative min-h-screen overflow-hidden flex items-start pb-12">
       <Navbar />
@@ -36,14 +79,14 @@ export default function HeroPage() {
             in crucial business sectors across the world.
           </p>
 
-          <button className="bg-orange-600 w-fit text-white px-8 py-4 rounded-xl text-lg font-semibold flex items-center gap-2 hover:bg-orange-700 transition">
+          <button  className="bg-orange-600 w-fit text-white px-8 py-4 rounded-xl text-lg font-semibold flex items-center gap-2 hover:bg-orange-700 transition">
             Explore Interviews
             <ArrowRight className="w-5 h-5" />
           </button>
         </div>
 
         {/* RIGHT INTERVIEW CARDS SECTION */}
-        <div className="flex flex-col items-end space-y-1">
+        <div className="flex flex-col md:items-center lg:items-end space-y-1">
           
           {/* TOP MAIN IMAGE CARD */}
           <div className="relative w-[396px] h-[240px] rounded-2xl overflow-hidden shadow-lg">
@@ -55,7 +98,7 @@ export default function HeroPage() {
             />
 
             {/* Orange arrow button */}
-            <button className="absolute right-1 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[10px] flex items-center justify-center shadow-lg">
+            <button  onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[0].id}`)} className="absolute right-1 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[10px] flex items-center justify-center shadow-lg">
               <ArrowRight />
             </button>
           </div>
@@ -86,7 +129,7 @@ export default function HeroPage() {
                   fill
                   className="object-cover"
                 />
-              <button className="absolute right-0 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
+              <button onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[1].id}`)} className="absolute right-0 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
                 <ArrowRight className="w-4 h-4" />
               </button>
               </div>
@@ -106,7 +149,7 @@ export default function HeroPage() {
                   fill
                   className="object-cover"
                 />
-              <button className="absolute right-0 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
+              <button onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[2].id}`)} className="absolute right-0 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
                 <ArrowRight className="w-4 h-4" />
               </button>
               </div>

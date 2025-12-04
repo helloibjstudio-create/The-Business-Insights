@@ -55,7 +55,7 @@ export default function FeaturedReports() {
       <div className="max-w-[1400px] mx-auto">
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-12">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-12">
           <div>
             <h2 className="text-[clamp(1.8rem,5vw,3rem)] font-semibold">
               Featured Reports

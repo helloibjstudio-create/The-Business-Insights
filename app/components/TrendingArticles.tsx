@@ -34,12 +34,12 @@ export default function TrendingArticles() {
       <div className="max-w-[1400px] mx-auto">
 
         {/* HEADER */}
-        <div className="flex items-center justify-between mb-14">
+        <div className="flex flex-col lg:flex-row lg:items-center  justify-between mb-14">
           <div>
             <h2 className="text-[clamp(1.8rem,5vw,3rem)] font-semibold tracking-tight">
               Trending Articles
             </h2>
-            <p className="text-gray-300 text-[clamp(1rem,2vw,1.2rem)] mt-1">
+            <p className="text-gray-300 text-[clamp(1rem,2vw,1.2rem)] mt-1 mb-2">
               Explore our latest articles and insights.
             </p>
           </div>
@@ -48,7 +48,7 @@ export default function TrendingArticles() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              className="bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] px-6 py-3 rounded-xl font-medium flex items-center gap-2"
+              className="bg-[#E8602E] hover:bg-white  text-white hover:text-[#E8602E]  w-49 px-6 py-3 rounded-xl font-medium flex items-center gap-4 space-y-2"
             >
               View All Articles →
             </motion.button>
@@ -63,7 +63,7 @@ export default function TrendingArticles() {
               className="bg-transparent rounded-3xl overflow-hidden shadow-xl mb-10 p-0 flex flex-col lg:flex-row"
             >
               {/* IMAGE SECTION */}
-              <div className="relative w-full lg:w-[620px] h-[320px] lg:h-[420px] rounded-3xl overflow-hidden">
+              <div className="relative w-[100%] lg:w-[620px] h-[280px] lg:h-[420px] rounded-3xl overflow-hidden">
                 <Image
                   src={featured.image_url}
                   alt={featured.name}
@@ -74,14 +74,14 @@ export default function TrendingArticles() {
                 {/* ARROW BUTTON ON IMAGE */}
                 <Link
                   href={`/exclusive/${featured.id}`}
-                  className="absolute bottom-3 right-3 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] px-6 py-4 rounded-2xl flex items-center justify-center text-2xl font-bold transition-all"
+                  className="absolute bottom-1 lg:bottom-3 right-2 lg:right-3 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] px-2 py-2 lg:px-6 lg:py-4 rounded-md lg:rounded-2xl flex items-center justify-center text-2xl font-bold transition-all"
                 >
                   →
                 </Link>
               </div>
 
               {/* TEXT SECTION */}
-              <div className="p-8 lg:p-12 flex flex-col justify-center w-full lg:w-[45%]">
+              <div className="p-2 lg:p-12 flex flex-col justify-center w-full lg:w-[45%]">
                 <h3 className="text-[clamp(1.4rem,2.5vw,4rem)] font-semibold leading-tight">
                   {featured.name}
                 </h3>
@@ -93,7 +93,7 @@ export default function TrendingArticles() {
             </motion.div>
 
             {/* SMALL ARTICLES UNDER THE FEATURED ONE */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {others.map((item) => (
                 <motion.div
                   key={item.id}
@@ -118,7 +118,7 @@ export default function TrendingArticles() {
 
                   {/* Title */}
                   <div className="mt-4">
-                  <p className="text-[1rem] font-medium leading-tight line-clamp-3 w-[169px] flex-grow">
+                  <p className="text-[1rem] font-medium leading-tight line-clamp-3 w-[120px] md:w-[106px] lg:w-[169px]  flex-grow">
                     {item.name}
                   </p>
 

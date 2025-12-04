@@ -200,7 +200,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Section */}
-      <div className="border-t border-gray-900 mt-10 pt-6 text-start px-9 text-white flex justify-between text-sm">
+      <div className="border-t border-gray-900 mt-10 pt-6  px-9 text-white flex flex-col lg:flex-row text-center justify-between text-sm">
         <p>© {CurrentYear} The Business Insights. All rights reserved.</p>
         <p>Designed by IBJ Studio x Hyperthesis.</p>
       </div>

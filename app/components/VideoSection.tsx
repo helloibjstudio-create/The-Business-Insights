@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Play, PlayCircle, PlayCircleIcon } from "lucide-react";
 
 export default function StaticFeatureSection() {
   return (
@@ -61,8 +62,8 @@ export default function StaticFeatureSection() {
               {/* Play button */}
               <Link href="/somewhere">
                 <div className="absolute inset-0">
-                  <div className="absolute w-[38px] h-[38px] rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center">
-                    <span className="text-white">▶</span>
+                  <div className="absolute left-4 bottom-4 w-[38px] h-[38px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center">
+                    <Play className="text-white" />
                   </div>
                 </div>
               </Link>
@@ -89,7 +90,7 @@ export default function StaticFeatureSection() {
               <Link href="/somewhere">
                 <div className="absolute inset-0">
                   <div className="absolute left-4 bottom-4 w-[38px] h-[38px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center">
-                    <span className="text-white">▶</span>
+                    <Play className="text-white" />
                   </div>
                 </div>
               </Link>
@@ -117,7 +118,7 @@ export default function StaticFeatureSection() {
               <Link href="/somewhere">
                 <div className="absolute inset-0">
                   <div className="absolute left-4 bottom-4 w-[38px] h-[38px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center">
-                    <span className="text-white">▶</span>
+                    <Play className="text-white" />
                   </div>
                 </div>
               </Link>
