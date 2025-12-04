@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+:root {
+  --font-sora: var(--font-sora);
+}
+
+
+
+
 
 html, body {
   scroll-behavior: smooth;

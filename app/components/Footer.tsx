@@ -2,10 +2,78 @@ import Image from "next/image";
 import Link from "next/link";
 import { Phone, Mail, Linkedin, X, Github, Instagram } from "lucide-react";
 import logo from "@/public/logo.png"; // replace with your actual path
-import { BusinessLogo } from "@/public";
+import { BusinessLogo, mailbox } from "@/public";
 
 export default function Footer() {
+  const CurrentYear = new Date().getFullYear();
   return (
+    <>
+    <section
+              key="Newsletter"
+              className="relative bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[1000px] mx-auto  lg:mt-28 overflow-visible px-6 md:px-10 py-10 flex flex-col md:flex-row items-center justify-between"
+            >
+              {/* Mailbox Image */}
+              <div className="absolute -top-16 sm:-top-20 md:-top-24 lg:-top-28 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 flex justify-center md:justify-start w-full md:w-auto z-0">
+                <Image
+                  src={mailbox}
+                  alt="Mailbox illustration"
+                  width={420}
+                  height={420}
+                  className="w-[200px] sm:w-[250px] md:w-[320px] z-0 lg:w-[400px] h-auto object-contain"
+                  priority
+                />
+              </div>
+    
+              {/* Text & Form Wrapper */}
+              <div className="mt-32 sm:mt-36 md:mt-0 md:ml-[340px] lg:ml-[380px] flex flex-col items-center md:items-start text-center md:text-left space-y-5 md:space-y-6 font-sans w-full px-4 md:px-0">
+                <h2 className="text-2xl sm:text-3xl md:text-[30px] font-bold leading-snug max-w-[520px]">
+                  Join us! Subscribe to our weekly newsletter
+                </h2>
+    
+                <form className="flex items-center bg-[#2D0C00] rounded-full px-3 py-2 gap-2 w-full max-w-[380px] justify-between">
+                  {/* Icon */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="flex-shrink-0"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M11.5 6C8.189 6 5.5 8.689 5.5 12C5.5 15.311 8.189 18 11.5 18C14.811 18 17.5 15.311 17.5 12C17.5 8.689 14.811 6 11.5 6ZM11.5 8C13.708 8 15.5 9.792 15.5 12C15.5 14.208 13.708 16 11.5 16C9.292 16 7.5 14.208 7.5 12C7.5 9.792 9.292 8 11.5 8Z"
+                      fill="white"
+                    />
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M19.25 17L19.343 16.999C20.304 16.975 21.22 16.583 21.902 15.902C22.605 15.198 23 14.245 23 13.25V11C23 5.52 18.592 1.07 13.129 1.001L13 1H12C5.929 1 1 5.929 1 12C1 18.071 5.929 23 12 23C12.552 23 13 22.552 13 22C13 21.448 12.552 21 12 21C7.033 21 3 16.967 3 12C3 7.033 7.033 3 12 3H13C17.418 3 21 6.582 21 11V13.25C21 13.714 20.816 14.159 20.487 14.487C20.159 14.816 19.714 15 19.25 15M19.25 15C18.786 15 18.341 14.816 18.013 14.487C17.684 14.159 17.5 13.714 17.5 13.25V8C17.5 7.465 17.08 7.028 16.551 7.001L16.5 7C15.948 7 15.5 7.448 15.5 8C15.5 8 15.5 10.935 15.5 13.25C15.5 14.245 15.895 15.198 16.598 15.902C17.302 16.605 18.255 17 19.25 17"
+                      fill="white"
+                    />
+                  </svg>
+    
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="flex-grow text-white placeholder-gray-300 z-30 bg-transparent outline-none text-sm md:text-base px-2"
+                  />
+    
+                  <button
+                    type="submit"
+                    className="bg-white cursor-pointer text-[#282828] text-sm md:text-base px-5 py-1.5 rounded-full font-medium hover:bg-gray-200 transition"
+                  >
+                    Subscribe
+                  </button>
+                </form>
+    
+                <p className="text-sm sm:text-base md:text-[18px] text-white/80 font-medium">
+                  Stay up to date and enjoy a{" "}
+                  <span className="font-semibold">10% off</span> any purchase
+                </p>
+              </div>
+            </section>
     <footer key="footer" className="bg-black z-30 relative text-white py-10 md:py-14 font-sans">
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
         {/* Left Section */}
@@ -132,9 +200,11 @@ export default function Footer() {
       </div>
 
       {/* Bottom Section */}
-      <div className="border-t border-gray-900 mt-10 pt-6 text-start px-9 text-white text-sm">
-        © 2025 IBJ Studio x Hyperthesis. All rights reserved.
+      <div className="border-t border-gray-900 mt-10 pt-6 text-start px-9 text-white flex justify-between text-sm">
+        <p>© {CurrentYear} The Business Insights. All rights reserved.</p>
+        <p>Designed by IBJ Studio x Hyperthesis.</p>
       </div>
     </footer>
+    </>
   );
 }

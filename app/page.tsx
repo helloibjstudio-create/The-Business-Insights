@@ -12,21 +12,12 @@ import TrendingArticles from "./components/TrendingArticles";
 import StaticFeatureSection from "./components/VideoSection";
 import FeaturedReports from "./components/FeaturedReports";
 import EventHighlight from "./components/EventHighlight";
+import MoreInterviews from "./components/MoreInterviews";
 
 
 export default function Home() {
 
-  const [interviews, setInterviews] = useState<any[]>([]);
-  const [visibleInterviews, setVisibleInterviews] = useState(4);
 
-  useEffect(() => {
-    async function loadData() {
-      const res = await fetch("/api/interviews");
-      const data = await res.json();
-      setInterviews(data);
-    }
-    loadData();
-  }, []);
   return (
     <main className="relative min-h-screen bg-black">
       {/* <Navbar /> */}
@@ -36,7 +27,8 @@ export default function Home() {
       <StaticFeatureSection />
       <FeaturedReports />
       <EventHighlight />
-      {/* <Footer /> */}
+      <MoreInterviews />
+      <Footer />
     </main>
   );
 }

@@ -74,7 +74,7 @@ export default function TrendingArticles() {
                 {/* ARROW BUTTON ON IMAGE */}
                 <Link
                   href={`/exclusive/${featured.id}`}
-                  className="absolute bottom-6 right-6 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] w-12 h-12 rounded-2xl flex items-center justify-center text-2xl font-bold transition-all"
+                  className="absolute bottom-3 right-3 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] px-6 py-4 rounded-2xl flex items-center justify-center text-2xl font-bold transition-all"
                 >
                   →
                 </Link>
@@ -106,11 +106,11 @@ export default function TrendingArticles() {
                       src={item.image_url}
                       alt={item.name}
                       fill
-                      className="object-cover"
+                      className="object-cover w-[182px] h-[180px]"
                     />
                     <Link
                       href={`/exclusive/${item.id}`}
-                      className="bg-[#E8602E] hover:bg-white absolute right-2 bottom-1 text-white hover:text-[#E8602E] w-[40px] h-[40px] rounded-[12px] p-3 transition-all"
+                      className="bg-[#E8602E] hover:bg-white absolute right-2 bottom-1 text-white hover:text-[#E8602E]  rounded-[12px] px-4 py-3 items-center transition-all"
                     >
                       →
                     </Link>
@@ -118,7 +118,7 @@ export default function TrendingArticles() {
 
                   {/* Title */}
                   <div className="mt-4">
-                  <p className="text-[1rem] font-medium leading-tight line-clamp-4 flex-grow">
+                  <p className="text-[1rem] font-medium leading-tight line-clamp-3 w-[169px] flex-grow">
                     {item.name}
                   </p>
 

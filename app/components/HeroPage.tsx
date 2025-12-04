@@ -23,11 +23,11 @@ export default function HeroPage() {
       </div>
 
       {/* MAIN CONTENT */}
-      <div className="w-full max-w-7xl mx-auto px-4 lg:px-0 pt-40 grid grid-cols-1 lg:grid-cols-2 gap-12 relative">
+      <div className="w-full max-w-7xl mx-auto px-4 lg:px-0 pt-40 items-center grid grid-cols-1 lg:grid-cols-2 gap-12 relative">
         
         {/* LEFT TEXT SECTION */}
         <div className="flex flex-col justify-start">
-          <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight mb-6">
+          <h1 className="text-5xl lg:text-7xl font-semibold text-white leading-tight mb-6">
             Business Insight <br /> You Can Trust
           </h1>
 
@@ -55,7 +55,7 @@ export default function HeroPage() {
             />
 
             {/* Orange arrow button */}
-            <button className="absolute right-4 top-1/2 -translate-y-1/2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
+            <button className="absolute right-1 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[10px] flex items-center justify-center shadow-lg">
               <ArrowRight />
             </button>
           </div>
@@ -78,34 +78,37 @@ export default function HeroPage() {
           <div className="flex flex-col space-y-4">
             
             {/* CARD 1 */}
-            <div className="relative w-[396px] h-28 rounded-xl overflow-hidden bg-white/10 backdrop-blur-2xl border border-white/10 flex">
-              <div className="relative w-[150px] h-full">
+            <div className="relative w-[396px] h-38 rounded-xl overflow-hidden bg-black/30 backdrop-blur-2xl border border-white/10 flex">
+              <div className="relative w-[210px] h-full">
                 <Image
                   src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1764538313/Mask_group_zlx7ex.png"
                   alt="Card 1"
                   fill
                   className="object-cover"
                 />
+              <button className="absolute right-0 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
+                <ArrowRight className="w-4 h-4" />
+              </button>
               </div>
 
               <div className="flex items-center px-4 text-white text-sm flex-1">
                 Chile’s Copper Production and Advancements
               </div>
 
-              <button className="absolute right-3 bottom-3 bg-orange-500 hover:bg-orange-600 transition text-white w-10 h-10 rounded-[15px] flex items-center justify-center shadow-lg">
-                <ArrowRight className="w-4 h-4" />
-              </button>
             </div>
 
             {/* CARD 2 */}
-            <div className="relative w-[396px] h-28 rounded-xl overflow-hidden bg-white/10 backdrop-blur-2xl border border-white/10 flex">
-              <div className="relative w-[150px] h-full">
+            <div className="relative w-[396px] h-38 rounded-xl overflow-hidden bg-black/30 backdrop-blur-2xl border border-white/10 flex">
+              <div className="relative w-[210px] h-full">
                 <Image
                   src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1764538601/Mask_group_1_cfbzff.png"
                   alt="Card 2"
                   fill
                   className="object-cover"
                 />
+              <button className="absolute right-0 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
+                <ArrowRight className="w-4 h-4" />
+              </button>
               </div>
 
               <div className="flex items-center px-4 text-white text-sm flex-1">
@@ -113,9 +116,6 @@ export default function HeroPage() {
                 Disruptive Technologies for Growth
               </div>
 
-              <button className="absolute right-3 bottom-3 bg-orange-500 hover:bg-orange-600 transition text-white w-10 h-10 rounded-[15px] flex items-center justify-center shadow-lg">
-                <ArrowRight className="w-4 h-4" />
-              </button>
             </div>
 
           </div>
