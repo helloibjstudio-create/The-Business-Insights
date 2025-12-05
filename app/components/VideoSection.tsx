@@ -51,7 +51,7 @@ export default function StaticFeatureSection() {
 
           {/* CARD 1 */}
           <motion.div whileHover={{ scale: 1.02 }} className="w-full">
-            <div className="relative w-full h-[190px] rounded-2xl overflow-hidden">
+            <div className="relative w-full h-[290px] rounded-2xl overflow-hidden">
               <Image
                 src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1764580251/77438542680a0e7d0d0dbfc0bfe6c5e9e2d99db9_kogovb.png"
                 alt="Chile’s Copper Production and Advancements"
@@ -79,7 +79,7 @@ export default function StaticFeatureSection() {
 
           {/* CARD 2 */}
           <motion.div whileHover={{ scale: 1.02 }}>
-            <div className="relative w-full h-[190px] rounded-2xl overflow-hidden">
+            <div className="relative w-full h-[290px] rounded-2xl overflow-hidden">
               <Image
                 src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1764580293/ca49de05ec6e0b70fea7e585a6725f5416b62d47_s6nsvu.png"
                 alt="Automation and Disruptive Technologies"
@@ -107,7 +107,7 @@ export default function StaticFeatureSection() {
 
           {/* CARD 3 */}
           <motion.div whileHover={{ scale: 1.02 }}>
-            <div className="relative w-full h-[190px] rounded-2xl overflow-hidden">
+            <div className="relative w-full h-[290px] rounded-2xl overflow-hidden">
               <Image
                 src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1764580333/b2b4a08d33bdc8cb0a00c3125bd2f541674ffac6_zizizu.png"
                 alt="India’s Pharma Industry"

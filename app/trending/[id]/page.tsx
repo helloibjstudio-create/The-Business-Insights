@@ -1,40 +1,30 @@
 "use client";
 
 import Image from "next/image";
+import { ArrowLeft } from "lucide-react";
+import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { use } from "react";
 
 const MOCK_ARTICLES = [
   {
   id: "1",
-  name: "Jorge Guerra",
+  name: "Navigating the Opportunities and Challenges of Vogue Minerals in Africa",
   sector: "Real Estate",
   image_url:
-    "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764537072/Image_dpmjfe.png",
+    "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764958226/Navigating-the-Opportunities-and-Challenges-of-Vogue-Minerals-in-Africa-min_vz8zuk.jpg",
   description:
     "In terms of single-family homes, the primary opportunity lies in non-FHA 5% financeable condos...",
   year: "2024",
   country: "USA",
   write_up: `
-    <p><strong>Can you please give us an introduction to Miami Association of Realtors and its role in the real estate industry of Miami?</strong></p>
-
-    <p>The Miami Association of Realtors is a prominent organization dedicated to serving real estate professionals in the Miami-Dade area. It plays a pivotal role in Miami’s real estate landscape by providing invaluable resources, support, and networking opportunities for real estate agents, brokers, and industry stakeholders. Through advocacy, education, and access to comprehensive market data, the association fosters professionalism, expertise, and ethical practices within Miami’s real estate community. Additionally, it serves as a bridge between professionals, policymakers, and the community, contributing significantly to the growth and development of the real estate sector in Miami.</p>
-
-    <p><strong>What sets apart the Miami-Dade real estate market from the rest of South Florida?</strong></p>
-
-    <p>In terms of single-family homes, the primary opportunity lies in non-FHA 5% financeable condos. We’re actively lobbying for better affordability in that market segment to ensure broader accessibility for the general public. I anticipate a significant upturn in that lower-end, nonfinanceable condo sector over the next few years.</p>
-
-    <p>For individuals eyeing personal residences, especially those relocating from places like New York, South Florida presents compelling reasons to move. Over the last decade, property appreciation has been consistently strong. Coupled with low interest rates, this creates an excellent opportunity to find your dream home and settle there for the long term.</p>
-
-    <p><strong>How do you assess the Miami-Dade market?</strong></p>
-
-    <p>I find stability in the market from January to February 2020 less appealing. I thrive in markets with fluctuation because that’s where the significant opportunities and profits lie. Recently, in the multifamily sector, we witnessed diminished returns due to an influx of capital.</p>
-
-    <p><strong>What do you anticipate as the aftermath of the COVID-19 pandemic?</strong></p>
-
-    <p>Presently, due to the interest rates, there’s a tremendous window of opportunity for buyers. Despite the pandemic, potential buyers are making moves, and brokers report increased demand.</p>
+  <p>The surge in demand for vogue minerals, including lithium, graphite, cobalt, and vanadium, driven by the rapid development of battery technology, has captivated the attention of investors and developers. However, capitalizing on these opportunities requires a strategic understanding of market uncertainties and a strong technical focus to mitigate potential risks.</p>
+  <p>Vogue minerals refer to commodities that are not bound by the traditional mineral cycle but instead thrive on new demand patterns arising from technological advancements and applications. Currently, the increasing demand for energy storage in large-scale batteries, used in various sectors like electric vehicles and renewable energy, has propelled the consumption of these minerals.</p>
+  <p>While vogue minerals are extracted worldwide, Africa stands out as a significant current source and a promising region for new prospects. SRK Consulting, through its involvement in exploration strategy, design, execution, and technical assessments, has recognized Africa’s potential in these minerals. Lithium deposits can be found in evaporite and pegmatite formations across South Africa, Namibia, Zimbabwe, Mozambique, Mali, and the Rift Valley in Kenya and Tanzania. SRK’s work on lithium projects in the Democratic Republic of Congo suggests favorable exploration opportunities and the potential to define resources and reserves, similar to Australian deposits.</p>
+  <p>The Central African Copper Belt, particularly the Democratic Republic of Congo, holds extensive reserves of cobalt, with additional production coming from South Africa and Madagascar. Graphite, found in metamorphic sedimentary rocks, is abundant in over 50 deposits across Africa, with significant accumulations reported in Mozambique, Tanzania, Malawi, Madagascar, Ghana, Ethiopia, and Namibia. SRK has contributed to several graphite projects in Africa, providing financing reviews, independent reporting, and project development advice. Africa’s vanadium resources, crucial for storing renewable energy, are mainly found in magmatic layered intrusions like the Bushveld Complex in South Africa and the Tete Complex in Mozambique. Karst deposits in countries such as Namibia, Angola, and the Republic of Congo also hold high-grade vanadate deposits.</p>
+  <p>The allure of being a first mover in these minerals is a powerful motivator, but it comes with inherent risks. Market demand for vogue minerals is less predictable than for globally traded commodities, and technological innovation constantly disrupts demand and pricing forecasts. As breakthroughs emerge, the amounts of minerals required in batteries can change rapidly. This uncertainty can lead to market imbalances, impacting prices and jeopardizing new and existing projects. The recent expansion ramp-up delays faced by a leading Chilean lithium producer serve as a prime example.</p>
+  <p>To navigate these challenges, project studies, planning, and design must be approached with agility. Flexibility becomes paramount in optimizing the net present value of a project and ensuring commercial sustainability. Low-cost operations and efficient technical studies are prioritized, but flexibility should not be compromised. The design must allow for operational adjustments during market fluctuations. Surface mining methods may be preferable over underground operations, and hydro-metallurgical processes might offer more flexibility than smelting technologies. Modular plant arrangements can provide operational flexibility in managing market-based financial risks. In addition to operational flexibility, marketing strategies should be carefully considered. Producers can seek downstream investment or joint venture agreements with end-users such as refinery builders and battery suppliers. This vertical integration approach tailors the mine plan and design to suit the end-user’s needs, simplifying ore reserve reporting. Collaborating in research and development is also valuable, as it fosters win-win relationships and strengthens the project’s sustainability. Trade agreements and long-term off-take agreements with battery manufacturers enhance technical risk mitigation and project viability.</p>
+  <p>SRK acknowledges the importance of assessing a wide range of options to achieve optimal project economics and decision-making. This approach becomes even more critical when dealing with the opportunities and challenges presented by vogue minerals in Africa.</p>
   `,
 },
 
@@ -64,12 +54,12 @@ const MOCK_ARTICLES = [
   {
     id: "3",
     name: "Singapore’s Aerospace Industry Looks to Automation and Disruptive Technologies for Growth",
-    sector: "Real Estate",
+    sector: "Mining",
     image_url:
       "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764580293/ca49de05ec6e0b70fea7e585a6725f5416b62d47_s6nsvu.png",
     description:
       "In terms of single-family homes, the primary opportunity lies in non-FHA 5% financeable condos...",
-    year: "2024",
+    year: "2019",
     country: "USA",
     write_up: `<p>Singapore’s aerospace industry is facing challenges such as rising costs and labor shortages. To address these issues, the industry is turning to automation, Internet of Things (IoT), additive manufacturing, and other processes associated with Industry 4.0. While the industry has invested in training facilities to increase the number of skilled graduates, the demand for skilled labor is outpacing the country’s capacity to supply trained workers. In response, the Singapore Economic Development Board (EDB) and the Agency for Science, Technology and Research (A*STAR) are investing heavily in technology innovation processes. However, the feasibility and long-term effectiveness of these disruptive technologies remain uncertain.</p>
                <p>Implementing robotics and automation successfully in aerospace operations requires alignment between manufacturers and regulators. The transition into automation is gradually taking place, with companies like JET Aviation utilizing 3D scanning, engineering, and manufacturing processes for aircraft assembly. Skilled labor will be replaced by automation, but the industry is cautious about adopting Artificial Intelligence (AI) due to regulatory challenges. The payback and economic viability of automation in the aerospace aftermarket environment are also being questioned, particularly for small and medium-sized enterprises (SMEs).</p>
@@ -80,138 +70,103 @@ const MOCK_ARTICLES = [
                <p>Singapore’s aerospace industry recognizes the importance of embracing automation and disruptive technologies to address rising costs and labor shortages. While challenges and uncertainties exist, companies are exploring opportunities in automation, additive manufacturing, IoT, and data analytics. The industry’s focus on digital transformation, training simulations, and personalized services highlights the commitment to innovation and competitiveness. As Singapore continues to pioneer smart technologies and Big Data processes, the industry remains poised to shape the future of aerospace operations and maintain its position as a global leader.</p>
     `,
   },
+  {
+  id: "4",
+    name: "India’s Pharma Industry: Navigating Beyond Pandemic Triumphs",
+    sector: "Pharmaceuticals",
+    image_url:
+      "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764959103/Indias-Pharma-Industry-min_x6dela.jpg",
+    description:
+      "In terms of single-family homes, the primary opportunity lies in non-FHA 5% financeable condos...",
+    year: "2019",
+    country: "USA",
+    write_up: `<p>India’s pharmaceutical sector has risen to remarkable heights during the Covid-19 pandemic, ensuring a seamless supply of medicines and vaccines to over a billion people. The country, renowned as the ‘pharmacy of the world’, has long been a dominant force in the global pharmaceutical landscape, known for its extensive generics production and affordable medicines.
+</p>
+    <p>The pandemic acted as a catalyst, underscoring India’s crucial role in pharmaceuticals. As the world grappled with the unprecedented health crisis, India’s pharmaceutical industry stepped up to meet the increasing global demand for essential drugs, personal protective equipment, and most notably, COVID-19 vaccines.
+
+</p>
+<p>One of India’s key strengths lies in its robust and diversified pharmaceutical ecosystem, encompassing a vast network of drug manufacturers, contract research organizations, and a pool of skilled scientists and researchers. This infrastructure, combined with a proactive government approach, propelled the rapid development and distribution of vaccines.
+
+</p>
+<p>The country’s pharmaceutical prowess extends beyond domestic consumption; India remains a global supplier, exporting pharmaceuticals to over 200 countries. During the pandemic, this capability played a pivotal role in supporting numerous nations, especially lower-income countries, by providing them with affordable and accessible medical supplies.
+
+</p>
+<p>The Indian pharmaceutical industry’s response to the pandemic highlighted its adaptability and resilience. Despite initial disruptions due to lockdowns and supply chain challenges, the sector quickly pivoted to meet the evolving demands. This adaptability not only sustained the domestic supply but also contributed significantly to global efforts in combating the pandemic.
+
+</p>
+<p>Furthermore, India’s adeptness in research and development has positioned it as a crucial player in the global healthcare landscape. The sector’s continuous investments in innovation and technology, alongside a strong regulatory framework, have paved the way for the development of a spectrum of high-quality drugs and vaccines.
+
+</p>
+<p>Amidst the success, challenges persist. The sector faces ongoing pressures related to quality control, the need for increased R&D investment, and the push for greater digital integration in pharmaceutical operations. Moreover, the emergence of new variants and the unpredictability of the pandemic continue to test the industry’s agility and preparedness.
+
+</p>
+<p>As the world navigates through the pandemic’s phases, India’s pharmaceutical industry remains at the forefront, leveraging its expertise, infrastructure, and experience to chart the way forward. The lessons learned and the strides made during these testing times will undoubtedly shape the future trajectory of India’s pharmaceutical sector, reinforcing its pivotal role in global healthcare delivery.
+
+</p>
+<p>The pandemic may fade, but the legacy of India’s pharmaceutical industry’s response will endure as a testament to its resilience, innovation, and unwavering commitment to global health.
+
+</p>
+`,
+  },
 ];
 
+export default function InterviewPage({ params }: { params: Promise<{ id: string }> }) {
+  // ⬅️ USE IT LIKE THIS
+  const { id } = use(params);
 
-interface Interview {
-  id: string;
-  name: string;
-  sector: string;
-  image_url: string;
-  description: string;
-  year: string;
-  link: string;
-  country: string;
-}
+  const article = MOCK_ARTICLES.find(i => i.id === id);
 
-export default function TrendingArticles() {
-  const [articles, setArticles] = useState<Interview[]>([]);
-
-  useEffect(() => {
-    fetch("/api/TrendingArticles")
-      .then((res) => res.json())
-      .then((data) => setArticles(data))
-      .catch((err) => console.error("Error fetching:", err));
-  }, []);
-
-  const featured = articles[0];
-  const others = articles.slice(1, 4);
-
-    const router = useRouter();
-  
+  if (!article) {
+    return <div className="text-white p-20">Interview not found.</div>;
+  }
 
   return (
-    <section className="w-full bg-[#0b0b0d] text-white py-20 px-6 lg:px-16 font-sans">
-      <div className="max-w-[1400px] mx-auto">
+    <section className="bg-black text-white min-h-screen">
+      <Navbar />
 
-        {/* HEADER */}
-        <div className="flex flex-col lg:flex-row lg:items-center  justify-between mb-14">
-          <div>
-            <h2 className="text-[clamp(1.8rem,5vw,3rem)] font-semibold tracking-tight">
-              Trending Articles
-            </h2>
-            <p className="text-gray-300 text-[clamp(1rem,2vw,1.2rem)] mt-1 mb-2">
-              Explore our latest articles and insights.
-            </p>
+      <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
+
+        <Link
+          href="/"
+          className="flex items-center text-orange-400 cursor-pointer mb-10 hover:text-orange-500 transition"
+        >
+          <ArrowLeft className="mr-2 w-4 h-4" />
+          Back to homepage
+        </Link>
+
+            <div className="relative w-full h-[300px] rounded-xl overflow-hidden">
+              <Image
+                src={article.image_url}
+                alt={article.name}
+                fill
+                className="object-cover rounded-xl"
+              />
+            </div>
+        <div className="flex flex-col-reverse lg:flex-row gap-10 backdrop-blur-2xl bg-white/5 p-6 rounded-xl border border-white/10">
+
+          <div className="w-full">
+            <h1 className="text-3xl font-semibold mb-6">
+              {article.name}
+            </h1>
+
+            
+
+            <div
+            className="prose prose-invert space-y-4"
+              dangerouslySetInnerHTML={{
+                __html: article.write_up,
+              }}
+            />
           </div>
 
-          <Link href="/articles">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="bg-[#E8602E] hover:bg-white  text-white hover:text-[#E8602E]  w-49 px-6 py-3 rounded-xl font-medium flex items-center gap-4 space-y-2"
-            >
-              View All Articles →
-            </motion.button>
-          </Link>
-        </div>
-
-        {featured && (
-          <>
-            {/* FEATURED FULL-WIDTH MAIN CARD */}
-            <motion.div
-              whileHover={{ scale: 1.01 }}
-              className="bg-transparent rounded-3xl overflow-hidden shadow-xl mb-10 p-0 flex flex-col lg:flex-row"
-            >
-              {/* IMAGE SECTION */}
-              <div className="relative w-fit h-full rounded-2xl overflow-hidden">
-                <Image
-                  src={featured.image_url}
-                  alt={featured.name}
-                  width={620}
-                  height={440}
-                  className="object-cover"
-                />
-
-                {/* ARROW BUTTON ON IMAGE */}
-                <button
-                  onClick={() => router.push(`/trending/${MOCK_ARTICLES[0].id}`)}
-                  className="absolute bottom-0 right-0 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] w-[84] h-[84] rounded-md lg:rounded-[24px] flex items-center justify-center text-2xl font-bold transition-all"
-                >
-                  →
-                </button>
-              </div>
-
-              {/* TEXT SECTION */}
-              <div className="p-2 lg:p-12 flex flex-col justify-center w-full lg:w-[45%]">
-                <h3 className="text-[clamp(1.4rem,2.5vw,4rem)] font-semibold leading-tight">
-                  {featured.name}
-                </h3>
-
-                <p className="text-gray-300 mt-4 text-[1.05rem] leading-relaxed line-clamp-5">
-                  {featured.description}
-                </p>
-              </div>
-            </motion.div>
-
-            {/* SMALL ARTICLES UNDER THE FEATURED ONE */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full h-full">
-              {others.map((item) => (
-                <motion.div
-                  key={item.id}
-                  whileHover={{ scale: 1.02 }}
-                  className="bg-transparent relative rounded-3xl shadow-lg flex items-center gap-6 border border-white/3"
-                >
-                  {/* Thumbnail */}
-                  <div className="relative w-fit h-full rounded-xl overflow-hidden">
-                    <Image
-                      src={item.image_url}
-                      alt={item.name}
-                      width={187}
-                      height={196}
-                      className="object-cover "
-                    />
-                    <button
-                    onClick={() => router.push(`/trending/${item.id}`)}
-                      className="bg-[#E8602E] hover:bg-white absolute right-0 bottom-0 text-white hover:text-[#E8602E]  rounded-[12px] px-4 py-3 items-center transition-all"
-                    >
-                      →
-                    </button>
-                  </div>
-
-                  {/* Title */}
-                  <div className="mt-4">
-                  <p className="text-[1rem] font-medium leading-tight line-clamp-3 w-[120px] md:w-[106px] lg:w-[169px]  flex-grow">
-                    {item.name}
-                  </p>
-
-                  {/* Arrow */}
-                  </div>
-                </motion.div>
-              ))}
+          <div className="w-full lg:w-[400px]">
+            <div className="text-end mb-4">
+              <p className="text-sm opacity-80">{article.year}</p>
+              <p className="text-sm opacity-80">{article.sector}</p>
             </div>
-          </>
-        )}
+
+          </div>
+        </div>
       </div>
     </section>
   );

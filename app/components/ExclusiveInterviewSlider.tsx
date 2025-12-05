@@ -97,7 +97,7 @@ export default function ExclusiveInterviewsSlider() {
               </div>
 
               {/* TEXT CONTENT */}
-              <div className="p-5 font-sans w-[98%] rounded-2xl m-auto mb-1 right-0 left-0 bottom-0 absolute bg-black/80">
+              <div className="p-5 font-sans w-[98%] backdrop-blur-2xl rounded-2xl m-auto mb-1 right-0 left-0 bottom-0 absolute bg-black/60">
                 <h3 className="font-semibold text-xl">{person.name}</h3>
                 <p className="text-grey-900 text-sm mt-1 mb-2">{person.description}</p>
                 <hr className="text-[#E8602E]"/>
