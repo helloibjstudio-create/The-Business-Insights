@@ -106,13 +106,7 @@ export default function ExclusiveInterviewsSlider() {
                   className="inline-flex items-center mt-3 text-[#E8602E] hover:underline text-sm"
                 >
                   Read Interview
-                  <Image
-                    src={vector2}
-                    alt="arrow"
-                    width={10}
-                    height={10}
-                    className="ml-1"
-                  />
+                  <ArrowRight className="w-5"/>
                 </Link>
               </div>
             </motion.div>
