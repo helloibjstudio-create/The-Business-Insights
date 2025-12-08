@@ -98,7 +98,7 @@ export default function TrendingArticles() {
   const [articles, setArticles] = useState<Interview[]>([]);
 
   useEffect(() => {
-    fetch("/api/TrendingArticles")
+    fetch("/api/trendingarticles")
       .then((res) => res.json())
       .then((data) => setArticles(data))
       .catch((err) => console.error("Error fetching:", err));
@@ -125,7 +125,7 @@ export default function TrendingArticles() {
             </p>
           </div>
 
-          {/* <Link href="/articles">
+          <Link href="/articles">
             <motion.button
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
@@ -133,7 +133,7 @@ export default function TrendingArticles() {
             >
               View All Articles →
             </motion.button>
-          </Link> */}
+          </Link>
         </div>
 
         {featured && (
