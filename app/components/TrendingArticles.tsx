@@ -98,7 +98,7 @@ export default function TrendingArticles() {
   const [articles, setArticles] = useState<Interview[]>([]);
 
   useEffect(() => {
-    fetch("/api/trendingarticles")
+    fetch("api/trendingarticles")
       .then((res) => res.json())
       .then((data) => setArticles(data))
       .catch((err) => console.error("Error fetching:", err));
