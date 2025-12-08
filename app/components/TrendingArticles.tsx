@@ -241,7 +241,7 @@ export default function TrendingArticles() {
 
                   {/* Title */}
                   <div className="mt-4">
-                  <p className="text-[1rem] font-medium leading-tight line-clamp-3 w-[120px] md:w-[106px] lg:w-[169px]  flex-grow">
+                  <p className="text-[1rem] font-medium leading-tight line-clamp-4 lg:line-clamp-3 w-[120px] md:w-[106px] lg:w-[169px]  flex-grow">
                     {item.name}
                   </p>
 
