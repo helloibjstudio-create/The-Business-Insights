@@ -10,7 +10,7 @@ export default function Footer() {
     <>
     <section
               key="Newsletter"
-              className="relative bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[1000px] mx-auto  lg:mt-28 overflow-visible px-6 md:px-10 py-10 flex flex-col md:flex-row items-center justify-between"
+              className="relative bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[1000px] mx-[16px] lg:mx-auto mt-16  lg:mt-28 overflow-visible px-6 md:px-10 py-10 flex flex-col md:flex-row items-center justify-between"
             >
               {/* Mailbox Image */}
               <div className="absolute -top-16 sm:-top-20 md:-top-24 lg:-top-28 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 flex justify-center md:justify-start w-full md:w-auto z-0">
@@ -30,7 +30,7 @@ export default function Footer() {
                   Join us! Subscribe to our weekly newsletter
                 </h2>
     
-                <form className="flex items-center bg-[#2D0C00] rounded-full px-3 py-2 gap-2 w-full max-w-[380px] justify-between">
+                <form className="flex items-center bg-[#2D0C00] rounded-full px-3 py-2 gap-2 w-full max-w-[450px] justify-between">
                   {/* Icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ export default function Footer() {
     
                   <button
                     type="submit"
-                    className="bg-white cursor-pointer text-[#282828] text-sm md:text-base px-5 py-1.5 rounded-full font-medium hover:bg-gray-200 transition"
+                    className="bg-white cursor-pointer text-[#282828] text-sm md:text-base px-2.5 py-1 lg:px-5 lg:py-1.5 rounded-full font-medium hover:bg-gray-200 transition"
                   >
                     Subscribe
                   </button>

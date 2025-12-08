@@ -86,7 +86,7 @@ export default function HeroPage() {
         </div>
 
         {/* RIGHT INTERVIEW CARDS SECTION */}
-        <div className="flex flex-col md:items-center lg:items-end space-y-1">
+        <div className="flex flex-col items-center md:items-start lg:items-end space-y-1">
           
           {/* TOP MAIN IMAGE CARD */}
           <div className="relative w-[396px] h-[240px] rounded-2xl overflow-hidden shadow-lg">
@@ -118,7 +118,7 @@ export default function HeroPage() {
           </div>
 
           {/* TWO SMALL CARDS */}
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col md:flex-row lg:flex-col space-y-4">
             
             {/* CARD 1 */}
             <div className="relative w-[396px] h-38 rounded-xl overflow-hidden bg-black/30 backdrop-blur-2xl border border-white/10 flex">

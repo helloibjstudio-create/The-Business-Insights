@@ -10,7 +10,7 @@ import Footer from "./Footer";
 import SearchAndFilter from "./SearchFilter";
 
 interface Interview {
-  hidden: any;
+  hidden: boolean;
   id: string;
   name: string;
   sector: string;

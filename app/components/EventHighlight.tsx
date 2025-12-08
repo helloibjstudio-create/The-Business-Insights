@@ -66,24 +66,25 @@ const UpcomingEvents: React.FC = () => {
 
         {/* Top-right navigation buttons */}
         <div className="flex gap-4">
-          <button onClick={scrollLeft} className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center ">
+          <button onClick={scrollLeft} className="w-12 h-12 rounded-xl bg-[#262626] hover:bg-[#F57328] flex items-center justify-center ">
             <ArrowLeft />
           </button>
-          <button onClick={scrollRight} className="w-12 h-12 rounded-xl bg-[#F57328] flex items-center justify-center ">
+          <button onClick={scrollRight} className="w-12 h-12 rounded-xl bg-[#262626] hover:bg-[#F57328] flex items-center justify-center ">
             <ArrowRight />
           </button>
         </div>
       </div>
 
       {/* Event cards row */}
-      <div className="flex gap-10 max-w-[1400px] mx-auto overflow-x-auto hide-scrollbar pb-4">
+      <div 
+  ref={sliderRef} className="flex gap-10 max-w-[1400px] mx-auto overflow-x-auto hide-scrollbar pb-4">
         {events.map((event) => (
           <div
             key={event.id}
             className="min-w-[580px] items-center bg-black rounded-2xl flex gap-4"
           >
             {/* Image */}
-            <div className="relative w-[286px] h-[206px] rounded-xl overflow-hidden flex-shrink-0">
+            <div className="relative w-[237px] h-[200px] rounded-xl overflow-hidden flex-shrink-0">
               <Image
                 src={event.image}
                 alt={event.title}
@@ -91,8 +92,8 @@ const UpcomingEvents: React.FC = () => {
                 className="object-cover"
               />
 
-              <button className="absolute bottom-0 right-0 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] px-6 py-4 rounded-xl lg:rounded-2xl flex items-center justify-center text-2xl font-bold transition-all">
-                <ArrowRight />
+              <button className="absolute bottom-1 right-0 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] w-[56px] h-[56px]  rounded-[16px] flex items-center justify-center text-2xl font-bold transition-all">
+                <ArrowRight className="w-[24px] h-[18.67px]"/>
               </button>
             </div>
 

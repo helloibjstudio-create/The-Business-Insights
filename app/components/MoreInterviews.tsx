@@ -39,7 +39,7 @@ const MoreInterviews = () => {
       <div className="flex flex-col lg:flex-row max-w-[1400px] mx-auto justify-between lg:items-center mb-10">
         <div>
           <h2 className="text-[clamp(1.8rem,5vw,3rem)] font-semibold mb-2">More Interviews</h2>
-          <p className="text-gray-400 mb-2">Unlock the insights of industry leaders</p>
+          <p className="text-gray-400 mb-8">Unlock the insights of industry leaders</p>
         </div>
         <Link href="/Interviews" className="bg-[#F57328] w-fit px-5 py-3 rounded-xl font-medium flex items-center gap-2">
           View All Interviews →

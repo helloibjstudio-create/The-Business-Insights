@@ -56,9 +56,9 @@ export default function ExclusiveInterviewsSlider() {
   return (
     <motion.div className="relative bg-[#0E1116] text-white overflow-y-hidden">
       {/* HEADER */}
-      <div className="flex max-w-[1400px] mx-auto flex-col md:flex-row md:items-center md:justify-between mb-10 gap-6 px-4">
+      <div className="flex pt-12 max-w-[1400px] mx-auto flex-col md:flex-row md:items-center md:justify-between mb-10 gap-6 px-4">
         <div>
-          <h2 className="text-[clamp(1.8rem,5vw,3.5rem)] font-semibold">
+          <h2 className="text-[clamp(1.8rem,5vw,3.5rem)] font-semibold ">
             Exclusive Interviews
           </h2>
           <p className="text-gray-300 text-[clamp(1rem,2vw,1.25rem)] mt-2">
@@ -91,7 +91,8 @@ export default function ExclusiveInterviewsSlider() {
         >
           <ArrowLeft className="text-white" />
         </button>
-        <div className="flex overflow-x-auto gap-6   px-2 scrollbar-hide snap-x snap-mandatory">
+        <div 
+  ref={sliderRef} className="flex overflow-x-auto gap-6 px-2 scrollbar-hide snap-x snap-mandatory">
           {exclusiveInterviews?.map((person) => (
             <motion.div
               key={person.id}

@@ -161,12 +161,12 @@ export default function TrendingArticles() {
             <h2 className="text-[clamp(1.8rem,5vw,3rem)] font-semibold tracking-tight">
               Trending Articles
             </h2>
-            <p className="text-gray-300 text-[clamp(1rem,2vw,1.2rem)] mt-1 mb-2">
+            <p className="text-gray-300 text-[clamp(1rem,2vw,1.2rem)] mt-1 mb-8">
               Explore our latest articles and insights.
             </p>
           </div>
 
-          <Link href="/articles">
+          <Link href="/articles" className="w-fit">
             <motion.button
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
@@ -221,20 +221,20 @@ export default function TrendingArticles() {
                 <motion.div
                   key={item.id}
                   whileHover={{ scale: 1.02 }}
-                  className="bg-transparent relative rounded-3xl shadow-lg flex items-center gap-6 border border-white/3"
+                  className="bg-transparent relative rounded-3xl shadow-lg flex items-center gap-6 border border-white/10"
                 >
                   {/* Thumbnail */}
                   <div className="relative w-fit h-full rounded-xl overflow-hidden">
                     <Image
                       src={item.image_url}
                       alt={item.name}
-                      width={187}
-                      height={196}
+                      width={182}
+                      height={150.00719}
                       className="object-cover "
                     />
                     <button
                     onClick={() => router.push(`/trending/${item.id}`)}
-                      className="bg-[#E8602E] hover:bg-white absolute right-0 bottom-0 text-white hover:text-[#E8602E]  rounded-[12px] px-3 py-3 items-center transition-all"
+                      className="bg-[#E8602E] hover:bg-white absolute right-0 bottom-0 text-white hover:text-[#E8602E]  rounded-[12px] w-[40px] h-[40px] justify-center flex items-center transition-all"
                     >
                       <ArrowRight />
                     </button>

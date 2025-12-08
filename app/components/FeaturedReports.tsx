@@ -78,12 +78,12 @@ export default function FeaturedReports() {
             <h2 className="text-[clamp(1.8rem,5vw,3rem)] font-semibold">
               Featured Reports
             </h2>
-            <p className="text-gray-300 text-[1.1rem] mt-2">
+            <p className="text-gray-300 text-[1.1rem] mt-2 mb-8">
               Essential insights on key trends and leadership.
             </p>
           </div>
 
-          <Link href="/reports">
+          <Link href="/reports" className="w-fit">
             <motion.button
               whileHover={{ scale: 1.04 }}
               className="bg-[#E8602E] text-white px-7 py-3 rounded-xl font-medium flex items-center gap-2"
