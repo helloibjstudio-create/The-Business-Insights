@@ -1,7 +1,7 @@
 "use client";
 
 import { BusinessHero } from "@/public";
-import { Edit3, MenuIcon, Plus, Search, Trash2 } from "lucide-react";
+import { Edit3, Eye, EyeClosed, MenuIcon, Plus, Search, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -341,6 +341,40 @@ export default function AdminDashboard({
     }
   };
 
+  const handleHide = async (id: string, hide: boolean) => {
+  if (!confirm(`Are you sure you want to ${hide ? "hide" : "unhide"} this post?`)) return;
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ hidden: hide }),
+    });
+
+    const data = await res.json();
+
+    if (data.error) {
+      alert("Error updating post: " + data.error);
+    } else {
+      alert(`Post ${hide ? "hidden" : "unhidden"} successfully!`);
+      // Refresh list
+      fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${activeTab}`)
+        .then(res => res.json())
+        .then(newData => {
+          if (activeTab === "interviews") setInterviews(newData);
+          if (activeTab === "exclusiveInterviews") setExclusiveInterviews(newData);
+          if (activeTab === "articles") setArticles(newData);
+          if (activeTab === "reports") setReports(newData);
+          if (activeTab === "events") setEvents(newData);
+        });
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong while hiding/unhiding the post.");
+  }
+};
+
+
   // === EDIT ITEM ===
   const handleEdit = (item: any) => {
     setFormData({
@@ -489,6 +523,13 @@ useEffect(() => {
                 >
                   <Trash2 size={14} /> Delete
                 </button>
+                <button
+  onClick={() => handleHide(item.id, !item.hidden)}
+                  className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                >
+                  {item.hidden ? <Eye /> : <EyeClosed />}
+  <p>{item.hidden ? "Unhide" : "Hide"}</p>
+                </button>
               </div>
             </div>
           </div>
@@ -523,6 +564,12 @@ useEffect(() => {
                 >
                   <Trash2 size={14} /> Delete
                 </button>
+                <button
+  onClick={() => handleHide(item.id, !item.hidden)}
+  className="flex items-center gap-1 bg-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-600"
+>
+  {item.hidden ? "Unhide" : "Hide"}
+</button>
               </div>
             </div>
           </div>
@@ -558,6 +605,12 @@ useEffect(() => {
                 >
                   <Trash2 size={14} /> Delete
                 </button>
+                <button
+  onClick={() => handleHide(item.id, !item.hidden)}
+  className="flex items-center gap-1 bg-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-600"
+>
+  {item.hidden ? "Unhide" : "Hide"}
+</button>
               </div>
             </div>
           </div>
@@ -595,6 +648,12 @@ useEffect(() => {
                 >
                   <Trash2 size={14} /> Delete
                 </button>
+                <button
+  onClick={() => handleHide(item.id, !item.hidden)}
+  className="flex items-center gap-1 bg-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-600"
+>
+  {item.hidden ? "Unhide" : "Hide"}
+</button>
               </div>
             </div>
           </div>
@@ -603,7 +662,7 @@ useEffect(() => {
         return (
           <div
             key={index}
-            className="bg-black/20 border border-white/10 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+            className="bg-black/20 border border-white/10 w-screen rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
           >
             <div className="relative h-[200px]">
               <Image
@@ -631,6 +690,12 @@ useEffect(() => {
                 >
                   <Trash2 size={14} /> Delete
                 </button>
+                <button
+  onClick={() => handleHide(item.id, !item.hidden)}
+  className="flex items-center gap-1 bg-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-600"
+>
+  {item.hidden ? "Unhide" : "Hide"}
+</button>
               </div>
             </div>
           </div>
@@ -642,7 +707,7 @@ useEffect(() => {
 
   return (
     <>
-      <div  className=" bg-transparent w-full h-full font-sans font-[500] text-white flex">
+      <div  className=" bg-transparent w-screen h-full font-sans font-[500] text-white flex">
         <Image
         
           src={BusinessHero}

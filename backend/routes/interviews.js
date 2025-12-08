@@ -30,10 +30,11 @@ router.post("/", async (req, res) => {
  * GET /api/interviews
  * Fetch all interviews
  */
-router.get("/", async (req, res) => {
+app.get("/api/interviews", async (req, res) => {
   const { data, error } = await supabase
     .from("interviews")
     .select("*")
+    .eq("hidden", false)   // <-- only fetch visible posts
     .order("id", { ascending: false });
 
   if (error) return res.status(400).json({ error: error.message });
@@ -50,6 +51,21 @@ router.put("/:id", async (req, res) => {
   const { data, error } = await supabase
     .from("interviews") // change to the right table name (e.g. "articles")
     .update(updatedFields)
+    .eq("id", id)
+    .select();
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json({ success: true, data });
+});
+
+
+router.patch("/:id/hide", async (req, res) => {
+  const { id } = req.params;
+  const { hidden } = req.body; // boolean: true to hide, false to unhide
+
+  const { data, error } = await supabase
+    .from("interviews")
+    .update({ hidden })
     .eq("id", id)
     .select();
 

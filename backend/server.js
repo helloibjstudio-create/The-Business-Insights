@@ -13,7 +13,7 @@ app.use(cors({
     "http://localhost:3000",          // local dev
     "https://the-business-insights.vercel.app"
   ],  // or specify your frontend URL
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 app.use(express.json());
@@ -258,6 +258,33 @@ app.delete("/api/:table/:id", async (req, res) => {
 
   console.log(`✅ Deleted 1 record from ${table}`);
   res.json({ success: true });
+});
+
+
+
+// 🟠 Hide / Unhide Post
+app.put("/api/:table/:id/hide", async (req, res) => {
+  const { table, id } = req.params;
+  const { hide } = req.body; // boolean: true = hide, false = unhide
+
+  if (typeof hide !== "boolean") {
+    return res.status(400).json({ error: "'hide' must be boolean" });
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from(table)
+      .update({ hidden: hide })
+      .eq("id", id)
+      .select();
+
+    if (error) throw error;
+
+    res.json({ success: true, data, message: `Post ${hide ? "hidden" : "unhidden"} successfully.` });
+  } catch (err) {
+    console.error(`❌ Error hiding/unhiding in ${table}:`, err.message);
+    res.status(400).json({ error: err.message });
+  }
 });
 
 // ===================================================================

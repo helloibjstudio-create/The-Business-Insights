@@ -37,15 +37,18 @@ const Interviews = () => {
   }, []);
 
   // Fetch all interviews
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/interviews`)
-      .then((res) => res.json())
-      .then((data) => {
-        setInterviews(data);
-        setFilteredInterviews(data); // set initially
-      })
-      .catch((err) => console.error("Error fetching interviews:", err));
-  }, []);
+  const fetchInterviews = () => {
+  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/interviews`)
+    .then(res => res.json())
+    .then(data => {
+      setInterviews(data);
+      setFilteredInterviews(data);
+    });
+};
+
+useEffect(() => {
+  fetchInterviews();
+}, []);
 
   const totalPages = Math.ceil(filteredInterviews.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
