@@ -10,6 +10,7 @@ import Footer from "./Footer";
 import SearchAndFilter from "./SearchFilter";
 
 interface Interview {
+  hidden: any;
   id: string;
   name: string;
   sector: string;
@@ -37,17 +38,16 @@ const Interviews = () => {
   }, []);
 
   // Fetch all interviews
-  const fetchInterviews = () => {
+ useEffect(() => {
   fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/interviews`)
-    .then(res => res.json())
-    .then(data => {
-      setInterviews(data);
-      setFilteredInterviews(data);
-    });
-};
-
-useEffect(() => {
-  fetchInterviews();
+    .then((res) => res.json())
+    .then((data) => {
+      // Filter out hidden posts
+      const visible = data.filter((item: Interview) => !item.hidden);
+      setInterviews(visible);
+      setFilteredInterviews(visible);
+    })
+    .catch((err) => console.error("Error fetching interviews:", err));
 }, []);
 
   const totalPages = Math.ceil(filteredInterviews.length / ITEMS_PER_PAGE);

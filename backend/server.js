@@ -92,6 +92,20 @@ app.get("/api/interviews/:id", async (req, res) => {
   res.json(data);
 });
 
+router.patch("/api/interviews/:id", async (req, res) => {
+  const { id } = req.params;
+  const { hidden } = req.body;
+
+  const { data, error } = await supabase
+    .from("interviews")
+    .update({ hidden })
+    .eq("id", id)
+    .select();
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json({ success: true, data });
+});
+
 app.post("/api/exclusiveInterviews", async (req, res) => {
   const { name, sector, image_url, description, country, write_up, year, link } = req.body;
   const { data, error } = await supabase
