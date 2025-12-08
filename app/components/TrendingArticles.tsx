@@ -129,7 +129,7 @@ export default function TrendingArticles() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              className="bg-[#E8602E] hover:bg-white  text-white hover:text-[#E8602E]  w-49 px-6 py-3 rounded-xl font-medium flex items-center gap-4 space-y-2"
+              className="bg-[#E8602E] hover:bg-white  text-white hover:text-[#E8602E]  w-fit px-6 py-3 rounded-xl font-medium flex items-center gap-4 space-y-2"
             >
               View All Articles →
             </motion.button>
