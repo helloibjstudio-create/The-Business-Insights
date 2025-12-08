@@ -8,15 +8,16 @@ import { useRouter } from "next/navigation";
 
 const MOCK_ARTICLES = [
   {
-  id: "1",
-  name: "Jorge Guerra",
-  sector: "Real Estate",
-  image_url:
-    "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764537072/Image_dpmjfe.png",
-  description:
-    "In terms of single-family homes, the primary opportunity lies in non-FHA 5% financeable condos...",
-  year: "2024",
-  country: "USA",
+  id: 1,
+      name: "Navigating the Opportunities and Challenges of Vogue Minerals in Africa",
+      sector: "Mining",
+      image_url:
+        "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764575547/Mask_group_mpvsaf.png",
+      description:
+        "The surge in demand for vogue minerals, including lithium, graphite, and cobalt has captured the attention of investors and developers.",
+      year: "2024",
+      link: "/exclusive/1",
+      country: "Africa",
   write_up: `
     <p><strong>Can you please give us an introduction to Miami Association of Realtors and its role in the real estate industry of Miami?</strong></p>
 
@@ -39,15 +40,15 @@ const MOCK_ARTICLES = [
 },
 
   {
-    id: "2",
-    name: "Chile’s Copper Production and Advancements",
-    sector: "Mining",
-    image_url:
-      "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764580251/77438542680a0e7d0d0dbfc0bfe6c5e9e2d99db9_kogovb.png",
-    description:
-      "In terms of single-family homes, the primary opportunity lies in non-FHA 5% financeable condos...",
-    year: "2023",
-    country: "USA",
+    id: 2,
+      name: "Chile’s Copper Production and Advancements",
+      sector: "Mining",
+      image_url:
+        "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764575803/Mask_group_t8asf2.png",
+      description: "A deep dive into Chile’s advancements in copper production.",
+      year: "2024",
+      link: "/exclusive/2",
+      country: "Chile",
     write_up: `<p>Could Copper Become the New Oil? The red metal has historically served as an indicator of the global economy, but in recent years, a combination of diminishing physical stock, projected supply deficits, and strong long-term demand has propelled copper prices to record highs.</p>
                <p>The decreasing trend in copper inventories at Comex, Shanghai, and LME warehouses since 2018 poses a threat to the supply. Although new production from upcoming projects like Teck Resources’ Quebrada Blanca 2 in Chile and Anglo American’s Quellaveco in Peru is expected to increase copper levels in 2023, a deficit is anticipated from 2025 onwards.</p>
                <p>What sets the current situation apart is the challenge faced by the industry in quickly bringing projects into production. Speaking at the 2022 World Copper Conference, Erik Heimlich, head of base metals supply at CRU, suggested that over $100 billion must be invested in new developments to address an estimated annual supply deficit of 4.7 million tonnes by 2030. However, the likelihood of achieving this, equivalent to building eight projects the size of BHP’s Escondida mine, seems doubtful at best.</p>
@@ -62,15 +63,16 @@ const MOCK_ARTICLES = [
     `,
   },
   {
-    id: "3",
-    name: "Singapore’s Aerospace Industry Looks to Automation and Disruptive Technologies for Growth",
-    sector: "Real Estate",
-    image_url:
-      "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764580293/ca49de05ec6e0b70fea7e585a6725f5416b62d47_s6nsvu.png",
-    description:
-      "In terms of single-family homes, the primary opportunity lies in non-FHA 5% financeable condos...",
-    year: "2024",
-    country: "USA",
+    id: 3,
+      name: "Singapore’s Aerospace Industry Looks to Automation and Disruptive Technologies for Growth",
+      sector: "Aerospace",
+      image_url:
+        "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764575899/CTA_cy8dov.png",
+      description:
+        "Automation and disruptive technologies are shaping the next generation.",
+      year: "2024",
+      link: "/exclusive/3",
+      country: "Singapore",
     write_up: `<p>Singapore’s aerospace industry is facing challenges such as rising costs and labor shortages. To address these issues, the industry is turning to automation, Internet of Things (IoT), additive manufacturing, and other processes associated with Industry 4.0. While the industry has invested in training facilities to increase the number of skilled graduates, the demand for skilled labor is outpacing the country’s capacity to supply trained workers. In response, the Singapore Economic Development Board (EDB) and the Agency for Science, Technology and Research (A*STAR) are investing heavily in technology innovation processes. However, the feasibility and long-term effectiveness of these disruptive technologies remain uncertain.</p>
                <p>Implementing robotics and automation successfully in aerospace operations requires alignment between manufacturers and regulators. The transition into automation is gradually taking place, with companies like JET Aviation utilizing 3D scanning, engineering, and manufacturing processes for aircraft assembly. Skilled labor will be replaced by automation, but the industry is cautious about adopting Artificial Intelligence (AI) due to regulatory challenges. The payback and economic viability of automation in the aerospace aftermarket environment are also being questioned, particularly for small and medium-sized enterprises (SMEs).</p>
                <p>While automation may not be economically viable for all sectors of the aerospace industry, there are opportunities in the repair value stream. Companies like Accuron and Wah Son Engineering are seeking cost-efficiencies and addressing the shortage of skilled labor by adopting disruptive technologies such as additive manufacturing and robotic welding. Rolls-Royce, a key player in the industry, is implementing Industry 4.0 processes, including Big Data, IoT, and sensor technologies, to enhance their operations and offer predictive maintenance services.</p>
@@ -79,6 +81,44 @@ const MOCK_ARTICLES = [
                <p>Unmanned Aerial Vehicles (UAVs) are of interest to the Singapore aerospace industry, and collaborations between research institutions and companies are being explored. The Civil Aviation Authority of Singapore (CAAS) has signed an agreement with Airbus to experiment with delivery drones, demonstrating Singapore’s commitment to exploring new technologies. With significant investments and expertise, Singapore is well-positioned to lead the way in implementing new technologies to support the aerospace industry’s operations.</p>
                <p>Singapore’s aerospace industry recognizes the importance of embracing automation and disruptive technologies to address rising costs and labor shortages. While challenges and uncertainties exist, companies are exploring opportunities in automation, additive manufacturing, IoT, and data analytics. The industry’s focus on digital transformation, training simulations, and personalized services highlights the commitment to innovation and competitiveness. As Singapore continues to pioneer smart technologies and Big Data processes, the industry remains poised to shape the future of aerospace operations and maintain its position as a global leader.</p>
     `,
+  },
+  {
+  id: "4",
+    name: "India’s Pharma Industry: Navigating Beyond Pandemic Triumphs",
+    sector: "Pharmaceuticals",
+    image_url:
+      "https://res.cloudinary.com/dnzntr9lt/image/upload/v1764575978/CTA_k8o6ka.png",
+    description:
+      "In terms of single-family homes, the primary opportunity lies in non-FHA 5% financeable condos...",
+    year: "2019",
+    country: "USA",
+    write_up: `<p>India’s pharmaceutical sector has risen to remarkable heights during the Covid-19 pandemic, ensuring a seamless supply of medicines and vaccines to over a billion people. The country, renowned as the ‘pharmacy of the world’, has long been a dominant force in the global pharmaceutical landscape, known for its extensive generics production and affordable medicines.
+</p>
+    <p>The pandemic acted as a catalyst, underscoring India’s crucial role in pharmaceuticals. As the world grappled with the unprecedented health crisis, India’s pharmaceutical industry stepped up to meet the increasing global demand for essential drugs, personal protective equipment, and most notably, COVID-19 vaccines.
+
+</p>
+<p>One of India’s key strengths lies in its robust and diversified pharmaceutical ecosystem, encompassing a vast network of drug manufacturers, contract research organizations, and a pool of skilled scientists and researchers. This infrastructure, combined with a proactive government approach, propelled the rapid development and distribution of vaccines.
+
+</p>
+<p>The country’s pharmaceutical prowess extends beyond domestic consumption; India remains a global supplier, exporting pharmaceuticals to over 200 countries. During the pandemic, this capability played a pivotal role in supporting numerous nations, especially lower-income countries, by providing them with affordable and accessible medical supplies.
+
+</p>
+<p>The Indian pharmaceutical industry’s response to the pandemic highlighted its adaptability and resilience. Despite initial disruptions due to lockdowns and supply chain challenges, the sector quickly pivoted to meet the evolving demands. This adaptability not only sustained the domestic supply but also contributed significantly to global efforts in combating the pandemic.
+
+</p>
+<p>Furthermore, India’s adeptness in research and development has positioned it as a crucial player in the global healthcare landscape. The sector’s continuous investments in innovation and technology, alongside a strong regulatory framework, have paved the way for the development of a spectrum of high-quality drugs and vaccines.
+
+</p>
+<p>Amidst the success, challenges persist. The sector faces ongoing pressures related to quality control, the need for increased R&D investment, and the push for greater digital integration in pharmaceutical operations. Moreover, the emergence of new variants and the unpredictability of the pandemic continue to test the industry’s agility and preparedness.
+
+</p>
+<p>As the world navigates through the pandemic’s phases, India’s pharmaceutical industry remains at the forefront, leveraging its expertise, infrastructure, and experience to chart the way forward. The lessons learned and the strides made during these testing times will undoubtedly shape the future trajectory of India’s pharmaceutical sector, reinforcing its pivotal role in global healthcare delivery.
+
+</p>
+<p>The pandemic may fade, but the legacy of India’s pharmaceutical industry’s response will endure as a testament to its resilience, innovation, and unwavering commitment to global health.
+
+</p>
+`,
   },
 ];
 
@@ -95,17 +135,17 @@ interface Interview {
 }
 
 export default function TrendingArticles() {
-  const [articles, setArticles] = useState<Interview[]>([]);
+  // const [articles, setArticles] = useState<Interview[]>([]);
 
-  useEffect(() => {
-    fetch("api/trendingarticles")
-      .then((res) => res.json())
-      .then((data) => setArticles(data))
-      .catch((err) => console.error("Error fetching:", err));
-  }, []);
+  // useEffect(() => {
+  //   fetch("api/trendingarticles")
+  //     .then((res) => res.json())
+  //     .then((data) => setArticles(data))
+  //     .catch((err) => console.error("Error fetching:", err));
+  // }, []);
 
-  const featured = articles[0];
-  const others = articles.slice(1, 4);
+  const featured = MOCK_ARTICLES[0];
+  const others = MOCK_ARTICLES.slice(1, 4);
 
     const router = useRouter();
   
