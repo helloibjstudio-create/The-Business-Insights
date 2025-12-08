@@ -156,7 +156,7 @@ export default function TrendingArticles() {
                 {/* ARROW BUTTON ON IMAGE */}
                 <button
                   onClick={() => router.push(`/trending/${MOCK_ARTICLES[0].id}`)}
-                  className="absolute bottom-0 right-0 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] w-[84] h-[84] rounded-md lg:rounded-[24px] flex items-center justify-center text-2xl font-bold transition-all"
+                  className="absolute bottom-0 right-0 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] w-[54] h-[54] md:w-[84] md:h-[84] rounded-2xl lg:rounded-[24px] flex items-center justify-center text-2xl font-bold transition-all"
                 >
                   →
                 </button>
