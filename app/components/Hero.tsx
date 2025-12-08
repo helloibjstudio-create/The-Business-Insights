@@ -138,14 +138,14 @@ const Hero = () => {
                 on industry trends and news.
               </p>
             </div>
-            <Link href="/articles">
+            {/* <Link href="/articles">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 className="bg-orange-500 hover:bg-white text-white hover:text-orange-500 px-6 lg:px-9 py-4 lg:py-3  rounded-lg text-[16px] sm:text-[18px] transition"
               >
                 View All Articles
               </motion.button>
-            </Link>
+            </Link> */}
           </div>
 
           {/* --- ARTICLE CARDS --- */}
