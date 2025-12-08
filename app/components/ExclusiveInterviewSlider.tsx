@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -21,6 +21,7 @@ interface ExclusiveInterview {
 
 export default function ExclusiveInterviewsSlider() {
   const [exclusiveInterviews, setExclusiveInterviews] = useState<ExclusiveInterview[]>([]);
+    const sliderRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/exclusiveInterviews`)
@@ -40,10 +41,22 @@ export default function ExclusiveInterviewsSlider() {
       .catch((err) => console.error("Error fetching interviews:", err));
   }, []);
 
+ const scrollLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: -sliderRef.current.offsetWidth, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: sliderRef.current.offsetWidth, behavior: "smooth" });
+    }
+  };
+
   return (
-    <motion.div className="relative w-full mt-10 text-white overflow-y-hidden">
+    <motion.div className="relative bg-[#0E1116] text-white overflow-y-hidden">
       {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10 gap-6 px-4">
+      <div className="flex max-w-[1400px] mx-auto flex-col md:flex-row md:items-center md:justify-between mb-10 gap-6 px-4">
         <div>
           <h2 className="text-[clamp(1.8rem,5vw,3.5rem)] font-semibold">
             Exclusive Interviews
@@ -65,24 +78,26 @@ export default function ExclusiveInterviewsSlider() {
       </div>
 
       {/* SLIDER */}
+
+        {/* SLIDER CONTENT */}
+        <div className="max-w-[1400px] mx-auto">
       <div className="relative">
         {/* LEFT BUTTON */}
         <button
+        onClick={scrollLeft}
           className="absolute left-2 top-1/2 -translate-y-1/2 z-20 
           bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20
           w-12 h-12 rounded-full flex items-center justify-center"
         >
           <ArrowLeft className="text-white" />
         </button>
-
-        {/* SLIDER CONTENT */}
-        <div className="flex overflow-x-auto gap-6 px-2 scrollbar-hide snap-x snap-mandatory">
+        <div className="flex overflow-x-auto gap-6   px-2 scrollbar-hide snap-x snap-mandatory">
           {exclusiveInterviews?.map((person) => (
             <motion.div
               key={person.id}
               className="min-w-[280px] sm:min-w-[330px] lg:min-w-[360px]
                backdrop-blur-xl border border-white/10 rounded-2xl 
-              overflow-hidden shadow-lg snap-center flex-shrink-0 h-[420px]"
+              overflow-hidden shadow-lg snap-center flex-shrink-0 min-h-[420px] max-w-[1400px] mx-auto mb-12"
               whileHover={{ scale: 1.03 }}
               transition={{ ease: "easeOut" }}
             >
@@ -115,12 +130,14 @@ export default function ExclusiveInterviewsSlider() {
 
         {/* RIGHT BUTTON */}
         <button
+        onClick={scrollRight}
           className="absolute right-2 top-1/2 -translate-y-1/2 z-20 
           bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20
           w-12 h-12 rounded-full flex items-center justify-center"
         >
           <ArrowRight className="text-white" />
         </button>
+      </div>
       </div>
     </motion.div>
   );

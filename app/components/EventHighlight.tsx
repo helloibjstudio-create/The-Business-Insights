@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 // Local static data API inside the component
 const events = [
@@ -37,10 +38,25 @@ const events = [
 ];
 
 const UpcomingEvents: React.FC = () => {
+
+
+      const sliderRef = useRef<HTMLDivElement | null>(null);
+
+   const scrollLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: -sliderRef.current.offsetWidth, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: sliderRef.current.offsetWidth, behavior: "smooth" });
+    }
+  };
   return (
-    <section className="w-full bg-black text-white py-16 px-6 md:px-16">
+    <section className=" bg-[#000000] text-white py-16 px-6 md:px-16">
       {/* Header */}
-      <div className="flex justify-between items-center mb-10">
+      <div className="flex max-w-[1400px] mx-auto justify-between items-center mb-10">
         <div>
           <h2 className="text-[clamp(1.8rem,5vw,3rem)] font-semibold mb-2">
             Upcoming Events
@@ -50,17 +66,17 @@ const UpcomingEvents: React.FC = () => {
 
         {/* Top-right navigation buttons */}
         <div className="flex gap-4">
-          <button className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center ">
-            ←
+          <button onClick={scrollLeft} className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center ">
+            <ArrowLeft />
           </button>
-          <button className="w-12 h-12 rounded-xl bg-[#F57328] flex items-center justify-center ">
-            →
+          <button onClick={scrollRight} className="w-12 h-12 rounded-xl bg-[#F57328] flex items-center justify-center ">
+            <ArrowRight />
           </button>
         </div>
       </div>
 
       {/* Event cards row */}
-      <div className="flex gap-10 overflow-x-auto hide-scrollbar pb-4">
+      <div className="flex gap-10 max-w-[1400px] mx-auto overflow-x-auto hide-scrollbar pb-4">
         {events.map((event) => (
           <div
             key={event.id}
@@ -75,8 +91,8 @@ const UpcomingEvents: React.FC = () => {
                 className="object-cover"
               />
 
-              <button className="absolute bottom-0 right-0 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] px-5 py-3 rounded-xl lg:rounded-2xl flex items-center justify-center text-2xl font-bold transition-all">
-                →
+              <button className="absolute bottom-0 right-0 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] px-6 py-4 rounded-xl lg:rounded-2xl flex items-center justify-center text-2xl font-bold transition-all">
+                <ArrowRight />
               </button>
             </div>
 

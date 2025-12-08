@@ -7,9 +7,8 @@ import { Play, PlayCircle, PlayCircleIcon } from "lucide-react";
 
 export default function StaticFeatureSection() {
   return (
-    <section className="w-full bg-[#0A0A0C] text-white pb-20">
+    <section className="w-full bg-[#000000] text-white pb-20">
       <div className="max-w-[1500px] mx-auto px-6 lg:px-12">
-
         {/* MAIN FEATURED IMAGE */}
         <div className="relative w-full h-[560px] rounded-3xl overflow-hidden mb-12">
           <Image
@@ -30,15 +29,15 @@ export default function StaticFeatureSection() {
             </p>
 
             <h1 className="text-[clamp(1.8rem,3vw,3.2rem)] font-semibold leading-tight mt-2">
-              Singapore’s Aerospace Industry Looks to Automation and
-              Disruptive Technologies for Growth
+              Singapore’s Aerospace Industry Looks to Automation and Disruptive
+              Technologies for Growth
             </h1>
 
             {/* Play Button */}
             <Link href="/somewhere">
               <div className="flex items-center gap-3 mt-6 cursor-pointer">
                 <div className="w-[46px] h-[46px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center">
-                  <span className="text-white text-xl">▶</span>
+                  <Play className="text-white" />
                 </div>
                 <span className="text-gray-200 text-sm">16:08</span>
               </div>
@@ -48,7 +47,6 @@ export default function StaticFeatureSection() {
 
         {/* SMALL CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
           {/* CARD 1 */}
           <motion.div whileHover={{ scale: 1.02 }} className="w-full">
             <div className="relative w-full h-[290px] rounded-2xl overflow-hidden">
@@ -60,13 +58,13 @@ export default function StaticFeatureSection() {
               />
 
               {/* Play button */}
-              <Link href="/somewhere">
-                <div className="absolute inset-0">
-                  <div className="absolute left-4 bottom-4 w-[38px] h-[38px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center">
-                    <Play className="text-white" />
-                  </div>
+              <div
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <div className="w-[50px] h-[50px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center hover:bg-white/50 transition">
+                  <Play className="text-white" />
                 </div>
-              </Link>
+              </div>
             </div>
 
             <p className="text-xs uppercase tracking-wide text-gray-400 mt-3">
@@ -87,21 +85,21 @@ export default function StaticFeatureSection() {
                 className="object-cover"
               />
 
-              <Link href="/somewhere">
-                <div className="absolute inset-0">
-                  <div className="absolute left-4 bottom-4 w-[38px] h-[38px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center">
-                    <Play className="text-white" />
-                  </div>
+              <div
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <div className="w-[50px] h-[50px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center hover:bg-white/50 transition">
+                  <Play className="text-white" />
                 </div>
-              </Link>
+              </div>
             </div>
 
             <p className="text-xs uppercase tracking-wide text-gray-400 mt-3">
               Education
             </p>
             <p className="font-medium text-[1.05rem] leading-tight mt-1">
-              Singapore’s Aerospace Industry Looks to Automation and
-              Disruptive Technologies…
+              Singapore’s Aerospace Industry Looks to Automation and Disruptive
+              Technologies…
             </p>
           </motion.div>
 
@@ -115,13 +113,13 @@ export default function StaticFeatureSection() {
                 className="object-cover"
               />
 
-              <Link href="/somewhere">
-                <div className="absolute inset-0">
-                  <div className="absolute left-4 bottom-4 w-[38px] h-[38px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center">
-                    <Play className="text-white" />
-                  </div>
+              <div
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <div className="w-[50px] h-[50px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center hover:bg-white/50 transition">
+                  <Play className="text-white" />
                 </div>
-              </Link>
+              </div>
             </div>
 
             <p className="text-xs uppercase tracking-wide text-gray-400 mt-3">
@@ -131,7 +129,6 @@ export default function StaticFeatureSection() {
               India’s Pharma Industry: Navigating Beyond Pandemic Triumphs
             </p>
           </motion.div>
-
         </div>
       </div>
     </section>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 
 const MOCK_ARTICLES = [
   {
@@ -151,7 +152,7 @@ export default function TrendingArticles() {
   
 
   return (
-    <section className="w-full bg-[#0b0b0d] text-white py-20 px-6 lg:px-16 font-sans">
+    <section className="w-full bg-[#050607] text-white py-20 px-6 lg:px-16 font-sans">
       <div className="max-w-[1400px] mx-auto">
 
         {/* HEADER */}
@@ -198,7 +199,7 @@ export default function TrendingArticles() {
                   onClick={() => router.push(`/trending/${MOCK_ARTICLES[0].id}`)}
                   className="absolute bottom-0 right-0 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] w-[54] h-[54] md:w-[84] md:h-[84] rounded-2xl lg:rounded-[24px] flex items-center justify-center text-2xl font-bold transition-all"
                 >
-                  →
+                  <ArrowRight />
                 </button>
               </div>
 
@@ -233,9 +234,9 @@ export default function TrendingArticles() {
                     />
                     <button
                     onClick={() => router.push(`/trending/${item.id}`)}
-                      className="bg-[#E8602E] hover:bg-white absolute right-0 bottom-0 text-white hover:text-[#E8602E]  rounded-[12px] px-4 py-3 items-center transition-all"
+                      className="bg-[#E8602E] hover:bg-white absolute right-0 bottom-0 text-white hover:text-[#E8602E]  rounded-[12px] px-3 py-3 items-center transition-all"
                     >
-                      →
+                      <ArrowRight />
                     </button>
                   </div>
 

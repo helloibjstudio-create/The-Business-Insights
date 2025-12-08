@@ -34,9 +34,9 @@ const MoreInterviews = () => {
   const list = interviews.slice(1, 5);
 
   return (
-    <section className="w-full bg-[#0F1115] text-white py-16 px-6 md:px-16 font-sans">
+    <section className="w-screen bg-[#0E1116]  text-white py-16 px-6 md:px-16 font-sans">
       {/* HEADER */}
-      <div className="flex flex-col lg:flex-row justify-between lg:items-center mb-10">
+      <div className="flex flex-col lg:flex-row max-w-[1400px] mx-auto justify-between lg:items-center mb-10">
         <div>
           <h2 className="text-[clamp(1.8rem,5vw,3rem)] font-semibold mb-2">More Interviews</h2>
           <p className="text-gray-400 mb-2">Unlock the insights of industry leaders</p>
@@ -46,7 +46,7 @@ const MoreInterviews = () => {
         </Link>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-10">
+      <div className="flex flex-col max-w-[1400px] mx-auto lg:flex-row gap-10">
         {/* LEFT — FEATURED INTERVIEW */}
         <div className="flex-1 bg-transparent rounded-3xl p-6 flex flex-col gap-6">
           <div className="relative w-full h-[380px] rounded-2xl overflow-hidden">
@@ -66,7 +66,7 @@ const MoreInterviews = () => {
         </div>
 
         {/* RIGHT — INTERVIEW LIST */}
-        <div className="flex-1 flex flex-col gap-6">
+        <div className="flex-1 flex flex-col  gap-6">
           {list.map((item) => (
             <div key={item.id} className="flex items-center gap-4 bg-transparent h-fit border-[0.2px] border-white  rounded-xl">
               <div className="relative w-34 h-34 rounded-xl overflow-hidden">
