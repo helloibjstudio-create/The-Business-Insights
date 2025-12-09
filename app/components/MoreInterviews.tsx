@@ -41,9 +41,11 @@ const MoreInterviews = () => {
           <h2 className="text-[clamp(1.8rem,5vw,3rem)] font-semibold mb-2">More Interviews</h2>
           <p className="text-gray-400 mb-8">Unlock the insights of industry leaders</p>
         </div>
-        <Link href="/Interviews" className="bg-[#F57328] w-fit px-5 py-3 rounded-xl font-medium flex items-center gap-2">
+        <motion.div whileHover={{ scale: 1.04 }}>
+        <Link href="/Interviews" className="bg-[#E8602E] hover:bg-white hover:text-[#E8602E] w-fit px-5 py-3 rounded-xl font-medium flex items-center gap-2">
           View All Interviews →
         </Link>
+        </motion.div>
       </div>
 
       <div className="flex flex-col max-w-[1400px] mx-auto lg:flex-row gap-10">

@@ -86,7 +86,7 @@ export default function FeaturedReports() {
           <Link href="/reports" className="w-fit">
             <motion.button
               whileHover={{ scale: 1.04 }}
-              className="bg-[#E8602E] text-white px-7 py-3 rounded-xl cursor-pointer font-medium flex items-center gap-2"
+              className="bg-[#E8602E] hover:bg-white hover:text-[#E8602E] text-white px-7 py-3 rounded-xl cursor-pointer font-medium flex items-center gap-2"
             >
               View All Reports <ArrowRight />
             </motion.button>
