@@ -16,7 +16,7 @@ export default function Preloader() {
           setTimeout(() => setIsDone(true), 300);
           return 100;
         }
-        return prev + 0.56;
+        return prev + 1.12;
       });
     }, 50);
 
