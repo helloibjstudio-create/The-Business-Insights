@@ -48,7 +48,7 @@ const MoreInterviews = () => {
 
       <div className="flex flex-col max-w-[1400px] mx-auto lg:flex-row gap-10">
         {/* LEFT — FEATURED INTERVIEW */}
-        <div className="flex-1 bg-transparent rounded-3xl p-6 flex flex-col gap-6">
+        <div className="flex-1 bg-transparent rounded-3xl p-2 flex flex-col gap-6">
           <div className="relative w-full h-[380px] rounded-2xl overflow-hidden">
             <Image src={featured.image_url} alt={featured.name} fill className="object-cover" />
           </div>
@@ -74,7 +74,7 @@ const MoreInterviews = () => {
               </div>
 
               <div className="flex-1 flex flex-col gap-1 p-2">
-                <h4 className="text-lg font-semibold">{item.name}</h4>
+                <h4 className=" text-[12px] md:text-lg font-semibold">{item.name}</h4>
                 <p className="text-gray-400 text-sm">{item.sector}</p>
                 <hr className="text-orange-400 mb-4"/>
                 <Link href={`/Interviews/${item.id}`} className="text-[#F57328] text-sm font-medium flex items-center gap-1 mt-1">

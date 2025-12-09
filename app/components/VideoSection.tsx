@@ -10,7 +10,7 @@ export default function StaticFeatureSection() {
     <section className="w-full bg-[#000000] text-white pb-20">
       <div className="max-w-[1500px] mx-auto px-6 lg:px-12">
         {/* MAIN FEATURED IMAGE */}
-        <div className="relative w-full h-[560px] rounded-3xl overflow-hidden mb-12">
+        <div className="relative w-full h-[350px] lg:h-[560px] rounded-3xl overflow-hidden mb-12">
           <Image
             src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1764580198/4d1555a7496ef95c35313e654bb07ee691f4cff3_mz6raq.png" // place your image in public/images
             alt="Featured"
@@ -23,12 +23,12 @@ export default function StaticFeatureSection() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
           {/* TEXT */}
-          <div className="absolute bottom-10 left-10 max-w-[650px]">
+          <div className="absolute bottom-10 left-5 lg:left-10 max-w-[650px]">
             <p className="uppercase text-sm tracking-wide text-gray-300">
               Education
             </p>
 
-            <h1 className="text-[clamp(1.8rem,3vw,3.2rem)] font-semibold leading-tight mt-2">
+            <h1 className="text-[clamp(1rem,3vw,3.2rem)] font-semibold leading-tight mt-2">
               Singapore’s Aerospace Industry Looks to Automation and Disruptive
               Technologies for Growth
             </h1>
@@ -46,10 +46,10 @@ export default function StaticFeatureSection() {
         </div>
 
         {/* SMALL CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
           {/* CARD 1 */}
           <motion.div whileHover={{ scale: 1.02 }} className="w-full">
-            <div className="relative w-full h-[290px] rounded-2xl overflow-hidden">
+            <div className="relative w-full h-[290px] md:h-[200px] lg:h-[290px] rounded-2xl overflow-hidden">
               <Image
                 src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1764580251/77438542680a0e7d0d0dbfc0bfe6c5e9e2d99db9_kogovb.png"
                 alt="Chile’s Copper Production and Advancements"
@@ -77,7 +77,7 @@ export default function StaticFeatureSection() {
 
           {/* CARD 2 */}
           <motion.div whileHover={{ scale: 1.02 }}>
-            <div className="relative w-full h-[290px] rounded-2xl overflow-hidden">
+            <div className="relative w-full h-[290px] md:h-[200px] lg:h-[290px] rounded-2xl overflow-hidden">
               <Image
                 src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1764580293/ca49de05ec6e0b70fea7e585a6725f5416b62d47_s6nsvu.png"
                 alt="Automation and Disruptive Technologies"
@@ -105,7 +105,7 @@ export default function StaticFeatureSection() {
 
           {/* CARD 3 */}
           <motion.div whileHover={{ scale: 1.02 }}>
-            <div className="relative w-full h-[290px] rounded-2xl overflow-hidden">
+            <div className="relative w-full h-[290px] md:h-[200px] lg:h-[290px] rounded-2xl overflow-hidden">
               <Image
                 src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1764580333/b2b4a08d33bdc8cb0a00c3125bd2f541674ffac6_zizizu.png"
                 alt="India’s Pharma Industry"
