@@ -101,7 +101,7 @@ export default function HeroPage() {
             />
 
             {/* Orange arrow button */}
-            <button  onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[0].id}`)} className="absolute right-1 bottom-2 cursor-pointer bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
+            <button  onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[0].id}`)} className="absolute right-1 bottom-2 cursor-pointer bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[13px] lg:rounded-[15px] flex items-center justify-center shadow-lg">
               <ArrowRight />
             </button>
           </div>
