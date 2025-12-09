@@ -9,19 +9,19 @@ export default function Preloader() {
   const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
-  const interval = setInterval(() => {
-    setProgress((prev) => {
-      if (prev >= 100) {
-        clearInterval(interval);
-        setTimeout(() => setIsDone(true), 300);
-        return 100;
-      }
-      return prev + 0.56;
-    });
-  }, 50);
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => setIsDone(true), 300);
+          return 100;
+        }
+        return prev + 0.56;
+      });
+    }, 50);
 
-  return () => clearInterval(interval);
-}, []);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div
@@ -39,16 +39,17 @@ export default function Preloader() {
           className="opacity-0 max-w-[90%] animate-logoReveal"
         />
       </div>
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 z-100">
         <Image
-          src={BusinessHero} // <-- replace with your logo path
-          alt="Logo"
-         fill
-        className="opacity-0 max-w-[100%] w-screen min-h-screen animate-logoReveal"
+          src={BusinessHero}
+          alt="Hero"
+          fill
+          priority
+          className="object-cover w-full h-full opacity-0 animate-logoReveal"
         />
       </div>
-      
-      <div className="absolute w-screen h-screen bg-black/10 "/>
+
+      <div className="absolute w-screen h-screen bg-black/10 " />
 
       {/* Progress Bar */}
       <div className="w-3/4 z-300 max-w-md">
@@ -59,8 +60,8 @@ export default function Preloader() {
           ></div>
         </div>
         <p className="text-white text-center mt-3 text-sm">
-  {progress.toFixed(2)}%
-</p>
+          {progress.toFixed(2)}%
+        </p>
       </div>
     </div>
   );
