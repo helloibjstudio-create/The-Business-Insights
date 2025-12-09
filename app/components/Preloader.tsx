@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { BusinessLogo } from "@/public";
+import { BusinessHero, BusinessLogo } from "@/public";
 
 export default function Preloader() {
   const [progress, setProgress] = useState(0);
@@ -39,6 +39,16 @@ export default function Preloader() {
           className="opacity-0 max-w-[90%] animate-logoReveal"
         />
       </div>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <Image
+          src={BusinessHero} // <-- replace with your logo path
+          alt="Logo"
+          width={2440}
+          height={1024}
+          className="opacity-0 max-w-[100%] animate-logoReveal"
+        />
+      </div>
+      
       <div className="absolute w-screen h-screen bg-black/10 "/>
 
       {/* Progress Bar */}
