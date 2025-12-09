@@ -10,7 +10,7 @@ export default function StaticFeatureSection() {
     <section className="w-full bg-[#000000] text-white pb-20">
       <div className="max-w-[1500px] mx-auto px-6 lg:px-12">
         {/* MAIN FEATURED IMAGE */}
-        <div className="relative w-full h-[350px] lg:h-[560px] rounded-3xl overflow-hidden mb-12">
+        <div className="relative w-full h-[350px] lg:h-[560px] rounded-3xl overflow-hidden mb-12 mt-16">
           <Image
             src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1764580198/4d1555a7496ef95c35313e654bb07ee691f4cff3_mz6raq.png" // place your image in public/images
             alt="Featured"
