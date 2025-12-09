@@ -25,8 +25,8 @@ export default function Footer() {
               </div>
     
               {/* Text & Form Wrapper */}
-              <div className="mt-32 sm:mt-36 md:mt-0 md:ml-[340px] lg:ml-[380px] flex flex-col items-center md:items-start text-center md:text-left space-y-5 md:space-y-6 font-sans w-full px-4 md:px-0">
-                <h2 className="text-2xl sm:text-3xl md:text-[30px] font-bold leading-snug max-w-[520px]">
+              <div className="mt-32 sm:mt-36 md:mt-0 md:ml-[310px] lg:ml-[380px] flex flex-col items-center md:items-start text-center md:text-left space-y-5 md:space-y-6 font-sans w-full px-4 md:px-0">
+                <h2 className="text-2xl sm:text-3xl md:text-[30px] font-bold leading-snug md:max-w-[350px] lg:max-w-[520px]">
                   Join us! Subscribe to our weekly newsletter
                 </h2>
     
@@ -62,7 +62,7 @@ export default function Footer() {
     
                   <button
                     type="submit"
-                    className="bg-white cursor-pointer text-[#282828] text-sm md:text-base px-2.5 py-1 lg:px-5 lg:py-1.5 rounded-full font-medium hover:bg-gray-200 transition"
+                    className="bg-white cursor-pointer text-[#282828] text-[10px] md:text-base px-2 py-1 lg:px-5 lg:py-1.5 rounded-full font-medium hover:bg-gray-200 transition"
                   >
                     Subscribe
                   </button>
