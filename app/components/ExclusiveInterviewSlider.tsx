@@ -98,17 +98,17 @@ export default function ExclusiveInterviewsSlider() {
               key={person.id}
               className="min-w-[280px] sm:min-w-[330px] lg:min-w-[360px]
                backdrop-blur-xl border border-white/10 rounded-2xl 
-              overflow-hidden shadow-lg snap-center flex-shrink-0 min-h-[420px] max-w-[1400px] mx-auto mb-12"
+              overflow-hidden shadow-lg snap-center flex-shrink-0 min-h-[460px] max-w-[1400px] mx-auto mb-12"
               whileHover={{ scale: 1.03 }}
               transition={{ ease: "easeOut" }}
             >
               {/* IMAGE */}
-              <div className="absolute w-full h-[220px] lg:h-[420px]">
+              <div className="absolute w-full h-[460px] lg:h-[460px]">
                 <Image
                   src={person.image_url}
                   alt={person.name}
                   fill
-                  className="object-cover object-top"
+                  className="object-cover"
                 />
               </div>
 
