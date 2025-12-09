@@ -58,10 +58,10 @@ const UpcomingEvents: React.FC = () => {
       {/* Header */}
       <div className="flex max-w-[1400px] mx-auto justify-between items-center mb-10">
         <div>
-          <h2 className="text-[clamp(1.8rem,5vw,3rem)] font-semibold mb-2">
+          <h2 className="text-[clamp(1rem,5vw,3rem)] font-semibold mb-2">
             Upcoming Events
           </h2>
-          <p className="text-gray-300">Enjoy the best Events and Exhibitions</p>
+          <p className="text-gray-300 ">Enjoy the best Events and Exhibitions</p>
         </div>
 
         {/* Top-right navigation buttons */}
