@@ -2,7 +2,7 @@
 
 import { Cart } from "@/public";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
@@ -138,21 +138,21 @@ export default function FeaturedReports() {
           {/* Left Button */}
           <button
             onClick={scrollLeft}
-            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2
+            className="flex absolute left-0 top-1/2 -translate-y-1/2
             bg-black/30 backdrop-blur-md border border-white/20 text-white
             w-12 h-12 rounded-full items-center justify-center cursor-pointer hover:bg-white/20 transition"
           >
-            ←
+            <ArrowLeft />
           </button>
 
           {/* Right Button */}
           <button
             onClick={scrollRight}
-            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2
+            className="flex absolute right-0 top-1/2 -translate-y-1/2
             bg-black/30 backdrop-blur-md border border-white/20 text-white
             w-12 h-12 rounded-full items-center cursor-pointer justify-center hover:bg-white/20 transition"
           >
-            →
+            <ArrowRight />
           </button>
         </div>
       </div>
