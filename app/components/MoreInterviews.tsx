@@ -48,7 +48,7 @@ const MoreInterviews = () => {
 
       <div className="flex flex-col max-w-[1400px] mx-auto lg:flex-row gap-10">
         {/* LEFT — FEATURED INTERVIEW */}
-        <div className="flex-1 bg-transparent rounded-3xl p-2 flex flex-col gap-6">
+        <div className="flex-1 bg-transparent rounded-3xl flex flex-col gap-6">
           <div className="relative w-full h-[380px] rounded-2xl overflow-hidden">
             <Image src={featured.image_url} alt={featured.name} fill className="object-cover" />
           </div>
