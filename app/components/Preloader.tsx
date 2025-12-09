@@ -44,7 +44,7 @@ export default function Preloader() {
           src={BusinessHero} // <-- replace with your logo path
           alt="Logo"
          fill
-        className="opacity-0 max-w-[100%] min-h-screen animate-logoReveal"
+        className="opacity-0 max-w-[100%] w-screen min-h-screen animate-logoReveal"
         />
       </div>
       

@@ -70,7 +70,7 @@ export default function HeroPage() {
       <div className="w-full max-w-7xl mx-auto px-4 lg:px-0 pt-40 items-center grid grid-cols-1 lg:grid-cols-2 gap-12 relative">
         
         {/* LEFT TEXT SECTION */}
-        <div className="flex flex-col justify-start">
+        <div className="flex flex-col justify-center md:justify-start">
           <h1 className="text-5xl lg:text-7xl font-semibold text-white leading-tight mb-6">
             Business Insight <br /> You Can Trust
           </h1>
