@@ -66,10 +66,10 @@ const UpcomingEvents: React.FC = () => {
 
         {/* Top-right navigation buttons */}
         <div className="flex gap-4">
-          <button onClick={scrollLeft} className="w-12 h-12 rounded-xl bg-[#262626] hover:bg-[#F57328] flex items-center justify-center ">
+          <button onClick={scrollLeft} className="w-12 h-12 rounded-xl cursor-pointer bg-[#262626] hover:bg-[#F57328] flex items-center justify-center ">
             <ArrowLeft />
           </button>
-          <button onClick={scrollRight} className="w-12 h-12 rounded-xl bg-[#262626] hover:bg-[#F57328] flex items-center justify-center ">
+          <button onClick={scrollRight} className="w-12 h-12 rounded-xl cursor-pointer bg-[#262626] hover:bg-[#F57328] flex items-center justify-center ">
             <ArrowRight />
           </button>
         </div>
@@ -92,7 +92,7 @@ const UpcomingEvents: React.FC = () => {
                 className="object-cover"
               />
 
-              <button className="absolute bottom-1 right-0 bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] w-[56px] h-[56px]  rounded-[16px] flex items-center justify-center text-2xl font-bold transition-all">
+              <button className="absolute bottom-1 right-0 bg-[#E8602E] hover:bg-white cursor-pointer text-white hover:text-[#E8602E] w-[56px] h-[56px]  rounded-[16px] flex items-center justify-center text-2xl font-bold transition-all">
                 <ArrowRight className="w-[24px] h-[18.67px]"/>
               </button>
             </div>

@@ -86,7 +86,7 @@ export default function FeaturedReports() {
           <Link href="/reports" className="w-fit">
             <motion.button
               whileHover={{ scale: 1.04 }}
-              className="bg-[#E8602E] text-white px-7 py-3 rounded-xl font-medium flex items-center gap-2"
+              className="bg-[#E8602E] text-white px-7 py-3 rounded-xl cursor-pointer font-medium flex items-center gap-2"
             >
               View All Reports <ArrowRight />
             </motion.button>
@@ -140,7 +140,7 @@ export default function FeaturedReports() {
             onClick={scrollLeft}
             className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2
             bg-black/30 backdrop-blur-md border border-white/20 text-white
-            w-12 h-12 rounded-full items-center justify-center hover:bg-white/20 transition"
+            w-12 h-12 rounded-full items-center justify-center cursor-pointer hover:bg-white/20 transition"
           >
             ←
           </button>
@@ -150,7 +150,7 @@ export default function FeaturedReports() {
             onClick={scrollRight}
             className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2
             bg-black/30 backdrop-blur-md border border-white/20 text-white
-            w-12 h-12 rounded-full items-center justify-center hover:bg-white/20 transition"
+            w-12 h-12 rounded-full items-center cursor-pointer justify-center hover:bg-white/20 transition"
           >
             →
           </button>

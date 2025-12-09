@@ -70,7 +70,7 @@ export default function ExclusiveInterviewsSlider() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
-            className="bg-[#E8602E] hover:bg-white text-white hover:text-[#E8602E] px-6 py-3 rounded-xl"
+            className="bg-[#E8602E] hover:bg-white text-white cursor-pointer hover:text-[#E8602E] px-6 py-3 rounded-xl"
           >
             View All Interviews
           </motion.button>
@@ -87,7 +87,7 @@ export default function ExclusiveInterviewsSlider() {
         onClick={scrollLeft}
           className="absolute left-2 top-1/2 -translate-y-1/2 z-20 
           bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20
-          w-12 h-12 rounded-full flex items-center justify-center"
+          w-12 h-12 rounded-full flex items-center cursor-pointer justify-center"
         >
           <ArrowLeft className="text-white" />
         </button>
@@ -134,7 +134,7 @@ export default function ExclusiveInterviewsSlider() {
         onClick={scrollRight}
           className="absolute right-2 top-1/2 -translate-y-1/2 z-20 
           bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20
-          w-12 h-12 rounded-full flex items-center justify-center"
+          w-12 h-12 rounded-full flex items-center cursor-pointer justify-center"
         >
           <ArrowRight className="text-white" />
         </button>

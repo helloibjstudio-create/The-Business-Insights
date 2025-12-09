@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import { BusinessHero } from "@/public";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 const MOCK_INTERVIEWS = [
@@ -79,10 +80,12 @@ export default function HeroPage() {
             in crucial business sectors across the world.
           </p>
 
-          <button  className="bg-orange-600 w-fit text-white px-8 py-4 rounded-xl text-lg font-semibold flex items-center gap-2 hover:bg-orange-700 transition">
+          <Link href="/Interviews">
+          <button  className="bg-orange-600 w-fit text-white px-8 py-4 rounded-xl text-lg cursor-pointer font-semibold flex items-center gap-2 hover:bg-orange-700 transition">
             Explore Interviews
             <ArrowRight className="w-5 h-5" />
           </button>
+          </Link>
         </div>
 
         {/* RIGHT INTERVIEW CARDS SECTION */}
@@ -98,7 +101,7 @@ export default function HeroPage() {
             />
 
             {/* Orange arrow button */}
-            <button  onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[0].id}`)} className="absolute right-1 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[10px] flex items-center justify-center shadow-lg">
+            <button  onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[0].id}`)} className="absolute right-1 bottom-2 cursor-pointer bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
               <ArrowRight />
             </button>
           </div>
@@ -129,7 +132,7 @@ export default function HeroPage() {
                   fill
                   className="object-cover"
                 />
-              <button onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[1].id}`)} className="absolute right-0 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
+              <button onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[1].id}`)} className="absolute cursor-pointer right-0 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
                 <ArrowRight className="w-4 h-4" />
               </button>
               </div>
@@ -149,7 +152,7 @@ export default function HeroPage() {
                   fill
                   className="object-cover"
                 />
-              <button onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[2].id}`)} className="absolute right-0 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
+              <button onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[2].id}`)} className="absolute right-0 bottom-2 bg-orange-500 cursor-pointer hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
                 <ArrowRight className="w-4 h-4" />
               </button>
               </div>
