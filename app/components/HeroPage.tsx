@@ -70,18 +70,18 @@ export default function HeroPage() {
       <div className="w-full max-w-7xl mx-auto px-4 lg:px-0 pt-40 items-center grid grid-cols-1 lg:grid-cols-2 gap-12 relative">
         
         {/* LEFT TEXT SECTION */}
-        <div className="flex flex-col justify-center md:justify-start">
-          <h1 className="text-5xl lg:text-7xl font-semibold text-white leading-tight mb-6">
+        <div className="flex flex-col justify-center lg:justify-start">
+          <h1 className="text-5xl lg:text-7xl md:text-center lg:text-start font-semibold text-white leading-tight lg:mb-6">
             Business Insight <br /> You Can Trust
           </h1>
 
-          <p className="text-gray-300 text-lg max-w-xl mb-10 leading-relaxed">
+          <p className="text-gray-300 md:text-center lg:text-start text-lg md:mx-auto lg:mx-0 max-w-xl mb-10 leading-relaxed">
             We are committed to providing you with extensive market intelligence
             in crucial business sectors across the world.
           </p>
 
           <Link href="/Interviews">
-          <button  className="bg-orange-600 w-fit text-white px-8 py-4 rounded-xl text-lg cursor-pointer font-semibold flex items-center gap-2 hover:bg-orange-700 transition">
+          <button  className="bg-orange-600 w-fit text-white px-8 py-4 md:mx-auto lg:mx-0 rounded-xl text-lg cursor-pointer font-semibold flex items-center gap-2 hover:bg-orange-700 transition">
             Explore Interviews
             <ArrowRight className="w-5 h-5" />
           </button>
@@ -89,7 +89,7 @@ export default function HeroPage() {
         </div>
 
         {/* RIGHT INTERVIEW CARDS SECTION */}
-        <div className="flex flex-col items-center md:items-start lg:items-end space-y-1">
+        <div className="flex flex-col items-center  lg:items-end space-y-1">
           
           {/* TOP MAIN IMAGE CARD */}
           <div className="relative w-[396px] h-[240px] rounded-2xl overflow-hidden shadow-lg">
@@ -121,7 +121,7 @@ export default function HeroPage() {
           </div>
 
           {/* TWO SMALL CARDS */}
-          <div className="flex flex-col md:flex-row lg:flex-col space-y-4">
+          <div className="flex flex-col  space-y-4">
             
             {/* CARD 1 */}
             <div className="relative w-[396px] h-38 rounded-xl overflow-hidden bg-black/30 backdrop-blur-2xl border border-white/10 flex">
