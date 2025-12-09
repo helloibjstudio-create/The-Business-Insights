@@ -30,7 +30,7 @@ export default function Preloader() {
       }`}
     >
       {/* Background Logo reveal */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute z-200 inset-0 flex items-center justify-center">
         <Image
           src={BusinessLogo} // <-- replace with your logo path
           alt="Logo"
@@ -44,7 +44,7 @@ export default function Preloader() {
           src={BusinessHero} // <-- replace with your logo path
           alt="Logo"
           width={2440}
-          height={1024}
+          height={2024}
           className="opacity-0 max-w-[100%] animate-logoReveal"
         />
       </div>
@@ -52,7 +52,7 @@ export default function Preloader() {
       <div className="absolute w-screen h-screen bg-black/10 "/>
 
       {/* Progress Bar */}
-      <div className="w-3/4 z-100 max-w-md">
+      <div className="w-3/4 z-300 max-w-md">
         <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
           <div
             className="h-full bg-orange-500 transition-all duration-200"
