@@ -45,7 +45,7 @@ export default function Preloader() {
           alt="Logo"
           width={2440}
           height={2024}
-          className="opacity-0 max-w-[100%] animate-logoReveal"
+          className="opacity-0 max-w-[100%] min-h-screen animate-logoReveal"
         />
       </div>
       
