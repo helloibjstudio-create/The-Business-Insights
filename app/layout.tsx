@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Sora } from "next/font/google";
 import { Hedvig_Letters_Serif } from "next/font/google"
 import "./globals.css";
 import ScrollToTop from "./ScrollToTop";
+import Preloader from "./components/Preloader";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body
         className={sora.className}
       >
+        <Preloader />
         <ScrollToTop />
         {children}
       </body>

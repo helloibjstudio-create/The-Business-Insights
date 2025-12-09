@@ -199,7 +199,7 @@ export default function TrendingArticles() {
                   onClick={() => router.push(`/trending/${MOCK_ARTICLES[0].id}`)}
                   className="absolute bottom-0 right-0 bg-[#E8602E] cursor-pointer hover:bg-white text-white hover:text-[#E8602E] w-[54] h-[54] md:w-[84] md:h-[84] rounded-2xl lg:rounded-[24px] flex items-center justify-center text-2xl font-bold transition-all"
                 >
-                  <ArrowRight />
+                  <ArrowRight className="w-[36px] h-[36px]"/>
                 </button>
               </div>
 
@@ -234,7 +234,7 @@ export default function TrendingArticles() {
                     />
                     <button
                     onClick={() => router.push(`/trending/${item.id}`)}
-                      className="bg-[#E8602E] hover:bg-white absolute right-0 bottom-0 text-white cursor-pointer hover:text-[#E8602E]  rounded-[12px] w-[40px] h-[40px] justify-center flex items-center transition-all"
+                      className="bg-[#E8602E] hover:bg-white absolute right-0 bottom-0 text-white cursor-pointer font-bold hover:text-[#E8602E]  rounded-[12px] w-[40px] h-[40px] justify-center flex items-center transition-all"
                     >
                       <ArrowRight />
                     </button>

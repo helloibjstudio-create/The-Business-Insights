@@ -133,7 +133,7 @@ export default function HeroPage() {
                   className="object-cover"
                 />
               <button onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[1].id}`)} className="absolute cursor-pointer right-0 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-[24px] h-[24px]" />
               </button>
               </div>
 
@@ -153,7 +153,7 @@ export default function HeroPage() {
                   className="object-cover"
                 />
               <button onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[2].id}`)} className="absolute right-0 bottom-2 bg-orange-500 cursor-pointer hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-[24px] h-[24px]" />
               </button>
               </div>
 

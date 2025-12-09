@@ -93,7 +93,7 @@ const UpcomingEvents: React.FC = () => {
               />
 
               <button className="absolute bottom-1 right-0 bg-[#E8602E] hover:bg-white cursor-pointer text-white hover:text-[#E8602E] w-[56px] h-[56px]  rounded-[16px] flex items-center justify-center text-2xl font-bold transition-all">
-                <ArrowRight className="w-[24px] h-[18.67px]"/>
+                <ArrowRight className="w-[24px] h-[24]"/>
               </button>
             </div>
 

@@ -17,6 +17,16 @@ body {
   background: #000;
 }
 
+@keyframes logoReveal {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animate-logoReveal {
+  animation: logoReveal 20s ease-in-out forwards;
+}
+
+
 @keyframes orange-glow {
   0% {
     filter: drop-shadow(0 0 5px rgba(255, 165, 0, 0.3))
