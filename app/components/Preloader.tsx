@@ -36,13 +36,13 @@ export default function Preloader() {
           alt="Logo"
           width={560}
           height={760}
-          className="opacity-0 animate-logoReveal"
+          className="opacity-0 max-w-[90%] animate-logoReveal"
         />
       </div>
       <div className="absolute w-screen h-screen bg-black/10 "/>
 
       {/* Progress Bar */}
-      <div className="w-full z-100 max-w-lg">
+      <div className="w-3/4 z-100 max-w-md">
         <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
           <div
             className="h-full bg-orange-500 transition-all duration-200"

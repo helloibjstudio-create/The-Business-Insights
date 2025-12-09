@@ -221,7 +221,7 @@ export default function TrendingArticles() {
                 <motion.div
                   key={item.id}
                   whileHover={{ scale: 1.02 }}
-                  className="bg-transparent relative rounded-3xl shadow-lg flex items-center gap-6 border border-white/10"
+                  className="bg-transparent relative rounded-3xl shadow-lg flex items-center gap-6 border border-white/30"
                 >
                   {/* Thumbnail */}
                   <div className="relative w-fit h-full rounded-xl overflow-hidden">
