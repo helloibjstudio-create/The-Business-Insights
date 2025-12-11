@@ -57,16 +57,16 @@ const About = () => {
       <Navbar />
 
       {/* Hero Content */}
-      <div className="relative h-screen top-30 md:top-50 lg:top-90 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 md:pt-25 space-y-6">
+      <div className="relative h-screen top-30 md:top-50 lg:top-60 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-10 lg:px-20 pt-28 sm:pt-32 md:pt-25 lg:space-y-2">
         {/* Tagline */}
         <div>
-          <h1 className="text-[50px] lg:text-[99px] relative">About Us</h1>
+          <h1 className="text-[45px] lg:text-[65px] relative">About Us</h1>
         </div>
 
         {/* Heading */}
         <h1
-          className="font-[400] leading-tight 
-                       text-3xl sm:text-4xl md:text-5xl lg:text-[48px] max-w-[775px]
+          className="font-[400] mb-8 leading-tight 
+                       text-2xl sm:text-2xl md:text-3xl lg:text-[38px] max-w-[775px]
                        tracking-[-1.92px] font-sans font-[400] leading-[48px] text-"
         >
           Enjoy firsthand{" "}
@@ -81,18 +81,14 @@ const About = () => {
         {/* Subtext */}
         <p
           className="text-white text-[18px] sm:text-[19px] md:text-[20px] lg:text-[20px] 
-                      max-w-[90%] font-sans sm:max-w-[600px] md:max-w-[700px] lg:max-w-3xl 
+                      max-w-[90%] font-sans sm:max-w-[600px] md:max-w-[700px] lg:max-w-6xl 
                       leading-relaxed"
         >
-          The Business Insight organizes frequent round table discussions and
-          events, gathering key stakeholders to tackle pressing matters. We not
-          only attend but also collaborate with chosen organizers of industry
-          conferences to present you with premier networking and
-          knowledge-sharing opportunities.
+          The Business Insight is an international media group of companies that has been furnishing investors, corporations, and governmental entities with firsthand perspectives on the globe’s most vibrant markets for over a decade. Weekly, we conduct numerous interviews with prominent decision makers spanning the Middle East, Latin America, Central and Southeast Asia, Africa, and Europe. Our content is accessible through printed reports and a diverse range of digital channels. 
         </p>
       </div>
 
-      <section className="relative h-full mb-20 top-50 lg:mb-90 lg:top-100">
+      <section className="relative h-full mb-20 top-30 lg:mb-50 lg:top-30">
         <div className="absolute  w-full h-full">
           <Image
             src={thirdOrange}
@@ -108,10 +104,10 @@ const About = () => {
             <div className="space-y-0">
               {/* Core Values */}
               <div>
-                <h2 className="text-3xl md:text-4xl lg:text-[80px] font-[400] mb-4">
+                <h2 className="text-2xl md:text-3xl lg:text-[40px] font-[400] mb-4">
                   Core Values
                 </h2>
-                <p className="text-white font-sans font-[500] mb-[40px] text-[20px] leading-relaxed">
+                <p className="text-white font-sans font-[500] mb-[120px] text-[20px] leading-relaxed">
                   Our goal is to spotlight global investment prospects with
                   in-depth and timely market reports. We aim to create
                   authoritative, unbiased, and valuable reports for business
@@ -122,7 +118,7 @@ const About = () => {
 
               {/* Our Content */}
               <div>
-                <h2 className="text-3xl md:text-4xl lg:text-[80px] font-[400] mb-4">
+                <h2 className="text-2xl md:text-3xl lg:text-[40px] font-[400] mb-4">
                   Our Content
                 </h2>
                 <p className="text-white font-sans font-[500] mb-[20px] text-[20px] leading-relaxed">
@@ -133,7 +129,7 @@ const About = () => {
                   assessing cutting-edge insights that mold the future of
                   business.
                 </p>
-                <p className="text-white font-sans font-[500] mb-[80px] text-[20px] leading-relaxed">
+                <p className="text-white font-sans font-[500] mb-[150px] text-[20px] leading-relaxed">
                   In a time marked by flourishing internationalization,
                   expanding choices, and an influx of data and knowledge,
                   possessing accurate information at the right moment serves as

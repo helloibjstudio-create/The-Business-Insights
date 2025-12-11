@@ -21,7 +21,7 @@ interface Article {
   write_up: string;
 }
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = 15;
 
 export default function Articles() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -203,7 +203,7 @@ if (selectedArticle) {
       <Navbar />
 
       {/* Hero */}
-      <div className="relative h-screen top-13 lg:top-18 z-30 flex flex-col items-center justify-center text-center px-4">
+      <div className="relative h-screen top-13 lg:top-8 z-30 flex flex-col items-center justify-center text-center px-4">
         <div
           className="inline-flex items-center justify-center 
             w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
@@ -215,7 +215,7 @@ if (selectedArticle) {
           </p>
         </div>
 
-        <h1 className="text-[36px] md:text-[60px] lg:text-[80px] font-[400] mt-6 max-w-[850px] leading-tight">
+        <h1 className="text-[36px] md:text-[60px] lg:text-[60px] font-[400] mt-6 max-w-[850px] leading-tight">
           Insight That <span className="text-[#E25B2B] ">Shapes Tomorrow.</span>
         </h1>
 
@@ -245,9 +245,11 @@ if (selectedArticle) {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-[42px]">
           {currentArticles.map((article) => (
-            <div
+            <motion.div
               key={article.id}
               onClick={() => setSelectedArticle(article)}
+              whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
               className="cursor-pointer hover:scale-105"
             >
               <div className="relative">
@@ -317,7 +319,7 @@ if (selectedArticle) {
                   />
                 </span>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

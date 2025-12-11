@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "./Navbar";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { BusinessHero } from "@/public";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -50,12 +51,19 @@ const MOCK_INTERVIEWS = [
 
 export default function HeroPage() {
   const router = useRouter();
+
+    const { scrollY } = useScroll();
+    const scale = useTransform(scrollY, [0, 500], [1, 1.3]); // background zooms
+  const bgOpacity = useTransform(scrollY, [0, 300], [1, 0.3]); // fade overlay
+  const contentOpacity = useTransform(scrollY, [0, 300], [1, 0]); 
   return (
     <section className="relative min-h-screen overflow-hidden flex items-start pb-12">
       <Navbar />
 
       {/* Background layer with tall image */}
-      <div className="absolute inset-0 h-[1421px]">
+      <motion.div className="absolute inset-0 h-[1421px]"
+      style={{ scale }}
+      >
         <Image
           src={BusinessHero}
           alt="Background"
@@ -63,11 +71,11 @@ export default function HeroPage() {
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/50"></div>
-      </div>
+        <motion.div style={{ opacity: bgOpacity }} className="absolute inset-0 bg-black/50"></motion.div>
+      </motion.div>
 
       {/* MAIN CONTENT */}
-      <div className="w-full max-w-7xl mx-auto px-4 lg:px-0 pt-40 items-center grid grid-cols-1 lg:grid-cols-2 gap-12 relative">
+      <motion.div style={{ opacity: contentOpacity }} className="w-full max-w-7xl mx-auto px-4 lg:px-0 pt-40 items-center grid grid-cols-1 lg:grid-cols-2 gap-12 relative">
         
         {/* LEFT TEXT SECTION */}
         <div className="flex flex-col justify-center lg:justify-start">
@@ -166,7 +174,7 @@ export default function HeroPage() {
 
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

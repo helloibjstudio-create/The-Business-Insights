@@ -143,13 +143,12 @@ const Events = () => {
           </p>
         </div>
 
-        <h1 className="font-[400] leading-tight text-4xl md:text-6xl lg:text-[80px]">
+        <h1 className="font-[400] leading-tight text-4xl md:text-6xl lg:text-[60px]">
           Engaging <span className="text-[#E8602E]">Insights</span>
         </h1>
 
         <p className="text-white text-sm md:text-lg max-w-[700px] font-sans leading-relaxed">
-          The Business Insight organizes round table discussions and events,
-          gathering key stakeholders to tackle pressing matters...
+          The Business Insight organizes frequent round table discussions and events, gathering key stakeholders to tackle pressing matters. We not only attend but also collaborate with chosen organizers of industry conferences to present you with premier networking and knowledge-sharing opportunities. 
         </p>
       </div>
 

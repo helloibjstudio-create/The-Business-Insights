@@ -10,7 +10,7 @@ export default function Footer() {
     <>
       <section
         key="Newsletter"
-        className="relative bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[1000px] mx-[16px] lg:mx-auto mt-16  lg:mt-28 overflow-visible px-6 md:px-10 py-10 flex flex-col md:flex-row items-center justify-between"
+        className="relative bg-[#E25B2B] text-white rounded-2xl shadow-lg max-w-[1000px] mx-[16px] lg:mx-auto mt-16  lg:mt-28 overflow-visible px-6 md:px-10 py-10 flex flex-col md:flex-row items-center justify-between mb-12"
       >
         {/* Mailbox Image */}
         <div className="absolute -top-16 sm:-top-20 md:-top-24 lg:-top-28 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 flex justify-center md:justify-start w-full md:w-auto z-0">
@@ -27,7 +27,7 @@ export default function Footer() {
         {/* Text & Form Wrapper */}
         <div className="mt-32 sm:mt-36 md:mt-0 md:ml-[310px] lg:ml-[380px] flex flex-col items-center md:items-start text-center md:text-left space-y-5 md:space-y-6 font-sans w-full px-4 md:px-0">
           <h2 className="text-2xl sm:text-3xl md:text-[30px] font-bold leading-snug md:max-w-[350px] lg:max-w-[520px]">
-            Join us! Subscribe to our weekly newsletter
+            Join us! Subscribe to <br /> our weekly newsletter
           </h2>
 
           <form className="flex items-center flex-nowrap bg-[#2D0C00] rounded-full px-3 py-2 gap-2 w-full max-w-[450px]">

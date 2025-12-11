@@ -22,7 +22,7 @@ interface Interview {
   write_up?: string;
 }
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = 15;
 
 const Interviews = () => {
   const [interviews, setInterviews] = useState<Interview[]>([]);
@@ -240,7 +240,7 @@ const Interviews = () => {
       <Navbar />
 
       {/* Hero */}
-      <div className="relative h-screen z-30 flex flex-col items-center justify-center text-center px-4 top-15 lg:top-20">
+      <div className="relative h-screen z-30 flex flex-col items-center justify-center text-center px-4 top-15 lg:top-10">
         <div
           className="inline-flex items-center justify-center 
             w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:w-[582px] 
@@ -249,7 +249,7 @@ const Interviews = () => {
         >
           <p className="whitespace-nowrap font-sans">✨ Voices Behind Change</p>
         </div>
-        <h1 className="text-[36px] md:text-[60px] lg:text-[80px] max-w-[875px] font-[400] leading-[36px] md:leading-[60px] lg:leading-[72px] mt-6">
+        <h1 className="text-[36px] md:text-[60px] lg:text-[60px] max-w-[875px] font-[400] leading-[36px] md:leading-[60px] lg:leading-[72px] mt-6">
           Exclusive Interviews with{" "}
           <span className="text-[#E25B2B]">Leaders & Innovators</span>
         </h1>
@@ -283,9 +283,11 @@ const Interviews = () => {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-[42px]">
           {currentInterviews.map((interview) => (
-            <div
+            <motion.div
               key={interview.id}
               onClick={() => setSelectedInterview(interview)}
+              whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
               className="cursor-pointer"
             >
               <div className="relative">
@@ -319,7 +321,7 @@ const Interviews = () => {
                   />
                 </span>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

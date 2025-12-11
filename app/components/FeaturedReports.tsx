@@ -1,7 +1,7 @@
 "use client";
 
 import { Cart } from "@/public";
-import { motion } from "framer-motion";
+import { motion, useAnimation, useMotionValue } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,12 +21,51 @@ export default function FeaturedReports() {
   const [selectedReport, setSelectedReport] = useState<Report | null>(null);
   const [scrollPos, setScrollPos] = useState(0);
   const sliderRef = useRef<HTMLDivElement | null>(null);
+  const [sliderWidth, setSliderWidth] = useState(0);
+
+  // Motion system for infinite loop
+  const x = useMotionValue(0);
+  const controls = useAnimation();
+
+  // Start continuous infinite animation
+const startAnimation = () => {
+  const current = x.get(); // keep position
+  controls.start({
+    x: [current, current - sliderWidth], 
+    transition: {
+      repeat: Infinity,
+      ease: "linear",
+      duration: 30,
+    },
+  });
+};
+
+  // Start animation after reports are loaded
+useEffect(() => {
+  if (reports.length > 0) {
+    const w = (reports.length * 260) + (reports.length * 32);
+    setSliderWidth(w);
+    startAnimation();
+  }
+}, [reports]);
+
+  // Manual scroll nudge for buttons
+const nudge = (amount: number) => {
+  controls.stop();            // pause animation
+  x.set(x.get() + amount);    // shift current x
+
+  if (!selectedReport) {      // ONLY resume if no selected report
+    startAnimation();
+  }
+};
 
   // Fetch reports
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/reports`);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}api/reports`
+        );
         const data = await res.json();
         setReports(data);
       } catch (err) {
@@ -39,19 +78,20 @@ export default function FeaturedReports() {
   // Scroll buttons
   const scrollLeft = () => {
     if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: -400, behavior: "smooth" });
+      sliderRef.current.scrollBy({ left: 400, behavior: "smooth" });
     }
   };
 
   const scrollRight = () => {
     if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: 400, behavior: "smooth" });
+      sliderRef.current.scrollBy({ left: -400, behavior: "smooth" });
     }
   };
 
   // Handle report selection
   const handleSelectReport = (report: Report) => {
     if (sliderRef.current) setScrollPos(sliderRef.current.scrollLeft);
+     controls.stop(); 
     setSelectedReport(report);
   };
 
@@ -71,7 +111,6 @@ export default function FeaturedReports() {
   return (
     <section className="w-full bg-[#0B0B0D] text-white py-20 px-6 lg:px-16">
       <div className="max-w-[1400px] mx-auto">
-
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-12">
           <div>
@@ -94,19 +133,28 @@ export default function FeaturedReports() {
         </div>
 
         {/* Slider */}
-        <div className="relative">
-          <div
+        {/* Infinite Loop Slider */}
+        {/* Slider */}
+        <div className="relative overflow-hidden">
+          {/** Motion Setup */}
+          <motion.div
             ref={sliderRef}
-            className="flex space-x-8 overflow-x-auto scrollbar-none scroll-smooth pb-4"
+            className="flex gap-8"
+            style={{ x }} // ← use motion value
+            animate={controls} // ← control animation
           >
-            {reports.slice(0, 9).map((item) => (
-              <motion.div
-                onClick={() => handleSelectReport(item)}
-                key={item.id}
-                whileHover={{ scale: 1.02 }}
-                className="min-w-[260px] max-w-[260px] bg-[#111113] border border-gray-600/40 rounded-xl shadow-lg overflow-hidden cursor-pointer"
-              >
-                
+            {[...reports.slice(0, 9), ...reports.slice(0, 9)].map(
+              (item, index) => (
+                <motion.div
+                  key={`${item.id}-${index}`}
+                  onClick={() => handleSelectReport(item)}
+                  onMouseEnter={() => controls.stop()}
+onMouseLeave={() => {
+  if (!selectedReport) startAnimation();
+}}// ← resume on leave
+                  whileHover={{ scale: 1.02 }}
+                  className="min-w-[260px] max-w-[260px] bg-[#111113] border border-gray-600/40 rounded-xl shadow-lg overflow-hidden cursor-pointer flex-shrink-0"
+                >
                   <div className="relative w-full h-[360px]">
                     <Image
                       src={item.image_url}
@@ -126,34 +174,33 @@ export default function FeaturedReports() {
                       <p className="text-gray-400 text-[15px] line-through mt-1">
                         ${item.discounted_price}
                       </p>
-                      <p className="text-red-400 text-sm mt-1">
-                        ${item.price}
-                      </p>
+                      <p className="text-red-400 text-sm mt-1">${item.price}</p>
                     </div>
                   </div>
-              </motion.div>
-            ))}
-          </div>
+                </motion.div>
+              )
+            )}
+          </motion.div>
 
           {/* Left Button */}
-          <button
-            onClick={scrollLeft}
+          {/* <button
+            onClick={() => nudge(300)} // ← use custom nudge instead of scrollBy
             className="flex absolute left-0 top-1/2 -translate-y-1/2
-            bg-black/30 backdrop-blur-md border border-white/20 text-white
-            w-12 h-12 rounded-full items-center justify-center cursor-pointer hover:bg-white/20 transition"
+      bg-black/30 backdrop-blur-md border border-white/20 text-white
+      w-12 h-12 rounded-full items-center justify-center cursor-pointer hover:bg-white/20 transition z-20"
           >
             <ArrowLeft />
           </button>
 
           {/* Right Button */}
-          <button
-            onClick={scrollRight}
+          {/* <button
+            onClick={() => nudge(-300)} // ← custom nudge
             className="flex absolute right-0 top-1/2 -translate-y-1/2
-            bg-black/30 backdrop-blur-md border border-white/20 text-white
-            w-12 h-12 rounded-full items-center cursor-pointer justify-center hover:bg-white/20 transition"
+      bg-black/30 backdrop-blur-md border border-white/20 text-white
+      w-12 h-12 rounded-full items-center cursor-pointer justify-center hover:bg-white/20 transition z-20"
           >
             <ArrowRight />
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -199,7 +246,9 @@ export default function FeaturedReports() {
               </form>
 
               <p className="text-sm sm:text-base md:text-[18px] text-white/80 font-[500]">
-                Interested in unlocking valuable insights for your business? Contact us today to explore and purchase our comprehensive report.
+                Interested in unlocking valuable insights for your business?
+                Contact us today to explore and purchase our comprehensive
+                report.
               </p>
             </div>
 
