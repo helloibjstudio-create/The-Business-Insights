@@ -97,7 +97,6 @@ export default function HeroPage({ preloaderDone }: { preloaderDone: boolean }) 
         
         {/* LEFT TEXT SECTION */}
         <motion.div
-          variants={leftVariant}
           initial="hidden"
           animate="visible"
           className="flex flex-col justify-center lg:justify-start"
@@ -121,7 +120,6 @@ export default function HeroPage({ preloaderDone }: { preloaderDone: boolean }) 
 
         {/* RIGHT INTERVIEW CARDS SECTION */}
         <motion.div
-          variants={rightVariant}
           initial="hidden"
           animate="visible"
           className="flex flex-col items-center  lg:items-end space-y-1"
