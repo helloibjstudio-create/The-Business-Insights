@@ -43,21 +43,20 @@ const startAnimation = () => {
   // Start animation after reports are loaded
 useEffect(() => {
   if (reports.length > 0) {
-    const w = (reports.length * 260) + (reports.length * 32);
+    const w = (reports.length * 260) + (reports.length * 32); // width + gap
     setSliderWidth(w);
-    startAnimation();
+
+    const current = x.get();
+    controls.start({
+      x: [current, current - w], // slide by full width
+      transition: {
+        repeat: Infinity,
+        ease: "linear",
+        duration: 30, // adjust speed here
+      },
+    });
   }
 }, [reports]);
-
-  // Manual scroll nudge for buttons
-const nudge = (amount: number) => {
-  controls.stop();            // pause animation
-  x.set(x.get() + amount);    // shift current x
-
-  if (!selectedReport) {      // ONLY resume if no selected report
-    startAnimation();
-  }
-};
 
   // Fetch reports
   useEffect(() => {
@@ -148,10 +147,18 @@ const nudge = (amount: number) => {
                 <motion.div
                   key={`${item.id}-${index}`}
                   onClick={() => handleSelectReport(item)}
-                  onMouseEnter={() => controls.stop()}
-onMouseLeave={() => {
-  if (!selectedReport) startAnimation();
-}}// ← resume on leave
+                  onMouseEnter={() => {
+    // Only stop animation if device has a pointer (desktop)
+    if (window.matchMedia("(pointer: fine)").matches) {
+      controls.stop();
+    }
+  }}
+  onMouseLeave={() => {
+    if (window.matchMedia("(pointer: fine)").matches && !selectedReport) {
+      startAnimation();
+    }
+  }}    
+// ← resume on leave
                   whileHover={{ scale: 1.02 }}
                   className="min-w-[260px] max-w-[260px] bg-[#111113] border border-gray-600/40 rounded-xl shadow-lg overflow-hidden cursor-pointer flex-shrink-0"
                 >

@@ -17,11 +17,13 @@ import MoreInterviews from "./components/MoreInterviews";
 
 export default function Home() {
 
+  const [preloaderDone, setPreloaderDone] = useState(false);
+
 
   return (
     <main className="relative min-h-screen bg-black">
       {/* <Navbar /> */}
-      <HeroPage />
+      <HeroPage preloaderDone={preloaderDone} />
       <ExclusiveInterviewsSlider />
       <TrendingArticles />
       <StaticFeatureSection />

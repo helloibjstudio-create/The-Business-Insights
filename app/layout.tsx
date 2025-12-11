@@ -1,6 +1,7 @@
+
+
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Sora } from "next/font/google";
-import { Hedvig_Letters_Serif } from "next/font/google"
+import { Sora } from "next/font/google";
 import "./globals.css";
 import ScrollToTop from "./ScrollToTop";
 import Preloader from "./components/Preloader";
@@ -17,16 +18,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
+
   return (
     <html lang="en">
-      <body
-        className={sora.className}
-      >
-        <Preloader />
+      <body className={sora.className}>
+        {/* Preloader */}<Preloader />
+
+        {/* Scroll to top */}
         <ScrollToTop />
+
+        {/* Main app content */}
         {children}
       </body>
     </html>

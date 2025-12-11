@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { BusinessHero, BusinessLogo } from "@/public";
 
-export default function Preloader() {
+interface PreloaderProps {
+  onDone: () => void;
+}
+
+export default function Preloader({ onDone }: PreloaderProps) {
   const [progress, setProgress] = useState(0);
   const [isDone, setIsDone] = useState(false);
 
@@ -13,7 +17,10 @@ export default function Preloader() {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(() => setIsDone(true), 300);
+          setTimeout(() => {
+            setIsDone(true);
+            onDone(); // notify parent
+          }, 300);
           return 100;
         }
         return prev + 1.12;
@@ -21,7 +28,7 @@ export default function Preloader() {
     }, 50);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [onDone]);
 
   return (
     <div
@@ -29,16 +36,16 @@ export default function Preloader() {
         isDone ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
-      {/* Background Logo reveal */}
       <div className="absolute z-200 inset-0 flex items-center justify-center">
         <Image
-          src={BusinessLogo} // <-- replace with your logo path
+          src={BusinessLogo}
           alt="Logo"
           width={560}
           height={760}
           className="opacity-0 max-w-[90%] animate-logoReveal"
         />
       </div>
+
       <div className="absolute inset-0 z-100">
         <Image
           src={BusinessHero}
@@ -51,7 +58,6 @@ export default function Preloader() {
 
       <div className="absolute w-screen h-screen bg-black/10 " />
 
-      {/* Progress Bar */}
       <div className="w-3/4 z-300 max-w-md">
         <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
           <div

@@ -5,10 +5,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "./Navbar";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { BusinessHero } from "@/public";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import { useEffect, useState } from "react";
 
 const MOCK_INTERVIEWS = [
   {
@@ -49,21 +48,40 @@ const MOCK_INTERVIEWS = [
   },
 ];
 
-export default function HeroPage() {
+export default function HeroPage({ preloaderDone }: { preloaderDone: boolean }) {
   const router = useRouter();
 
-    const { scrollY } = useScroll();
-    const scale = useTransform(scrollY, [0, 500], [1, 1.3]); // background zooms
+  const { scrollY } = useScroll();
+  const scale = useTransform(scrollY, [0, 500], [1, 1.3]); // background zooms
   const bgOpacity = useTransform(scrollY, [0, 300], [1, 0.3]); // fade overlay
   const contentOpacity = useTransform(scrollY, [0, 300], [1, 0]); 
+
+  // Animation variants
+  const leftVariant = {
+    hidden: { x: -100, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 1, ease: "easeOut" } },
+  };
+
+  const rightVariant = {
+    hidden: { x: 100, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 1, ease: "easeOut", delay: 0.3 } },
+  };
+
+   const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (preloaderDone) {
+      // Delay a little if you want smooth transition
+      setTimeout(() => setLoaded(true), 100);
+    }
+  }, [preloaderDone]);
+
   return (
     <section className="relative min-h-screen overflow-hidden flex items-start pb-12">
       <Navbar />
 
       {/* Background layer with tall image */}
-      <motion.div className="absolute inset-0 h-[1421px]"
-      style={{ scale }}
-      >
+      <motion.div className="absolute inset-0 h-[1421px]" style={{ scale }}>
         <Image
           src={BusinessHero}
           alt="Background"
@@ -78,7 +96,12 @@ export default function HeroPage() {
       <motion.div style={{ opacity: contentOpacity }} className="w-full max-w-7xl mx-auto px-4 lg:px-0 pt-40 items-center grid grid-cols-1 lg:grid-cols-2 gap-12 relative">
         
         {/* LEFT TEXT SECTION */}
-        <div className="flex flex-col justify-center lg:justify-start">
+        <motion.div
+          variants={leftVariant}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col justify-center lg:justify-start"
+        >
           <h1 className="text-5xl lg:text-7xl md:text-center lg:text-start font-semibold text-white leading-tight lg:mb-6">
             Business Insight <br /> You Can Trust
           </h1>
@@ -89,16 +112,20 @@ export default function HeroPage() {
           </p>
 
           <Link href="/Interviews">
-          <button  className="bg-orange-600 w-fit text-white px-8 py-4 md:mx-auto lg:mx-0 rounded-xl text-lg cursor-pointer font-semibold flex items-center gap-2 hover:bg-orange-700 transition">
-            Explore Interviews
-            <ArrowRight className="w-5 h-5" />
-          </button>
+            <button className="bg-orange-600 w-fit text-white px-8 py-4 md:mx-auto lg:mx-0 rounded-xl text-lg cursor-pointer font-semibold flex items-center gap-2 hover:bg-orange-700 transition">
+              Explore Interviews
+              <ArrowRight className="w-5 h-5" />
+            </button>
           </Link>
-        </div>
+        </motion.div>
 
         {/* RIGHT INTERVIEW CARDS SECTION */}
-        <div className="flex flex-col items-center  lg:items-end space-y-1">
-          
+        <motion.div
+          variants={rightVariant}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col items-center  lg:items-end space-y-1"
+        >
           {/* TOP MAIN IMAGE CARD */}
           <div className="relative w-[396px] h-[240px] rounded-2xl overflow-hidden shadow-lg">
             <Image
@@ -107,9 +134,7 @@ export default function HeroPage() {
               fill
               className="object-cover"
             />
-
-            {/* Orange arrow button */}
-            <button  onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[0].id}`)} className="absolute right-1 bottom-2 cursor-pointer bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[13px] lg:rounded-[15px] flex items-center justify-center shadow-lg">
+            <button onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[0].id}`)} className="absolute right-1 bottom-2 cursor-pointer bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[13px] lg:rounded-[15px] flex items-center justify-center shadow-lg">
               <ArrowRight />
             </button>
           </div>
@@ -130,7 +155,6 @@ export default function HeroPage() {
 
           {/* TWO SMALL CARDS */}
           <div className="flex flex-col  space-y-4">
-            
             {/* CARD 1 */}
             <div className="relative w-[396px] h-38 rounded-xl overflow-hidden bg-black/30 backdrop-blur-2xl border border-white/10 flex">
               <div className="relative w-[210px] h-full">
@@ -140,15 +164,13 @@ export default function HeroPage() {
                   fill
                   className="object-cover"
                 />
-              <button onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[1].id}`)} className="absolute cursor-pointer right-0 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
-                <ArrowRight className="w-[24px] h-[24px]" />
-              </button>
+                <button onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[1].id}`)} className="absolute cursor-pointer right-0 bottom-2 bg-orange-500 hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
+                  <ArrowRight className="w-[24px] h-[24px]" />
+                </button>
               </div>
-
               <div className="flex items-center px-4 text-white text-sm flex-1">
                 Chile’s Copper Production and Advancements
               </div>
-
             </div>
 
             {/* CARD 2 */}
@@ -160,20 +182,18 @@ export default function HeroPage() {
                   fill
                   className="object-cover"
                 />
-              <button onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[2].id}`)} className="absolute right-0 bottom-2 bg-orange-500 cursor-pointer hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
-                <ArrowRight className="w-[24px] h-[24px]" />
-              </button>
+                <button onClick={() => router.push(`/homeInt/${MOCK_INTERVIEWS[2].id}`)} className="absolute right-0 bottom-2 bg-orange-500 cursor-pointer hover:bg-orange-600 transition text-white w-12 h-12 rounded-[15px] flex items-center justify-center shadow-lg">
+                  <ArrowRight className="w-[24px] h-[24px]" />
+                </button>
               </div>
-
               <div className="flex items-center px-4 text-white text-sm flex-1">
                 Singapore’s Aerospace Industry Looks to Automation and
                 Disruptive Technologies for Growth
               </div>
-
             </div>
 
           </div>
-        </div>
+        </motion.div>
       </motion.div>
     </section>
   );
