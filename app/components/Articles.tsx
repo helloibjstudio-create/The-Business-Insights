@@ -226,6 +226,9 @@ if (selectedArticle) {
       </div>
 
       {/* Search & Filter */}
+
+      {/* Grid */}
+      <div className="relative w-[90%] md:w-[100%] md:flex mx-auto font-sans text-white md:pr-6 lg:pr-42 gap-4 lg:gap-12 items-baseline py-10">
       <SearchAndFilter
         data={articles}
         onFiltered={setFilteredArticles}
@@ -234,16 +237,15 @@ if (selectedArticle) {
           filters: { year: "year", country: "country", sector: "sector" },
         }}
       />
+      <div>
 
-      {/* Grid */}
-      <div className="relative w-[90%] mx-auto font-sans text-white mt-10 py-10">
-        <h1 className="text-[32px] sm:text-[48px] md:text-[60px] font-[500] mb-2">Articles</h1>
+<h1 className="text-[32px] sm:text-[48px] md:text-[60px] font-[500] mb-2">Articles</h1>
         <p className="text-[18px] text-gray-300 mb-10">
           Explore our latest articles and insights for a fresh perspective on
           industry trends and news.
         </p>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-[42px]">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-[42px]">
           {currentArticles.map((article) => (
             <motion.div
               key={article.id}
@@ -265,7 +267,7 @@ if (selectedArticle) {
                     ? article.sector.map((s, i) => (
                         <div
                           key={i}
-                          className="bg-black/30 text-white text-[14px] px-2 py-0.5 rounded-md border border-orange-500"
+                          className="bg-black/30 text-white text-[12px] px-2 py-0.5 rounded-md border border-orange-500"
                         >
                           {s}
                         </div>
@@ -285,7 +287,7 @@ if (selectedArticle) {
 
               <div className="mt-3 space-y-1 py-2">
                 <div className="flex items-center space-x-2">
-                  <p className="text-[18px] text-gray-400 items-center">
+                  <p className="text-[12px] text-gray-400 items-center">
                     {(Array.isArray(article.country)
                       ? article.country
                       : typeof article.country === "string"
@@ -305,10 +307,10 @@ if (selectedArticle) {
                   <span className="text-orange-500 items-center rounded-full">
                             •
                           </span>
-                  <p className="text-[18px] text-gray-400">{article.year}</p>
+                  <p className="text-[12px] text-gray-400">{article.year}</p>
                 </div>
-                <h2 className="text-[22px] font-[500]">{article.name}</h2>
-                <span className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]">
+                <h2 className="text-[16px] font-[500]">{article.name}</h2>
+                <span className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,0.7rem)]">
                   Read more{" "}
                   <Image
                     src={vector2}
@@ -323,7 +325,10 @@ if (selectedArticle) {
           ))}
         </div>
 
+      </div>
+        
         {/* Pagination */}
+      </div>
         <div className="flex justify-center items-center space-x-2 mt-10 text-sm flex-wrap">
           <button
             onClick={() => handlePageChange(1)}
@@ -351,7 +356,6 @@ if (selectedArticle) {
             Last
           </button>
         </div>
-      </div>
 
       <Footer />
     </section>

@@ -64,7 +64,7 @@ export default function SearchAndFilter<T extends Record<string, any>>({
   }, [filteredData, onFiltered]);
 
   return (
-    <div ref={wrapperRef} className="relative w-full max-w-sm ml-2 lg:ml-20 z-50 font-sans">
+    <div ref={wrapperRef} className="relative w-full max-w-full md:max-w-[200px] ml-2 lg:ml-20 z-50 font-sans">
       {/* Search Bar */}
       <motion.div
         className="flex items-center w-[70%] lg:w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-sm text-white focus-within:shadow-orange-500/30 transition-all mb-4"

@@ -26,6 +26,7 @@ export default function FeaturedReports() {
   // Motion system for infinite loop
   const x = useMotionValue(0);
   const controls = useAnimation();
+  const loopWidth = sliderWidth;
 
   // Start continuous infinite animation
 const startAnimation = () => {
@@ -142,7 +143,7 @@ useEffect(() => {
             style={{ x }} // ← use motion value
             animate={controls} // ← control animation
           >
-            {[...reports.slice(0, 9), ...reports.slice(0, 9)].map(
+            {[...reports, ...reports].map(
               (item, index) => (
                 <motion.div
                   key={`${item.id}-${index}`}
@@ -154,10 +155,12 @@ useEffect(() => {
     }
   }}
   onMouseLeave={() => {
-    if (window.matchMedia("(pointer: fine)").matches && !selectedReport) {
-      startAnimation();
-    }
-  }}    
+  if (window.matchMedia("(pointer: fine)").matches && !selectedReport) {
+    const current = x.get() % -loopWidth; 
+    x.set(current);
+    startAnimation();
+  }
+}}
 // ← resume on leave
                   whileHover={{ scale: 1.02 }}
                   className="min-w-[260px] max-w-[260px] bg-[#111113] border border-gray-600/40 rounded-xl shadow-lg overflow-hidden cursor-pointer flex-shrink-0"

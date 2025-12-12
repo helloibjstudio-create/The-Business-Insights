@@ -38,17 +38,17 @@ const Interviews = () => {
   }, []);
 
   // Fetch all interviews
- useEffect(() => {
-  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/interviews`)
-    .then((res) => res.json())
-    .then((data) => {
-      // Filter out hidden posts
-      const visible = data.filter((item: Interview) => !item.hidden);
-      setInterviews(visible);
-      setFilteredInterviews(visible);
-    })
-    .catch((err) => console.error("Error fetching interviews:", err));
-}, []);
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/interviews`)
+      .then((res) => res.json())
+      .then((data) => {
+        // Filter out hidden posts
+        const visible = data.filter((item: Interview) => !item.hidden);
+        setInterviews(visible);
+        setFilteredInterviews(visible);
+      })
+      .catch((err) => console.error("Error fetching interviews:", err));
+  }, []);
 
   const totalPages = Math.ceil(filteredInterviews.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -59,8 +59,8 @@ const Interviews = () => {
   );
 
   useEffect(() => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}, [selectedInterview, currentPage]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [selectedInterview, currentPage]);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page);
@@ -110,17 +110,16 @@ const Interviews = () => {
           >
             <ArrowLeft className="mr-2 w-4 h-4" /> Back to interviews
           </button>
-              <a href="https://www.takatufscholars.om/">
-                <Image
-                  src={Anni}
-                  alt="DHL Banner"
-                  width={1180}
-                  height={233}
-                  className="z-10 relative mx-auto mb-12 object-contain w-[90%] sm:w-[80%] lg:w-[80%]"
-                />
-              </a>
-        <Navbar />
-
+          <a href="https://www.takatufscholars.om/">
+            <Image
+              src={Anni}
+              alt="DHL Banner"
+              width={1180}
+              height={233}
+              className="z-10 relative mx-auto mb-12 object-contain w-[90%] sm:w-[80%] lg:w-[80%]"
+            />
+          </a>
+          <Navbar />
 
           <div className="flex flex-col-reverse min-h-screen bg-white/3 backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] lg:flex-row font-sans gap-10">
             <div className="w-full relative top-0">
@@ -138,9 +137,7 @@ const Interviews = () => {
                   />
                 ) : (
                   <>
-                    <p>
-                      post coming up...
-                    </p>
+                    <p>post coming up...</p>
                   </>
                 )}
               </div>
@@ -160,20 +157,36 @@ const Interviews = () => {
                   {selectedInterview.description}
                 </p>
               </div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="relative lg:w-[372.2px] lg:h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
-              >
-                <Image
-                  src={selectedInterview.image_url}
-                  alt={selectedInterview.name}
-                  width={472.2}
-                  height={400}
-                  className="object-cover w-full h-full rounded-xl"
-                />
-              </motion.div>
+              <div className="w-full lg:w-[432px] flex flex-col gap-4">
+  {/* First image */}
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+    className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-lg"
+  >
+    <Image
+      src={selectedInterview.image_url}
+      alt={selectedInterview.name}
+      fill
+      className="object-cover rounded-xl"
+    />
+  </motion.div>
+
+  {/* Second image fills remaining width below */}
+  <div className="relative w-full hidden lg:flex lg:h-[1000px] rounded-xl overflow-hidden shadow-lg">
+    <a href="">
+      <Image
+      src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1765550926/IMG_1779_cm9qwe.jpg"
+      alt="banner"
+      fill
+      className="object-contain"
+      priority
+    />
+    </a>
+  </div>
+</div>
+
             </div>
           </div>
 
@@ -216,6 +229,17 @@ const Interviews = () => {
             </div>
           </div>
         </div>
+        <div className="w-[70%]  md:w-[40%] mx-auto lg:hidden flex relative h-[500px] md:h-[400px] rounded-xl overflow-hidden shadow-lg">
+    <a href="">
+      <Image
+      src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1765550926/IMG_1779_cm9qwe.jpg"
+      alt="banner"
+      fill
+      className="object-fill mb-12 w-100"
+      priority
+    />
+    </a>
+  </div>
 
         <Footer />
       </section>
@@ -261,98 +285,100 @@ const Interviews = () => {
       </div>
 
       {/* ✅ FIXED SearchAndFilter */}
-      <div className="relative justify-start z-50">
-        <SearchAndFilter
-          data={interviews}
-          onFiltered={handleFiltered}
-          fields={{
-            search: ["name", "description", "sector", "year"],
-            filters: { year: "year", country: "country", sector: "sector" },
-          }}
-        />
-      </div>
 
       {/* Grid */}
-      <div className="relative font-sans w-[90%] mx-auto mt-10 py-10">
-        <h1 className="text-[clamp(1.8rem,5vw,3.5rem)] font-[500] mb-2">
-          Exclusive Interviews
-        </h1>
-        <p className="text-[18px] text-gray-300 mb-10">
-          Unlock the insights of industry leaders
-        </p>
+      <div className="relative md:flex md:gap-3 lg:gap-12 font-sans w-[100%] mx-auto px-4 md:px-0 md:pr-13 lg:pr-42 items-baseline py-10">
+        <div className="relative justify-start z-50">
+          <SearchAndFilter
+            data={interviews}
+            onFiltered={handleFiltered}
+            fields={{
+              search: ["name", "description", "sector", "year"],
+              filters: { year: "year", country: "country", sector: "sector" },
+            }}
+          />
+        </div>
+        <div>
+          <h1 className="text-[clamp(1.8rem,5vw,3.5rem)] font-[500] mt-7 md:mt-0 mb-2">
+            Exclusive Interviews
+          </h1>
+          <p className="text-[18px] text-gray-300 mb-10">
+            Unlock the insights of industry leaders
+          </p>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-[42px]">
-          {currentInterviews.map((interview) => (
-            <motion.div
-              key={interview.id}
-              onClick={() => setSelectedInterview(interview)}
-              whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-              className="cursor-pointer"
-            >
-              <div className="relative">
-                <Image
-                  src={interview.image_url}
-                  alt={interview.name}
-                  width={633}
-                  height={413}
-                  className="object-cover rounded-md w-full h-auto"
-                />
-                <div className="absolute bottom-3 left-3 bg-black/30 text-white text-[18px] font-[500] px-3 py-1 rounded-md border border-orange-500">
-                  {interview.sector}
-                </div>
-              </div>
-
-              <div className="mt-3 space-y-1 py-2">
-                <div className="flex items-center space-x-2">
-                  <p className="text-sm text-gray-400">{interview.country}</p>
-                  <span className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
-                  <p className="text-sm text-gray-400">{interview.year}</p>
-                </div>
-                <h2 className="text-[22px] font-[500]">{interview.name}</h2>
-                <span className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]">
-                  Read more{" "}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-[42px]">
+            {currentInterviews.map((interview) => (
+              <motion.div
+                key={interview.id}
+                onClick={() => setSelectedInterview(interview)}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+                className="cursor-pointer"
+              >
+                <div className="relative">
                   <Image
-                    src={vector2}
-                    alt="vector-2"
-                    width={10}
-                    height={10}
-                    className="ml-1"
+                    src={interview.image_url}
+                    alt={interview.name}
+                    width={633}
+                    height={413}
+                    className="object-cover rounded-md w-full h-auto"
                   />
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                  <div className="absolute bottom-3 left-3 bg-black/30 text-white text-[12px] font-[500] px-3 py-1 rounded-md border border-orange-500">
+                    {interview.sector}
+                  </div>
+                </div>
 
-        {/* Pagination */}
-        <div className="flex justify-center items-center space-x-2 mt-10 text-sm flex-wrap">
-          <button
-            onClick={() => handlePageChange(1)}
-            className="text-gray-400 hover:text-orange-400 transition"
-          >
-            First
-          </button>
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            className="text-gray-400 hover:text-orange-400 transition"
-          >
-            Prev
-          </button>
-          {renderPageNumbers()}
-          <button
-            onClick={() => handlePageChange(currentPage + 1)}
-            className="text-gray-400 hover:text-orange-400 transition"
-          >
-            Next
-          </button>
-          <button
-            onClick={() => handlePageChange(totalPages)}
-            className="text-gray-400 hover:text-orange-400 transition"
-          >
-            Last
-          </button>
+                <div className="mt-3 space-y-1 py-2">
+                  <div className="flex items-center space-x-2">
+                    <p className="text-sm text-gray-400">{interview.country}</p>
+                    <span className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
+                    <p className="text-sm text-gray-400">{interview.year}</p>
+                  </div>
+                  <h2 className="text-[16px] font-[500]">{interview.name}</h2>
+                  <span className="inline-flex items-center text-orange-400 hover:text-orange-500 underline text-[clamp(0.9rem,1.8vw,1.1rem)]">
+                    Read more{" "}
+                    <Image
+                      src={vector2}
+                      alt="vector-2"
+                      width={10}
+                      height={10}
+                      className="ml-1"
+                    />
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
+      </div>
+
+      {/* Pagination */}
+      <div className="flex justify-center items-center space-x-2 mt-10 text-sm flex-wrap">
+        <button
+          onClick={() => handlePageChange(1)}
+          className="text-gray-400 hover:text-orange-400 transition"
+        >
+          First
+        </button>
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          className="text-gray-400 hover:text-orange-400 transition"
+        >
+          Prev
+        </button>
+        {renderPageNumbers()}
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          className="text-gray-400 hover:text-orange-400 transition"
+        >
+          Next
+        </button>
+        <button
+          onClick={() => handlePageChange(totalPages)}
+          className="text-gray-400 hover:text-orange-400 transition"
+        >
+          Last
+        </button>
       </div>
 
       <Footer />
