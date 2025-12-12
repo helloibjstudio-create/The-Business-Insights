@@ -8,9 +8,13 @@ import { countries as countryOptions, sectors as sectorOptions } from "../data/o
 interface Report {
   id: number;
   title: string;
+  image_url: string;
   price: string;
   discounted_price: string;
-  image_url: string;
+  link: string;
+  country?: string;
+  sector?: string;
+  year?: string;
 }
 
 interface SortByProps {
