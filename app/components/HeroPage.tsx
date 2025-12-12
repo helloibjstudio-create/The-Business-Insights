@@ -8,6 +8,7 @@ import { BusinessHero } from "@/public";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Variants } from "framer-motion";
 
 const MOCK_INTERVIEWS = [
   {
@@ -57,15 +58,24 @@ export default function HeroPage({ preloaderDone }: { preloaderDone: boolean }) 
   const contentOpacity = useTransform(scrollY, [0, 300], [1, 0]); 
 
   // Animation variants
-  const leftVariant = {
-    hidden: { x: -100, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 1, ease: "easeOut" } },
-  };
+ const leftVariant: Variants = {
+  hidden: { x: -100, opacity: 0 },
+  visible: { 
+    x: 0, 
+    opacity: 1, 
+    transition: { duration: 1, ease: "easeOut" } 
+  },
+};
 
-  const rightVariant = {
-    hidden: { x: 100, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 1, ease: "easeOut", delay: 0.3 } },
-  };
+
+const rightVariant: Variants = {
+  hidden: { x: 100, opacity: 0 },
+  visible: { 
+    x: 0, 
+    opacity: 1, 
+    transition: { duration: 1, ease: "easeOut", delay: 0.3 } 
+  },
+};
 
    const [loaded, setLoaded] = useState(false);
 
@@ -98,6 +108,7 @@ export default function HeroPage({ preloaderDone }: { preloaderDone: boolean }) 
         {/* LEFT TEXT SECTION */}
         <motion.div
           initial="hidden"
+          variants={leftVariant}
           animate="visible"
           className="flex flex-col justify-center lg:justify-start"
         >
@@ -121,6 +132,7 @@ export default function HeroPage({ preloaderDone }: { preloaderDone: boolean }) 
         {/* RIGHT INTERVIEW CARDS SECTION */}
         <motion.div
           initial="hidden"
+          variants={rightVariant}
           animate="visible"
           className="flex flex-col items-center  lg:items-end space-y-1"
         >

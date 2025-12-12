@@ -27,6 +27,7 @@ export default function RootLayout({
       <body className={sora.className}>
         {/* Preloader */}<Preloader />
 
+
         {/* Scroll to top */}
         <ScrollToTop />
 

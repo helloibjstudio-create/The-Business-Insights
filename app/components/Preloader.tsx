@@ -4,11 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { BusinessHero, BusinessLogo } from "@/public";
 
-interface PreloaderProps {
-  onDone: () => void;
-}
-
-export default function Preloader({ onDone }: PreloaderProps) {
+export default function Preloader() {
   const [progress, setProgress] = useState(0);
   const [isDone, setIsDone] = useState(false);
 
@@ -17,10 +13,7 @@ export default function Preloader({ onDone }: PreloaderProps) {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(() => {
-            setIsDone(true);
-            onDone(); // notify parent
-          }, 300);
+          setTimeout(() => setIsDone(true), 300);
           return 100;
         }
         return prev + 1.12;
@@ -28,7 +21,7 @@ export default function Preloader({ onDone }: PreloaderProps) {
     }, 50);
 
     return () => clearInterval(interval);
-  }, [onDone]);
+  }, []);
 
   return (
     <div
@@ -56,15 +49,16 @@ export default function Preloader({ onDone }: PreloaderProps) {
         />
       </div>
 
-      <div className="absolute w-screen h-screen bg-black/10 " />
+      <div className="absolute w-screen h-screen bg-black/10" />
 
       <div className="w-3/4 z-300 max-w-md">
         <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
           <div
             className="h-full bg-orange-500 transition-all duration-200"
             style={{ width: `${progress}%` }}
-          ></div>
+          />
         </div>
+
         <p className="text-white text-center mt-3 text-sm">
           {progress.toFixed(2)}%
         </p>
