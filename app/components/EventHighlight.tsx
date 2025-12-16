@@ -54,7 +54,7 @@ const UpcomingEvents: React.FC = () => {
     }
   };
   return (
-    <section className=" bg-[#000000] text-white py-16 px-6 md:px-16">
+    <section className="bg-[#000000] text-white py-16 px-6 md:px-16 overflow-x-hidden">
       {/* Header */}
       <div className="flex max-w-[1400px] mx-auto justify-between items-center mb-10">
         <div>
