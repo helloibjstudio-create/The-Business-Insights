@@ -91,7 +91,7 @@ export default function ExclusiveInterviewsSlider() {
                 w-[260px]
                 md:w-[260px]
                 lg:w-[270px]
-                xl:w-[280px]
+                xl:w-[260px]
                 backdrop-blur-xl
                 border border-white/10
                 rounded-2xl
