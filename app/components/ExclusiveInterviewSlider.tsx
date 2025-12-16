@@ -91,7 +91,7 @@ export default function ExclusiveInterviewsSlider() {
                 w-[260px]
                 md:w-[260px]
                 lg:w-[270px]
-                xl:w-[260px]
+                xl:w-[230px]
                 backdrop-blur-xl
                 border border-white/10
                 rounded-2xl
@@ -111,8 +111,8 @@ export default function ExclusiveInterviewsSlider() {
               </div>
 
               <div className="p-4 w-[96%] backdrop-blur-2xl rounded-2xl mx-auto mb-2 left-0 right-0 bottom-0 absolute bg-black/60">
-                <h3 className="font-semibold text-lg">{person.name}</h3>
-                <p className="text-gray-300 text-sm mt-1 mb-2">
+                <h3 className="font-semibold text-[14px]">{person.name}</h3>
+                <p className="text-gray-300 text-[12px] mt-1 mb-2">
                   {person.description}
                 </p>
                 <hr className="border-[#E8602E] mb-2" />
