@@ -90,8 +90,7 @@ export default function ExclusiveInterviewsSlider() {
                 flex-shrink-0
                 w-[260px]
                 md:w-[260px]
-                lg:w-[270px]
-                xl:w-[230px]
+                lg:w-[250px]
                 backdrop-blur-xl
                 border border-white/10
                 rounded-2xl
