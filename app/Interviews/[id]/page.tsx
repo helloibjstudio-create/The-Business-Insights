@@ -123,7 +123,7 @@ useEffect(() => {
                 )}
               </div>
             </div>
-            <div className=" w-full lg:w-[472.2px] lg:h-[400px]">
+            <div className=" w-full lg:w-[472.2px] lg:h-[400px] ">
               <div className="p-6 w-full justify-self-end text-end text-white rounded-tr-2xl">
                 <p className="text-[18px] opacity-80 uppercase mb-1">
                   {interview.year}

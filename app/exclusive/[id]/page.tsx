@@ -74,50 +74,67 @@ export default function ExclusiveInterviewDetailPage() {
         </button>
 
         {/* Interview content */}
-        <div className="flex flex-col-reverse bg-white/3 backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] lg:flex-row font-sans gap-10">
-          {/* Text section */}
-          <div className="w-full">
-            <h1 className="text-3xl md:text-4xl font-semibold mb-1">{interview.name}</h1>
-
-            <div className="space-y-6 text-white font-sans font-normal leading-relaxed">
-              <p>{interview.description}</p>
-
-              {interview.write_up ? (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: interview.write_up,
-                  }}
-                />
-              ) : (
-                <>
-                  <p>
-                    post coming up...
-                  </p>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Image + name card */}
+        <div className="flex flex-col-reverse min-h-[1800px] bg-white/3 items-baseline backdrop-blur-2xl border-[0.5px] border-white/10 p-6 rounded-[20px] lg:flex-row font-sans gap-10">
+                    <div className="w-full relative top-0">
+                     
+        
+                      <div className="space-y-6 text-white font-sans font-normal leading-relaxed">
+                        
+                        {interview.write_up ? (
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: interview.write_up,
+                            }}
+                          />
+                        ) : (
+                          <>
+                            <p>post coming up...</p>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <div className=" w-full lg:w-[472.2px] lg:h-[400px]">
+                      <div className="p-6 w-full justify-self-end text-end text-white rounded-tr-2xl">
+                        <p className="text-[18px] opacity-80 uppercase mb-1">
+                          {interview.year}
+                        </p>
+                        <h3 className="text-xl font-semibold">
+                          {interview.name}
+                        </h3>
+                        <p className="text-[18px] mt-2 opacity-80">
+                          {interview.description}
+                        </p>
+                      </div>
+                      <div className="w-full lg:w-[432px] flex flex-col gap-4">
+          {/* First image */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative  lg:w-full h-[400px] font-sans rounded-xl overflow-hidden shadow-lg"
+            className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-lg"
           >
             <Image
               src={interview.image_url}
               alt={interview.name}
-              width={100}
-              height={100}
-              className=" object-contain  object-center w-full h-full"
+              fill
+              className="object-cover rounded-xl"
             />
-            <div className="absolute bottom-0 left-0 bg-black/70 p-6 w-full md:w-full text-white rounded-tr-2xl">
-              <h3 className="text-xl font-semibold">{interview.name}</h3>
-              <p className="text-sm mt-2 opacity-80">{interview.description}</p>
-            </div>
           </motion.div>
+        
+          {/* Second image fills remaining width below */}
+          <div className="relative w-full hidden lg:flex lg:h-[1000px] rounded-xl overflow-hidden shadow-lg">
+              <Image
+              src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1765550926/IMG_1779_cm9qwe.jpg"
+              alt="banner"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
         </div>
+        
+                    </div>
+                  </div>
 
         {/* Related Interviews */}
         <div className="mt-20 font-sans">
@@ -129,14 +146,14 @@ export default function ExclusiveInterviewDetailPage() {
               .map((related) => (
                 <div
                   key={related.id}
-                  className="cursor-pointer bg-[#111] rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+                  className="cursor-pointer bg-[#111]/50 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
                 >
-                  <div className="relative w-full h-[240px]">
+                  <div className="relative inset-0 w-full h-[340px]">
                     <Image
                       src={related.image_url}
                       alt={related.name}
                       fill
-                      className="object-contain"
+                      className="object-cover object-center"
                     />
                   </div>
                   <div className="p-5">
