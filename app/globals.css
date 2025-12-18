@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --font-sora: var(--font-sora);
 }
@@ -12,6 +16,22 @@ html, body {
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
+
+/* Hide scrollbar for Chrome, Edge, Safari */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for IE / old Edge */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+}
+
 
 body {
   background: #000;

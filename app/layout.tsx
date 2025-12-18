@@ -29,10 +29,10 @@ export default function RootLayout({
 
 
         {/* Scroll to top */}
-        <ScrollToTop />
 
         {/* Main app content */}
         {children}
+        <ScrollToTop />
       </body>
     </html>
   );
