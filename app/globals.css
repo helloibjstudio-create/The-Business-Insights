@@ -16,7 +16,6 @@ html, body {
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
-
 /* Hide scrollbar for Chrome, Edge, Safari */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
