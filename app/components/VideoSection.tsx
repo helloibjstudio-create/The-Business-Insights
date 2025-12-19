@@ -34,14 +34,13 @@ export default function StaticFeatureSection() {
             </h1>
 
             {/* Play Button */}
-            <Link href="/somewhere">
+            
               <div className="flex items-center gap-3 mt-6 cursor-pointer">
-                <div className="w-[46px] h-[46px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center">
+                <div className="w-[46px] h-[46px] hover:bg-white/50 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center">
                   <Play className="text-white" />
                 </div>
                 <span className="text-gray-200 text-sm">16:08</span>
               </div>
-            </Link>
           </div>
         </div>
 
@@ -62,7 +61,7 @@ export default function StaticFeatureSection() {
                 className="absolute inset-0 flex items-center justify-center"
               >
                 <div className="w-[50px] h-[50px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center hover:bg-white/50 transition">
-                  <Play className="text-white" />
+                  <Play className="text-white cursor-pointer" />
                 </div>
               </div>
             </div>
@@ -89,7 +88,7 @@ export default function StaticFeatureSection() {
                 className="absolute inset-0 flex items-center justify-center"
               >
                 <div className="w-[50px] h-[50px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center hover:bg-white/50 transition">
-                  <Play className="text-white" />
+                  <Play className="text-white cursor-pointer" />
                 </div>
               </div>
             </div>
@@ -117,7 +116,7 @@ export default function StaticFeatureSection() {
                 className="absolute inset-0 flex items-center justify-center"
               >
                 <div className="w-[50px] h-[50px] rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center hover:bg-white/50 transition">
-                  <Play className="text-white" />
+                  <Play className="text-white cursor-pointer" />
                 </div>
               </div>
             </div>
