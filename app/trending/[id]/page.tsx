@@ -134,7 +134,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
           Back to homepage
         </Link>
 
-        <div className=" backdrop-blur-2xl bg-white/5 p-6 rounded-xl border border-white/10">
+        <div className=" backdrop-blur-2xl bg-white/5 max-w-[900px] mx-auto p-6 rounded-xl border border-white/10">
             <div className="relative w-full h-[300px] rounded-xl overflow-hidden">
               <Image
                 src={article.image_url}

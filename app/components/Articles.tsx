@@ -104,7 +104,7 @@ if (selectedArticle) {
             <ArrowLeft className="mr-2 w-4 h-4 font-sans" /> Back to articles
           </button>
 
-          <div className="flex flex-col-reverse bg-white/5 backdrop-blur-2xl border border-white/10 p-6 rounded-[20px] font-sans gap-10">
+          <div className="flex flex-col-reverse bg-white/5 backdrop-blur-2xl border border-white/10 p-6 max-w-[900px] mx-auto rounded-[20px] font-sans gap-10">
             {/* Text section */}
             <div className="w-full">
               <h1 className="text-[26px] md:text-4xl font-semibold mb-6">

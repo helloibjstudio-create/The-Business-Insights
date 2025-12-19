@@ -227,8 +227,7 @@ const Interviews = () => {
             </div>
           </div>
         </div>
-        <div className="w-[70%]  md:w-[40%] mx-auto lg:hidden flex relative h-[500px] md:h-[400px] rounded-xl overflow-hidden shadow-lg">
-    <a href="">
+        <div className="w-[46%]  md:w-[40%] mx-auto lg:hidden flex relative h-[400px] md:h-[400px] rounded-xl overflow-hidden shadow-lg">
       <Image
       src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1765550926/IMG_1779_cm9qwe.jpg"
       alt="banner"
@@ -236,7 +235,6 @@ const Interviews = () => {
       className="object-fill mb-12 w-100"
       priority
     />
-    </a>
   </div>
 
         <Footer />
