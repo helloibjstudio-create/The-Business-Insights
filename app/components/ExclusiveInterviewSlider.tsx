@@ -81,7 +81,7 @@ export default function ExclusiveInterviewsSlider() {
 
         <div
           ref={sliderRef}
-          className="flex gap-4 overflow-x-auto scroll-smooth no-scrollbar"
+          className="flex gap-4 overflow-x-auto scroll-smooth no-scrollbar hide-scrollbar"
         >
           {exclusiveInterviews.map((person) => (
             <div
@@ -98,6 +98,7 @@ export default function ExclusiveInterviewsSlider() {
                 shadow-lg
                 min-h-[420px]
                 relative
+                mb-10
               "
             >
               <div className="absolute inset-0">

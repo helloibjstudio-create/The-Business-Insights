@@ -21,7 +21,7 @@ export default function Home() {
 
 
   return (
-    <main className="relative min-h-screen bg-black">
+    <main className="relative min-h-screen overflow-x-hidden bg-black">
       {/* <Navbar /> */}
       <HeroPage preloaderDone={preloaderDone} />
       <ExclusiveInterviewsSlider />

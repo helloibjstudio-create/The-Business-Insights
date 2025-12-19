@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 
-const MOCK_ARTICLES = [
+export const MOCK_ARTICLES = [
   {
   id: 1,
       name: "Navigating the Opportunities and Challenges of Vogue Minerals in Africa",

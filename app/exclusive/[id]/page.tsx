@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import Link from "next/link";
@@ -146,7 +146,7 @@ export default function ExclusiveInterviewDetailPage() {
               .map((related) => (
                 <div
                   key={related.id}
-                  className="cursor-pointer bg-[#111]/50 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+                  className="cursor-pointer relative rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
                 >
                   <div className="relative inset-0 w-full h-[340px]">
                     <Image
@@ -156,11 +156,11 @@ export default function ExclusiveInterviewDetailPage() {
                       className="object-cover object-center"
                     />
                   </div>
-                  <div className="p-5">
+                  <div className="p-5 absolute bottom-2 w-[96%] bg-black/50 backdrop-blur-xl rounded-xl mx-auto left-0 right-0">
                     <h4 className="text-lg font-semibold mb-1">{related.name}</h4>
                     <p className="text-sm text-gray-400 mb-3">{related.description}</p>
-                    <Link href={`/exclusive/${related.id}`}><span className="text-orange-400 hover:underline text-sm">
-                      Read More →
+                    <Link href={`/exclusive/${related.id}`}><span className="text-orange-400 hover:underline text-sm items-center inline-flex">
+                      Read More <ArrowRight className="w-4 inline-block" />
                     </span></Link>
                   </div>
                 </div>

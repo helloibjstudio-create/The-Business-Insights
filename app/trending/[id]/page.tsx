@@ -134,6 +134,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
           Back to homepage
         </Link>
 
+        <div className=" backdrop-blur-2xl bg-white/5 p-6 rounded-xl border border-white/10">
             <div className="relative w-full h-[300px] rounded-xl overflow-hidden">
               <Image
                 src={article.image_url}
@@ -142,7 +143,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
                 className="object-cover rounded-xl"
               />
             </div>
-        <div className="flex flex-col-reverse lg:flex-row gap-10 backdrop-blur-2xl bg-white/5 p-6 rounded-xl border border-white/10">
+        <div className="flex flex-col-reverse lg:flex-row mt-8">
 
           <div className="w-full">
             <h1 className="text-3xl font-semibold mb-6">
@@ -153,19 +154,20 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
 
             <div
             className="prose prose-invert space-y-4"
-              dangerouslySetInnerHTML={{
-                __html: article.write_up,
-              }}
+            dangerouslySetInnerHTML={{
+              __html: article.write_up,
+            }}
             />
           </div>
 
-          <div className="w-full lg:w-[400px]">
+          <div className="">
             <div className="text-end mb-4">
               <p className="text-sm opacity-80">{article.year}</p>
               <p className="text-sm opacity-80">{article.sector}</p>
             </div>
 
           </div>
+            </div>
         </div>
       </div>
     </section>

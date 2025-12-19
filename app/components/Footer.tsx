@@ -76,7 +76,7 @@ export default function Footer() {
       </section>
       <footer
         key="footer"
-        className="bg-black z-30 relative text-white py-10 md:py-14 font-sans"
+        className="bg-black z-30 hide-scrollbar relative text-white py-10 md:py-14 font-sans"
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
           {/* Left Section */}

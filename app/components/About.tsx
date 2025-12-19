@@ -88,7 +88,7 @@ const About = () => {
         </p>
       </div>
 
-      <section className="relative h-full mb-20 top-30 lg:mb-50 lg:top-30">
+      <section className="relative h-full mb-20 top-30 lg:mb-50 lg:top-50">
         <div className="absolute  w-full h-full">
           <Image
             src={thirdOrange}
