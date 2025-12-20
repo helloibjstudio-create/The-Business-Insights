@@ -34,6 +34,12 @@ export default function Login() {
   }
 }, []);
 
+function InlineSpinner() {
+  return (
+    <span className="ml-2 inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+  );
+}
+
 
   return (
     <div className="relative h-screen w-screen flex items-center font-sans justify-center">
@@ -76,7 +82,7 @@ export default function Login() {
             type="submit"
             className="py-3 bg-orange-600 text-white rounded-md font-semibold hover:bg-white/30 cursor-pointer transition-colors"
           >
-            Login
+            Login <InlineSpinner />
           </button>
         </form>
         
