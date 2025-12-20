@@ -789,7 +789,7 @@ useEffect(() => {
         </aside>
 
         {/* Main Content */}
-        <main onClick={ () => setSidebarOpen(false)} className="  p-10 overflow-auto z-40">
+        <main onClick={ () => setSidebarOpen(false)} className="  p-10 overflow-auto mx-auto z-40">
           <h2 className="text-3xl text-center font-semibold mb-8 capitalize">
             {activeTab}
           </h2>
