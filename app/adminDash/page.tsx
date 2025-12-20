@@ -554,19 +554,19 @@ useEffect(() => {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => handleEdit(item)}
-                  className="flex items-center gap-1 bg-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-600"
+                  className="flex items-center gap-1 cursor-pointer bg-orange-500 px-3 py-1 rounded text-sm hover:bg-white/30"
                 >
                   <Edit3 size={14} /> Edit
                 </button>
                 <button
                   onClick={() => handleDelete(String(item.id))}
-                  className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                  className="flex items-center gap-1 bg-transparent cursor-pointer border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/50"
                 >
                   <Trash2 size={14} /> Delete
                 </button>
                 <button
   onClick={() => handleHide(item.id, !item.hidden)}
-                  className="flex items-center cursor-pointer gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                  className="flex items-center gap-1 cursor-pointer bg-white/30 border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
                 >
                   {item.hidden ? <Eye /> : <EyeClosed />}
   <p>{item.hidden ? "Unhide" : "Hide"}</p>
@@ -596,22 +596,23 @@ useEffect(() => {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => handleEdit(item)}
-                  className="flex items-center gap-1 bg-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-600"
+                  className="flex items-center gap-1 cursor-pointer bg-orange-500 px-3 py-1 rounded text-sm hover:bg-white/30"
                 >
                   <Edit3 size={14} /> Edit
                 </button>
                 <button
                   onClick={() => handleDelete(String(item.id))}
-                  className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                  className="flex items-center gap-1 bg-transparent cursor-pointer border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/50"
                 >
                   <Trash2 size={14} /> Delete
                 </button>
                 <button
   onClick={() => handleHide(item.id, !item.hidden)}
-  className="flex items-center gap-1 bg-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-600"
->
-  {item.hidden ? "Unhide" : "Hide"}
-</button>
+                  className="flex items-center gap-1 cursor-pointer bg-white/30 border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                >
+                  {item.hidden ? <Eye /> : <EyeClosed />}
+  <p>{item.hidden ? "Unhide" : "Hide"}</p>
+                </button>
               </div>
             </div>
           </div>
@@ -639,22 +640,23 @@ useEffect(() => {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => handleEdit(item)}
-                  className="flex items-center gap-1 bg-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-600"
+                  className="flex items-center gap-1 cursor-pointer bg-orange-500 px-3 py-1 rounded text-sm hover:bg-white/30"
                 >
                   <Edit3 size={14} /> Edit
                 </button>
                 <button
                   onClick={() => handleDelete(String(item.id))}
-                  className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                  className="flex items-center gap-1 bg-transparent cursor-pointer border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/50"
                 >
                   <Trash2 size={14} /> Delete
                 </button>
                 <button
   onClick={() => handleHide(item.id, !item.hidden)}
-  className="flex items-center gap-1 bg-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-600"
->
-  {item.hidden ? "Unhide" : "Hide"}
-</button>
+                  className="flex items-center gap-1 cursor-pointer bg-white/30 border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                >
+                  {item.hidden ? <Eye /> : <EyeClosed />}
+  <p>{item.hidden ? "Unhide" : "Hide"}</p>
+                </button>
               </div>
             </div>
           </div>
@@ -663,7 +665,7 @@ useEffect(() => {
         return (
           <div
             key={index}
-            className="bg-black/20 border border-white/10 w-screen rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
+            className="bg-black/20 border border-white/10 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform"
           >
             <div className="relative h-[200px]">
               <Image
@@ -679,24 +681,25 @@ useEffect(() => {
                 {item.state} • {item.year}
               </p>
               <div className="flex items-center gap-3">
-                <button
+               <button
                   onClick={() => handleEdit(item)}
-                  className="flex items-center gap-1 bg-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-600"
+                  className="flex items-center gap-1 cursor-pointer bg-orange-500 px-3 py-1 rounded text-sm hover:bg-white/30"
                 >
                   <Edit3 size={14} /> Edit
                 </button>
                 <button
                   onClick={() => handleDelete(String(item.id))}
-                  className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                  className="flex items-center gap-1 bg-transparent cursor-pointer border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/50"
                 >
                   <Trash2 size={14} /> Delete
                 </button>
                 <button
   onClick={() => handleHide(item.id, !item.hidden)}
-  className="flex items-center gap-1 bg-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-600"
->
-  {item.hidden ? "Unhide" : "Hide"}
-</button>
+                  className="flex items-center gap-1 cursor-pointer bg-white/30 border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                >
+                  {item.hidden ? <Eye /> : <EyeClosed />}
+  <p>{item.hidden ? "Unhide" : "Hide"}</p>
+                </button>
               </div>
             </div>
           </div>
