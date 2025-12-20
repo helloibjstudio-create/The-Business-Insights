@@ -505,27 +505,27 @@ useEffect(() => {
               />
             </div>
             <div className="p-4">
-              <p className="text-gray-300 text-sm mb-1">
-                {item.description} • {item.year}
-              </p>
               <h2 className="text-lg font-semibold">{item.name}</h2>
-              <p className="text-gray-400 text-sm mb-3">{item.sector}</p>
+              <p className="text-gray-400 text-sm mb-1">{item.sector}</p>
+              <p className="text-gray-400 text-sm mb-1">
+                 {item.year}
+              </p>
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => handleEdit(item)}
-                  className="flex items-center gap-1 bg-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-600"
+                  className="flex items-center gap-1 cursor-pointer bg-orange-500 px-3 py-1 rounded text-sm hover:bg-white/30"
                 >
                   <Edit3 size={14} /> Edit
                 </button>
                 <button
                   onClick={() => handleDelete(String(item.id))}
-                  className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                  className="flex items-center gap-1 bg-transparent cursor-pointer border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/50"
                 >
                   <Trash2 size={14} /> Delete
                 </button>
                 <button
   onClick={() => handleHide(item.id, !item.hidden)}
-                  className="flex items-center gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                  className="flex items-center gap-1 cursor-pointer bg-white/30 border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
                 >
                   {item.hidden ? <Eye /> : <EyeClosed />}
   <p>{item.hidden ? "Unhide" : "Hide"}</p>
@@ -566,10 +566,11 @@ useEffect(() => {
                 </button>
                 <button
   onClick={() => handleHide(item.id, !item.hidden)}
-  className="flex items-center gap-1 bg-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-600"
->
-  {item.hidden ? "Unhide" : "Hide"}
-</button>
+                  className="flex items-center cursor-pointer gap-1 bg-transparent border border-orange-500 px-3 py-1 rounded text-sm hover:bg-orange-500/10"
+                >
+                  {item.hidden ? <Eye /> : <EyeClosed />}
+  <p>{item.hidden ? "Unhide" : "Hide"}</p>
+                </button>
               </div>
             </div>
           </div>
@@ -789,8 +790,8 @@ useEffect(() => {
         </aside>
 
         {/* Main Content */}
-        <main onClick={ () => setSidebarOpen(false)} className="  p-10 overflow-auto mx-auto z-40">
-          <h2 className="text-3xl text-center font-semibold mb-8 capitalize">
+        <main onClick={ () => setSidebarOpen(false)} className="  p-10 overflow-auto w-full  z-40">
+          <h2 className="text-3xl mx-auto text-center font-semibold mb-8 capitalize">
             {activeTab}
           </h2>
           <div className="flex items-center justify-between mb-10">
