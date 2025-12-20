@@ -98,6 +98,20 @@ router.put("/:id", async (req, res) => {
   res.json({ success: true, data });
 });
 
+router.patch("/:id/hide", async (req, res) => {
+  const { id } = req.params;
+  const { hidden } = req.body; // boolean: true to hide, false to unhide
+
+  const { data, error } = await supabase
+    .from("reports")
+    .update({ hidden })
+    .eq("id", id)
+    .select();
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json({ success: true, data });
+});
+
 /**
  * DELETE /api/reports/:id
  * Delete an item

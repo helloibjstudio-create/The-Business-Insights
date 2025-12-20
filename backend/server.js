@@ -122,6 +122,33 @@ app.get("/api/exclusiveInterviews", async (req, res) => {
   res.json(data);
 });
 
+app.patch("/api/exclusiveInterviews/:id", async (req, res) => {
+  const { id } = req.params;
+  const { hidden } = req.body;
+
+  const { data, error } = await supabase
+    .from("exclusiveInterviews")
+    .update({ hidden })
+    .eq("id", id)
+    .select();
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json({ success: true, data });
+});
+app.patch("/api/exclusiveInterviews", async (req, res) => {
+  const { id } = req.params;
+  const { hidden } = req.body;
+
+  const { data, error } = await supabase
+    .from("exclusiveInterviews")
+    .update({ hidden })
+    .eq("id", id)
+    .select();
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json({ success: true, data });
+});
+
 
 // ===================================================================
 // 🟢 ARTICLES
@@ -140,6 +167,33 @@ app.get("/api/articles", async (req, res) => {
   const { data, error } = await supabase.from("articles").select("*").order("id", { ascending: false });
   if (error) return res.status(400).json({ error: error.message });
   res.json(data);
+});
+
+app.patch("/api/articles/:id", async (req, res) => {
+  const { id } = req.params;
+  const { hidden } = req.body;
+
+  const { data, error } = await supabase
+    .from("articles")
+    .update({ hidden })
+    .eq("id", id)
+    .select();
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json({ success: true, data });
+});
+app.patch("/api/articles", async (req, res) => {
+  const { id } = req.params;
+  const { hidden } = req.body;
+
+  const { data, error } = await supabase
+    .from("articles")
+    .update({ hidden })
+    .eq("id", id)
+    .select();
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json({ success: true, data });
 });
 
 
@@ -162,6 +216,33 @@ app.get("/api/reports", async (req, res) => {
   res.json(data);
 });
 
+app.patch("/api/reports/:id", async (req, res) => {
+  const { id } = req.params;
+  const { hidden } = req.body;
+
+  const { data, error } = await supabase
+    .from("reports")
+    .update({ hidden })
+    .eq("id", id)
+    .select();
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json({ success: true, data });
+});
+app.patch("/api/reports", async (req, res) => {
+  const { id } = req.params;
+  const { hidden } = req.body;
+
+  const { data, error } = await supabase
+    .from("reports")
+    .update({ hidden })
+    .eq("id", id)
+    .select();
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json({ success: true, data });
+});
+
 
 // ===================================================================
 // 🔴 EVENTS
@@ -180,6 +261,33 @@ app.get("/api/events", async (req, res) => {
   const { data, error } = await supabase.from("events").select("*").order("id", { ascending: false });
   if (error) return res.status(400).json({ error: error.message });
   res.json(data);
+});
+
+app.patch("/api/events/:id", async (req, res) => {
+  const { id } = req.params;
+  const { hidden } = req.body;
+
+  const { data, error } = await supabase
+    .from("events")
+    .update({ hidden })
+    .eq("id", id)
+    .select();
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json({ success: true, data });
+});
+app.patch("/api/events", async (req, res) => {
+  const { id } = req.params;
+  const { hidden } = req.body;
+
+  const { data, error } = await supabase
+    .from("events")
+    .update({ hidden })
+    .eq("id", id)
+    .select();
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json({ success: true, data });
 });
 
 app.put("/api/:table/:id", async (req, res) => {
