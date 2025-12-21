@@ -159,7 +159,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
               </div>
           </div>
         </div>
-        <div className="w-[46%]  md:w-[40%] mx-auto lg:hidden top-10 flex relative h-[400px] md:h-[400px] rounded-xl overflow-hidden shadow-lg">
+        <div className="w-[38%]  md:w-[40%] mx-auto lg:hidden top-10 flex relative h-[400px] md:h-[400px] rounded-xl overflow-hidden shadow-lg">
               <Image
               src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1765550926/IMG_1779_cm9qwe.jpg"
               alt="banner"
