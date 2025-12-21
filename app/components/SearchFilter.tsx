@@ -64,7 +64,7 @@ export default function SearchAndFilter<T extends Record<string, any>>({
   }, [filteredData, onFiltered]);
 
   return (
-    <div ref={wrapperRef} className="relative w-full max-w-full md:max-w-[200px] ml-2 lg:ml-20 z-50 font-sans">
+    <div ref={wrapperRef} className="relative w-full max-w-full md:max-w-[300px] lg:max-w-[200px] ml-2 lg:ml-20 font-sans">
       {/* Search Bar */}
       <motion.div
         className="flex items-center w-[70%] lg:w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-sm text-white focus-within:shadow-orange-500/30 transition-all mb-4"
@@ -83,7 +83,7 @@ export default function SearchAndFilter<T extends Record<string, any>>({
 
       {/* Filter Panel - always visible */}
       <div className="bg-black/80 border border-white/10 rounded-2xl p-5 space-y-4 backdrop-blur-md shadow-xl w-[70%] lg:w-full">
-      <p className="text-[#E8602E]">Filter</p>
+      <p className="text-[#E8602E] bg-transparent">Filter</p>
         {/* Year */}
         <FilterItem label="Year" value={filters.year} options={yearOptions} onSelect={(val) => setFilters((f) => ({ ...f, year: val }))} />
         {/* Country */}
@@ -110,11 +110,11 @@ function FilterItem({ label, value, options, onSelect }: FilterItemProps) {
       <select
         value={value}
         onChange={(e) => onSelect(e.target.value)}
-        className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none"
+        className="w-full overflow-y-hidden hide-scrollbar px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none"
       >
-        <option value="">All</option>
+        <option className="bg-black text-white overflow-y-hidden hide-scrollbar rounded-2xl" value="">All</option>
         {options.map((opt) => (
-          <option key={opt} value={opt}>
+          <option className="bg-black text-white overflow-y-hidden hide-scrollbar rouded-2xl" key={opt} value={opt}>
             {opt}
           </option>
         ))}

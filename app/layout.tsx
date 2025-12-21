@@ -5,6 +5,7 @@ import { Sora } from "next/font/google";
 import "./globals.css";
 import ScrollToTop from "./ScrollToTop";
 import Preloader from "./components/Preloader";
+import ScrollBackButton from "./components/ScrollBackButton";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -32,7 +33,7 @@ export default function RootLayout({
 
         {/* Main app content */}
         {children}
-        <ScrollToTop />
+        <ScrollBackButton />
       </body>
     </html>
   );

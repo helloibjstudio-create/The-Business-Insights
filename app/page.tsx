@@ -13,6 +13,9 @@ import StaticFeatureSection from "./components/VideoSection";
 import FeaturedReports from "./components/FeaturedReports";
 import EventHighlight from "./components/EventHighlight";
 import MoreInterviews from "./components/MoreInterviews";
+import ScrollToTop from "./ScrollToTop";
+import ScrollBackButton from "./components/ScrollBackButton";
+import Dhl from "./components/Dhl";
 
 
 export default function Home() {
@@ -29,8 +32,10 @@ export default function Home() {
       <StaticFeatureSection />
       <FeaturedReports />
       <EventHighlight />
+      <Dhl />
       <MoreInterviews />
       <Footer />
+      <ScrollBackButton />
     </main>
   );
 }

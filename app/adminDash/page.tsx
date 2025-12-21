@@ -479,6 +479,18 @@ useEffect(() => {
   };
   window.addEventListener("storage", handleStorageLogout);
 
+  async function safeLogout() {
+  try {
+    const { error } = await supabase.auth.signOut();
+    if (error && error.message !== "Auth session missing!") {
+      console.warn(error.message);
+    }
+  } finally {
+    localStorage.setItem("autoLoggedOut", "true");
+    router.replace("/login");
+  }
+}
+
   return () => {
     clearTimeout(inactivityTimer);
     activityEvents.forEach(event =>

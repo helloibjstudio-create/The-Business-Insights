@@ -42,9 +42,6 @@ export default function SortBy({ data, onFiltered }: SortByProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const filters = [
-    { label: selectedFilter.country, options: ["All", ...countryOptions], key: "country" },
-    { label: selectedFilter.sector, options: ["All", ...sectorOptions], key: "sector" },
-    { label: selectedFilter.year, options: ["All", ...yearOptions], key: "year" },
     { label: selectedFilter.sort, options: sortOptions, key: "sort" },
   ];
 
@@ -101,8 +98,8 @@ export default function SortBy({ data, onFiltered }: SortByProps) {
   }, [selectedFilter, data, onFiltered]);
 
   return (
-    <div ref={dropdownRef} className="w-[99%] mx-auto flex justify-center mt-4">
-      <div className="flex w-full max-w-5xl border border-gray-300 rounded-md">
+    <div ref={dropdownRef} className="w-[72%] lg:w-full relative lg:mx-auto pl-2 lg:pl-20 z-60 flex justify-start mb-6">
+      <div className="flex w-full border border-gray-300/10 rounded-md">
         {filters.map((filter, index) => (
           <div
             key={index}

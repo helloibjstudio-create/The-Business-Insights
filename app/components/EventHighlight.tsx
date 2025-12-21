@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 // Local static data API inside the component
 const events = [
@@ -66,12 +67,12 @@ const UpcomingEvents: React.FC = () => {
 
         {/* Top-right navigation buttons */}
         <div className="flex gap-4">
-          <button onClick={scrollLeft} className="w-12 h-12 rounded-xl cursor-pointer bg-[#262626] hover:bg-[#F57328] flex items-center justify-center ">
+          <motion.button whileHover={{ scale: 1.04 }} onClick={scrollLeft} className="w-12 h-12 rounded-xl cursor-pointer bg-[#262626] hover:bg-[#F57328] flex items-center justify-center ease-in-out duration-300">
             <ArrowLeft />
-          </button>
-          <button onClick={scrollRight} className="w-12 h-12 rounded-xl cursor-pointer bg-[#262626] hover:bg-[#F57328] flex items-center justify-center ">
+          </motion.button>
+          <motion.button whileHover={{ scale: 1.04 }} onClick={scrollRight} className="w-12 h-12 rounded-xl cursor-pointer bg-[#262626] hover:bg-[#F57328] flex items-center justify-center ease-in-out duration-300">
             <ArrowRight />
-          </button>
+          </motion.button>
         </div>
       </div>
 
@@ -79,9 +80,11 @@ const UpcomingEvents: React.FC = () => {
       <div 
   ref={sliderRef} className="flex gap-10 max-w-[1400px] mx-auto overflow-x-auto hide-scrollbar pb-4">
         {events.map((event) => (
-          <div
+          <motion.div
             key={event.id}
-            className="min-w-[580px] items-center bg-black rounded-2xl flex gap-4"
+            className="min-w-[580px] my-6 items-center bg-black rounded-3xl flex gap-4 hover:border hover:border-white/20 shadow-lg"
+            whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.3 }}
           >
             {/* Image */}
             <div className="relative w-[237px] h-[200px] rounded-xl overflow-hidden flex-shrink-0">
@@ -108,7 +111,7 @@ const UpcomingEvents: React.FC = () => {
             </div>
 
             {/* Arrow button below card */}
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>

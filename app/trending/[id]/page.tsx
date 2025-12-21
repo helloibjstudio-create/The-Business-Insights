@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
 import { use } from "react";
+import Footer from "@/app/components/Footer";
 
 const MOCK_ARTICLES = [
   {
@@ -170,6 +171,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
             </div>
         </div>
       </div>
+      <Footer />
     </section>
   );
 }

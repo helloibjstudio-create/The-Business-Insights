@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 import Footer from "./Footer";
 import SortBy from "./SortBy";
 import { Search } from "lucide-react";
+import SearchAndFilter from "./SearchFilter";
 
 interface Report {
   id: number;
@@ -48,7 +49,7 @@ const Reports = () => {
     fetchReports();
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     const lowerQuery = query.toLowerCase();
     const searchedReports = reports.filter((r) => r.title.toLowerCase().includes(lowerQuery));
     setFilteredReports(searchedReports);
@@ -81,9 +82,8 @@ const Reports = () => {
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={`px-2 py-1 ${
-              currentPage === i ? "text-orange-500 font-bold" : "text-gray-400"
-            } hover:text-orange-400 transition`}
+            className={`px-2 py-1 ${currentPage === i ? "text-orange-500 font-bold" : "text-gray-400"
+              } hover:text-orange-400 transition`}
           >
             {i}
           </button>
@@ -116,52 +116,71 @@ const Reports = () => {
         </div>
         <h1 className="text-[60px] font-[400] leading-tight max-w-[975px]">Reports</h1>
         <p className="text-white text-lg max-w-3xl leading-relaxed">
-          Browse our latest publications and gain a deeper understanding of emerging trends and critical topics through our in-depth analysis, interviews with local business and political leaders and comprehensive data and statistics. ​
+          Browse our latest publications and gain a deeper understanding of emerging trends and critical topics through our in-depth analysis, interviews with local business and political leaders and comprehensive data and statistics.
         </p>
       </div>
-      <div className="w-[90%] max-w-3xl mx-auto mt-5">
-        <div className="flex items-center bg-white/5 border border-white/10 rounded-xl px-4 py-2">
-          <Search className="text-white w-5 h-5 mr-2" />
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by title..."
-            className="bg-transparent outline-none flex-1 text-white placeholder:text-white/50"
-          />
+      <div className="relative items-baseline md:flex md:gap-3 lg:gap-12 font-sans w-[100%] mx-auto px-4 md:px-0 md:pr-6 lg:pr-12 items-baseline py-10">
+        <div className=" items-baseline">
+          <SortBy data={reports} onFiltered={handleFiltered} />
+          <div className="relative justify-start z-50">
+            <SearchAndFilter
+              data={reports}
+              onFiltered={handleFiltered}
+              fields={{
+                search: ["sector", "year"],
+                filters: { year: "year", country: "country", sector: "sector" },
+              }}
+            />
+          </div>
         </div>
-      </div>
+        <div>
 
-      {/* Sort & Filter */}
-      <SortBy data={reports} onFiltered={handleFiltered} />
+          <h1 className="text-[clamp(1.8rem,5vw,3.5rem)] font-[500] mt-7 md:mt-0 mb-6">Reports</h1>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-auto gap-10">
+          {currentReports.map((item) =>
+          (
+              <motion.div
+                key={item.id}
+                whileHover={{ scale: 1.02 }}
+                className=" w-70 md:w-full mx-auto bg-[#111113] border border-gray-600/40 rounded-xl shadow-lg overflow-hidden cursor-pointer flex-shrink-0"
+              >
+                <div className="relative md:w-full h-[360px]">
+                  <Image
+                    src={item.image_url}
+                    alt={item.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                <div className="p-5 flex items-center justify-between">
+                  <div>
+                    <p className="text-white font-semibold text-[1.1rem] leading-tight">
+                      {item.title}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-[15px] line-through mt-1">
+                      ${item.discounted_price}
+                    </p>
+                    <p className="text-[#E25B2B] text-sm mt-1">${item.price}</p>
+                  </div>
+                </div>
+              </motion.div>
+          )
+        )
+      }
+      </div>
+        </div>
+
+        {/* Sort & Filter */}
+
+      </div>
 
       {/* Report Grid */}
       <section className="relative w-[90%] mx-auto py-10 bg-white/5 backdrop-blur-2xl rounded-[20px] mt-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          {currentReports.map((report) => (
-            <div
-              key={report.id}
-              onClick={() => setSelectedReport(report)}
-              className="group bg-white/3 hover:bg-white/5 rounded-xl overflow-hidden cursor-pointer border border-white/10 transition-transform hover:scale-105"
-            >
-              <div className="relative w-full h-[360px] bg-[#0F0F0F] rounded-xl flex items-center justify-center p-4">
-                <Image src={report.image_url} alt={report.title} fill className="object-contain group-hover:scale-105 transition-transform" />
-              </div>
-              <div className="p-4 flex flex-col justify-between">
-                <h2 className="text-lg font-semibold line-clamp-2">{report.title}</h2>
-                <div className="flex justify-between items-center mt-2">
-                  <div className="flex flex-col">
-                    <span className="text-[#E8602E] font-bold">${report.price}</span>
-                    <span className="text-gray-400 line-through">${report.discounted_price}</span>
-                  </div>
-                  <a className="text-[#E8602E] hover:underline flex items-center gap-1">
-                    Explore <Image src={vector2} alt="arrow" width={10} height={10} />
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+
 
         {/* Pagination */}
         <div className="flex justify-center mt-10 space-x-2">

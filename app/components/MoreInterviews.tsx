@@ -51,18 +51,19 @@ const MoreInterviews = () => {
       <div className="flex flex-col max-w-[1400px] mx-auto lg:flex-row gap-10">
         {/* LEFT — FEATURED INTERVIEW */}
         <div className="flex-1 bg-transparent rounded-3xl flex flex-col gap-6">
-          <div className="relative w-full h-[380px] rounded-2xl overflow-hidden">
+          <motion.div whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.3 }} className="relative w-full h-[380px] rounded-2xl overflow-hidden">
             <Image src={featured.image_url} alt={featured.name} fill className="object-cover" />
-          </div>
-
-
+          </motion.div>
           <div className="flex flex-col gap-2">
             <h3 className="text-2xl font-semibold">{featured.name}</h3>
             <p className="text-gray-200 font-medium">The Miami Association of Realtors highlights Miami-Dade’s unique real estate opportunities, from rising demand in non-FHA condos to strong long-term appreciation driven by relocation trends and low interest rates. Despite market fluctuations and post-COVID shifts, buyer interest remains resilient, creating solid opportunities across residential, warehouse, and multifamily sectors.
 </p>
             <p className="text-gray-300 text-sm leading-relaxed">{featured.description}</p>
-            <Link href={`/Interviews/${featured.id}`} className="text-[#F57328] font-semibold mt-2 flex items-center gap-2">
-              Read Interview →
+            <Link href={`/Interviews/${featured.id}`}  className="text-[#F57328] font-semibold mt-2 flex items-center gap-2">
+                  <motion.p whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.3 }}>Read Interview →</motion.p>
+              
             </Link>
           </div>
         </div>
@@ -70,7 +71,8 @@ const MoreInterviews = () => {
         {/* RIGHT — INTERVIEW LIST */}
         <div className="flex-1 flex flex-col  gap-6">
           {list.map((item) => (
-            <div key={item.id} className="flex items-center gap-4 bg-transparent h-fit border-[0.2px] border-white  rounded-xl">
+            <motion.div key={item.id} whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.3 }} className="flex items-center gap-4 bg-transparent h-fit border-[0.2px] border-white  rounded-xl">
               <div className="relative w-34 h-34 rounded-xl overflow-hidden">
                 <Image src={item.image_url} alt={item.name} fill className="object-cover" />
               </div>
@@ -84,7 +86,7 @@ const MoreInterviews = () => {
                 </Link>
               </div>
 
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

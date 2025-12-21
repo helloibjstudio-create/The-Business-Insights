@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface ExclusiveInterview {
   id: string;
@@ -84,7 +85,7 @@ export default function ExclusiveInterviewsSlider() {
           className="flex gap-4 overflow-x-auto scroll-smooth no-scrollbar hide-scrollbar"
         >
           {exclusiveInterviews.map((person) => (
-            <div
+            <motion.div
               key={person.id}
               className="
                 flex-shrink-0
@@ -100,6 +101,8 @@ export default function ExclusiveInterviewsSlider() {
                 relative
                 mb-10
               "
+              whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
             >
               <div className="absolute inset-0">
                 <Image
@@ -124,7 +127,7 @@ export default function ExclusiveInterviewsSlider() {
                   <ArrowRight className="w-4 ml-1" />
                 </Link>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

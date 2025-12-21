@@ -11,9 +11,12 @@ export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
 
   async function handleLogin(e: any) {
     e.preventDefault();
+    setLoading(true);
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -21,6 +24,7 @@ export default function Login() {
     });
 
     if (error) {
+      setLoading(false);
       alert("Invalid credentials");
       return;
     }
@@ -28,17 +32,18 @@ export default function Login() {
     router.replace("/adminDash");
   }
 
-  useEffect(() => {
-  if (localStorage.getItem("autoLoggedOut") === "true") {
-    localStorage.removeItem("autoLoggedOut");
-  }
-}, []);
 
-function InlineSpinner() {
-  return (
-    <span className="ml-2 inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-  );
-}
+  useEffect(() => {
+    if (localStorage.getItem("autoLoggedOut") === "true") {
+      localStorage.removeItem("autoLoggedOut");
+    }
+  }, []);
+
+  function InlineSpinner() {
+    return (
+      <span className="ml-2 inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+    );
+  }
 
 
   return (
@@ -54,14 +59,14 @@ function InlineSpinner() {
 
       {/* Frosted Glass Login Container */}
       <div className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-10 w-full max-w-md shadow-lg flex flex-col gap-6">
-      <Image
-        src={BusinessLogo}
-        alt="Business Logo"
-        width={230}
-        height={230}
-        priority
-        className="relative m-auto"
-      />
+        <Image
+          src={BusinessLogo}
+          alt="Business Logo"
+          width={230}
+          height={230}
+          priority
+          className="relative m-auto"
+        />
         <h2 className="text-2xl font-semibold text-white text-center">
           Welcome Back
         </h2>
@@ -80,12 +85,21 @@ function InlineSpinner() {
           />
           <button
             type="submit"
-            className="py-3 bg-orange-600 text-white rounded-md font-semibold hover:bg-white/30 cursor-pointer transition-colors"
+            disabled={loading}
+            className="py-3 bg-orange-600 text-white rounded-md font-semibold hover:bg-white/30 cursor-pointer transition-colors flex items-center justify-center"
           >
-            Login <InlineSpinner />
+            {loading ? (
+              <>
+                Logging in
+                <InlineSpinner />
+              </>
+            ) : (
+              "Login"
+            )}
           </button>
+
         </form>
-        
+
       </div>
     </div>
   );

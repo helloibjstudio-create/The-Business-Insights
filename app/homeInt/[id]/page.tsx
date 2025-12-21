@@ -5,6 +5,8 @@ import { ArrowLeft } from "lucide-react";
 import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
 import { use } from "react";
+import { Anni } from "@/public";
+import Footer from "@/app/components/Footer";
 
 const MOCK_INTERVIEWS = [
   {
@@ -105,6 +107,15 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
           <ArrowLeft className="mr-2 w-4 h-4" />
           Back to homepage
         </Link>
+        <a href="https://www.takatufscholars.om/">
+                    <Image
+                      src={Anni}
+                      alt="DHL Banner"
+                      width={1180}
+                      height={233}
+                      className="z-10 relative mx-auto mb-12 object-contain w-[90%] sm:w-[80%] lg:w-[80%]"
+                    />
+                  </a>
 
         <div className="flex flex-col-reverse lg:flex-row gap-10 backdrop-blur-2xl bg-white/5 p-6 rounded-xl border border-white/10">
 
@@ -137,9 +148,29 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
                 className="object-cover rounded-xl"
               />
             </div>
+            <div className="relative w-full hidden lg:flex lg:h-[1000px] -top-15 rounded-xl overflow-hidden shadow-lg">
+                  <Image
+                  src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1765550926/IMG_1779_cm9qwe.jpg"
+                  alt="banner"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
           </div>
         </div>
+        <div className="w-[46%]  md:w-[40%] mx-auto lg:hidden top-10 flex relative h-[400px] md:h-[400px] rounded-xl overflow-hidden shadow-lg">
+              <Image
+              src="https://res.cloudinary.com/dnzntr9lt/image/upload/v1765550926/IMG_1779_cm9qwe.jpg"
+              alt="banner"
+              fill
+              className="object-fill mb-12 w-100"
+              priority
+            />
+          </div>
+        
       </div>
+      <Footer />
     </section>
   );
 }
