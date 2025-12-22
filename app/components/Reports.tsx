@@ -137,7 +137,7 @@ const Reports = () => {
 
           <h1 className="text-[clamp(1.8rem,5vw,3.5rem)] font-[500] mt-7 md:mt-0 mb-6">Reports</h1>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-auto gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mx-auto gap-5">
           {currentReports.map((item) =>
           (
               <motion.div
@@ -145,7 +145,7 @@ const Reports = () => {
                 whileHover={{ scale: 1.02 }}
                 className=" w-70 md:w-full mx-auto bg-[#111113] border border-gray-600/40 rounded-xl shadow-lg overflow-hidden cursor-pointer flex-shrink-0"
               >
-                <div className="relative md:w-full h-[360px]">
+                <div className="relative md:w-full h-[460px]">
                   <Image
                     src={item.image_url}
                     alt={item.title}
