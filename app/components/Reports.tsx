@@ -145,7 +145,7 @@ const Reports = () => {
                 whileHover={{ scale: 1.02 }}
                 className=" w-70 md:w-full mx-auto bg-[#111113] border border-gray-600/40 rounded-xl shadow-lg overflow-hidden cursor-pointer flex-shrink-0"
               >
-                <div className="relative md:w-full h-[460px]">
+                <div className="relative md:w-full h-[340px]">
                   <Image
                     src={item.image_url}
                     alt={item.title}
