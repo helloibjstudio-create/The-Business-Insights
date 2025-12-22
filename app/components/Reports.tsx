@@ -137,41 +137,45 @@ const Reports = () => {
 
           <h1 className="text-[clamp(1.8rem,5vw,3.5rem)] font-[500] mt-7 md:mt-0 mb-6">Reports</h1>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mx-auto gap-5">
-          {currentReports.map((item) =>
-          (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 mx-auto gap-5 w-full">
+            {currentReports.map((item) =>
+            (
               <motion.div
                 key={item.id}
                 whileHover={{ scale: 1.02 }}
-                className=" w-70 md:w-full mx-auto bg-[#111113] border border-gray-600/40 rounded-xl shadow-lg overflow-hidden cursor-pointer flex-shrink-0"
+                className=" w-full h-full bg-black border border-gray-600/40 rounded-xl shadow-lg overflow-hidden cursor-pointer flex flex-col"
               >
-                <div className="relative md:w-full h-[380px]">
+                <div className="relative w-full aspect-[3/4]">
                   <Image
                     src={item.image_url}
                     alt={item.title}
                     fill
                     className="object-cover"
+                    sizes="(max-width: 640px) 100vw,
+           (max-width: 1024px) 50vw,
+           25vw"
                   />
                 </div>
 
-                <div className="p-5 flex items-center justify-between">
-                  <div>
-                    <p className="text-white font-semibold text-[1.1rem] leading-tight">
+                <div className="p-3 flex justify-between items-start mt-auto">
+                  <div className="flex-1 pr-2">
+                    <p className="text-white max-w-[90%] font-semibold text-[1.1rem] leading-tight">
                       {item.title}
                     </p>
                   </div>
-                  <div>
-                    <p className="text-gray-400 text-[15px] line-through mt-1">
+
+                  <div className="text-right">
+                    <p className="text-gray-400 text-[15px] line-through">
                       ${item.discounted_price}
                     </p>
-                    <p className="text-[#E25B2B] text-sm mt-1">${item.price}</p>
+                    <p className="text-[#E25B2B] text-sm">${item.price}</p>
                   </div>
                 </div>
               </motion.div>
-          )
-        )
-      }
-      </div>
+            )
+            )
+            }
+          </div>
         </div>
 
         {/* Sort & Filter */}

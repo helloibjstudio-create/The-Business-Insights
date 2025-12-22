@@ -24,6 +24,7 @@ const Navbar = () => {
 
   // ✅ All routes lowercase to match /app directory
   const navLinks = [
+    { name: "Home", href: "/" },
     { name: "Interviews", href: "/Interviews" },
     { name: "Articles", href: "/articles" },
     { name: "Reports", href: "/reports" },
