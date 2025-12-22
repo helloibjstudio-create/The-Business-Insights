@@ -175,7 +175,7 @@ export default function Footer() {
             <ul className="space-y-4 text-white">
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-[#E25B2B]" />
-                <span>+123 456 7890</span>
+                <span>+971586911901</span>
               </li>
               <li className="flex items-center gap-3">
                 <svg
@@ -193,7 +193,7 @@ export default function Footer() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span>support@tbinm.com</span>
+                <span>contact@thebusinessinside.com</span>
               </li>
             </ul>
           </div>
