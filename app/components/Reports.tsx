@@ -114,7 +114,7 @@ const Reports = () => {
         <div className="inline-flex items-center justify-center w-full max-w-[582px] border border-[#E8602E] text-white px-4 py-2 rounded-full backdrop-blur-md glow-orange3">
           <p>📈 Where Analysis Meets Opportunity</p>
         </div>
-        <h1 className="text-[60px] font-[400] leading-tight max-w-[975px]">Reports</h1>
+        <h1 className="text-[36px] md:text-[60px] lg:text-[60px] font-[400] leading-tight max-w-[975px]">Reports</h1>
         <p className="text-white text-lg max-w-3xl leading-relaxed">
           Browse our latest publications and gain a deeper understanding of emerging trends and critical topics through our in-depth analysis, interviews with local business and political leaders and comprehensive data and statistics.
         </p>
